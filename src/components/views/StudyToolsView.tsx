@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'rea
 import { createPortal } from 'react-dom';
 import {
   BookOpen,
+  BookCheck,
   Calculator,
   Compass,
   Search,
@@ -99,7 +100,7 @@ import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
-export type VocabSubTab = 'core' | 'homophones' | 'homographs' | 'ssc-special';
+export type VocabSubTab = 'core' | 'ows' | 'idioms' | 'homophones' | 'homographs' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
 export type CalcBoosterTool = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
@@ -637,6 +638,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   useEffect(() => {
     if (initialVocabTab) {
       setVocabSubTab(initialVocabTab);
+      if (initialVocabTab === 'ows') {
+        setVocabTypeFilter('ows');
+        setActiveLevel('level-1');
+        setActiveSet('set-01');
+      } else if (initialVocabTab === 'idioms') {
+        setVocabTypeFilter('idiom');
+        setIdiomSubMode('themes');
+      } else if (initialVocabTab === 'core') {
+        setVocabTypeFilter('word');
+      }
     }
   }, [initialVocabTab]);
 
@@ -696,14 +707,26 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [activeLevel]);
 
   const filteredVocab = useMemo(() => {
+    const q = vocabSearch.toLowerCase().trim();
     return DEFAULT_VOCAB_DATA.filter(item => {
-      if (vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') {
-        if (item.type !== vocabTypeFilter) return false;
-        if (item.level !== activeLevel || item.set !== activeSet) return false;
-      } else if (vocabTypeFilter !== 'all') {
-        if (item.type !== vocabTypeFilter) return false;
+      if (vocabSubTab === 'ows') {
+        if (item.type !== 'ows') return false;
+        if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
+      } else if (vocabSubTab === 'idioms') {
+        if (item.type !== 'idiom') return false;
+        if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
+      } else {
+        // vocabSubTab === 'core'
+        if (vocabTypeFilter === 'all') {
+          if (item.type !== 'word' && item.type !== 'root') return false;
+          if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
+        } else if (vocabTypeFilter === 'word' || vocabTypeFilter === 'root') {
+          if (item.type !== vocabTypeFilter) return false;
+          if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
+        } else {
+          if (item.type !== vocabTypeFilter) return false;
+        }
       }
-      const q = vocabSearch.toLowerCase().trim();
       return !q ||
         item.word.toLowerCase().includes(q) ||
         item.hindi.toLowerCase().includes(q) ||
@@ -713,7 +736,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
         (item.derivatives && item.derivatives.toLowerCase().includes(q)) ||
         item.synonyms.some(s => s.toLowerCase().includes(q));
     });
-  }, [vocabSearch, vocabTypeFilter, activeLevel, activeSet]);
+  }, [vocabSearch, vocabTypeFilter, vocabSubTab, activeLevel, activeSet]);
 
   const currentFlashcard = filteredVocab[activeCardIndex] || filteredVocab[0];
 
@@ -745,7 +768,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
   // Keyboard navigation for Vocabulary flashcards (Space to Flip, Arrow keys to navigate)
   useEffect(() => {
-    if (activeTab !== 'vocab' || (idiomSubMode === 'themes' && vocabTypeFilter === 'idiom')) return;
+    if (activeTab !== 'vocab' || (vocabSubTab === 'idioms' && idiomSubMode === 'themes')) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
       if (e.key === ' ' || e.key === 'Enter') {
@@ -892,14 +915,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'vocab' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Sub Navigation: Core Vocabulary vs Homographs vs SSC Special */}
+          {/* Sub Navigation: Core Vocabulary vs OWS vs Idioms vs Homophones vs Homographs vs SSC Special */}
           <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3 overflow-x-auto no-scrollbar">
+            {/* 1. Core Vocabulary */}
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
                 haptics.selection();
                 setVocabSubTab('core');
+                setVocabTypeFilter('word');
+                setActiveLevel('level-1');
+                setActiveSet('set-01');
+                setActiveCardIndex(0);
               }}
               className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
                 vocabSubTab === 'core'
@@ -911,6 +939,64 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <span>Core Vocabulary</span>
             </button>
 
+            {/* 2. One Word Substitution (OWS) */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setVocabSubTab('ows');
+                setVocabTypeFilter('ows');
+                setActiveLevel('level-1');
+                setActiveSet('set-01');
+                setActiveCardIndex(0);
+              }}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                vocabSubTab === 'ows'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <BookCheck className="w-4 h-4 text-blue-500 shrink-0" />
+              <span>One Word Substitution</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                vocabSubTab === 'ows'
+                  ? 'bg-white/20 text-white font-black'
+                  : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+              }`}>
+                700+ Terms
+              </span>
+            </button>
+
+            {/* 3. Idioms & Phrases */}
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setVocabSubTab('idioms');
+                setVocabTypeFilter('idiom');
+                setIdiomSubMode('themes');
+                setActiveCardIndex(0);
+              }}
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                vocabSubTab === 'idioms'
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-xs font-black ring-1 ring-rose-400/40'
+                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+              }`}
+            >
+              <Flame className="w-4 h-4 text-rose-500 shrink-0" />
+              <span>Idioms & Phrases</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                vocabSubTab === 'idioms'
+                  ? 'bg-white/20 text-white font-black'
+                  : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+              }`}>
+                89 Themes
+              </span>
+            </button>
+
+            {/* 4. Homophones */}
             <button
               type="button"
               onClick={() => {
@@ -935,6 +1021,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </span>
             </button>
 
+            {/* 5. Homographs */}
             <button
               type="button"
               onClick={() => {
@@ -959,6 +1046,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </span>
             </button>
 
+            {/* 6. SSC Special */}
             <button
               type="button"
               onClick={() => {
@@ -1011,9 +1099,92 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             }>
               <SscSpecialVocabView />
             </Suspense>
+          ) : vocabSubTab === 'idioms' && idiomSubMode === 'themes' ? (
+            <div className="space-y-4 animate-fade-in">
+              {/* Idioms Curriculum Mode Toggle Bar */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-rose-500/10 dark:bg-rose-500/5 border border-rose-500/20 shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center font-black text-sm shrink-0">
+                    🔥
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                      Idioms & Phrases Curriculum Mode
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Explore 89 Exam-Thematic Topics or practice standard Level Sets
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shrink-0 self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIdiomSubMode('themes');
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer bg-rose-500 text-white font-black shadow-xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>89 Theme Topics</span>
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-black/15 font-mono">89</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIdiomSubMode('sets');
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    <span>Level Sets Mode</span>
+                  </button>
+                </div>
+              </div>
+
+              <Suspense fallback={
+                <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                  <Flame className="w-8 h-8 text-rose-500 animate-spin mb-3" />
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading 89 Theme-Based Idioms Curriculum...</span>
+                </div>
+              }>
+                <ThemeBasedIdiomsView onBackToSets={() => setIdiomSubMode('sets')} />
+              </Suspense>
+            </div>
           ) : (
             <>
-              {/* Top Control Bar: Search + Category Pills + Mastered Counter */}
+              {/* Back to 89 Theme Topics Banner if viewing idioms in sets mode */}
+              {vocabSubTab === 'idioms' && idiomSubMode === 'sets' && (
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-rose-500/10 dark:bg-rose-500/5 border border-rose-500/20 shadow-xs animate-fade-in">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center font-black text-sm shrink-0">
+                      🏛️
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                        Standard Level Sets Mode (Idioms & Phrases)
+                      </h4>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                        Practicing Level-based Sets. You can switch back to the 89 Exam Thematic Topics anytime.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setIdiomSubMode('themes');
+                    }}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-500 text-white font-bold text-xs hover:bg-rose-600 transition-all cursor-pointer shadow-xs shrink-0 self-start sm:self-auto"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>← Back to 89 Thematic Topics</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Top Control Bar: Search + Category Pills */}
               <div className="flex flex-col gap-3 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
                 {/* Search Input */}
                 <div className="relative w-full">
@@ -1025,7 +1196,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       setVocabSearch(e.target.value);
                       setActiveCardIndex(0);
                     }}
-                    placeholder="Search words, hindi meaning, roots..."
+                    placeholder={
+                      vocabSubTab === 'ows'
+                        ? 'Search 700+ One Word Substitutions, meanings, Hindi...'
+                        : vocabSubTab === 'idioms'
+                        ? 'Search idioms & phrases, meanings, Hindi...'
+                        : 'Search core words, hindi meanings, roots...'
+                    }
                     className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 shadow-2xs"
                   />
                   {vocabSearch && (
@@ -1039,217 +1216,305 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   )}
                 </div>
 
-                {/* Filter Pills Row */}
-                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 min-w-0">
-                  {[
-                    { id: 'all', label: 'All Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.length },
-                    { id: 'word', label: 'High-Yield', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
-                    { id: 'ows', label: 'OWS (One Word)', shortLabel: 'OWS', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows').length },
-                    { id: 'idiom', label: 'Idioms & Phrases', shortLabel: 'Idioms', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'idiom').length },
-                    { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
-                  ].map(f => (
-                    <button
-                      key={f.id}
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setVocabTypeFilter(f.id as any);
-                        setActiveCardIndex(0);
-                        if (f.id === 'idiom') {
-                          setIdiomSubMode('themes');
+                {/* Filter Pills Row (for Core Vocabulary) */}
+                {vocabSubTab === 'core' && (
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 min-w-0">
+                    {[
+                      { id: 'all', label: 'All Core Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word' || w.type === 'root').length },
+                      { id: 'word', label: 'High-Yield Words', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
+                      { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
+                    ].map(f => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setVocabTypeFilter(f.id as any);
+                          setActiveCardIndex(0);
                           setActiveSet('set-01');
-                        } else if (f.id === 'word' || f.id === 'ows' || f.id === 'root') {
-                          setActiveSet('set-01');
-                          if ((f.id === 'ows' || f.id === 'root') && activeLevel === 'advanced') {
+                          if (f.id === 'root' && activeLevel === 'advanced') {
                             setActiveLevel('level-1');
                           }
-                        }
-                      }}
-                      className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                        vocabTypeFilter === f.id
-                          ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                      }`}
-                    >
-                      <span className="hidden sm:inline">{f.label}</span>
-                      <span className="sm:hidden">{f.shortLabel}</span>
-                      <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                        vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
-                      }`}>
-                        {f.count}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                        }}
+                        className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                          vocabTypeFilter === f.id
+                            ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
+                        }`}
+                      >
+                        <span className="hidden sm:inline">{f.label}</span>
+                        <span className="sm:hidden">{f.shortLabel}</span>
+                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                          vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                        }`}>
+                          {f.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Idioms Curriculum Mode Toggle (Themes vs Standard Sets) */}
-              {vocabTypeFilter === 'idiom' && (
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 animate-fade-in">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-sm shrink-0">
-                      🌟
+              {/* OWS Set Navigation (10 High-Yield Sets) */}
+              {vocabSubTab === 'ows' && (
+                <div className="space-y-3 animate-fade-in">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-transparent border border-blue-500/20 shadow-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-lg shrink-0">
+                        🎯
+                      </div>
+                      <div>
+                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                          <span>One Word Substitution (OWS) Master Curriculum</span>
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30">
+                            700+ Terms
+                          </span>
+                        </h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                          10 High-Yield Sets curated from 15 years of SSC CGL, CHSL, MTS & CPO papers
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
-                        Idioms & Phrases Curriculum Mode
-                      </h4>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Choose between the 89 Exam-Thematic Topics or standard Level Sets
-                      </p>
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 self-start sm:self-auto">
+                      <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 text-emerald-600 dark:text-emerald-400 shadow-2xs">
+                        ✓ {DEFAULT_VOCAB_DATA.filter(w => w.type === 'ows' && masteredVocabIds.has(w.id)).length} Mastered
+                      </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shrink-0 self-start sm:self-auto">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setIdiomSubMode('themes');
-                      }}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                        idiomSubMode === 'themes'
-                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
-                      }`}
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>89 Theme-Based Topics</span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-black/15 font-mono">89</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        setIdiomSubMode('sets');
-                      }}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                        idiomSubMode === 'sets'
-                          ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
-                      }`}
-                    >
-                      <Layers className="w-3.5 h-3.5" />
-                      <span>Standard Levels & Sets</span>
-                    </button>
+
+                  {/* 10 Sets Selector */}
+                  <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar-indigo pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-blue-500" />
+                      <span>Select OWS Set:</span>
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {HIGH_YIELD_LEVELS[0].sets.map(s => {
+                        const isSetSelected = activeSet === s.id;
+                        const countInSet = DEFAULT_VOCAB_DATA.filter(
+                          w => w.type === 'ows' && w.level === 'level-1' && w.set === s.id
+                        ).length;
+                        return (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              haptics.selection();
+                              setActiveSet(s.id);
+                              setActiveCardIndex(0);
+                            }}
+                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                              isSetSelected
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
+                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                            }`}
+                          >
+                            <span>{s.label}</span>
+                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                              isSetSelected
+                                ? 'bg-white/20 text-white font-bold'
+                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                            }`}>
+                              {countInSet}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               )}
 
-              {/* Conditional Display: 89 Themes Hub vs Standard Levels & Sets */}
-              {vocabTypeFilter === 'idiom' && idiomSubMode === 'themes' ? (
-                <Suspense fallback={
-                  <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
-                    <BookOpen className="w-8 h-8 text-amber-500 animate-spin mb-3" />
-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading 89 Theme-Based Idioms Curriculum...</span>
+              {/* Core Vocabulary Level & Subpage Set Navigation */}
+              {vocabSubTab === 'core' && (vocabTypeFilter === 'word' || vocabTypeFilter === 'root' || vocabTypeFilter === 'all') && (
+                <div className="space-y-3 animate-fade-in">
+                  {/* Levels Navigation Bar: 3 Levels for Root Words, 4 Levels for Word */}
+                  <div className={`grid gap-2.5 sm:gap-3 ${vocabTypeFilter === 'root' ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'}`}>
+                    {(vocabTypeFilter === 'root' ? HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced') : HIGH_YIELD_LEVELS).map(lvl => {
+                      const isSelected = activeLevel === lvl.id;
+                      const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
+                        w => (vocabTypeFilter === 'all' ? (w.type === 'word' || w.type === 'root') : w.type === vocabTypeFilter) && w.level === lvl.id
+                      ).length;
+                      const levelBadgeLabel = vocabTypeFilter === 'root'
+                        ? (lvl.id === 'level-1' ? 'Human Nature & Actions'
+                           : lvl.id === 'level-2' ? 'Science, Time & Body'
+                           : 'Power, Society & Beliefs')
+                        : lvl.badge;
+
+                      return (
+                        <button
+                          key={lvl.id}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            haptics.selection();
+                            setActiveLevel(lvl.id);
+                            setActiveSet('set-01');
+                            setActiveCardIndex(0);
+                          }}
+                          className={`flex flex-col justify-between p-3 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-black shadow-md border-amber-400 ring-2 ring-amber-400/40'
+                              : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-1 mb-2 min-w-0">
+                            <span className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
+                              isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20'
+                            }`}>
+                              {levelBadgeLabel}
+                            </span>
+                            <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
+                              isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
+                            }`}>
+                              {totalLevelWords} {vocabTypeFilter === 'root' ? 'roots' : 'words'}
+                            </span>
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className={`text-sm sm:text-base font-black tracking-tight leading-snug break-words ${
+                              isSelected ? 'text-slate-950' : 'text-slate-900 dark:text-white'
+                            }`}>
+                              {lvl.label}
+                            </h4>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
-                }>
-                  <ThemeBasedIdiomsView onBackToSets={() => setIdiomSubMode('sets')} />
-                </Suspense>
-              ) : (
-                <>
 
-          {/* =========================================================
-              LEVEL & SUBPAGE SET NAVIGATION (Words, Idioms, OWS & Root Words)
-              ========================================================= */}
-          {(vocabTypeFilter === 'word' || vocabTypeFilter === 'idiom' || vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') && (
-            <div className="space-y-3 animate-fade-in">
-              {/* Levels Navigation Bar: 3 Levels for OWS & Root Words, 4 Levels for Word/Idiom */}
-              <div className={`grid gap-2.5 sm:gap-3 ${(vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'}`}>
-                {((vocabTypeFilter === 'ows' || vocabTypeFilter === 'root') ? HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced') : HIGH_YIELD_LEVELS).map(lvl => {
-                  const isSelected = activeLevel === lvl.id;
-                  const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
-                    w => w.type === vocabTypeFilter && w.level === lvl.id
-                  ).length;
-                  const levelBadgeLabel = vocabTypeFilter === 'root'
-                    ? (lvl.id === 'level-1' ? 'Human Nature & Actions'
-                       : lvl.id === 'level-2' ? 'Science, Time & Body'
-                       : 'Power, Society & Beliefs')
-                    : lvl.badge;
-
-                  return (
-                    <button
-                      key={lvl.id}
-                      type="button"
-                      onClick={() => {
-                        soundManager.playClick();
-                        haptics.selection();
-                        setActiveLevel(lvl.id);
-                        setActiveSet('set-01');
-                        setActiveCardIndex(0);
-                      }}
-                      className={`flex flex-col justify-between p-3 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
-                        isSelected
-                          ? 'bg-amber-500 text-slate-950 font-black shadow-md border-amber-400 ring-2 ring-amber-400/40'
-                          : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-1 mb-2 min-w-0">
-                        <span className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
-                          isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20'
-                        }`}>
-                          {levelBadgeLabel}
-                        </span>
-                        <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
-                          isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
-                        }`}>
-                          {totalLevelWords} {vocabTypeFilter === 'root' ? 'roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'idioms' : 'words'}
-                        </span>
-                      </div>
-                      <div className="min-w-0">
-                        <h4 className={`text-sm sm:text-base font-black tracking-tight leading-snug break-words ${
-                          isSelected ? 'text-slate-950' : 'text-slate-900 dark:text-white'
-                        }`}>
-                          {lvl.label}
-                        </h4>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Subpage Sets Selector */}
-              <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-                <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Subpages:</span>
-                </span>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  {currentLevelConfig.sets.map(s => {
-                    const isSetSelected = activeSet === s.id;
-                    const countInSet = DEFAULT_VOCAB_DATA.filter(
-                      w => w.type === vocabTypeFilter && w.level === activeLevel && w.set === s.id
-                    ).length;
-                    return (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => {
-                          soundManager.playClick();
-                          haptics.selection();
-                          setActiveSet(s.id);
-                          setActiveCardIndex(0);
-                        }}
-                        className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                          isSetSelected
-                            ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-xs font-black'
-                            : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
-                        }`}
-                      >
-                        <span>{s.label}</span>
-                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                          isSetSelected
-                            ? 'bg-white/20 dark:bg-black/20 text-white dark:text-slate-900 font-bold'
-                            : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
-                        }`}>
-                          {countInSet}
-                        </span>
-                      </button>
-                    );
-                  })}
+                  {/* Subpage Sets Selector */}
+                  <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Subpages:</span>
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {currentLevelConfig.sets.map(s => {
+                        const isSetSelected = activeSet === s.id;
+                        const countInSet = DEFAULT_VOCAB_DATA.filter(
+                          w => (vocabTypeFilter === 'all' ? (w.type === 'word' || w.type === 'root') : w.type === vocabTypeFilter) && w.level === activeLevel && w.set === s.id
+                        ).length;
+                        return (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              haptics.selection();
+                              setActiveSet(s.id);
+                              setActiveCardIndex(0);
+                            }}
+                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                              isSetSelected
+                                ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-xs font-black'
+                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                            }`}
+                          >
+                            <span>{s.label}</span>
+                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                              isSetSelected
+                                ? 'bg-white/20 dark:bg-black/20 text-white dark:text-slate-900 font-bold'
+                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                            }`}>
+                              {countInSet}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
+              )}
+
+              {/* Idioms Level & Subpage Sets Navigation */}
+              {vocabSubTab === 'idioms' && idiomSubMode === 'sets' && (
+                <div className="space-y-3 animate-fade-in">
+                  <div className="grid gap-2.5 sm:gap-3 grid-cols-2">
+                    {HIGH_YIELD_LEVELS.slice(0, 2).map(lvl => {
+                      const isSelected = activeLevel === lvl.id;
+                      const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
+                        w => w.type === 'idiom' && w.level === lvl.id
+                      ).length;
+                      return (
+                        <button
+                          key={lvl.id}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            haptics.selection();
+                            setActiveLevel(lvl.id);
+                            setActiveSet('set-01');
+                            setActiveCardIndex(0);
+                          }}
+                          className={`flex flex-col justify-between p-3 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-rose-500 text-white font-black shadow-md border-rose-400 ring-2 ring-rose-400/40'
+                              : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-rose-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-1 mb-2 min-w-0">
+                            <span className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
+                              isSelected ? 'bg-white/20 text-white font-black' : 'bg-rose-500/10 text-rose-600 dark:text-rose-300 border border-rose-500/20'
+                            }`}>
+                              {lvl.badge}
+                            </span>
+                            <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
+                              isSelected ? 'bg-white/20 text-white font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
+                            }`}>
+                              {totalLevelWords} idioms
+                            </span>
+                          </div>
+                          <h4 className="text-sm sm:text-base font-black tracking-tight leading-snug">
+                            {lvl.label}
+                          </h4>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-rose-500" />
+                      <span>Idiom Sets:</span>
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {currentLevelConfig.sets.map(s => {
+                        const isSetSelected = activeSet === s.id;
+                        const countInSet = DEFAULT_VOCAB_DATA.filter(
+                          w => w.type === 'idiom' && w.level === activeLevel && w.set === s.id
+                        ).length;
+                        return (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              haptics.selection();
+                              setActiveSet(s.id);
+                              setActiveCardIndex(0);
+                            }}
+                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                              isSetSelected
+                                ? 'bg-rose-500 text-white shadow-xs font-black'
+                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                            }`}
+                          >
+                            <span>{s.label}</span>
+                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                              isSetSelected
+                                ? 'bg-white/20 text-white font-bold'
+                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                            }`}>
+                              {countInSet}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
 
           {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories with Visible Scrollbar & Arrow Buttons) */}
           {filteredVocab.length > 0 && (
@@ -1848,7 +2113,19 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 <p className="text-sm font-bold text-slate-700 dark:text-slate-300">No words match your search filter.</p>
                 <button
                   type="button"
-                  onClick={() => { setVocabSearch(''); setVocabTypeFilter('all'); }}
+                  onClick={() => {
+                    setVocabSearch('');
+                    if (vocabSubTab === 'ows') {
+                      setVocabTypeFilter('ows');
+                      setActiveSet('set-01');
+                    } else if (vocabSubTab === 'idioms') {
+                      setVocabTypeFilter('idiom');
+                      setActiveSet('set-01');
+                    } else {
+                      setVocabTypeFilter('word');
+                      setActiveSet('set-01');
+                    }
+                  }}
                   className="text-xs text-amber-600 dark:text-amber-400 font-bold underline cursor-pointer"
                 >
                   Clear all filters
@@ -1856,8 +2133,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               </div>
             )
           )}
-                </>
-              )}
             </>
           )}
         </div>
