@@ -1832,7 +1832,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </div>
 
                     {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 pt-0.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2.5 pt-0.5">
                       <span className={`self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider ${
                         vocabTypeFilter === 'root'
                           ? 'bg-emerald-500/20 text-emerald-950 dark:text-emerald-200 border-emerald-500/30 dark:border-emerald-400/30'
@@ -1840,7 +1840,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       } border shrink-0`}>
                         हिंदी अर्थ
                       </span>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-sans text-slate-950 dark:text-white tracking-wide break-words leading-snug">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-sans text-slate-900 dark:text-slate-100 tracking-normal break-words leading-snug">
                         {currentFlashcard.hindi}
                       </h3>
                     </div>
