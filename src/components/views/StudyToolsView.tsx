@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import {
   BookOpen,
   BookCheck,
+  TreePine,
   Calculator,
   Compass,
   Search,
@@ -100,7 +101,7 @@ import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
-export type VocabSubTab = 'core' | 'ows' | 'idioms' | 'homophones' | 'homographs' | 'ssc-special';
+export type VocabSubTab = 'core' | 'roots' | 'ows' | 'idioms' | 'homophones' | 'homographs' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
 export type CalcBoosterTool = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
@@ -638,7 +639,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   useEffect(() => {
     if (initialVocabTab) {
       setVocabSubTab(initialVocabTab);
-      if (initialVocabTab === 'ows') {
+      if (initialVocabTab === 'roots') {
+        setVocabTypeFilter('root');
+        setActiveLevel('level-1');
+        setActiveSet('set-01');
+      } else if (initialVocabTab === 'ows') {
         setVocabTypeFilter('ows');
         setActiveLevel('level-1');
         setActiveSet('set-01');
@@ -693,6 +698,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [activeCardIndex, vocabTypeFilter, activeSet, activeLevel]);
 
   const pillsScrollRef = useRef<HTMLDivElement>(null);
+  const vocabNavScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollPills = (direction: 'left' | 'right') => {
     soundManager.playClick();
@@ -702,6 +708,25 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
     }
   };
 
+  const scrollVocabNav = (direction: 'left' | 'right') => {
+    soundManager.playClick();
+    haptics.selection();
+    if (vocabNavScrollRef.current) {
+      const offset = direction === 'left' ? -240 : 240;
+      vocabNavScrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
+
+  // Auto-scroll active subtab into view
+  useEffect(() => {
+    if (activeTab === 'vocab') {
+      const activeTabEl = document.getElementById(`vocab-subtab-${vocabSubTab}`);
+      if (activeTabEl && vocabNavScrollRef.current) {
+        activeTabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [vocabSubTab, activeTab]);
+
   const currentLevelConfig = useMemo(() => {
     return HIGH_YIELD_LEVELS.find(lvl => lvl.id === activeLevel) || HIGH_YIELD_LEVELS[0];
   }, [activeLevel]);
@@ -709,7 +734,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   const filteredVocab = useMemo(() => {
     const q = vocabSearch.toLowerCase().trim();
     return DEFAULT_VOCAB_DATA.filter(item => {
-      if (vocabSubTab === 'ows') {
+      if (vocabSubTab === 'roots') {
+        if (item.type !== 'root') return false;
+        if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
+      } else if (vocabSubTab === 'ows') {
         if (item.type !== 'ows') return false;
         if (!q && (item.level !== activeLevel || item.set !== activeSet)) return false;
       } else if (vocabSubTab === 'idioms') {
@@ -915,160 +943,224 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
       {activeTab === 'vocab' && (
         <div className="space-y-6 animate-fade-in">
           
-          {/* Sub Navigation: Core Vocabulary vs OWS vs Idioms vs Homophones vs Homographs vs SSC Special */}
-          <div className="flex items-center gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3 overflow-x-auto no-scrollbar">
-            {/* 1. Core Vocabulary */}
+          {/* Sub Navigation: Core Vocabulary vs Root Words vs OWS vs Idioms vs Homophones vs Homographs vs SSC Special */}
+          <div className="relative flex items-center gap-1.5 sm:gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+            {/* Scroll Left Button */}
             <button
               type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('core');
-                setVocabTypeFilter('word');
-                setActiveLevel('level-1');
-                setActiveSet('set-01');
-                setActiveCardIndex(0);
-              }}
-              className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'core'
-                  ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
+              onClick={() => scrollVocabNav('left')}
+              title="Scroll Tabs Left"
+              aria-label="Scroll vocabulary tabs left"
+              className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
             >
-              <BookOpen className="w-4 h-4 shrink-0" />
-              <span>Core Vocabulary</span>
+              <ChevronLeft className="w-4 h-4" />
             </button>
 
-            {/* 2. One Word Substitution (OWS) */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('ows');
-                setVocabTypeFilter('ows');
-                setActiveLevel('level-1');
-                setActiveSet('set-01');
-                setActiveCardIndex(0);
-              }}
-              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'ows'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
+            {/* Scrollable Tabs Track */}
+            <div
+              ref={vocabNavScrollRef}
+              className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-0.5"
             >
-              <BookCheck className="w-4 h-4 text-blue-500 shrink-0" />
-              <span>One Word Substitution</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                vocabSubTab === 'ows'
-                  ? 'bg-white/20 text-white font-black'
-                  : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
-              }`}>
-                700+ Terms
-              </span>
-            </button>
+              {/* 1. Core Vocabulary */}
+              <button
+                id="vocab-subtab-core"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('core');
+                  setVocabTypeFilter('word');
+                  setActiveLevel('level-1');
+                  setActiveSet('set-01');
+                  setActiveCardIndex(0);
+                }}
+                className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'core'
+                    ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <BookOpen className="w-4 h-4 shrink-0" />
+                <span>Core Vocabulary</span>
+              </button>
 
-            {/* 3. Idioms & Phrases */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('idioms');
-                setVocabTypeFilter('idiom');
-                setIdiomSubMode('themes');
-                setActiveCardIndex(0);
-              }}
-              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'idioms'
-                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-xs font-black ring-1 ring-rose-400/40'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
-            >
-              <Flame className="w-4 h-4 text-rose-500 shrink-0" />
-              <span>Idioms & Phrases</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                vocabSubTab === 'idioms'
-                  ? 'bg-white/20 text-white font-black'
-                  : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
-              }`}>
-                89 Themes
-              </span>
-            </button>
+              {/* 2. Root Words */}
+              <button
+                id="vocab-subtab-roots"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('roots');
+                  setVocabTypeFilter('root');
+                  setActiveLevel('level-1');
+                  setActiveSet('set-01');
+                  setActiveCardIndex(0);
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'roots'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs font-black ring-1 ring-emerald-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <TreePine className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span>Root Words</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'roots'
+                    ? 'bg-white/20 text-white font-black'
+                    : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                }`}>
+                  30 Roots
+                </span>
+              </button>
 
-            {/* 4. Homophones */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('homophones');
-              }}
-              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'homophones'
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-xs font-black ring-1 ring-emerald-400/40'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
-            >
-              <Volume2 className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span>Homophones</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                vocabSubTab === 'homophones'
-                  ? 'bg-black/20 text-slate-950 font-black'
-                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
-              }`}>
-                Top 400
-              </span>
-            </button>
+              {/* 3. One Word Substitution (OWS) */}
+              <button
+                id="vocab-subtab-ows"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('ows');
+                  setVocabTypeFilter('ows');
+                  setActiveLevel('level-1');
+                  setActiveSet('set-01');
+                  setActiveCardIndex(0);
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'ows'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <BookCheck className="w-4 h-4 text-blue-500 shrink-0" />
+                <span>One Word Substitution</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'ows'
+                    ? 'bg-white/20 text-white font-black'
+                    : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
+                }`}>
+                  700+ Terms
+                </span>
+              </button>
 
-            {/* 5. Homographs */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('homographs');
-              }}
-              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'homographs'
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-xs font-black ring-1 ring-amber-400/40'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
-            >
-              <Layers className="w-4 h-4 text-amber-500 shrink-0" />
-              <span>Homographs</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                vocabSubTab === 'homographs'
-                  ? 'bg-black/20 text-slate-950 font-black'
-                  : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-              }`}>
-                603 Groups
-              </span>
-            </button>
+              {/* 4. Idioms & Phrases */}
+              <button
+                id="vocab-subtab-idioms"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('idioms');
+                  setVocabTypeFilter('idiom');
+                  setIdiomSubMode('themes');
+                  setActiveCardIndex(0);
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'idioms'
+                    ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-xs font-black ring-1 ring-rose-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <Flame className="w-4 h-4 text-rose-500 shrink-0" />
+                <span>Idioms & Phrases</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'idioms'
+                    ? 'bg-white/20 text-white font-black'
+                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                }`}>
+                  89 Themes
+                </span>
+              </button>
 
-            {/* 6. SSC Special */}
+              {/* 5. Homophones */}
+              <button
+                id="vocab-subtab-homophones"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('homophones');
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'homophones'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-xs font-black ring-1 ring-emerald-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <Volume2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span>Homophones</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'homophones'
+                    ? 'bg-black/20 text-slate-950 font-black'
+                    : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                }`}>
+                  Top 400
+                </span>
+              </button>
+
+              {/* 6. Homographs */}
+              <button
+                id="vocab-subtab-homographs"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('homographs');
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'homographs'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-xs font-black ring-1 ring-amber-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <Layers className="w-4 h-4 text-amber-500 shrink-0" />
+                <span>Homographs</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'homographs'
+                    ? 'bg-black/20 text-slate-950 font-black'
+                    : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                }`}>
+                  603 Groups
+                </span>
+              </button>
+
+              {/* 7. SSC Special */}
+              <button
+                id="vocab-subtab-ssc-special"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('ssc-special');
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'ssc-special'
+                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-xs font-black ring-1 ring-pink-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <Sparkles className="w-4 h-4 text-pink-400 shrink-0" />
+                <span>SSC Special</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'ssc-special'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20'
+                }`}>
+                  7 Modules
+                </span>
+              </button>
+            </div>
+
+            {/* Scroll Right Button */}
             <button
               type="button"
-              onClick={() => {
-                soundManager.playClick();
-                haptics.selection();
-                setVocabSubTab('ssc-special');
-              }}
-              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
-                vocabSubTab === 'ssc-special'
-                  ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-xs font-black ring-1 ring-pink-400/40'
-                  : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
-              }`}
+              onClick={() => scrollVocabNav('right')}
+              title="Scroll Tabs Right"
+              aria-label="Scroll vocabulary tabs right"
+              className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
             >
-              <Sparkles className="w-4 h-4 text-pink-400 shrink-0" />
-              <span>SSC Special</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                vocabSubTab === 'ssc-special'
-                  ? 'bg-white/20 text-white'
-                  : 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/20'
-              }`}>
-                7 Modules
-              </span>
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -1197,11 +1289,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       setActiveCardIndex(0);
                     }}
                     placeholder={
-                      vocabSubTab === 'ows'
+                      vocabSubTab === 'roots'
+                        ? 'Search root words, prefixes, suffixes, meanings...'
+                        : vocabSubTab === 'ows'
                         ? 'Search 700+ One Word Substitutions, meanings, Hindi...'
                         : vocabSubTab === 'idioms'
                         ? 'Search idioms & phrases, meanings, Hindi...'
-                        : 'Search core words, hindi meanings, roots...'
+                        : 'Search core words, hindi meanings...'
                     }
                     className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-[#161826] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 shadow-2xs"
                   />
@@ -1220,9 +1314,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 {vocabSubTab === 'core' && (
                   <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 min-w-0">
                     {[
-                      { id: 'all', label: 'All Core Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word' || w.type === 'root').length },
-                      { id: 'word', label: 'High-Yield Words', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
-                      { id: 'root', label: 'Root Words', shortLabel: 'Roots', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'root').length }
+                      { id: 'all', label: 'All Core Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
+                      { id: 'word', label: 'High-Yield Words', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length }
                     ].map(f => (
                       <button
                         key={f.id}
@@ -1232,9 +1325,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           setVocabTypeFilter(f.id as any);
                           setActiveCardIndex(0);
                           setActiveSet('set-01');
-                          if (f.id === 'root' && activeLevel === 'advanced') {
-                            setActiveLevel('level-1');
-                          }
                         }}
                         className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                           vocabTypeFilter === f.id
@@ -1326,21 +1416,93 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
               )}
 
-              {/* Core Vocabulary Level & Subpage Set Navigation */}
-              {vocabSubTab === 'core' && (vocabTypeFilter === 'word' || vocabTypeFilter === 'root' || vocabTypeFilter === 'all') && (
+              {/* Root Words Levels & Set Navigation */}
+              {vocabSubTab === 'roots' && (
                 <div className="space-y-3 animate-fade-in">
-                  {/* Levels Navigation Bar: 3 Levels for Root Words, 4 Levels for Word */}
-                  <div className={`grid gap-2.5 sm:gap-3 ${vocabTypeFilter === 'root' ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'}`}>
-                    {(vocabTypeFilter === 'root' ? HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced') : HIGH_YIELD_LEVELS).map(lvl => {
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-transparent border border-emerald-500/20 shadow-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black text-lg shrink-0">
+                        🌳
+                      </div>
+                      <div>
+                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                          <span>High-Yield Root Words Curriculum</span>
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                            3 Thematic Levels • 300+ Derived Words
+                          </span>
+                        </h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                          Master Latin & Greek roots, prefixes and suffixes to decode any unfamiliar English word
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 self-start sm:self-auto">
+                      <span className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 text-emerald-600 dark:text-emerald-400 shadow-2xs">
+                        ✓ {DEFAULT_VOCAB_DATA.filter(w => w.type === 'root' && masteredVocabIds.has(w.id)).length} Mastered
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3 Thematic Levels Grid */}
+                  <div className="grid gap-2.5 sm:gap-3 grid-cols-1 sm:grid-cols-3">
+                    {HIGH_YIELD_LEVELS.filter(l => l.id !== 'advanced').map(lvl => {
+                      const isSelected = activeLevel === lvl.id;
+                      const totalLevelRoots = DEFAULT_VOCAB_DATA.filter(
+                        w => w.type === 'root' && w.level === lvl.id
+                      ).length;
+                      const levelBadgeLabel = lvl.id === 'level-1' ? 'Human Nature & Actions'
+                         : lvl.id === 'level-2' ? 'Science, Time & Body'
+                         : 'Power, Society & Beliefs';
+
+                      return (
+                        <button
+                          key={lvl.id}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            haptics.selection();
+                            setActiveLevel(lvl.id);
+                            setActiveSet('set-01');
+                            setActiveCardIndex(0);
+                          }}
+                          className={`flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black shadow-md border-emerald-400 ring-2 ring-emerald-400/40'
+                              : 'bg-white dark:bg-[#0E101B] border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-emerald-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.04]'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-1 mb-2 min-w-0">
+                            <span className={`px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
+                              isSelected ? 'bg-white/20 text-white font-black' : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/20'
+                            }`}>
+                              {levelBadgeLabel}
+                            </span>
+                            <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
+                              isSelected ? 'bg-white/20 text-white font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
+                            }`}>
+                              {totalLevelRoots} roots
+                            </span>
+                          </div>
+                          <h4 className="text-sm sm:text-base font-black tracking-tight leading-snug">
+                            {lvl.label}
+                          </h4>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Core Vocabulary Level & Subpage Set Navigation */}
+              {vocabSubTab === 'core' && (
+                <div className="space-y-3 animate-fade-in">
+                  {/* Levels Navigation Bar: 4 Levels for Word */}
+                  <div className="grid gap-2.5 sm:gap-3 grid-cols-2 sm:grid-cols-4">
+                    {HIGH_YIELD_LEVELS.map(lvl => {
                       const isSelected = activeLevel === lvl.id;
                       const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
-                        w => (vocabTypeFilter === 'all' ? (w.type === 'word' || w.type === 'root') : w.type === vocabTypeFilter) && w.level === lvl.id
+                        w => w.type === 'word' && w.level === lvl.id
                       ).length;
-                      const levelBadgeLabel = vocabTypeFilter === 'root'
-                        ? (lvl.id === 'level-1' ? 'Human Nature & Actions'
-                           : lvl.id === 'level-2' ? 'Science, Time & Body'
-                           : 'Power, Society & Beliefs')
-                        : lvl.badge;
 
                       return (
                         <button
@@ -1363,12 +1525,12 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             <span className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider truncate ${
                               isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20'
                             }`}>
-                              {levelBadgeLabel}
+                              {lvl.badge}
                             </span>
                             <span className={`text-[10px] sm:text-[11px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                               isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-200'
                             }`}>
-                              {totalLevelWords} {vocabTypeFilter === 'root' ? 'roots' : 'words'}
+                              {totalLevelWords} words
                             </span>
                           </div>
                           <div className="min-w-0">
@@ -1393,7 +1555,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       {currentLevelConfig.sets.map(s => {
                         const isSetSelected = activeSet === s.id;
                         const countInSet = DEFAULT_VOCAB_DATA.filter(
-                          w => (vocabTypeFilter === 'all' ? (w.type === 'word' || w.type === 'root') : w.type === vocabTypeFilter) && w.level === activeLevel && w.set === s.id
+                          w => w.type === 'word' && w.level === activeLevel && w.set === s.id
                         ).length;
                         return (
                           <button
@@ -2115,7 +2277,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   type="button"
                   onClick={() => {
                     setVocabSearch('');
-                    if (vocabSubTab === 'ows') {
+                    if (vocabSubTab === 'roots') {
+                      setVocabTypeFilter('root');
+                      setActiveLevel('level-1');
+                      setActiveSet('set-01');
+                    } else if (vocabSubTab === 'ows') {
                       setVocabTypeFilter('ows');
                       setActiveSet('set-01');
                     } else if (vocabSubTab === 'idioms') {
