@@ -264,20 +264,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'study-tools',
       label: 'Study Tools',
       icon: Sparkles,
-      badge: 'New',
-      badgeColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30',
       subItems: [
         {
           id: 'study-tools-vocab',
           label: 'Vocabulary',
-          icon: Languages,
-          badge: '150+'
+          icon: Languages
         },
         {
           id: 'study-tools-vocab-ssc',
           label: 'SSC Special Vocab',
-          icon: Sparkles,
-          badge: '7 Notes'
+          icon: Sparkles
         },
         {
           id: 'study-tools-maths',
@@ -287,8 +283,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {
           id: 'study-tools-calc-booster',
           label: 'Calculation Booster',
-          icon: Zap,
-          badge: 'Speed'
+          icon: Zap
         },
         {
           id: 'study-tools-ga',

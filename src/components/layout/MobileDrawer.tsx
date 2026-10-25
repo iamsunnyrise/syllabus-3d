@@ -186,8 +186,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           id: 'study-tools' as AppView,
           label: 'Study Tools (Vocab, Maths, GA)',
           icon: Sparkles,
-          badge: 'New',
-          badgeStyle: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 font-bold',
+          badge: null,
+          badgeStyle: '',
           iconBg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
         },
         {
