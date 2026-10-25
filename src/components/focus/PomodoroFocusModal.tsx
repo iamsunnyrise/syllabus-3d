@@ -1407,21 +1407,6 @@ export const PomodoroFocusModal: React.FC<PomodoroFocusModalProps> = ({
               <PictureInPicture2 className="w-4 h-4" />
             </button>
 
-            {/* Minimize to In-App Capsule */}
-            <button
-              type="button"
-              onClick={() => {
-                soundManager.playClick();
-                showFloatingOverlay();
-                onClose();
-              }}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
-              title="Minimize to In-App Capsule"
-              aria-label="Minimize"
-            >
-              <Minimize2 className="w-4 h-4" />
-            </button>
-
             {/* Settings */}
             <button
               type="button"
