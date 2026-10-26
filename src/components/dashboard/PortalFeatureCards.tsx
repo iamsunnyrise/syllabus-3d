@@ -111,7 +111,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('syllabus');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-blue-500/60 dark:hover:border-blue-400/50 p-5 sm:p-6 shadow-sm hover:shadow-2xl dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-blue-500/60 dark:hover:border-blue-400/50 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_22px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Syllabus Explorer & Track Subjects"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -119,7 +119,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-blue-500/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-400/35 shadow-sm">
+          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-400/35 shadow-sm inline-flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
             CURRICULUM ENGINE
           </span>
         </div>
@@ -204,7 +205,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </p>
 
           {/* High-Contrast Primary CTA Button */}
-          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 text-white shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(37,99,235,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
             <span>Explore Syllabus</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
@@ -220,7 +221,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('mock-tracker');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-amber-500/60 dark:hover:border-amber-400/50 p-5 sm:p-6 shadow-sm hover:shadow-2xl dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-amber-500/60 dark:hover:border-amber-400/50 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_22px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Mock Test Tracker & Performance Analytics"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -228,7 +229,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-amber-500/10 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-400/35 shadow-sm">
+          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-200/90 dark:border-amber-400/35 shadow-sm inline-flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             PERFORMANCE ANALYTICS
           </span>
         </div>
@@ -316,7 +318,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </p>
 
           {/* High-Contrast Golden CTA Button */}
-          <div className="syllabus-start-btn w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-amber-300/50">
+          <div className="syllabus-start-btn w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.75),0_8px_20px_-3px_rgba(245,158,11,0.42)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_12px_25px_-3px_rgba(245,158,11,0.55)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-amber-300/50">
             <span className="font-black text-slate-950">Open Mock Tracker</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 text-slate-950" />
           </div>
@@ -332,7 +334,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('platforms');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-teal-500/60 dark:hover:border-teal-400/50 p-5 sm:p-6 shadow-sm hover:shadow-2xl dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
+        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#101526] dark:to-[#0A0D18] border border-slate-200/90 dark:border-white/10 hover:border-teal-500/60 dark:hover:border-teal-400/50 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_22px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden"
         title="Open Mock Study Portals & Practice Platforms"
       >
         {/* Subtle Ambient Hover Glow */}
@@ -340,7 +342,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-teal-500/10 dark:bg-emerald-500/15 text-teal-800 dark:text-emerald-300 border border-emerald-400/35 shadow-sm">
+          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-emerald-50 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-400/35 shadow-sm inline-flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             DESK RESOURCES
           </span>
         </div>
@@ -412,7 +415,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </p>
 
           {/* High-Contrast Emerald/Teal CTA Button */}
-          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-teal-500/30 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-teal-400/30">
+          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(16,185,129,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-teal-400/30">
             <span>Open Study Portals</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
