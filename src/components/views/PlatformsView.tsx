@@ -697,10 +697,10 @@ export const PlatformsView: React.FC = () => {
       
       {/* 1. HERO BENTO BANNER WITH 3D AMBIENT NODES (Ultra-Premium Cockpit) */}
       <div className={`study-hub-hero-banner p-4 sm:p-5 md:p-6 rounded-3xl relative overflow-hidden transition-all duration-500 border ${
-        isWarmCream
-          ? 'bg-gradient-to-br from-[#1A1806] via-[#2A230C] to-[#121104] border-[#8D7A02]/40 shadow-[0_16px_45px_rgba(30,25,8,0.35)] text-[#FAEED9]'
-          : isDark
-            ? 'bg-gradient-to-br from-[#090A14] via-[#0E1224] to-[#06070E] border-white/[0.12] shadow-[0_16px_50px_rgba(0,0,0,0.7)] text-white'
+        isDark
+          ? 'bg-gradient-to-br from-[#0F1326] via-[#0A0D1A] to-[#060812] border-white/[0.12] shadow-[0_20px_50px_rgba(0,0,0,0.7)] text-white'
+          : isWarmCream
+            ? 'bg-gradient-to-br from-[#12162A] via-[#0D101E] to-[#080A16] border-amber-400/35 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-white'
             : 'bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0A0F1D] border-slate-700/60 shadow-[0_16px_40px_rgba(15,23,42,0.22)] text-white'
       }`}>
         
@@ -798,11 +798,7 @@ export const PlatformsView: React.FC = () => {
           <div className="flex items-center shrink-0">
             <button
               onClick={handleOpenAdd}
-              className={`study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer shadow-lg active:scale-95 transition-all duration-200 border ${
-                isWarmCream
-                  ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] border-[#FAEED9]/40 shadow-[0_4px_20px_rgba(225,168,55,0.45)] hover:shadow-[0_6px_25px_rgba(225,168,55,0.6)] hover:brightness-105'
-                  : 'bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-[#7C3AED] text-white border-white/20 shadow-[0_4px_20px_rgba(0,102,255,0.4)] hover:shadow-[0_6px_25px_rgba(0,102,255,0.6)] hover:brightness-105'
-              }`}
+              className="study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer active:scale-95 transition-all duration-200 border bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-[#7C3AED] text-white border-blue-400/30 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.55),0_8px_24px_-3px_rgba(37,99,235,0.5)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.75),0_12px_28px_-3px_rgba(37,99,235,0.65)] hover:brightness-105"
             >
               <Plus className="w-4 h-4 stroke-[2.8] transition-transform duration-200 group-hover:rotate-90" />
               <span>Add Platform</span>
@@ -819,7 +815,7 @@ export const PlatformsView: React.FC = () => {
             title="Filter by Courses (Video Batches & Lectures)"
             className={`study-hub-bento-tile ${selectedCategory === 'course' ? 'tile-active-course ring-2 ring-purple-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-purple-500/30 hover:border-purple-400/60 shadow-md backdrop-blur-xl`}
             style={{
-              backgroundColor: selectedCategory === 'course' ? 'rgba(88, 28, 135, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+              backgroundColor: selectedCategory === 'course' ? 'rgba(88, 28, 135, 0.45)' : 'rgba(14, 18, 36, 0.85)'
             }}
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-600/35 text-purple-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-purple-400/40 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
@@ -863,7 +859,7 @@ export const PlatformsView: React.FC = () => {
             title="Filter by Mock Series & Test Portals"
             className={`study-hub-bento-tile ${selectedCategory === 'test_series' ? 'tile-active-test_series ring-2 ring-sky-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-sky-500/30 hover:border-sky-400/60 shadow-md backdrop-blur-xl`}
             style={{
-              backgroundColor: selectedCategory === 'test_series' ? 'rgba(3, 105, 161, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+              backgroundColor: selectedCategory === 'test_series' ? 'rgba(3, 105, 161, 0.45)' : 'rgba(14, 18, 36, 0.85)'
             }}
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-600/35 text-sky-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-sky-400/40 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
@@ -907,7 +903,7 @@ export const PlatformsView: React.FC = () => {
             title="Filter by Pinned Platforms (Priority Access)"
             className={`study-hub-bento-tile ${selectedCategory === 'pinned' ? 'tile-active-pinned ring-2 ring-amber-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-amber-500/30 hover:border-amber-400/60 shadow-md backdrop-blur-xl`}
             style={{
-              backgroundColor: selectedCategory === 'pinned' ? 'rgba(180, 83, 9, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+              backgroundColor: selectedCategory === 'pinned' ? 'rgba(180, 83, 9, 0.45)' : 'rgba(14, 18, 36, 0.85)'
             }}
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-600/35 text-amber-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
@@ -951,7 +947,7 @@ export const PlatformsView: React.FC = () => {
             title="Filter by Custom Added Portals"
             className={`study-hub-bento-tile ${selectedCategory === 'custom' ? 'tile-active-custom ring-2 ring-emerald-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-emerald-500/30 hover:border-emerald-400/60 shadow-md backdrop-blur-xl`}
             style={{
-              backgroundColor: selectedCategory === 'custom' ? 'rgba(4, 120, 87, 0.45)' : 'rgba(16, 14, 6, 0.82)'
+              backgroundColor: selectedCategory === 'custom' ? 'rgba(4, 120, 87, 0.45)' : 'rgba(14, 18, 36, 0.85)'
             }}
           >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-600/35 text-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
@@ -991,7 +987,14 @@ export const PlatformsView: React.FC = () => {
         </div>
       </div>
       {/* 2. ADVANCED TOOLBAR: PROMINENT SEARCH & SEGMENTED CATEGORY TRACK (Issues 1, 2, 3, 9) */}
-      <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+      <div 
+        className="p-3.5 sm:p-4 rounded-2xl border shadow-lg space-y-3 backdrop-blur-xl transition-all"
+        style={{
+          background: isDark ? 'linear-gradient(135deg, rgba(15, 19, 36, 0.95) 0%, rgba(10, 13, 26, 0.95) 100%)' : '#FFFFFF',
+          borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#E2E8F0',
+          boxShadow: isDark ? '0 8px 30px rgba(0, 0, 0, 0.4)' : '0 8px 24px -4px rgba(15, 23, 42, 0.08)'
+        }}
+      >
         
         {/* Row 1: Search Bar + Live Portals Count */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
@@ -1003,7 +1006,12 @@ export const PlatformsView: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search platforms or URLs..."
-              className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-50 dark:bg-[#1B1C28] border border-slate-200 dark:border-slate-700 text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/15 transition-all"
+              style={{
+                background: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F8FAFC',
+                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#CBD5E1',
+                color: isDark ? '#FFFFFF' : '#0F172A'
+              }}
+              className="w-full pl-10 pr-9 py-2.5 rounded-xl border text-xs sm:text-[13px] font-medium placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
             {searchQuery && (
               <button
@@ -1070,16 +1078,12 @@ export const PlatformsView: React.FC = () => {
                     setSelectedCategory(tab.id);
                     soundManager.playClick();
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 flex items-center gap-1.5 shrink-0 ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 flex items-center gap-1.5 shrink-0 border ${
                     isSelected
-                      ? isWarmCream
-                        ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] shadow-sm'
-                        : isDark
-                          ? 'bg-white text-slate-950 shadow-sm'
-                          : 'bg-slate-900 text-white shadow-sm'
-                      : isWarmCream
-                        ? 'bg-[#FAF0DC] hover:bg-[#F5E8CF] text-[#5A4E03] hover:text-[#1C1B05] border border-[#E2D1B3]'
-                        : 'bg-slate-100 dark:bg-[#1B1C28] text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600'
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 border-blue-400/40'
+                      : isDark
+                        ? 'bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white border-white/10 hover:border-white/20'
+                        : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border-slate-200'
                   }`}
                   style={
                     isSelected
@@ -1197,11 +1201,11 @@ export const PlatformsView: React.FC = () => {
                     handleDirectLaunch(platform.url);
                   }
                 }}
-                className={`group relative rounded-2xl transition-all duration-200 select-none flex flex-col justify-between p-4 sm:p-4.5 border cursor-pointer active:scale-[0.99] shadow-xs hover:shadow-md hover:-translate-y-0.5 ${
-                  isWarmCream
-                    ? 'bg-[#FFFDF8] hover:bg-white border-[#EAD9BC] hover:border-[#D49B28] shadow-[0_2px_12px_rgba(28,27,5,0.04)] hover:shadow-[0_10px_24px_rgba(212,155,40,0.12)]'
-                    : isDark
-                      ? 'bg-[#131525] hover:bg-[#16182C] border-white/[0.08] hover:border-white/20 shadow-[0_2px_12px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.5)]'
+                className={`group relative rounded-2xl transition-all duration-200 select-none flex flex-col justify-between p-4 sm:p-4.5 border cursor-pointer active:scale-[0.99] shadow-md hover:shadow-xl hover:-translate-y-0.5 ${
+                  isDark
+                    ? 'bg-gradient-to-b from-[#101426] to-[#0A0D18] border-white/10 hover:border-blue-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.65)]'
+                    : isWarmCream
+                      ? 'bg-[#FFFDF8] hover:bg-white border-[#EAD9BC] hover:border-[#D49B28] shadow-[0_2px_12px_rgba(28,27,5,0.04)] hover:shadow-[0_10px_24px_rgba(212,155,40,0.12)]'
                       : 'bg-white hover:bg-slate-50/60 border-slate-200/90 hover:border-slate-300 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.07)]'
                 }`}
               >
@@ -1326,31 +1330,15 @@ export const PlatformsView: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => soundManager.playClick()}
-                      className={`py-1.5 px-3.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md ${
-                        isWarmCream
-                          ? 'bg-gradient-to-r from-[#E1A837] via-[#D49B28] to-[#B88014] text-[#121104] hover:brightness-105'
-                          : isDark
-                            ? 'bg-white hover:bg-slate-100 text-slate-950 shadow-sm'
-                            : 'bg-slate-900 hover:bg-slate-800 text-white shadow-sm'
-                      }`}
-                      style={{
-                        color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
-                      }}
+                      className="py-1.5 px-3.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 active:scale-95 cursor-pointer transition-all duration-200 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_6px_18px_rgba(37,99,235,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_10px_24px_rgba(37,99,235,0.55)] border border-blue-400/30"
+                      style={{ color: '#FFFFFF' }}
                       aria-label={`Open ${platform.name}`}
                     >
-                      <span
-                        className="font-bold"
-                        style={{
-                          color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
-                        }}
-                      >
+                      <span className="font-bold text-white">
                         Open
                       </span>
                       <ArrowUpRight
-                        className="w-3.5 h-3.5 stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                        style={{
-                          color: isWarmCream ? '#121104' : (isDark ? '#020617' : '#FFFFFF')
-                        }}
+                        className="w-3.5 h-3.5 stroke-[2.4] text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                       />
                     </a>
                   </div>
