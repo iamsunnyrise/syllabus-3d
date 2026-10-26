@@ -65,6 +65,7 @@ const CalculationBoosterPrimes = lazy(() => import('./CalculationBoosterPrimes')
 const SscSpecialVocabView = lazy(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
 const HomophonesView = lazy(() => import('./HomophonesView').then(m => ({ default: m.HomophonesView })));
 const HomographsView = lazy(() => import('./HomographsView').then(m => ({ default: m.HomographsView })));
+const FixedPrepositionsView = lazy(() => import('./FixedPrepositionsView').then(m => ({ default: m.FixedPrepositionsView })));
 const ThemeBasedIdiomsView = lazy(() => import('./ThemeBasedIdiomsView').then(m => ({ default: m.ThemeBasedIdiomsView })));
 import { 
   LEVEL_1_SET_01_WORDS, 
@@ -106,7 +107,7 @@ import { HIGH_YIELD_ROOT_WORDS } from '../../data/highYieldRootData';
 export type { VocabItem, VocabLevel };
 
 export type StudyToolTab = 'vocab' | 'maths' | 'ga';
-export type VocabSubTab = 'core' | 'roots' | 'ows' | 'idioms' | 'homophones' | 'homographs' | 'ssc-special';
+export type VocabSubTab = 'core' | 'roots' | 'ows' | 'idioms' | 'homophones' | 'homographs' | 'fixed-prepositions' | 'ssc-special';
 export type MathsSubTab = 'overview' | 'calc-booster';
 export type CalcBoosterTool = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'tables' | 'squares' | 'cubes' | 'fractions' | 'triplets' | 'powers' | 'primes';
 
@@ -1142,7 +1143,33 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </span>
               </button>
 
-              {/* 7. SSC Special */}
+              {/* 7. Fixed Prepositions */}
+              <button
+                id="vocab-subtab-fixed-prepositions"
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setVocabSubTab('fixed-prepositions');
+                }}
+                className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center whitespace-nowrap shrink-0 ${
+                  vocabSubTab === 'fixed-prepositions'
+                    ? 'bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 text-white shadow-xs font-black ring-1 ring-sky-400/40'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                }`}
+              >
+                <Compass className="w-4 h-4 text-sky-400 shrink-0" />
+                <span>Fixed Prepositions</span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                  vocabSubTab === 'fixed-prepositions'
+                    ? 'bg-white/20 text-white font-black'
+                    : 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
+                }`}>
+                  170+ PYQ
+                </span>
+              </button>
+
+              {/* 8. SSC Special */}
               <button
                 id="vocab-subtab-ssc-special"
                 type="button"
@@ -1181,7 +1208,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
             </button>
           </div>
 
-          {vocabSubTab === 'homophones' ? (
+          {vocabSubTab === 'fixed-prepositions' ? (
+            <Suspense fallback={
+              <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
+                <Compass className="w-8 h-8 text-sky-500 animate-spin mb-3" />
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Fixed Prepositions Mastery...</span>
+              </div>
+            }>
+              <FixedPrepositionsView />
+            </Suspense>
+          ) : vocabSubTab === 'homophones' ? (
             <Suspense fallback={
               <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
                 <Volume2 className="w-8 h-8 text-emerald-500 animate-spin mb-3" />
