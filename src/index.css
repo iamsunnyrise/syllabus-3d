@@ -2707,6 +2707,99 @@ html.warm-cream .homographs-hero-banner .study-hub-banner-subtitle {
   opacity: 1 !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   MOCK TRACKER HERO BANNER (COSMIC MIDNIGHT OBSIDIAN & 3D BUTTONS)
+   ═══════════════════════════════════════════════════════════════ */
+.mock-hero-banner,
+html.dark .mock-hero-banner,
+html.warm-cream .mock-hero-banner {
+  background: linear-gradient(135deg, #0D1022 0%, #090B17 50%, #060812 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+html.dark .mock-hero-banner h1,
+html.dark .mock-hero-banner h2,
+html.warm-cream .mock-hero-banner h1,
+html.warm-cream .mock-hero-banner h2 {
+  color: #FFFFFF !important;
+}
+
+html.dark .mock-hero-banner p,
+html.warm-cream .mock-hero-banner p {
+  color: #CBD5E1 !important;
+}
+
+html.dark .mock-hero-banner .metric-plate,
+html.warm-cream .mock-hero-banner .metric-plate {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+html.dark .mock-hero-banner .metric-plate:hover,
+html.warm-cream .mock-hero-banner .metric-plate:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+.mock-hero-banner .btn-3d-mocks {
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+.mock-hero-banner .btn-3d-mocks:hover {
+  background: linear-gradient(135deg, #6B70F8 0%, #4338CA 100%) !important;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+html.dark .mock-hero-banner .btn-glass-sub,
+html.warm-cream .mock-hero-banner .btn-glass-sub {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+html.dark .mock-hero-banner .btn-glass-sub:hover,
+html.warm-cream .mock-hero-banner .btn-glass-sub:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+}
+
+html:not(.dark):not(.warm-cream) .mock-hero-banner {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08) !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .mock-hero-banner h1,
+html:not(.dark):not(.warm-cream) .mock-hero-banner h2 {
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .mock-hero-banner p {
+  color: #64748B !important;
+}
+
+html:not(.dark):not(.warm-cream) .mock-hero-banner .metric-plate {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .mock-hero-banner .btn-glass-sub {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
 /* 4 KPI Bento Tiles: Deep Obsidian Glass with maximum contrast & zero light bleeds */
 .study-hub-hero-banner .study-hub-bento-tile,
 html.warm-cream .study-hub-hero-banner .study-hub-bento-tile {
