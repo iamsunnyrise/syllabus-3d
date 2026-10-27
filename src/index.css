@@ -223,14 +223,14 @@
      ═══════════════════════════════════════════════════════════════ */
 
   /* Tier 1: Pure Ivory Parchment Card Surfaces (Cards, Panels, Modals, Topic Rows) */
-  html.warm-cream .bg-white:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream [class*="bg-white/"]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
-  html.warm-cream .bg-\[\#121424\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .bg-\[\#151622\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .bg-\[\#181A2A\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .bg-\[\#131522\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .bg-\[\#0E101B\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .bg-\[\#11131F\]:not(aside):not(aside *):not(.study-hub-hero-banner *) {
+  html.warm-cream .bg-white:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream [class*="bg-white/"]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.bg-white\/20):not(.bg-white\/30):not(.bg-white\/40):not(.bg-white\/10):not(.bg-white\/15),
+  html.warm-cream .bg-\[\#121424\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .bg-\[\#151622\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .bg-\[\#181A2A\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .bg-\[\#131522\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .bg-\[\#0E101B\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .bg-\[\#11131F\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner) {
     background-color: #FFFDF8 !important;
     border-color: #E2D1B3 !important;
     color: #38370D !important;
@@ -306,45 +306,45 @@
   /* ═══════════════════════════════════════════════════════════════
      TEXT & TYPOGRAPHY READABILITY (WCAG AAA Contrast System)
      ═══════════════════════════════════════════════════════════════ */
-  html.warm-cream .text-slate-900:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-slate-800:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-white:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-\[\#F5F5F7\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-\[\#F8FAFC\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream h1:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h2:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h3:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h4:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h5:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
-  html.warm-cream h6:not(aside *):not(.study-hub-hero-banner *):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
+  html.warm-cream .text-slate-900:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-slate-800:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-white:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-\[\#F5F5F7\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-\[\#F8FAFC\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream h1:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h2:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h3:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h4:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h5:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]),
+  html.warm-cream h6:not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner):not(.text-white):not([class*="text-white"]):not([class*="text-amber"]):not([style*="color: rgb(255"]):not([style*="color: #FFF"]):not([style*="color:#FFF"]) {
     color: #1C1B05 !important;
   }
 
-  html.warm-cream .text-slate-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-slate-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-gray-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-gray-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-zinc-700:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-zinc-600:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-slate-200:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-gray-200:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-gray-300:not(aside):not(aside *):not(.study-hub-hero-banner *) {
+  html.warm-cream .text-slate-700:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-slate-600:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-gray-700:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-gray-600:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-zinc-700:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-zinc-600:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-slate-200:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-slate-300:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-gray-200:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-gray-300:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner) {
     color: #38370D !important;
   }
 
-  html.warm-cream .text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-zinc-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .text-zinc-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *):not(.study-hub-hero-banner *),
-  html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *):not(.study-hub-hero-banner *) {
+  html.warm-cream .text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-zinc-500:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .text-zinc-400:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-slate-400:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-slate-500:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-gray-400:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-gray-500:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-\[\#94A3B8\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .dark\:text-\[\#CBD5E1\]:not(aside):not(aside *):not(.study-hub-hero-banner *):not(.mock-hero-banner *):not(.mock-hero-banner) {
     color: #5C5716 !important;
   }
 
@@ -1232,18 +1232,18 @@
   }
 
   /* Buttons & Action Badges in Warm Parchment (WCAG AAA Contrast Guarantee) */
-  html.warm-cream button.bg-blue-600,
-  html.warm-cream button.bg-\[\#3B82F6\],
-  html.warm-cream button.bg-\[\#4F46E5\],
-  html.warm-cream button.bg-indigo-600,
-  html.warm-cream button.bg-indigo-500,
-  html.warm-cream button.bg-primary-600,
-  html.warm-cream button.bg-primary-500,
-  html.warm-cream button[class*="bg-indigo-600"],
-  html.warm-cream button[class*="bg-indigo-500"],
-  html.warm-cream button[class*="from-blue-600"],
-  html.warm-cream button[class*="from-indigo-600"],
-  html.warm-cream .btn-primary {
+  html.warm-cream button.bg-blue-600:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-\[\#3B82F6\]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-\[\#4F46E5\]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-indigo-600:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-indigo-500:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-primary-600:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-primary-500:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="bg-indigo-600"]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="bg-indigo-500"]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="from-blue-600"]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="from-indigo-600"]:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .btn-primary:not(.mock-hero-banner *):not(.mock-hero-banner) {
     background-color: #E1A837 !important;
     background-image: linear-gradient(135deg, #E1A837 0%, #D49D26 100%) !important;
     border-color: #C9962A !important;
@@ -1252,35 +1252,35 @@
     font-weight: 800 !important;
   }
 
-  html.warm-cream button.bg-blue-600:hover,
-  html.warm-cream button.bg-\[\#3B82F6\]:hover,
-  html.warm-cream button.bg-\[\#4F46E5\]:hover,
-  html.warm-cream button.bg-indigo-600:hover,
-  html.warm-cream button.bg-indigo-500:hover,
-  html.warm-cream button.bg-primary-600:hover,
-  html.warm-cream button.bg-primary-500:hover,
-  html.warm-cream button[class*="bg-indigo-600"]:hover,
-  html.warm-cream button[class*="bg-indigo-500"]:hover,
-  html.warm-cream button[class*="from-blue-600"]:hover,
-  html.warm-cream button[class*="from-indigo-600"]:hover,
-  html.warm-cream .btn-primary:hover {
+  html.warm-cream button.bg-blue-600:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-\[\#3B82F6\]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-\[\#4F46E5\]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-indigo-600:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-indigo-500:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-primary-600:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button.bg-primary-500:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="bg-indigo-600"]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="bg-indigo-500"]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="from-blue-600"]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream button[class*="from-indigo-600"]:hover:not(.mock-hero-banner *):not(.mock-hero-banner),
+  html.warm-cream .btn-primary:hover:not(.mock-hero-banner *):not(.mock-hero-banner) {
     background-color: #CCA32F !important;
     background-image: linear-gradient(135deg, #ECC052 0%, #C9962A 100%) !important;
     color: #1C1B05 !important;
   }
 
-  html.warm-cream button.bg-blue-600 *,
-  html.warm-cream button.bg-\[\#3B82F6\] *,
-  html.warm-cream button.bg-\[\#4F46E5\] *,
-  html.warm-cream button.bg-indigo-600 *,
-  html.warm-cream button.bg-indigo-500 *,
-  html.warm-cream button.bg-primary-600 *,
-  html.warm-cream button.bg-primary-500 *,
-  html.warm-cream button[class*="bg-indigo-600"] *,
-  html.warm-cream button[class*="bg-indigo-500"] *,
-  html.warm-cream button[class*="from-blue-600"] *,
-  html.warm-cream button[class*="from-indigo-600"] *,
-  html.warm-cream .btn-primary * {
+  html.warm-cream button.bg-blue-600:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-\[\#3B82F6\]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-\[\#4F46E5\]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-indigo-600:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-indigo-500:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-primary-600:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button.bg-primary-500:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button[class*="bg-indigo-600"]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button[class*="bg-indigo-500"]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button[class*="from-blue-600"]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream button[class*="from-indigo-600"]:not(.mock-hero-banner *):not(.mock-hero-banner) *,
+  html.warm-cream .btn-primary:not(.mock-hero-banner *):not(.mock-hero-banner) * {
     color: #1C1B05 !important;
   }
 
@@ -2714,90 +2714,185 @@ html.warm-cream .homographs-hero-banner .study-hub-banner-subtitle {
 html.dark .mock-hero-banner,
 html.warm-cream .mock-hero-banner {
   background: linear-gradient(135deg, #0D1022 0%, #090B17 50%, #060812 100%) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
   color: #FFFFFF !important;
 }
 
+/* 1. Main Heading & Title: Pure crisp diamond white in all themes */
+.mock-hero-banner h1,
+.mock-hero-banner h2,
+.mock-hero-banner .hero-title,
 html.dark .mock-hero-banner h1,
 html.dark .mock-hero-banner h2,
+html.dark .mock-hero-banner .hero-title,
 html.warm-cream .mock-hero-banner h1,
-html.warm-cream .mock-hero-banner h2 {
+html.warm-cream .mock-hero-banner h2,
+html.warm-cream .mock-hero-banner .hero-title,
+html.warm-cream .mock-hero-banner [class*="hero-title"] {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* 2. Subtitle: Crisp high-contrast silver slate in all themes */
+.mock-hero-banner p,
+.mock-hero-banner .hero-subtitle,
+html.dark .mock-hero-banner p,
+html.dark .mock-hero-banner .hero-subtitle,
+html.warm-cream .mock-hero-banner p,
+html.warm-cream .mock-hero-banner .hero-subtitle,
+html.warm-cream .mock-hero-banner [class*="hero-subtitle"] {
+  color: #CBD5E1 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85) !important;
+  opacity: 1 !important;
+}
+
+.mock-hero-banner p strong,
+html.dark .mock-hero-banner p strong,
+html.warm-cream .mock-hero-banner p strong {
   color: #FFFFFF !important;
 }
 
-html.dark .mock-hero-banner p,
-html.warm-cream .mock-hero-banner p {
+.mock-hero-banner .highlight-stat,
+html.dark .mock-hero-banner .highlight-stat,
+html.warm-cream .mock-hero-banner .highlight-stat {
+  color: #38BDF8 !important;
+  font-weight: 800 !important;
+}
+
+/* 3. Status Pill */
+.mock-hero-banner .hero-status-pill,
+html.dark .mock-hero-banner .hero-status-pill,
+html.warm-cream .mock-hero-banner .hero-status-pill {
+  background: rgba(79, 70, 229, 0.22) !important;
+  border: 1px solid rgba(129, 140, 248, 0.45) !important;
+  color: #C7D2FE !important;
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.3) !important;
+}
+
+.mock-hero-banner .hero-status-pill *,
+html.dark .mock-hero-banner .hero-status-pill *,
+html.warm-cream .mock-hero-banner .hero-status-pill * {
+  color: #C7D2FE !important;
+}
+
+/* 4. Metric Plates: Frosted Dark Obsidian Glass (NEVER solid bright white) */
+.mock-hero-banner .metric-plate,
+html.dark .mock-hero-banner .metric-plate,
+html.warm-cream .mock-hero-banner .metric-plate {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+.mock-hero-banner .metric-plate:hover,
+html.dark .mock-hero-banner .metric-plate:hover,
+html.warm-cream .mock-hero-banner .metric-plate:hover {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(99, 102, 241, 0.45) !important;
+}
+
+.mock-hero-banner .metric-plate .metric-label,
+html.dark .mock-hero-banner .metric-plate .metric-label,
+html.warm-cream .mock-hero-banner .metric-plate .metric-label {
+  color: #94A3B8 !important;
+}
+
+.mock-hero-banner .metric-plate .metric-val,
+html.dark .mock-hero-banner .metric-plate .metric-val,
+html.warm-cream .mock-hero-banner .metric-plate .metric-val {
+  color: #FFFFFF !important;
+}
+
+.mock-hero-banner .metric-plate .val-in-progress,
+html.dark .mock-hero-banner .metric-plate .val-in-progress,
+html.warm-cream .mock-hero-banner .metric-plate .val-in-progress {
+  color: #F59E0B !important;
+}
+
+.mock-hero-banner .metric-plate .val-cleared,
+html.dark .mock-hero-banner .metric-plate .val-cleared,
+html.warm-cream .mock-hero-banner .metric-plate .val-cleared {
+  color: #34D399 !important;
+}
+
+.mock-hero-banner .metric-plate .val-best-score,
+html.dark .mock-hero-banner .metric-plate .val-best-score,
+html.warm-cream .mock-hero-banner .metric-plate .val-best-score {
+  color: #38BDF8 !important;
+}
+
+.mock-hero-banner .metric-plate .val-peak-pct,
+html.dark .mock-hero-banner .metric-plate .val-peak-pct,
+html.warm-cream .mock-hero-banner .metric-plate .val-peak-pct {
+  color: #C084FC !important;
+}
+
+/* 5. Primary 3D Tactile Button (Full Length Mocks) */
+.mock-hero-banner button.btn-3d-mocks,
+html.dark .mock-hero-banner button.btn-3d-mocks,
+html.warm-cream .mock-hero-banner button.btn-3d-mocks {
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
+  background-color: #4F46E5 !important;
+  background-image: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.45) !important;
+}
+
+.mock-hero-banner button.btn-3d-mocks:hover,
+html.dark .mock-hero-banner button.btn-3d-mocks:hover,
+html.warm-cream .mock-hero-banner button.btn-3d-mocks:hover {
+  background: linear-gradient(135deg, #6B70F8 0%, #4338CA 100%) !important;
+  background-color: #4338CA !important;
+  background-image: linear-gradient(135deg, #6B70F8 0%, #4338CA 100%) !important;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+.mock-hero-banner button.btn-3d-mocks *,
+html.dark .mock-hero-banner button.btn-3d-mocks *,
+html.warm-cream .mock-hero-banner button.btn-3d-mocks * {
+  color: #FFFFFF !important;
+}
+
+/* 6. Secondary Frosted Glass Buttons (Sectionals & Chapter Hub) */
+.mock-hero-banner button.btn-glass-sub,
+html.dark .mock-hero-banner button.btn-glass-sub,
+html.warm-cream .mock-hero-banner button.btn-glass-sub {
+  background: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+
+.mock-hero-banner button.btn-glass-sub:hover,
+html.dark .mock-hero-banner button.btn-glass-sub:hover,
+html.warm-cream .mock-hero-banner button.btn-glass-sub:hover {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(6, 182, 212, 0.45) !important;
+}
+
+.mock-hero-banner button.btn-glass-sub *,
+html.dark .mock-hero-banner button.btn-glass-sub *,
+html.warm-cream .mock-hero-banner button.btn-glass-sub * {
+  color: #F8FAFC !important;
+}
+
+.mock-hero-banner .link-analytics,
+html.dark .mock-hero-banner .link-analytics,
+html.warm-cream .mock-hero-banner .link-analytics {
   color: #CBD5E1 !important;
 }
 
-html.dark .mock-hero-banner .metric-plate,
-html.warm-cream .mock-hero-banner .metric-plate {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border-color: rgba(255, 255, 255, 0.09) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+.mock-hero-banner .link-analytics:hover,
+html.dark .mock-hero-banner .link-analytics:hover,
+html.warm-cream .mock-hero-banner .link-analytics:hover {
   color: #FFFFFF !important;
-}
-
-html.dark .mock-hero-banner .metric-plate:hover,
-html.warm-cream .mock-hero-banner .metric-plate:hover {
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-color: rgba(99, 102, 241, 0.4) !important;
-}
-
-.mock-hero-banner .btn-3d-mocks {
-  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
-}
-
-.mock-hero-banner .btn-3d-mocks:hover {
-  background: linear-gradient(135deg, #6B70F8 0%, #4338CA 100%) !important;
-  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
-}
-
-html.dark .mock-hero-banner .btn-glass-sub,
-html.warm-cream .mock-hero-banner .btn-glass-sub {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-}
-
-html.dark .mock-hero-banner .btn-glass-sub:hover,
-html.warm-cream .mock-hero-banner .btn-glass-sub:hover {
-  background: rgba(255, 255, 255, 0.09) !important;
-}
-
-html:not(.dark):not(.warm-cream) .mock-hero-banner {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%) !important;
-  border-color: rgba(226, 232, 240, 0.9) !important;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08) !important;
-  color: #0F172A !important;
-}
-
-html:not(.dark):not(.warm-cream) .mock-hero-banner h1,
-html:not(.dark):not(.warm-cream) .mock-hero-banner h2 {
-  color: #0F172A !important;
-}
-
-html:not(.dark):not(.warm-cream) .mock-hero-banner p {
-  color: #64748B !important;
-}
-
-html:not(.dark):not(.warm-cream) .mock-hero-banner .metric-plate {
-  background: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
-  color: #0F172A !important;
-}
-
-html:not(.dark):not(.warm-cream) .mock-hero-banner .btn-glass-sub {
-  background: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  color: #0F172A !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* 4 KPI Bento Tiles: Deep Obsidian Glass with maximum contrast & zero light bleeds */
