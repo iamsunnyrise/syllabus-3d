@@ -883,13 +883,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           <div className="space-y-2.5 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 dark:bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>Study Tools & Exam Accelerators</span>
+              <span>Exam Practice Tools</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 dark:text-white tracking-tight">
               Study Tools
             </h1>
             <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium leading-relaxed">
-              High-yield mastery tools designed for competitive examinations. Drill active recall Vocabulary, speed math formulas, and high-frequency General Awareness.
+              Practice Vocabulary, Speed Maths, and General Awareness for competitive exams.
             </p>
           </div>
 
@@ -1254,10 +1254,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </div>
                   <div>
                     <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
-                      Idioms & Phrases Curriculum Mode
+                      Idioms & Phrases
                     </h4>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      Explore 89 Exam-Thematic Topics or practice standard Level Sets
+                      Explore 89 Theme Topics or practice standard Level Sets
                     </p>
                   </div>
                 </div>
@@ -1291,7 +1291,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               <Suspense fallback={
                 <div className="w-full h-72 flex flex-col items-center justify-center rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 animate-pulse">
                   <Flame className="w-8 h-8 text-rose-500 animate-spin mb-3" />
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading 89 Theme-Based Idioms Curriculum...</span>
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Loading Idioms & Phrases...</span>
                 </div>
               }>
                 <ThemeBasedIdiomsView onBackToSets={() => setIdiomSubMode('sets')} />
@@ -1308,10 +1308,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </div>
                     <div>
                       <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
-                        Standard Level Sets Mode (Idioms & Phrases)
+                        Idioms & Phrases (Sets Mode)
                       </h4>
                       <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Practicing Level-based Sets. You can switch back to the 89 Exam Thematic Topics anytime.
+                        Practicing Level Sets. You can switch to 89 Theme Topics anytime.
                       </p>
                     </div>
                   </div>
@@ -1324,7 +1324,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-rose-500 text-white font-bold text-xs hover:bg-rose-600 transition-all cursor-pointer shadow-xs shrink-0 self-start sm:self-auto"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>← Back to 89 Thematic Topics</span>
+                    <span>← Back to 89 Themes</span>
                   </button>
                 </div>
               )}
@@ -1362,40 +1362,6 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </button>
                   )}
                 </div>
-
-                {/* Filter Pills Row (for Core Vocabulary) */}
-                {vocabSubTab === 'core' && (
-                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 min-w-0">
-                    {[
-                      { id: 'all', label: 'All Core Words', shortLabel: 'All', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length },
-                      { id: 'word', label: 'High-Yield Words', shortLabel: 'Words', count: DEFAULT_VOCAB_DATA.filter(w => w.type === 'word').length }
-                    ].map(f => (
-                      <button
-                        key={f.id}
-                        type="button"
-                        onClick={() => {
-                          soundManager.playClick();
-                          setVocabTypeFilter(f.id as any);
-                          setActiveCardIndex(0);
-                          setActiveSet('set-01');
-                        }}
-                        className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                          vocabTypeFilter === f.id
-                            ? 'bg-amber-500 text-slate-950 shadow-xs font-black'
-                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] border border-transparent'
-                        }`}
-                      >
-                        <span className="hidden sm:inline">{f.label}</span>
-                        <span className="sm:hidden">{f.shortLabel}</span>
-                        <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                          vocabTypeFilter === f.id ? 'bg-black/15 text-slate-950 font-bold' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'
-                        }`}>
-                          {f.count}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* OWS Set Navigation (10 High-Yield Sets) */}
@@ -1408,13 +1374,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </div>
                       <div>
                         <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                          <span>One Word Substitution (OWS) Master Curriculum</span>
+                          <span>One Word Substitution (OWS)</span>
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30">
                             1400+ Terms
                           </span>
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                          13 High-Yield Sets curated from 15 years of SSC CGL, CHSL, MTS & CPO papers
+                          13 Sets from SSC CGL, CHSL, MTS & CPO past year papers
                         </p>
                       </div>
                     </div>
@@ -1425,45 +1391,50 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 10 Sets Selector */}
+                  {/* Sets Selector */}
                   <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar-indigo pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
                     <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5 text-blue-500" />
-                      <span>Select OWS Set:</span>
+                      <span>Sets:</span>
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      {HIGH_YIELD_LEVELS[0].sets.map(s => {
-                        const isSetSelected = activeSet === s.id;
-                        const countInSet = DEFAULT_VOCAB_DATA.filter(
-                          w => w.type === 'ows' && w.level === 'level-1' && w.set === s.id
-                        ).length;
-                        return (
-                          <button
-                            key={s.id}
-                            type="button"
-                            onClick={() => {
-                              soundManager.playClick();
-                              haptics.selection();
-                              setActiveSet(s.id);
-                              setActiveCardIndex(0);
-                            }}
-                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                              isSetSelected
-                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
-                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
-                            }`}
-                          >
-                            <span>{s.label}</span>
-                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                              isSetSelected
-                                ? 'bg-white/20 text-white font-bold'
-                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
-                            }`}>
-                              {countInSet}
-                            </span>
-                          </button>
-                        );
-                      })}
+                      {HIGH_YIELD_LEVELS[0].sets
+                        .map(s => ({
+                          ...s,
+                          countInSet: DEFAULT_VOCAB_DATA.filter(
+                            w => w.type === 'ows' && w.level === 'level-1' && w.set === s.id
+                          ).length
+                        }))
+                        .filter(s => s.countInSet > 0)
+                        .map(s => {
+                          const isSetSelected = activeSet === s.id;
+                          return (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => {
+                                soundManager.playClick();
+                                haptics.selection();
+                                setActiveSet(s.id);
+                                setActiveCardIndex(0);
+                              }}
+                              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                                isSetSelected
+                                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs font-black ring-1 ring-blue-400/40'
+                                  : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                              }`}
+                            >
+                              <span>{s.label}</span>
+                              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                                isSetSelected
+                                  ? 'bg-white/20 text-white font-bold'
+                                  : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                              }`}>
+                                {s.countInSet}
+                              </span>
+                            </button>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -1479,13 +1450,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </div>
                       <div>
                         <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                          <span>High-Yield Root Words Curriculum</span>
+                          <span>Root Words</span>
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
-                            3 Thematic Levels • 300+ Derived Words
+                            3 Levels • 300+ Words
                           </span>
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                          Master Latin & Greek roots, prefixes and suffixes to decode any unfamiliar English word
+                          Latin & Greek roots, prefixes, and suffixes to easily learn new words
                         </p>
                       </div>
                     </div>
@@ -1546,12 +1517,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
               )}
 
-              {/* Core Vocabulary Level & Subpage Set Navigation */}
+              {/* Core Vocabulary Level & Sets Navigation */}
               {vocabSubTab === 'core' && (
                 <div className="space-y-3 animate-fade-in">
-                  {/* Levels Navigation Bar: 4 Levels for Word */}
-                  <div className="grid gap-2.5 sm:gap-3 grid-cols-2 sm:grid-cols-4">
-                    {HIGH_YIELD_LEVELS.map(lvl => {
+                  {/* Levels Navigation Bar: Active Levels Only */}
+                  <div className="grid gap-2.5 sm:gap-3 grid-cols-2">
+                    {HIGH_YIELD_LEVELS.filter(lvl =>
+                      DEFAULT_VOCAB_DATA.some(w => w.type === 'word' && w.level === lvl.id)
+                    ).map(lvl => {
                       const isSelected = activeLevel === lvl.id;
                       const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
                         w => w.type === 'word' && w.level === lvl.id
@@ -1598,55 +1571,62 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     })}
                   </div>
 
-                  {/* Subpage Sets Selector */}
+                  {/* Sets Selector */}
                   <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
                     <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Subpages:</span>
+                      <span>Sets:</span>
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      {currentLevelConfig.sets.map(s => {
-                        const isSetSelected = activeSet === s.id;
-                        const countInSet = DEFAULT_VOCAB_DATA.filter(
-                          w => w.type === 'word' && w.level === activeLevel && w.set === s.id
-                        ).length;
-                        return (
-                          <button
-                            key={s.id}
-                            type="button"
-                            onClick={() => {
-                              soundManager.playClick();
-                              haptics.selection();
-                              setActiveSet(s.id);
-                              setActiveCardIndex(0);
-                            }}
-                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                              isSetSelected
-                                ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-xs font-black'
-                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
-                            }`}
-                          >
-                            <span>{s.label}</span>
-                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                              isSetSelected
-                                ? 'bg-white/20 dark:bg-black/20 text-white dark:text-slate-900 font-bold'
-                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
-                            }`}>
-                              {countInSet}
-                            </span>
-                          </button>
-                        );
-                      })}
+                      {currentLevelConfig.sets
+                        .map(s => ({
+                          ...s,
+                          countInSet: DEFAULT_VOCAB_DATA.filter(
+                            w => w.type === 'word' && w.level === activeLevel && w.set === s.id
+                          ).length
+                        }))
+                        .filter(s => s.countInSet > 0)
+                        .map(s => {
+                          const isSetSelected = activeSet === s.id;
+                          return (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => {
+                                soundManager.playClick();
+                                haptics.selection();
+                                setActiveSet(s.id);
+                                setActiveCardIndex(0);
+                              }}
+                              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                                isSetSelected
+                                  ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-xs font-black'
+                                  : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                              }`}
+                            >
+                              <span>{s.label}</span>
+                              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                                isSetSelected
+                                  ? 'bg-white/20 dark:bg-black/20 text-white dark:text-slate-900 font-bold'
+                                  : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                              }`}>
+                                {s.countInSet}
+                              </span>
+                            </button>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Idioms Level & Subpage Sets Navigation */}
+              {/* Idioms Level & Sets Navigation */}
               {vocabSubTab === 'idioms' && idiomSubMode === 'sets' && (
                 <div className="space-y-3 animate-fade-in">
                   <div className="grid gap-2.5 sm:gap-3 grid-cols-2">
-                    {HIGH_YIELD_LEVELS.slice(0, 2).map(lvl => {
+                    {HIGH_YIELD_LEVELS.filter(lvl =>
+                      DEFAULT_VOCAB_DATA.some(w => w.type === 'idiom' && w.level === lvl.id)
+                    ).map(lvl => {
                       const isSelected = activeLevel === lvl.id;
                       const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
                         w => w.type === 'idiom' && w.level === lvl.id
@@ -1691,41 +1671,46 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
                     <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5 text-rose-500" />
-                      <span>Idiom Sets:</span>
+                      <span>Sets:</span>
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      {currentLevelConfig.sets.map(s => {
-                        const isSetSelected = activeSet === s.id;
-                        const countInSet = DEFAULT_VOCAB_DATA.filter(
-                          w => w.type === 'idiom' && w.level === activeLevel && w.set === s.id
-                        ).length;
-                        return (
-                          <button
-                            key={s.id}
-                            type="button"
-                            onClick={() => {
-                              soundManager.playClick();
-                              haptics.selection();
-                              setActiveSet(s.id);
-                              setActiveCardIndex(0);
-                            }}
-                            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                              isSetSelected
-                                ? 'bg-rose-500 text-white shadow-xs font-black'
-                                : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
-                            }`}
-                          >
-                            <span>{s.label}</span>
-                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                              isSetSelected
-                                ? 'bg-white/20 text-white font-bold'
-                                : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
-                            }`}>
-                              {countInSet}
-                            </span>
-                          </button>
-                        );
-                      })}
+                      {currentLevelConfig.sets
+                        .map(s => ({
+                          ...s,
+                          countInSet: DEFAULT_VOCAB_DATA.filter(
+                            w => w.type === 'idiom' && w.level === activeLevel && w.set === s.id
+                          ).length
+                        }))
+                        .filter(s => s.countInSet > 0)
+                        .map(s => {
+                          const isSetSelected = activeSet === s.id;
+                          return (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => {
+                                soundManager.playClick();
+                                haptics.selection();
+                                setActiveSet(s.id);
+                                setActiveCardIndex(0);
+                              }}
+                              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                                isSetSelected
+                                  ? 'bg-rose-500 text-white shadow-xs font-black'
+                                  : 'bg-slate-100 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-white/15'
+                              }`}
+                            >
+                              <span>{s.label}</span>
+                              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                                isSetSelected
+                                  ? 'bg-white/20 text-white font-bold'
+                                  : 'bg-slate-200/80 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-bold'
+                              }`}>
+                                {s.countInSet}
+                              </span>
+                            </button>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -2078,14 +2063,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                                 <div className="min-w-0 flex-1">
                                   <div className="flex items-center gap-2 flex-wrap">
                                     <h4 className="text-sm sm:text-lg font-black text-slate-950 dark:text-white leading-tight">
-                                      Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-base">(एक रूट, अनेक शब्द Matrix)</span>
+                                      Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-base">(एक Root, अनेक शब्द)</span>
                                     </h4>
                                     <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-black bg-emerald-500 text-slate-950 shadow-xs shrink-0">
                                       {currentFlashcard.rootFamily.derivatives.length} Exam Words
                                     </span>
                                   </div>
                                   <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium leading-normal mt-0.5">
-                                    Iss ek root stem se derived sabhi high-frequency exam words aur unka morphology formula
+                                    Iss root stem se bane sabhi exam words aur unka breakdown
                                   </p>
                                 </div>
                               </div>
@@ -2254,10 +2239,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2 flex-wrap">
                                   <h4 className="text-sm sm:text-base font-black text-slate-950 dark:text-white leading-tight">
-                                    Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-sm">(एक रूट, अनेक शब्द Matrix)</span>
+                                    Word Family Tree <span className="text-emerald-700 dark:text-emerald-400 font-sans font-bold text-xs sm:text-sm">(एक Root, अनेक शब्द)</span>
                                   </h4>
                                   <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-500 text-slate-950 shadow-2xs shrink-0">
-                                    {currentFlashcard.rootFamily.derivatives.length} Words Matrix
+                                    {currentFlashcard.rootFamily.derivatives.length} Words
                                   </span>
                                 </div>
                                 <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium mt-0.5">
@@ -2352,11 +2337,11 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   </button>
                 </div>
 
-                {/* 5. Pro Tip Footer & Learning Accelerator */}
+                {/* 5. Quick Tip Footer */}
                 <div className="mt-3.5 pt-3 border-t border-dashed border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-amber-900 dark:text-amber-300 font-medium bg-amber-500/[0.07] dark:bg-amber-500/[0.05] p-3 rounded-2xl border border-amber-500/20">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-base shrink-0">🎯</span>
-                    <span className="leading-relaxed"><strong>Active Recall Pro Tip:</strong> Guess the Hindi meaning & exam synonyms in your head before clicking "Flip" to increase memory retention by 300%.</span>
+                    <span className="text-base shrink-0">💡</span>
+                    <span className="leading-relaxed"><strong>Quick Tip:</strong> Guess the Hindi meaning and synonyms in your head before revealing details to boost recall.</span>
                   </div>
                   <div className="hidden lg:flex items-center gap-2 shrink-0 text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">Space</kbd>
@@ -2382,16 +2367,16 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     <span>{currentLevelConfig.sets.find(s => s.id === activeSet)?.label || activeSet}</span>
                   </div>
                   <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
-                    {vocabTypeFilter === 'idiom' ? 'Ready for Idioms Integration' : vocabTypeFilter === 'ows' ? 'Ready for OWS Integration' : vocabTypeFilter === 'root' ? 'Ready for Root Words Integration' : 'Ready for Words Integration'}
+                    {vocabTypeFilter === 'idiom' ? 'No Idioms Available' : vocabTypeFilter === 'ows' ? 'No OWS Available' : vocabTypeFilter === 'root' ? 'No Root Words Available' : 'No Words in This Set'}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {vocabTypeFilter === 'idiom'
-                      ? 'Is Set me abhi koi idiom nahi hai. Aap apne idioms provide karein, hum unhe turant is Set me live add kar denge!'
+                      ? 'Is set me abhi koi idiom available nahi hai.'
                       : vocabTypeFilter === 'ows'
-                      ? 'Is Set me abhi koi OWS nahi hai. Aap apne one word substitutions provide karein, hum unhe turant is Set me live add kar denge!'
+                      ? 'Is set me abhi koi OWS available nahi hai.'
                       : vocabTypeFilter === 'root'
-                      ? 'Is Set me abhi koi root word nahi hai. Agle sets ke root words jald hi live integrate kiye jayenge!'
-                      : 'Is Set me abhi koi word nahi hai. Aap apne words provide karein, hum unhe turant is Set me live add kar denge!'}
+                      ? 'Is set me abhi koi root word available nahi hai.'
+                      : 'Is set me abhi koi word available nahi hai.'}
                   </p>
                 </div>
               </div>
