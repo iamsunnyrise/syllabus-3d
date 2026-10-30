@@ -5045,3 +5045,86 @@ html[data-theme-anim="dark-to-light"]::view-transition-new(root) {
     animation: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADD TOPIC MODAL HIGH-CONTRAST VISIBILITY & THEME SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+.add-topic-modal,
+.add-topic-modal * {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+.add-topic-modal input.add-topic-input,
+.add-topic-modal textarea.add-topic-input,
+.add-topic-modal select {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  cursor: text !important;
+}
+
+/* Default / Light Mode Contrast */
+html:not(.dark):not(.warm-cream) .add-topic-modal input.add-topic-input,
+html:not(.dark):not(.warm-cream) .add-topic-modal textarea.add-topic-input {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  caret-color: #4F46E5 !important;
+}
+
+html:not(.dark):not(.warm-cream) .add-topic-modal input.add-topic-input::placeholder,
+html:not(.dark):not(.warm-cream) .add-topic-modal textarea.add-topic-input::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+/* Dark Mode High-Contrast */
+html.dark .add-topic-modal input.add-topic-input,
+html.dark .add-topic-modal textarea.add-topic-input {
+  background-color: #151622 !important;
+  border-color: #2D3045 !important;
+  color: #FFFFFF !important;
+  caret-color: #818CF8 !important;
+}
+
+html.dark .add-topic-modal input.add-topic-input:focus,
+html.dark .add-topic-modal textarea.add-topic-input:focus {
+  border-color: #6366F1 !important;
+  background-color: #191B28 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+}
+
+html.dark .add-topic-modal input.add-topic-input::placeholder,
+html.dark .add-topic-modal textarea.add-topic-input::placeholder {
+  color: #94A3B8 !important;
+  opacity: 0.9 !important;
+}
+
+/* Warm-Cream Parchment High-Contrast */
+html.warm-cream .add-topic-modal {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  color: #38370D !important;
+}
+
+html.warm-cream .add-topic-modal input.add-topic-input,
+html.warm-cream .add-topic-modal textarea.add-topic-input {
+  background-color: #FAF5E8 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+  caret-color: #D97706 !important;
+}
+
+html.warm-cream .add-topic-modal input.add-topic-input:focus,
+html.warm-cream .add-topic-modal textarea.add-topic-input:focus {
+  border-color: #E1A837 !important;
+  background-color: #FFFDF8 !important;
+  box-shadow: 0 0 0 3px rgba(225, 168, 55, 0.25) !important;
+}
+
+html.warm-cream .add-topic-modal input.add-topic-input::placeholder,
+html.warm-cream .add-topic-modal textarea.add-topic-input::placeholder {
+  color: #8D7A02 !important;
+  opacity: 0.85 !important;
+}
+

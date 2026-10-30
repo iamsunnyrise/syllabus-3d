@@ -1725,7 +1725,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setExams(prevExams => {
       const targetExamId = currentExam?.id || profile.selectedExamId || (prevExams[0]?.id);
 
-      return prevExams.map(exam => {
+      const nextExams = prevExams.map(exam => {
         if (targetExamId && exam.id !== targetExamId) return exam;
 
         let subjects = [...exam.subjects];
@@ -1771,7 +1771,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               if (ch.id !== targetChapterId) return ch;
               return {
                 ...ch,
-                topics: [...ch.topics, ...newTopicObjects]
+                topics: [...(ch.topics || []), ...newTopicObjects]
               };
             });
           }
@@ -1788,6 +1788,22 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           subjects
         };
       });
+
+      // Synchronous instant backup to local storage
+      try {
+        if (activeProfileId === 'profile_default') {
+          storageManager.safeSetItem('syllabus3d_exams', nextExams);
+        } else if (activeProfileId) {
+          const raw = localStorage.getItem(`syllabus3d_profile_data_${activeProfileId}`);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            parsed.exams = nextExams;
+            storageManager.safeSetItem(`syllabus3d_profile_data_${activeProfileId}`, parsed);
+          }
+        }
+      } catch (e) {}
+
+      return nextExams;
     });
 
     soundManager.playCompleteChime();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useSyllabus } from '../../context/SyllabusContext';
 import {
@@ -75,60 +75,75 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
   // Error validation state
   const [errorMessage, setErrorMessage] = useState('');
 
+  const prevIsOpenRef = useRef(false);
+  const topicInputRef = useRef<HTMLInputElement>(null);
+
   const hasNoSubjects = !currentExam || currentExam.subjects.length === 0;
   const effectiveIsNewSubject = isNewSubject || hasNoSubjects;
   const effectiveIsNewChapter = isNewChapter || effectiveIsNewSubject;
 
-  // Initialize or update selection whenever modal opens or target props change
+  // Initialize or update selection ONLY when modal opens to avoid wiping user typing
   useEffect(() => {
-    if (!isOpen || !currentExam) return;
-
-    // Reset text inputs on every open to avoid stale state
-    setSingleTopicName('');
-    setSingleSubtopicsText('');
-    setBulkTextInput('');
-    setNewSubjectName('');
-    setNewChapterName('');
-    setNewChapterDesc('');
-    setErrorMessage('');
-
-    if (hasNoSubjects) {
-      setIsNewSubject(true);
-      setIsNewChapter(true);
-      setSelectedSubjectId('');
-      setSelectedChapterId('');
+    if (!isOpen || !currentExam) {
+      prevIsOpenRef.current = isOpen;
       return;
     }
 
-    // Determine target subject
-    let targetSub = initialSubjectId
-      ? currentExam.subjects.find(s => s.id === initialSubjectId)
-      : null;
-    if (!targetSub) {
-      targetSub = currentExam.subjects.find(s => s.id === selectedSubjectId) || currentExam.subjects[0];
-    }
+    const isJustOpening = !prevIsOpenRef.current && isOpen;
+    prevIsOpenRef.current = isOpen;
 
-    if (targetSub) {
-      setSelectedSubjectId(targetSub.id);
-      setIsNewSubject(false);
+    if (isJustOpening) {
+      // Reset text inputs on fresh opening only
+      setSingleTopicName('');
+      setSingleSubtopicsText('');
+      setBulkTextInput('');
+      setNewSubjectName('');
+      setNewChapterName('');
+      setNewChapterDesc('');
+      setErrorMessage('');
 
-      // Determine target chapter
-      let targetCh = initialChapterId
-        ? targetSub.chapters.find(c => c.id === initialChapterId)
-        : null;
-      if (!targetCh && targetSub.chapters.length > 0) {
-        targetCh = targetSub.chapters[0];
-      }
-
-      if (targetCh) {
-        setSelectedChapterId(targetCh.id);
-        setIsNewChapter(false);
-      } else {
-        setSelectedChapterId('');
+      if (hasNoSubjects) {
+        setIsNewSubject(true);
         setIsNewChapter(true);
+        setSelectedSubjectId('');
+        setSelectedChapterId('');
+      } else {
+        // Determine target subject
+        let targetSub = initialSubjectId
+          ? currentExam.subjects.find(s => s.id === initialSubjectId)
+          : null;
+        if (!targetSub) {
+          targetSub = currentExam.subjects.find(s => s.id === selectedSubjectId) || currentExam.subjects[0];
+        }
+
+        if (targetSub) {
+          setSelectedSubjectId(targetSub.id);
+          setIsNewSubject(false);
+
+          // Determine target chapter
+          let targetCh = initialChapterId
+            ? targetSub.chapters.find(c => c.id === initialChapterId)
+            : null;
+          if (!targetCh && targetSub.chapters.length > 0) {
+            targetCh = targetSub.chapters[0];
+          }
+
+          if (targetCh) {
+            setSelectedChapterId(targetCh.id);
+            setIsNewChapter(false);
+          } else {
+            setSelectedChapterId('');
+            setIsNewChapter(true);
+          }
+        }
       }
+
+      // Auto-focus topic name input on modal open
+      setTimeout(() => {
+        topicInputRef.current?.focus();
+      }, 75);
     }
-  }, [isOpen, initialSubjectId, initialChapterId, currentExam]);
+  }, [isOpen, initialSubjectId, initialChapterId, currentExam, hasNoSubjects]);
 
   const subjectMatch = currentExam?.subjects.find(s => s.id === selectedSubjectId);
   const chapterMatch = subjectMatch?.chapters.find(c => c.id === selectedChapterId);
@@ -184,10 +199,14 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
 
     if (effectiveIsNewSubject && !newSubjectName.trim()) {
       setErrorMessage('Please enter a Subject Name');
+      soundManager.playError();
+      haptics.warning();
       return;
     }
     if (effectiveIsNewChapter && !newChapterName.trim()) {
       setErrorMessage('Please enter a Chapter Name');
+      soundManager.playError();
+      haptics.warning();
       return;
     }
 
@@ -203,6 +222,9 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
         // If adding to an existing chapter, topic name is required
         if (!effectiveIsNewChapter && !effectiveIsNewSubject) {
           setErrorMessage('Please enter a Topic Name');
+          topicInputRef.current?.focus();
+          soundManager.playError();
+          haptics.warning();
           return;
         }
       } else {
@@ -223,6 +245,8 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
     } else {
       if (parsedBulkTopics.length === 0 && !effectiveIsNewChapter && !effectiveIsNewSubject) {
         setErrorMessage('Please paste at least one topic to import');
+        soundManager.playError();
+        haptics.warning();
         return;
       }
       topicsToCreate = parsedBulkTopics;
@@ -267,7 +291,10 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
       }}
     >
       <div
-        className="relative w-full max-w-lg sm:max-w-xl rounded-t-3xl sm:rounded-3xl bg-white dark:bg-[#12131A] border-t sm:border border-slate-200/90 dark:border-[#242533] shadow-2xl overflow-hidden max-h-[92vh] flex flex-col overscroll-contain animate-slide-up sm:animate-none"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-topic-modal-title"
+        className="relative w-full max-w-lg sm:max-w-xl rounded-t-3xl sm:rounded-3xl bg-white dark:bg-[#12131A] border-t sm:border border-slate-200/90 dark:border-[#242533] shadow-2xl overflow-hidden max-h-[92vh] flex flex-col overscroll-contain animate-slide-up sm:animate-none add-topic-modal modal-container select-text"
         onClick={e => e.stopPropagation()}
       >
         {/* Mobile Pull-Down Drag Handle Pill */}
@@ -282,7 +309,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+              <h3 id="add-topic-modal-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                 Add Topics to Syllabus
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -392,9 +419,12 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                     <input
                       type="text"
                       value={newSubjectName}
-                      onChange={(e) => setNewSubjectName(e.target.value)}
+                      onChange={(e) => {
+                        setNewSubjectName(e.target.value);
+                        if (errorMessage) setErrorMessage('');
+                      }}
                       placeholder="e.g. Quantitative Aptitude"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101117] border border-slate-200 dark:border-[#2A2B3D] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101117] border border-slate-200 dark:border-[#2A2B3D] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs add-topic-input select-text"
                       required
                       autoFocus={hasNoSubjects}
                     />
@@ -462,9 +492,12 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                   <input
                     type="text"
                     value={newChapterName}
-                    onChange={(e) => setNewChapterName(e.target.value)}
+                    onChange={(e) => {
+                      setNewChapterName(e.target.value);
+                      if (errorMessage) setErrorMessage('');
+                    }}
                     placeholder="e.g. Modern History / Algebra"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101117] border border-slate-200 dark:border-[#2A2B3D] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#101117] border border-slate-200 dark:border-[#2A2B3D] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs add-topic-input select-text"
                     required
                   />
                 ) : (
@@ -573,10 +606,13 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
 
                 <textarea
                   value={bulkTextInput}
-                  onChange={(e) => setBulkTextInput(e.target.value)}
+                  onChange={(e) => {
+                    setBulkTextInput(e.target.value);
+                    if (errorMessage) setErrorMessage('');
+                  }}
                   placeholder={`Percentage & Fraction Conversions\nProfit, Loss & Discount Formulas\nSimple & Compound Interest\nRatio & Proportion Tricks\nTime, Speed & Distance`}
                   rows={5}
-                  className="w-full p-3.5 rounded-2xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-normal text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 leading-relaxed transition-all resize-y shadow-2xs"
+                  className="w-full p-3.5 rounded-2xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-normal text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 leading-relaxed transition-all resize-y shadow-2xs add-topic-input select-text"
                   required={creationMode === 'bulk'}
                 />
               </div>
@@ -633,23 +669,44 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                   )}
                 </div>
                 <input
+                  ref={topicInputRef}
                   type="text"
+                  name="topicName"
+                  autoComplete="off"
                   value={singleTopicName}
                   onChange={(e) => {
                     setSingleTopicName(e.target.value);
                     if (errorMessage) setErrorMessage('');
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSubmit(e);
+                    }
+                  }}
                   placeholder={
                     effectiveIsNewChapter
-                      ? "e.g. Percentage & Fractional Conversions (Optional)"
-                      : "e.g. Percentage & Fractional Conversions"
+                      ? "Type topic name here (Optional for new chapter)"
+                      : "Type topic name here (e.g. Percentage Basics)..."
                   }
-                  className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border ${
+                  className={`w-full px-3.5 py-2.5 rounded-xl add-topic-input select-text border ${
                     errorMessage && !singleTopicName.trim() && !effectiveIsNewChapter && !effectiveIsNewSubject
-                      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/20'
+                      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/30 ring-2 ring-rose-500/20'
                       : 'border-slate-200 dark:border-[#272738] focus:border-indigo-500 focus:ring-indigo-500/20'
-                  } text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 shadow-2xs`}
+                  } text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 shadow-2xs transition-all`}
                 />
+                {errorMessage && !singleTopicName.trim() && !effectiveIsNewChapter && !effectiveIsNewSubject ? (
+                  <p className="text-[11px] font-semibold text-rose-500 flex items-center gap-1 mt-1 animate-shake">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>Please enter a Topic Name before clicking Add</span>
+                  </p>
+                ) : (
+                  !singleTopicName.trim() && !effectiveIsNewChapter && !effectiveIsNewSubject && (
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-1">
+                      <span>💡 Type topic name above & press Enter or click "+ Add Topic"</span>
+                    </p>
+                  )
+                )}
               </div>
 
               {/* SEGMENTED DIFFICULTY PILLS (SINGLE TOPIC) */}
@@ -699,7 +756,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                     onChange={(e) => setSingleWeightage(e.target.value)}
                     onFocus={(e) => e.target.select()}
                     placeholder="e.g. 4"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs add-topic-input select-text"
                   />
                 </div>
 
@@ -712,7 +769,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
                     value={singleSubtopicsText}
                     onChange={(e) => setSingleSubtopicsText(e.target.value)}
                     placeholder="Fractions, Percent Changes"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50/80 dark:bg-[#151620] border border-slate-200 dark:border-[#272738] text-xs sm:text-[13px] font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs add-topic-input select-text"
                   />
                 </div>
               </div>
@@ -735,27 +792,8 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
 
             <button
               type="submit"
-              disabled={
-                effectiveIsNewSubject
-                  ? !newSubjectName.trim() || !newChapterName.trim()
-                  : effectiveIsNewChapter
-                    ? !newChapterName.trim()
-                    : creationMode === 'bulk'
-                      ? parsedBulkTopics.length === 0
-                      : !singleTopicName.trim()
-              }
               onClick={() => haptics.medium()}
-              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 min-h-[42px] tap-bounce ${
-                (effectiveIsNewSubject
-                  ? !newSubjectName.trim() || !newChapterName.trim()
-                  : effectiveIsNewChapter
-                    ? !newChapterName.trim()
-                    : creationMode === 'bulk'
-                      ? parsedBulkTopics.length === 0
-                      : !singleTopicName.trim())
-                  ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
-                  : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/25 active:scale-98 cursor-pointer'
-              }`}
+              className="px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 min-h-[42px] tap-bounce bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white shadow-md shadow-indigo-500/25 active:scale-98 cursor-pointer"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>
