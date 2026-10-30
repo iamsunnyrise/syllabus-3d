@@ -5128,3 +5128,80 @@ html.warm-cream .add-topic-modal textarea.add-topic-input::placeholder {
   opacity: 0.85 !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   TACTILE 3D KEYBOARD SHORTCUTS PALETTE & MECHANICAL KEYCAPS
+   ═══════════════════════════════════════════════════════════════ */
+.shortcut-keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight: 800;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-bottom-width: 2.5px;
+  line-height: 1;
+  user-select: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shortcut-keycap:active {
+  transform: translateY(1px);
+  border-bottom-width: 1.5px;
+}
+
+/* Light Mode Keycaps & Palette */
+html:not(.dark):not(.warm-cream) .shortcut-keycap {
+  background: linear-gradient(to bottom, #FFFFFF, #F1F5F9);
+  border-color: #CBD5E1;
+  border-bottom-color: #94A3B8;
+  color: #0F172A;
+  box-shadow: 0 1.5px 0 rgba(0, 0, 0, 0.08);
+}
+
+html:not(.dark):not(.warm-cream) .shortcuts-modal-card {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.25) !important;
+}
+
+/* Dark Mode Keycaps & Palette */
+html.dark .shortcut-keycap {
+  background: linear-gradient(to bottom, #25283D, #1A1C2C);
+  border-color: #383B56;
+  border-bottom-color: #4D5175;
+  color: #F8FAFC;
+  box-shadow: 0 1.5px 0 rgba(0, 0, 0, 0.5);
+}
+
+html.dark .shortcuts-modal-card {
+  background-color: #12131D !important;
+  border-color: #26283B !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Warm-Cream Parchment Keycaps & Palette */
+html.warm-cream .shortcuts-modal-card {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  color: #38370D !important;
+  box-shadow: 0 25px 60px -15px rgba(56, 55, 13, 0.25) !important;
+}
+
+html.warm-cream .shortcuts-modal-card input {
+  background-color: #FAF5E8 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .shortcut-keycap {
+  background: linear-gradient(to bottom, #FFFDF8, #FAF2E3);
+  border-color: #D8C6A5;
+  border-bottom-color: #B5A078;
+  color: #2D2C08;
+  box-shadow: 0 1.5px 0 rgba(56, 55, 13, 0.12);
+}
+
+

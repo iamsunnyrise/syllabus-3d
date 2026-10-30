@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Keyboard,
@@ -24,7 +24,11 @@ import {
   Save,
   Check,
   Clock,
-  Menu
+  Menu,
+  Zap,
+  Compass,
+  CornerDownLeft,
+  Command
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
@@ -41,14 +45,18 @@ interface KeyboardShortcutsModalProps {
   onTriggerPrint: () => void;
 }
 
+export type ShortcutCategory = 'all' | 'navigation' | 'actions' | 'drawer';
+
 interface ShortcutItem {
-  key: string;
-  secondaryKey?: string;
+  id: string;
+  keys: string[]; // e.g. ['Ctrl', 'B'] or ['1']
+  secondaryKeys?: string[]; // e.g. ['/'] or ['Shift', '/']
   label: string;
   description: string;
   icon: React.ElementType;
-  action?: () => void;
   category: 'navigation' | 'actions' | 'drawer';
+  badge?: string;
+  action?: () => void;
 }
 
 export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
@@ -62,41 +70,87 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
   onTriggerPrint
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<ShortcutCategory>('all');
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
+
   const modalRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  // Focus search input on open
   useEffect(() => {
     if (isOpen) {
       soundManager.playClick();
       haptics.medium();
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         searchInputRef.current?.focus();
-      }, 50);
+      }, 60);
+      return () => clearTimeout(timer);
     } else {
       setSearchQuery('');
+      setSelectedCategory('all');
+      setHighlightedId(null);
     }
   }, [isOpen]);
 
+  // Handle global Esc and keyboard trigger inside modal
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
+      // Escape closes modal or clears search
       if (e.key === 'Escape') {
         e.preventDefault();
-        onClose();
+        if (searchQuery.trim()) {
+          setSearchQuery('');
+        } else {
+          onClose();
+        }
+        return;
+      }
+
+      // If user is actively typing in the search input, do not hijack normal letters
+      if (document.activeElement === searchInputRef.current) {
+        if (e.key === 'Enter') {
+          // If search has filtered results, trigger the first matching action
+          if (filteredShortcuts.length > 0 && filteredShortcuts[0].action) {
+            e.preventDefault();
+            soundManager.playClick();
+            haptics.selection();
+            filteredShortcuts[0].action!();
+          }
+        }
+        return;
+      }
+
+      // Single-key direct triggers when focus is outside the input box
+      const key = e.key.toUpperCase();
+      const matched = shortcuts.find(
+        s => s.keys.length === 1 && s.keys[0].toUpperCase() === key && s.action
+      );
+
+      if (matched && matched.action) {
+        e.preventDefault();
+        setHighlightedId(matched.id);
+        soundManager.playClick();
+        haptics.selection();
+        setTimeout(() => {
+          matched.action!();
+        }, 120);
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, searchQuery, onClose]);
 
-  if (!isOpen || (typeof window !== 'undefined' && window.innerWidth < 768)) return null;
-
-  const shortcuts: ShortcutItem[] = [
+  // Master shortcut definitions
+  const shortcuts: ShortcutItem[] = useMemo(() => [
     // 🧭 Quick View Navigation
     {
-      key: '1',
+      id: 'nav_dashboard',
+      keys: ['1'],
       label: 'Dashboard (Overview)',
-      description: 'Jump to main study dashboard & targets',
+      description: 'Main progress dashboard, daily milestones & targets',
       icon: LayoutDashboard,
       category: 'navigation',
       action: () => {
@@ -105,9 +159,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '2',
+      id: 'nav_syllabus',
+      keys: ['2'],
       label: 'Syllabus Explorer',
-      description: 'Browse subjects, chapters & topics hierarchy',
+      description: 'Explore subjects, chapters & topics hierarchy',
       icon: BookOpen,
       category: 'navigation',
       action: () => {
@@ -116,9 +171,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '3',
+      id: 'nav_planner',
+      keys: ['3'],
       label: 'Study Planner',
-      description: 'Access weekly schedule & daily study tasks',
+      description: 'Weekly study schedule & personalized task manager',
       icon: CalendarCheck,
       category: 'navigation',
       action: () => {
@@ -127,21 +183,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: 'T',
-      secondaryKey: 'Pacing',
-      label: 'Target Pacing & Forecast',
-      description: 'Calculate target exam velocity, buffer & finish line',
-      icon: Clock,
-      category: 'navigation',
-      action: () => {
-        onNavigate('pacing');
-        onClose();
-      }
-    },
-    {
-      key: '4',
+      id: 'nav_revision',
+      keys: ['4'],
       label: 'Spaced Revision',
-      description: 'Review topics due for active spaced recall',
+      description: 'Active recall spaced repetition & Leitner box review',
       icon: RotateCw,
       category: 'navigation',
       action: () => {
@@ -150,9 +195,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '5',
+      id: 'nav_weak',
+      keys: ['5'],
       label: 'Weak Topics & Traps',
-      description: 'Diagnose high-weightage error traps & weaknesses',
+      description: 'Diagnose exam traps, low-confidence areas & error log',
       icon: AlertTriangle,
       category: 'navigation',
       action: () => {
@@ -161,9 +207,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '6',
-      label: 'Syllabus Mindmap',
-      description: 'Interactive visual knowledge graph and node links',
+      id: 'nav_mindmap',
+      keys: ['6'],
+      label: 'Knowledge Mindmap',
+      description: 'Interactive visual concept graphs & knowledge node links',
       icon: BrainCircuit,
       category: 'navigation',
       action: () => {
@@ -172,9 +219,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '7',
-      label: 'Study Analytics & Heatmap',
-      description: 'Track mastery progress, streaks & study hours',
+      id: 'nav_analytics',
+      keys: ['7'],
+      label: 'Analytics & Heatmap',
+      description: 'Track mastery velocity, study streaks & completion stats',
       icon: BarChart3,
       category: 'navigation',
       action: () => {
@@ -183,7 +231,8 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '8',
+      id: 'nav_platforms',
+      keys: ['8'],
       label: 'Study Station & Hub',
       description: 'External study portals, test series & YouTube hubs',
       icon: Globe,
@@ -194,9 +243,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '9',
+      id: 'nav_settings',
+      keys: ['9'],
       label: 'App Settings',
-      description: 'Configure notifications, target exam & audio',
+      description: 'Audio preferences, target exams & profile options',
       icon: Settings,
       category: 'navigation',
       action: () => {
@@ -204,53 +254,73 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
         onClose();
       }
     },
-
-    // ⚡ Global Actions
     {
-      key: 'Ctrl + B',
-      label: 'Toggle Sidebar',
-      description: 'Expand or collapse navigation sidebar (Gemini-style)',
-      icon: Menu,
-      category: 'actions',
+      id: 'nav_pacing',
+      keys: ['T'],
+      label: 'Target Pacing & Forecast',
+      description: 'Calculate target exam velocity, buffer & finish date',
+      icon: Clock,
+      category: 'navigation',
+      action: () => {
+        onNavigate('pacing');
+        onClose();
+      }
     },
+
+    // ⚡ Global Commands
     {
-      key: 'Ctrl + K',
-      secondaryKey: '/',
+      id: 'act_search',
+      keys: ['Ctrl', 'K'],
+      secondaryKeys: ['/'],
       label: 'Search Palette',
-      description: 'Instant search topics, formulas & chapters',
+      description: 'Universal instant search across topics, formulas & notes',
       icon: Search,
       category: 'actions',
+      badge: 'UNIVERSAL',
       action: () => {
         onClose();
-        setTimeout(onOpenSearch, 50);
+        setTimeout(onOpenSearch, 60);
       }
     },
     {
-      key: 'F',
+      id: 'act_sidebar',
+      keys: ['Ctrl', 'B'],
+      label: 'Toggle Sidebar',
+      description: 'Expand or collapse navigation dock for focus mode',
+      icon: Menu,
+      category: 'actions'
+    },
+    {
+      id: 'act_focus',
+      keys: ['F'],
       label: '3D Focus Chamber',
-      description: 'Launch Pomodoro timer & ambient sound session',
+      description: 'Launch Pomodoro timer with immersive ambient soundscapes',
       icon: Timer,
       category: 'actions',
+      badge: 'AUDIO',
       action: () => {
         onClose();
-        setTimeout(onOpenFocus, 50);
+        setTimeout(onOpenFocus, 60);
       }
     },
     {
-      key: 'N',
+      id: 'act_add_topic',
+      keys: ['N'],
       label: 'Add Custom Topic',
-      description: 'Create a new syllabus topic or subtopic',
+      description: 'Create new syllabus subjects, chapters & topics',
       icon: Plus,
       category: 'actions',
+      badge: 'FAST',
       action: () => {
         onClose();
-        setTimeout(onOpenAddTopic, 50);
+        setTimeout(onOpenAddTopic, 60);
       }
     },
     {
-      key: 'D',
+      id: 'act_theme',
+      keys: ['D'],
       label: 'Toggle Theme',
-      description: 'Switch between Light, Dark, and OLED modes',
+      description: 'Switch between Dark, Warm Parchment & Clean Light modes',
       icon: Moon,
       category: 'actions',
       action: () => {
@@ -258,10 +328,11 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: 'Ctrl + P',
-      secondaryKey: 'P',
-      label: 'Print Desk Revision',
-      description: 'Generate ink-friendly printable cheatsheet',
+      id: 'act_print',
+      keys: ['Ctrl', 'P'],
+      secondaryKeys: ['P'],
+      label: 'Print Desk Cheatsheet',
+      description: 'Generate clean ink-friendly printable study sheet',
       icon: Printer,
       category: 'actions',
       action: () => {
@@ -270,17 +341,19 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
       }
     },
     {
-      key: '?',
-      secondaryKey: 'Shift + /',
+      id: 'act_shortcuts',
+      keys: ['?'],
+      secondaryKeys: ['Shift', '/'],
       label: 'Shortcuts Cheatsheet',
-      description: 'Open or close this interactive cheatsheet',
+      description: 'Open or close this interactive keyboard control center',
       icon: Keyboard,
       category: 'actions'
     },
     {
-      key: 'Esc',
+      id: 'act_close_modal',
+      keys: ['Esc'],
       label: 'Close Active Modal',
-      description: 'Dismiss drawer, modal dialog, or search bar',
+      description: 'Dismiss open drawers, search dialogs & popups',
       icon: X,
       category: 'actions',
       action: () => onClose()
@@ -288,310 +361,365 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
 
     // 📖 Topic Detail Drawer & Study Mode
     {
-      key: '1',
+      id: 'drawer_overview',
+      keys: ['1'],
       label: 'Drawer: Overview Tab',
-      description: 'Concept checkpoints & study metrics',
+      description: 'Concept checkpoints, weightage marks & mastery rating',
       icon: LayoutDashboard,
       category: 'drawer'
     },
     {
-      key: '2',
+      id: 'drawer_lectures',
+      keys: ['2'],
       label: 'Drawer: Lectures Tab',
-      description: 'Video lectures, YouTube timestamps & player',
+      description: 'Curated YouTube video lectures & timestamped study notes',
       icon: Video,
       category: 'drawer'
     },
     {
-      key: '3',
+      id: 'drawer_notes',
+      keys: ['3'],
       label: 'Drawer: Notes Tab',
-      description: 'Markdown study notes, PDF highlights & formulas',
+      description: 'Rich markdown notes, PDF attachments & key formulas',
       icon: FileText,
       category: 'drawer'
     },
     {
-      key: '4',
+      id: 'drawer_mistakes',
+      keys: ['4'],
       label: 'Drawer: Mistakes Tab',
-      description: 'Active traps, errors & revision logs',
+      description: 'Active exam traps, error logs & concept clarification',
       icon: ShieldAlert,
       category: 'drawer'
     },
     {
-      key: '← / →',
+      id: 'drawer_switch_tabs',
+      keys: ['←', '→'],
       label: 'Switch Adjacent Tabs',
-      description: 'Cycle sequentially through drawer tabs',
+      description: 'Cycle sequentially through drawer study sections',
       icon: ArrowLeftRight,
       category: 'drawer'
     },
     {
-      key: 'Ctrl + S',
+      id: 'drawer_save_notes',
+      keys: ['Ctrl', 'S'],
       label: 'Quick Save Notes',
-      description: 'Instant save markdown notes without clicking',
+      description: 'Instant auto-save topic markdown notes without clicking',
       icon: Save,
       category: 'drawer'
     }
-  ];
+  ], [onNavigate, onClose, onOpenSearch, onOpenFocus, onOpenAddTopic, onToggleTheme, onTriggerPrint]);
 
-  const filteredShortcuts = shortcuts.filter(s => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase();
+  // Filtering by category and search query
+  const filteredShortcuts = useMemo(() => {
+    let result = shortcuts;
+
+    if (selectedCategory !== 'all') {
+      result = result.filter(s => s.category === selectedCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter(s => {
+        const matchesLabel = s.label.toLowerCase().includes(q);
+        const matchesDesc = s.description.toLowerCase().includes(q);
+        const matchesKey = s.keys.some(k => k.toLowerCase().includes(q));
+        const matchesSecondary = s.secondaryKeys?.some(k => k.toLowerCase().includes(q));
+        const matchesCategory = s.category.toLowerCase().includes(q);
+        return matchesLabel || matchesDesc || matchesKey || matchesSecondary || matchesCategory;
+      });
+    }
+
+    return result;
+  }, [shortcuts, selectedCategory, searchQuery]);
+
+  // Counts for Category Tabs
+  const counts = useMemo(() => {
+    return {
+      all: shortcuts.length,
+      navigation: shortcuts.filter(s => s.category === 'navigation').length,
+      actions: shortcuts.filter(s => s.category === 'actions').length,
+      drawer: shortcuts.filter(s => s.category === 'drawer').length
+    };
+  }, [shortcuts]);
+
+  // Helper to render physical 3D keycaps
+  const renderKeycapGroup = (keys: string[], secondaryKeys?: string[]) => {
     return (
-      s.label.toLowerCase().includes(q) ||
-      s.description.toLowerCase().includes(q) ||
-      s.key.toLowerCase().includes(q) ||
-      (s.secondaryKey && s.secondaryKey.toLowerCase().includes(q))
-    );
-  });
+      <div className="flex items-center gap-1.5 shrink-0 select-none">
+        <div className="flex items-center gap-1">
+          {keys.map((k, idx) => (
+            <React.Fragment key={idx}>
+              {idx > 0 && <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">+</span>}
+              <kbd className="shortcut-keycap px-2 py-1 text-xs min-w-[24px] text-center">
+                {k}
+              </kbd>
+            </React.Fragment>
+          ))}
+        </div>
 
-  const navShortcuts = filteredShortcuts.filter(s => s.category === 'navigation');
-  const actionShortcuts = filteredShortcuts.filter(s => s.category === 'actions');
-  const drawerShortcuts = filteredShortcuts.filter(s => s.category === 'drawer');
+        {secondaryKeys && secondaryKeys.length > 0 && (
+          <>
+            <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-0.5">
+              or
+            </span>
+            <div className="flex items-center gap-1">
+              {secondaryKeys.map((k, idx) => (
+                <React.Fragment key={idx}>
+                  {idx > 0 && <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">+</span>}
+                  <kbd className="shortcut-keycap px-2 py-1 text-xs min-w-[24px] text-center">
+                    {k}
+                  </kbd>
+                </React.Fragment>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  if (!isOpen || (typeof window !== 'undefined' && window.innerWidth < 768)) return null;
 
   return createPortal(
     <div
-      className="hidden md:flex fixed inset-0 z-[110] items-center justify-center p-3 sm:p-5 bg-black/75 backdrop-blur-md animate-fade-in select-none"
+      className="hidden md:flex fixed inset-0 z-[120] items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-md animate-fade-in select-none"
       onClick={() => {
         haptics.light();
         onClose();
       }}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="shortcuts-modal-title"
+      aria-labelledby="shortcuts-palette-title"
     >
       <div
         ref={modalRef}
         onClick={e => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-white dark:bg-[#13141F] border border-[#E2E8F0] dark:border-[#28293D] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] transition-all"
+        className="relative w-full max-w-3xl bg-white dark:bg-[#12131D] border border-slate-200/90 dark:border-[#26283B] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[88vh] shortcuts-modal-card modal-container transition-all"
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#E2E8F0] dark:border-[#242636] bg-slate-50/80 dark:bg-[#181926]/80 backdrop-blur-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#2563EB]/10 dark:bg-[#7AA2F7]/15 text-[#2563EB] dark:text-[#7AA2F7] flex items-center justify-center border border-[#2563EB]/20 dark:border-[#7AA2F7]/30 shrink-0">
-              <Keyboard className="w-5 h-5" />
+        {/* Modal Top Header */}
+        <div className="flex items-center justify-between px-6 py-4.5 border-b border-slate-100 dark:border-[#1E2030] bg-slate-50/70 dark:bg-[#161825]/90 shrink-0">
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs shrink-0">
+              <Keyboard className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
-              <h2
-                id="shortcuts-modal-title"
-                className="text-[15px] sm:text-base font-black text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-2"
-              >
-                Keyboard Shortcuts
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-[#2563EB]/15 text-[#2563EB] dark:bg-[#7AA2F7]/20 dark:text-[#7AA2F7] border border-[#2563EB]/30 dark:border-[#7AA2F7]/40 font-bold uppercase">
-                  Power User ♿
+              <div className="flex items-center gap-2">
+                <h2
+                  id="shortcuts-palette-title"
+                  className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight"
+                >
+                  Keyboard Shortcuts
+                </h2>
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500/15 to-indigo-500/15 border border-amber-500/30 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider">
+                  <Zap className="w-3 h-3 text-amber-500 fill-amber-500" />
+                  Speedrun
                 </span>
-              </h2>
-              <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
-                Navigate and master the app with lightning-fast keyboard controls
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                Navigate views and execute study actions with lightning speed
               </p>
             </div>
           </div>
 
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              haptics.light();
-              onClose();
-            }}
-            className="p-2 rounded-xl text-[#64748B] hover:text-[#0F172A] dark:text-[#94A3B8] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#202234] transition-colors cursor-pointer active:scale-95"
-            title="Close (Esc)"
-            aria-label="Close shortcuts modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <kbd className="hidden sm:inline-flex shortcut-keycap px-2 py-0.5 text-[11px] text-slate-500 dark:text-slate-400">
+              Esc
+            </kbd>
+            <button
+              onClick={() => {
+                soundManager.playClick();
+                haptics.light();
+                onClose();
+              }}
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer active:scale-95"
+              title="Close (Esc)"
+              aria-label="Close shortcuts modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Search & Filter Bar */}
-        <div className="px-4 sm:px-6 py-2.5 border-b border-[#E2E8F0] dark:border-[#242636] bg-white dark:bg-[#13141F]">
+        {/* Command Search Bar & Category Filter Bar */}
+        <div className="px-6 py-3.5 border-b border-slate-100 dark:border-[#1E2030] bg-white dark:bg-[#12131D] space-y-3 shrink-0">
+          {/* Search Input */}
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 text-[#64748B] dark:text-[#94A3B8] absolute left-3 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
             <input
               ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search shortcuts (e.g. syllabus, timer, save, print)..."
-              className="w-full pl-9 pr-8 py-2 rounded-xl text-xs sm:text-[13px] font-medium bg-slate-100 dark:bg-[#1C1E2C] text-[#0F172A] dark:text-[#F8FAFC] placeholder-[#64748B] dark:placeholder-[#6B7280] border border-transparent focus:border-[#2563EB] dark:focus:border-[#7AA2F7] focus:outline-none transition-all"
+              placeholder="Search shortcuts by action or key (e.g. '1', 'timer', 'theme', 'print')..."
+              className="w-full pl-10 pr-24 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold bg-slate-50 dark:bg-[#171826] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200/80 dark:border-[#27293D] focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
             />
-            {searchQuery && (
+            <div className="absolute right-3 flex items-center gap-2">
+              {searchQuery ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery('');
+                    searchInputRef.current?.focus();
+                  }}
+                  className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+                  title="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              ) : (
+                <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                  {filteredShortcuts.length} total
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Segmented Category Filter Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
+            {[
+              { id: 'all', label: 'All Shortcuts', count: counts.all, icon: Command },
+              { id: 'navigation', label: '🧭 Views & Navigation', count: counts.navigation, icon: Compass },
+              { id: 'actions', label: '⚡ Global Actions', count: counts.actions, icon: Zap },
+              { id: 'drawer', label: '📖 Topic Study Drawer', count: counts.drawer, icon: BookOpen }
+            ].map(tab => (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 p-1 rounded-md text-[#64748B] hover:text-[#0F172A] dark:hover:text-white transition-colors"
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setSelectedCategory(tab.id as ShortcutCategory);
+                }}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
+                  selectedCategory === tab.id
+                    ? 'bg-indigo-600 text-white shadow-xs shadow-indigo-500/25'
+                    : 'bg-slate-100/80 dark:bg-[#191B2A] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#202235]'
+                }`}
               >
-                <X className="w-3.5 h-3.5" />
+                <span>{tab.label}</span>
+                <span
+                  className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
+                    selectedCategory === tab.id
+                      ? 'bg-white/20 text-white'
+                      : 'bg-slate-200/80 dark:bg-[#25283D] text-slate-500 dark:text-slate-400'
+                  }`}
+                >
+                  {tab.count}
+                </span>
               </button>
-            )}
+            ))}
           </div>
         </div>
 
         {/* Scrollable Shortcut List */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 custom-scrollbar">
-          {/* Section: Quick View Navigation */}
-          {navShortcuts.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 px-1">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#7AA2F7]">
-                  🧭 Quick View Navigation (Single Keys)
-                </span>
-                <span className="h-px flex-1 bg-[#E2E8F0] dark:bg-[#242636]" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {navShortcuts.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        if (item.action) {
-                          soundManager.playClick();
-                          haptics.selection();
-                          item.action();
-                        }
-                      }}
-                      className="group flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#181928] border border-[#E2E8F0] dark:border-[#28293D] hover:border-[#2563EB] dark:hover:border-[#7AA2F7] hover:bg-[#EFF6FF] dark:hover:bg-[#1E2238] transition-all text-left cursor-pointer active:scale-[0.98]"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                        <div className="p-1.5 rounded-lg bg-white dark:bg-[#24263A] border border-[#E2E8F0] dark:border-[#33354C] text-[#2563EB] dark:text-[#7AA2F7] group-hover:scale-105 transition-transform shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-xs sm:text-[13px] font-bold text-[#0F172A] dark:text-[#F8FAFC] truncate">
-                            {item.label}
-                          </div>
-                          <div className="text-[11px] text-[#64748B] dark:text-[#94A3B8] truncate">
-                            {item.description}
-                          </div>
-                        </div>
-                      </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-white dark:bg-[#202234] border border-[#CBD5E1] dark:border-[#33354C] text-xs font-mono font-black text-[#0F172A] dark:text-[#F8FAFC] shadow-xs shrink-0 group-hover:border-[#2563EB] dark:group-hover:border-[#7AA2F7]">
-                        {item.key}
-                      </kbd>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5 custom-scrollbar select-text">
+          {filteredShortcuts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {filteredShortcuts.map((item) => {
+                const Icon = item.icon;
+                const isNav = item.category === 'navigation';
+                const isAct = item.category === 'actions';
+                const isHighlighted = highlightedId === item.id;
 
-          {/* Section: Global Actions */}
-          {actionShortcuts.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 px-1">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                  ⚡ Global Actions
-                </span>
-                <span className="h-px flex-1 bg-[#E2E8F0] dark:bg-[#242636]" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {actionShortcuts.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        if (item.action) {
-                          soundManager.playClick();
-                          haptics.selection();
-                          item.action();
-                        }
-                      }}
-                      className="group flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#181928] border border-[#E2E8F0] dark:border-[#28293D] hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 transition-all text-left cursor-pointer active:scale-[0.98]"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                        <div className="p-1.5 rounded-lg bg-white dark:bg-[#24263A] border border-[#E2E8F0] dark:border-[#33354C] text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-xs sm:text-[13px] font-bold text-[#0F172A] dark:text-[#F8FAFC] truncate">
-                            {item.label}
-                          </div>
-                          <div className="text-[11px] text-[#64748B] dark:text-[#94A3B8] truncate">
-                            {item.description}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 shrink-0">
-                        <kbd className="px-2 py-1 rounded-lg bg-white dark:bg-[#202234] border border-[#CBD5E1] dark:border-[#33354C] text-xs font-mono font-black text-[#0F172A] dark:text-[#F8FAFC] shadow-xs">
-                          {item.key}
-                        </kbd>
-                        {item.secondaryKey && (
-                          <>
-                            <span className="text-[10px] text-[#94A3B8]">or</span>
-                            <kbd className="px-2 py-1 rounded-lg bg-white dark:bg-[#202234] border border-[#CBD5E1] dark:border-[#33354C] text-xs font-mono font-black text-[#0F172A] dark:text-[#F8FAFC] shadow-xs">
-                              {item.secondaryKey}
-                            </kbd>
-                          </>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+                const iconBoxStyle = isNav
+                  ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/60 dark:border-indigo-500/20'
+                  : isAct
+                    ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/60 dark:border-emerald-500/20'
+                    : 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/60 dark:border-amber-500/20';
 
-          {/* Section: Drawer & Study Mode */}
-          {drawerShortcuts.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 px-1">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                  📖 Topic Drawer & Study Mode (Inside Drawer)
-                </span>
-                <span className="h-px flex-1 bg-[#E2E8F0] dark:bg-[#242636]" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {drawerShortcuts.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#181928] border border-[#E2E8F0] dark:border-[#28293D] text-left select-none"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                        <div className="p-1.5 rounded-lg bg-white dark:bg-[#24263A] border border-[#E2E8F0] dark:border-[#33354C] text-amber-600 dark:text-amber-400 shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-xs sm:text-[13px] font-bold text-[#0F172A] dark:text-[#F8FAFC] truncate">
-                            {item.label}
-                          </div>
-                          <div className="text-[11px] text-[#64748B] dark:text-[#94A3B8] truncate">
-                            {item.description}
-                          </div>
-                        </div>
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => {
+                      if (item.action) {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setHighlightedId(item.id);
+                        setTimeout(() => {
+                          item.action!();
+                        }, 80);
+                      }
+                    }}
+                    className={`group flex items-center justify-between p-3 rounded-2xl border text-left transition-all active:scale-[0.98] ${
+                      item.action ? 'cursor-pointer' : 'cursor-default'
+                    } ${
+                      isHighlighted
+                        ? 'ring-2 ring-indigo-500 bg-indigo-50/70 dark:bg-indigo-500/15 border-indigo-400'
+                        : 'bg-slate-50/70 dark:bg-[#161726] border-slate-200/80 dark:border-[#232538] hover:border-indigo-400 dark:hover:border-indigo-500/50 hover:bg-white dark:hover:bg-[#1B1D2E] hover:shadow-sm'
+                    }`}
+                  >
+                    {/* Left Icon & Text */}
+                    <div className="flex items-center gap-3 min-w-0 pr-3">
+                      <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${iconBoxStyle}`}>
+                        <Icon className="w-4 h-4 stroke-[2.2]" />
                       </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-white dark:bg-[#202234] border border-[#CBD5E1] dark:border-[#33354C] text-xs font-mono font-black text-[#0F172A] dark:text-[#F8FAFC] shadow-xs shrink-0">
-                        {item.key}
-                      </kbd>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs sm:text-[13px] font-bold text-slate-900 dark:text-white truncate">
+                            {item.label}
+                          </span>
+                          {item.badge && (
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-wide">
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight line-clamp-1 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
 
-          {filteredShortcuts.length === 0 && (
-            <div className="py-12 text-center text-[#64748B] dark:text-[#94A3B8]">
-              <p className="text-sm font-semibold">No shortcuts found matching "{searchQuery}"</p>
+                    {/* Right Tactile Keycaps */}
+                    {renderKeycapGroup(item.keys, item.secondaryKeys)}
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="py-14 text-center">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-[#1B1D2C] border border-slate-200 dark:border-[#2A2C40] flex items-center justify-center mx-auto text-slate-400 mb-3">
+                <Search className="w-6 h-6" />
+              </div>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+                No shortcuts found for "{searchQuery}"
+              </p>
+              <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+                Try searching for general terms like 'timer', 'topic', 'notes', or view names.
+              </p>
               <button
-                onClick={() => setSearchQuery('')}
-                className="mt-2 text-xs font-bold text-[#2563EB] dark:text-[#7AA2F7] hover:underline"
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                  searchInputRef.current?.focus();
+                }}
+                className="mt-3.5 px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all cursor-pointer"
               >
-                Clear search filter
+                Reset Search Filter
               </button>
             </div>
           )}
         </div>
 
-        {/* Footer Hint */}
-        <div className="px-4 sm:px-6 py-3 border-t border-[#E2E8F0] dark:border-[#242636] bg-slate-50/90 dark:bg-[#161726]/90 flex items-center justify-between text-xs text-[#64748B] dark:text-[#94A3B8]">
+        {/* Modal Bottom Footer */}
+        <div className="px-6 py-3 border-t border-slate-100 dark:border-[#1E2030] bg-slate-50/80 dark:bg-[#151624] flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
           <div className="flex items-center gap-2">
-            <Check className="w-3.5 h-3.5 text-emerald-500" />
-            <span>Shortcuts are automatically paused when typing in inputs or notes.</span>
+            <Check className="w-3.5 h-3.5 text-emerald-500 stroke-[3] shrink-0" />
+            <span className="font-medium">
+              Shortcuts pause automatically while typing in note editors & search inputs.
+            </span>
           </div>
-          <div className="hidden sm:flex items-center gap-1.5 font-mono text-[11px]">
-            <span>Press</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-[#202234] border border-[#CBD5E1] dark:border-[#33354C] font-bold">
-              Esc
-            </kbd>
-            <span>to close</span>
+
+          <div className="hidden sm:flex items-center gap-2 font-mono text-[11px]">
+            <span className="text-slate-400">Click any row or press key to run</span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <div className="flex items-center gap-1">
+              <kbd className="shortcut-keycap px-1.5 py-0.5 text-[10px]">Esc</kbd>
+              <span>to dismiss</span>
+            </div>
           </div>
         </div>
       </div>
