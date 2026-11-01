@@ -1502,10 +1502,10 @@ export const FixedPrepositionsView: React.FC = () => {
           6. MODE: ACTIVE RECALL FLASHCARDS
          ────────────────────────────────────────────────────────── */}
       {activeMode === 'flashcards' && (
-        <div className="max-w-2xl mx-auto space-y-6">
-          <div className="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-between text-xs text-purple-700 dark:text-purple-300">
+        <div className="max-w-4xl xl:max-w-5xl mx-auto space-y-6">
+          <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-between text-xs sm:text-sm text-purple-700 dark:text-purple-300">
             <div className="flex items-center gap-2">
-              <Brain className="w-4 h-4 text-purple-500 shrink-0" />
+              <Brain className="w-5 h-5 text-purple-500 shrink-0" />
               <span>
                 <strong>Active Recall:</strong> Guess the blank preposition first, then flip to verify! Use Space/Enter to flip, Arrows to navigate.
               </span>
@@ -1513,9 +1513,9 @@ export const FixedPrepositionsView: React.FC = () => {
             <button
               type="button"
               onClick={handleShuffleFlashcards}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 font-bold shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 font-bold shrink-0 cursor-pointer transition-all"
             >
-              <Shuffle className="w-3.5 h-3.5" />
+              <Shuffle className="w-4 h-4" />
               <span>Shuffle</span>
             </button>
           </div>
@@ -1528,18 +1528,18 @@ export const FixedPrepositionsView: React.FC = () => {
             currentFlashcard && (
               <div className="space-y-4">
                 <div
-                  className={`min-h-[360px] sm:min-h-[400px] rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative border shadow-xl ${
+                  className={`min-h-[400px] sm:min-h-[460px] rounded-3xl p-6 sm:p-10 lg:p-12 flex flex-col justify-between transition-all duration-300 relative border shadow-2xl ${
                     isFlashcardFlipped
                       ? 'bg-gradient-to-br from-indigo-950 via-slate-900 to-sky-950 text-white border-sky-500/30'
                       : 'bg-white dark:bg-[#0E101B] border-slate-200 dark:border-white/10 text-slate-900 dark:text-white'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-400">
+                    <span className="text-xs sm:text-sm font-bold text-slate-400">
                       Card {flashcardIndex + 1} of {filteredItems.length}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                      <span className="text-[11px] sm:text-xs uppercase tracking-wider font-black px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">
                         {currentFlashcard.category}
                       </span>
                       <button
@@ -1553,49 +1553,49 @@ export const FixedPrepositionsView: React.FC = () => {
                   </div>
 
                   {!isFlashcardFlipped ? (
-                    <div className="fixed-prep-flashcard-front my-auto py-8 text-center space-y-5">
-                      <div className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                    <div className="fixed-prep-flashcard-front my-auto py-8 text-center space-y-6">
+                      <div className="text-xs sm:text-sm font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
                         Fill in the correct preposition:
                       </div>
-                      <div className="fixed-prep-word text-2xl sm:text-3xl font-black text-slate-950 dark:text-white tracking-tight">
-                        {currentFlashcard.word} + <span className="text-sky-600 dark:text-sky-400 underline decoration-dashed decoration-2 font-black">_____</span> ?
+                      <div className="fixed-prep-word text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 dark:text-white tracking-tight">
+                        {currentFlashcard.word} + <span className="text-sky-600 dark:text-sky-400 underline decoration-dashed decoration-3 font-black">_____</span> ?
                       </div>
-                      <div className="sentence-box max-w-lg mx-auto p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/5 text-base sm:text-lg font-medium italic text-slate-800 dark:text-slate-100">
+                      <div className="sentence-box max-w-3xl mx-auto p-5 sm:p-7 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/5 text-lg sm:text-xl lg:text-2xl font-medium italic text-slate-800 dark:text-slate-100 leading-relaxed shadow-xs">
                         "{currentFlashcard.example.replace(
                           new RegExp(`\\b${currentFlashcard.preposition}\\b`, 'i'),
                           '_______'
                         )}"
                       </div>
-                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2 font-medium">
+                      <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2 font-medium">
                         <span className="fixed-prep-label text-slate-500 dark:text-slate-400 font-bold">अर्थ का संकेत:</span>
-                        <span className="fixed-prep-hindi-text font-black text-amber-700 dark:text-amber-300">{currentFlashcard.hindiMeaning}</span>
+                        <span className="fixed-prep-hindi-text font-black text-amber-700 dark:text-amber-300 text-sm sm:text-base">{currentFlashcard.hindiMeaning}</span>
                       </div>
                     </div>
                   ) : (
-                    <div className="my-auto py-6 text-center space-y-4 animate-fade-in">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
+                    <div className="my-auto py-6 text-center space-y-5 animate-fade-in">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs sm:text-sm font-bold">
+                        <CheckCircle2 className="w-4 h-4" />
                         <span>Preposition Revealed!</span>
                       </div>
-                      <div className="text-3xl sm:text-4xl font-black text-white flex items-center justify-center gap-2">
+                      <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-white flex items-center justify-center gap-3 flex-wrap">
                         <span>{currentFlashcard.word}</span>
-                        <span className="px-3 py-1 rounded-xl bg-sky-500 text-white font-black shadow-lg">
+                        <span className="px-4 py-1.5 rounded-2xl bg-sky-500 text-white font-black shadow-xl">
                           {currentFlashcard.preposition.toUpperCase()}
                         </span>
                       </div>
-                      <div className="text-lg font-black text-amber-300">
+                      <div className="text-xl sm:text-2xl font-black text-amber-300">
                         {currentFlashcard.hindiMeaning}
                       </div>
-                      <div className="text-xs text-slate-200 max-w-md mx-auto font-medium">
+                      <div className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto font-medium">
                         {currentFlashcard.englishMeaning}
                       </div>
-                      <div className="p-3.5 rounded-2xl bg-white/[0.08] border border-white/15 text-xs text-slate-100 text-left max-w-lg mx-auto">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.08] border border-white/15 text-sm sm:text-base text-slate-100 text-left max-w-3xl mx-auto leading-relaxed shadow-xs">
                         <span className="font-bold text-sky-300 block mb-1">Full Sentence:</span>
                         <p className="italic font-medium">"{currentFlashcard.example}"</p>
                       </div>
                       {currentFlashcard.examTrapTip && (
-                        <div className="p-2.5 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-100 text-xs text-left max-w-lg mx-auto flex items-start gap-2">
-                          <AlertTriangle className="w-4 h-4 text-rose-300 shrink-0 mt-0.5" />
+                        <div className="p-3.5 sm:p-4 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-100 text-xs sm:text-sm text-left max-w-3xl mx-auto flex items-start gap-2.5">
+                          <AlertTriangle className="w-5 h-5 text-rose-300 shrink-0 mt-0.5" />
                           <div>
                             <span className="font-bold text-rose-200">Exam Trap: </span>
                             {currentFlashcard.examTrapTip}
@@ -1605,16 +1605,16 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-center">
+                  <div className="pt-5 border-t border-slate-100 dark:border-white/10 flex items-center justify-center">
                     <button
                       type="button"
                       onClick={() => {
                         soundManager.playClick();
                         setIsFlashcardFlipped(prev => !prev);
                       }}
-                      className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-sky-500/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95"
+                      className="px-8 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-black text-sm sm:text-base shadow-lg shadow-sky-500/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95"
                     >
-                      {isFlashcardFlipped ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {isFlashcardFlipped ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       <span>{isFlashcardFlipped ? 'Hide Answer (वापस प्रश्न देखें)' : 'Flip to Reveal Preposition & Rule'}</span>
                     </button>
                   </div>
@@ -1625,20 +1625,20 @@ export const FixedPrepositionsView: React.FC = () => {
                   <button
                     type="button"
                     onClick={handlePrevFlashcard}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all cursor-pointer"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold transition-all cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Previous</span>
                   </button>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <button
                       type="button"
                       onClick={() => {
                         toggleMastered(currentFlashcard.id);
                         handleNextFlashcard();
                       }}
-                      className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black shadow-xs transition-all cursor-pointer ${
+                      className={`flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black shadow-xs transition-all cursor-pointer ${
                         masteredIds.has(currentFlashcard.id)
                           ? 'bg-emerald-600 text-white'
                           : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white'
@@ -1654,7 +1654,7 @@ export const FixedPrepositionsView: React.FC = () => {
                         soundManager.playClick();
                         handleNextFlashcard();
                       }}
-                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-black shadow-xs transition-all cursor-pointer"
+                      className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs sm:text-sm font-black shadow-xs transition-all cursor-pointer"
                     >
                       <span>Next</span>
                       <ArrowRight className="w-4 h-4" />
