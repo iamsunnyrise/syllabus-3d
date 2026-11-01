@@ -5204,4 +5204,367 @@ html.warm-cream .shortcut-keycap {
   box-shadow: 0 1.5px 0 rgba(56, 55, 13, 0.12);
 }
 
+/* ==========================================================================
+   FIXED PREPOSITIONS COMPONENT: TRIPLE-THEME HIGH-CONTRAST VISIBILITY
+   Ensures WCAG AAA contrast in:
+   1. Light Mode (Pure Pro Alabaster #F8FAFC)
+   2. Dark Mode (Deep Obsidian #0B0D14 / #121422)
+   3. Warm-Cream Mode (Royal Warm Parchment Gold #FAEED9 / #FFFDF8)
+   ========================================================================== */
+
+/* ─── 1. ALL THEMES SHARED HIGH-LEGIBILITY BASE ─── */
+.fixed-prepositions-root .fixed-prep-word {
+  font-weight: 900;
+  letter-spacing: -0.015em;
+}
+
+.fixed-prepositions-root .fixed-prep-hindi-text {
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.fixed-prepositions-root .fixed-prep-example-text {
+  line-height: 1.6;
+}
+
+.fixed-prepositions-root .fixed-prep-highlight {
+  display: inline-block;
+  font-weight: 900;
+  font-style: normal;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  margin: 0 0.125rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ─── 2. LIGHT THEME (Pure Pro Alabaster) ─── */
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-cluster-card,
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-box {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05) !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-card {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-card:hover {
+  background-color: #FFFFFF !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.10) !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-word {
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-label {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-hindi-box {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-hindi-text {
+  color: #9A3412 !important; /* Deep rich amber-rust for supreme contrast on white */
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-english-text {
+  color: #334155 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-example-box {
+  background-color: #F0F9FF !important;
+  border-color: #BAE6FD !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-example-box .fixed-prep-example-label {
+  color: #0369A1 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-example-text {
+  color: #0F172A !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-highlight {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #FCD34D !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-context-box {
+  background-color: #EEF2FF !important;
+  border-color: #C7D2FE !important;
+  color: #3730A3 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-trap-box {
+  background-color: #FFF1F2 !important;
+  border-color: #FECDD3 !important;
+  color: #9F1239 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-category-pill {
+  background-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-filter-pill-inactive {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-master-btn-inactive {
+  background-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark):not(.warm-cream) .fixed-prepositions-root .fixed-prep-master-btn-inactive:hover {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+}
+
+/* ─── 3. DARK THEME (Deep Obsidian #0B0D14 / #121422) ─── */
+html.dark .fixed-prepositions-root .fixed-prep-cluster-card,
+html.dark .fixed-prepositions-root .fixed-prep-box {
+  background-color: #0B0D14 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-card {
+  background-color: #121422 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #F8FAFC !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-card:hover {
+  background-color: #16182B !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-word {
+  color: #FFFFFF !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-label {
+  color: #94A3B8 !important;
+  font-weight: 700 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-hindi-box {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-hindi-text {
+  color: #FCD34D !important; /* Radiant vivid gold on dark */
+  text-shadow: 0 0 12px rgba(252, 211, 77, 0.25);
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-english-text {
+  color: #CBD5E1 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-example-box {
+  background-color: rgba(14, 165, 233, 0.10) !important;
+  border-color: rgba(14, 165, 233, 0.25) !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-example-box .fixed-prep-example-label {
+  color: #38BDF8 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-example-text {
+  color: #F1F5F9 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-highlight {
+  background-color: rgba(251, 191, 36, 0.25) !important;
+  color: #FDE68A !important;
+  border: 1px solid rgba(251, 191, 36, 0.5) !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-context-box {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: #C7D2FE !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-trap-box {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  color: #FECDD3 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-category-pill {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: #E2E8F0 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-filter-pill-inactive {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: #CBD5E1 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-master-btn-inactive {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #E2E8F0 !important;
+}
+
+html.dark .fixed-prepositions-root .fixed-prep-master-btn-inactive:hover {
+  background-color: rgba(16, 185, 129, 0.25) !important;
+  color: #6EE7B7 !important;
+}
+
+/* ─── 4. WARM-CREAM THEME (Royal Parchment Gold #FAEED9 / #FFFDF8) ─── */
+html.warm-cream .fixed-prepositions-root .fixed-prep-cluster-card,
+html.warm-cream .fixed-prepositions-root .fixed-prep-box {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  color: #38370D !important;
+  box-shadow: 0 4px 15px -1px rgba(56, 55, 13, 0.08) !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-card {
+  background-color: #FAF5E8 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-card:hover {
+  background-color: #FFFDF8 !important;
+  border-color: #E1A837 !important;
+  box-shadow: 0 10px 25px -4px rgba(56, 55, 13, 0.15) !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-word {
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-label {
+  color: #5C5824 !important;
+  font-weight: 800 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-hindi-box {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+}
+
+/* In Warm-Cream, yellow/amber is invisible! We use deep terracotta rust #9A3412 for crisp 8:1 contrast */
+html.warm-cream .fixed-prepositions-root .fixed-prep-hindi-text {
+  color: #9A3412 !important;
+  font-weight: 900 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-english-text {
+  color: #38370D !important;
+  font-weight: 500 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-example-box {
+  background-color: #F5EBD7 !important;
+  border-color: #D8C6A5 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-example-box .fixed-prep-example-label {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-example-text {
+  color: #1C1B05 !important;
+  font-weight: 600 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-highlight {
+  background-color: #FDE047 !important;
+  color: #713F12 !important;
+  border: 1px solid #CA8A04 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-context-box {
+  background-color: #ECE5F8 !important;
+  border-color: #C4B5FD !important;
+  color: #4C1D95 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-trap-box {
+  background-color: #FEE2E2 !important;
+  border-color: #FCA5A5 !important;
+  color: #991B1B !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-category-pill {
+  background-color: #EFE5D1 !important;
+  color: #38370D !important;
+  border: 1px solid #D8C6A5 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-filter-pill-inactive {
+  background-color: #F5EBD7 !important;
+  border-color: #D8C6A5 !important;
+  color: #38370D !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-master-btn-inactive {
+  background-color: #EFE5D1 !important;
+  border-color: #D8C6A5 !important;
+  color: #38370D !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-master-btn-inactive:hover {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+  border-color: #6EE7B7 !important;
+}
+
+/* Warm-Cream Search & Inputs */
+html.warm-cream .fixed-prepositions-root input[type="text"] {
+  background-color: #FAF5E8 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .fixed-prepositions-root input[type="text"]::placeholder {
+  color: #8D7A02 !important;
+  opacity: 0.85 !important;
+}
+
+/* Warm-Cream Flashcard */
+html.warm-cream .fixed-prepositions-root .fixed-prep-flashcard-front {
+  background-color: #FFFDF8 !important;
+  border-color: #E2D1B3 !important;
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-flashcard-front .sentence-box {
+  background-color: #F5EBD7 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+}
+
+/* Warm-Cream Quiz Buttons */
+html.warm-cream .fixed-prepositions-root .fixed-prep-quiz-option {
+  background-color: #FAF5E8 !important;
+  border-color: #D8C6A5 !important;
+  color: #1C1B05 !important;
+}
+
+html.warm-cream .fixed-prepositions-root .fixed-prep-quiz-option:hover:not(:disabled) {
+  background-color: #F3E8D0 !important;
+  border-color: #E1A837 !important;
+}
+
+
 

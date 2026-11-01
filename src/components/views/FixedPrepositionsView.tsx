@@ -59,81 +59,81 @@ import { fireCelebration } from '../../utils/confettiHelper';
 const PREP_COLOR_MAP: Record<string, { bg: string; text: string; border: string; badge: string; glow: string }> = {
   to: {
     bg: 'bg-sky-500/10 dark:bg-sky-500/15',
-    text: 'text-sky-600 dark:text-sky-400',
+    text: 'text-sky-700 dark:text-sky-300 font-bold',
     border: 'border-sky-500/30',
-    badge: 'bg-sky-500 text-white',
+    badge: 'bg-sky-600 text-white font-black',
     glow: 'rgba(14, 165, 233, 0.25)'
   },
   of: {
     bg: 'bg-amber-500/10 dark:bg-amber-500/15',
-    text: 'text-amber-600 dark:text-amber-400',
+    text: 'text-amber-800 dark:text-amber-300 font-bold',
     border: 'border-amber-500/30',
-    badge: 'bg-amber-500 text-slate-950 font-bold',
+    badge: 'bg-amber-500 text-slate-950 font-black',
     glow: 'rgba(245, 158, 11, 0.25)'
   },
   for: {
     bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
-    text: 'text-emerald-600 dark:text-emerald-400',
+    text: 'text-emerald-700 dark:text-emerald-300 font-bold',
     border: 'border-emerald-500/30',
-    badge: 'bg-emerald-500 text-white',
+    badge: 'bg-emerald-600 text-white font-black',
     glow: 'rgba(16, 185, 129, 0.25)'
   },
   with: {
     bg: 'bg-purple-500/10 dark:bg-purple-500/15',
-    text: 'text-purple-600 dark:text-purple-400',
+    text: 'text-purple-700 dark:text-purple-300 font-bold',
     border: 'border-purple-500/30',
-    badge: 'bg-purple-500 text-white',
+    badge: 'bg-purple-600 text-white font-black',
     glow: 'rgba(168, 85, 247, 0.25)'
   },
   from: {
     bg: 'bg-rose-500/10 dark:bg-rose-500/15',
-    text: 'text-rose-600 dark:text-rose-400',
+    text: 'text-rose-700 dark:text-rose-300 font-bold',
     border: 'border-rose-500/30',
-    badge: 'bg-rose-500 text-white',
+    badge: 'bg-rose-600 text-white font-black',
     glow: 'rgba(244, 63, 94, 0.25)'
   },
   in: {
     bg: 'bg-indigo-500/10 dark:bg-indigo-500/15',
-    text: 'text-indigo-600 dark:text-indigo-400',
+    text: 'text-indigo-700 dark:text-indigo-300 font-bold',
     border: 'border-indigo-500/30',
-    badge: 'bg-indigo-500 text-white',
+    badge: 'bg-indigo-600 text-white font-black',
     glow: 'rgba(99, 102, 241, 0.25)'
   },
   on: {
     bg: 'bg-teal-500/10 dark:bg-teal-500/15',
-    text: 'text-teal-600 dark:text-teal-400',
+    text: 'text-teal-700 dark:text-teal-300 font-bold',
     border: 'border-teal-500/30',
-    badge: 'bg-teal-500 text-white',
+    badge: 'bg-teal-600 text-white font-black',
     glow: 'rgba(20, 184, 166, 0.25)'
   },
   at: {
     bg: 'bg-orange-500/10 dark:bg-orange-500/15',
-    text: 'text-orange-600 dark:text-orange-400',
+    text: 'text-orange-700 dark:text-orange-300 font-bold',
     border: 'border-orange-500/30',
-    badge: 'bg-orange-500 text-white',
+    badge: 'bg-orange-600 text-white font-black',
     glow: 'rgba(249, 115, 22, 0.25)'
   },
   by: {
     bg: 'bg-blue-500/10 dark:bg-blue-500/15',
-    text: 'text-blue-600 dark:text-blue-400',
+    text: 'text-blue-700 dark:text-blue-300 font-bold',
     border: 'border-blue-500/30',
-    badge: 'bg-blue-500 text-white',
+    badge: 'bg-blue-600 text-white font-black',
     glow: 'rgba(59, 130, 246, 0.25)'
   },
   into: {
     bg: 'bg-cyan-500/10 dark:bg-cyan-500/15',
-    text: 'text-cyan-600 dark:text-cyan-400',
+    text: 'text-cyan-700 dark:text-cyan-300 font-bold',
     border: 'border-cyan-500/30',
-    badge: 'bg-cyan-500 text-white',
+    badge: 'bg-cyan-600 text-white font-black',
     glow: 'rgba(6, 182, 212, 0.25)'
   }
 };
 
 const DEFAULT_PREP_COLOR = {
   bg: 'bg-slate-500/10 dark:bg-slate-500/15',
-  text: 'text-slate-600 dark:text-slate-300',
+  text: 'text-slate-800 dark:text-slate-200 font-bold',
   border: 'border-slate-500/30',
-  badge: 'bg-slate-600 text-white',
+  badge: 'bg-slate-700 text-white font-black',
   glow: 'rgba(100, 116, 139, 0.25)'
 };
 
@@ -454,7 +454,7 @@ export const FixedPrepositionsView: React.FC = () => {
             return (
               <span
                 key={idx}
-                className="font-black px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 not-italic"
+                className="fixed-prep-highlight not-italic font-black px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-900 dark:text-amber-300 border border-amber-500/40"
               >
                 {part}
               </span>
@@ -467,7 +467,7 @@ export const FixedPrepositionsView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in pb-12">
+    <div className="space-y-6 animate-fade-in pb-12 fixed-prepositions-root">
       {/* ──────────────────────────────────────────────────────────
           1. HERO HEADER BANNER & STATS
          ────────────────────────────────────────────────────────── */}
@@ -647,16 +647,16 @@ export const FixedPrepositionsView: React.FC = () => {
       {activeMode === 'part-a' && (
         <div className="space-y-6">
           {/* Meaning Clusters Header & Sub-Selector */}
-          <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+          <div className="fixed-prep-cluster-card p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <span>Part - A: Meaning-Based Semantic Clusters</span>
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25">
                     PDF Pages 1 - 6
                   </span>
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5 font-medium">
                   समान अर्थ वाले शब्द समान Preposition लेते हैं! समूह में याद करने से परीक्षा में कभी भ्रम नहीं होता।
                 </p>
               </div>
@@ -695,7 +695,7 @@ export const FixedPrepositionsView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
                   selectedPartAClusterId === 'all'
                     ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black shadow-xs'
-                    : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 border-slate-200 dark:border-white/10'
+                    : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 hover:text-slate-950 border-slate-200 dark:border-white/10'
                 }`}
               >
                 All Clusters (163)
@@ -714,7 +714,7 @@ export const FixedPrepositionsView: React.FC = () => {
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
                       isSelected
                         ? `${cluster.colorScheme.badge} shadow-xs font-black scale-102`
-                        : 'bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
+                        : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
                     }`}
                   >
                     <span className="font-mono uppercase font-black tracking-wide">
@@ -750,7 +750,7 @@ export const FixedPrepositionsView: React.FC = () => {
               return (
                 <div
                   key={cluster.id}
-                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5"
+                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5 fixed-prep-cluster-card"
                 >
                   {/* Cluster Header with Rule Concept */}
                   <div className={`p-4 sm:p-5 rounded-2xl ${cluster.colorScheme.bg} border ${cluster.colorScheme.border} space-y-2`}>
@@ -763,15 +763,15 @@ export const FixedPrepositionsView: React.FC = () => {
                           {cluster.title}
                         </h4>
                       </div>
-                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-bold text-slate-600 dark:text-slate-300">
                         {filteredClusterItems.length} {filteredClusterItems.length === 1 ? 'Rule' : 'Rules'}
                       </span>
                     </div>
 
-                    <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 flex items-start gap-2 pt-1">
+                    <div className="text-xs sm:text-[13px] font-bold text-slate-800 dark:text-slate-200 flex items-start gap-2 pt-1">
                       <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                       <p className="leading-relaxed">
-                        <strong className="text-slate-900 dark:text-white">Grammar Concept: </strong>
+                        <strong className="text-slate-950 dark:text-white font-black">Grammar Concept: </strong>
                         {cluster.conceptRule}
                       </p>
                     </div>
@@ -789,7 +789,7 @@ export const FixedPrepositionsView: React.FC = () => {
                       return (
                         <div
                           key={item.id}
-                          className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
+                          className={`fixed-prep-card group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
                             isMastered
                               ? 'bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-500/30'
                               : 'bg-slate-50/70 dark:bg-[#121422] border-slate-200/80 dark:border-white/5 hover:border-sky-500/40 hover:bg-white dark:hover:bg-[#161828] shadow-xs hover:shadow-md'
@@ -800,17 +800,17 @@ export const FixedPrepositionsView: React.FC = () => {
                             <div className="flex items-start justify-between gap-2">
                               <div>
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+                                  <span className="fixed-prep-word text-lg font-black text-slate-950 dark:text-white tracking-tight">
                                     {item.word}
                                   </span>
                                   <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
                                     + {item.preposition}
                                   </span>
-                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 capitalize">
+                                  <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                                     {item.category}
                                   </span>
                                 </div>
-                                <div className="text-xs font-bold text-sky-600 dark:text-sky-400 mt-0.5">
+                                <div className="text-xs font-black text-sky-700 dark:text-sky-400 mt-0.5">
                                   {item.phrase}
                                 </div>
                               </div>
@@ -850,26 +850,26 @@ export const FixedPrepositionsView: React.FC = () => {
 
                             {/* Sub-Meaning Note if present in PDF */}
                             {item.subMeaningEng && (
-                              <div className="p-2 rounded-xl bg-indigo-50/70 dark:bg-indigo-500/10 border border-indigo-200/60 dark:border-indigo-500/15 text-[11px] font-medium text-indigo-900 dark:text-indigo-300">
+                              <div className="fixed-prep-context-box p-2 rounded-xl bg-indigo-50/70 dark:bg-indigo-500/10 border border-indigo-200/60 dark:border-indigo-500/15 text-[11px] font-medium text-indigo-900 dark:text-indigo-300">
                                 <span className="font-bold text-indigo-700 dark:text-indigo-400 mr-1">Context:</span>
                                 <span>{item.subMeaningEng}</span>
                               </div>
                             )}
 
                             {/* Hindi Meaning */}
-                            <div className="p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
-                              <span className="text-xs text-slate-400 font-semibold block mb-0.5">हिन्दी अर्थ:</span>
-                              <div className="text-sm font-black text-amber-600 dark:text-amber-400">
+                            <div className="fixed-prep-hindi-box p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5">
+                              <span className="fixed-prep-label text-xs text-slate-500 dark:text-slate-400 font-bold block mb-0.5">हिन्दी अर्थ:</span>
+                              <div className="fixed-prep-hindi-text text-sm font-black text-amber-700 dark:text-amber-300">
                                 {item.hindiMeaning}
                               </div>
                             </div>
 
                             {/* Exact Exam Sentence */}
-                            <div className="text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/50 dark:border-sky-500/15">
-                              <span className="font-bold text-sky-700 dark:text-sky-400 block mb-1">
+                            <div className="fixed-prep-example-box text-xs text-slate-800 dark:text-slate-200 p-3 rounded-xl bg-sky-50/60 dark:bg-sky-950/20 border border-sky-200/60 dark:border-sky-500/20">
+                              <span className="fixed-prep-example-label font-bold text-sky-800 dark:text-sky-400 block mb-1">
                                 Exam Sentence:
                               </span>
-                              <p className="italic leading-relaxed font-medium">
+                              <p className="fixed-prep-example-text italic leading-relaxed font-medium">
                                 "{highlightPreposition(item.example, item.preposition)}"
                               </p>
                             </div>
@@ -883,7 +883,7 @@ export const FixedPrepositionsView: React.FC = () => {
                               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                                 isMastered
                                   ? 'bg-emerald-500 text-white shadow-xs'
-                                  : 'bg-slate-200/70 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
+                                  : 'fixed-prep-master-btn-inactive bg-slate-200/80 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
                               }`}
                             >
                               <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-white' : ''}`} />
@@ -907,16 +907,16 @@ export const FixedPrepositionsView: React.FC = () => {
       {activeMode === 'part-b' && (
         <div className="space-y-6">
           {/* Part B Header & Filter Pills */}
-          <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+          <div className="fixed-prep-cluster-card p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <span>Part - B: Miscellaneous Fixed Preposition Vault</span>
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25">
                     PDF Pages 7 - 11
                   </span>
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5 font-medium">
                   Preposition-wise वर्गीकृत शब्दकोश — TO, OF, FOR, FROM, ON, IN, WITH के साथ सभी आवश्यक शब्द व परीक्षा उदाहरण।
                 </p>
               </div>
@@ -955,7 +955,7 @@ export const FixedPrepositionsView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
                   selectedPartBPrep === 'ALL'
                     ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black shadow-xs'
-                    : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 border-slate-200 dark:border-white/10'
+                    : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 hover:text-slate-950 border-slate-200 dark:border-white/10'
                 }`}
               >
                 All Prepositions (132)
@@ -976,7 +976,7 @@ export const FixedPrepositionsView: React.FC = () => {
                     className={`flex items-center gap-1 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
                       isSelected
                         ? `${prepStyle.badge} shadow-xs font-black scale-102`
-                        : 'bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
+                        : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
                     }`}
                   >
                     <span>{group.preposition}</span>
@@ -1011,7 +1011,7 @@ export const FixedPrepositionsView: React.FC = () => {
               return (
                 <div
                   key={group.preposition}
-                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5"
+                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5 fixed-prep-cluster-card"
                 >
                   {/* Group Header */}
                   <div className={`p-4 sm:p-5 rounded-2xl ${prepStyle.bg} border ${prepStyle.border} flex items-center justify-between flex-wrap gap-2`}>
@@ -1023,12 +1023,12 @@ export const FixedPrepositionsView: React.FC = () => {
                         <h4 className="text-base font-black text-slate-900 dark:text-white">
                           {group.title}
                         </h4>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                        <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">
                           {group.description}
                         </p>
                       </div>
                     </div>
-                    <span className="text-xs font-bold px-2 py-1 rounded-lg bg-black/10 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-black/10 dark:bg-white/10 text-slate-800 dark:text-slate-200">
                       {filteredGroupItems.length} Words
                     </span>
                   </div>
@@ -1044,7 +1044,7 @@ export const FixedPrepositionsView: React.FC = () => {
                       return (
                         <div
                           key={item.id}
-                          className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
+                          className={`fixed-prep-card group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
                             isMastered
                               ? 'bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-500/30'
                               : 'bg-slate-50/70 dark:bg-[#121422] border-slate-200/80 dark:border-white/5 hover:border-purple-500/40 hover:bg-white dark:hover:bg-[#161828] shadow-xs hover:shadow-md'
@@ -1055,13 +1055,13 @@ export const FixedPrepositionsView: React.FC = () => {
                             <div className="flex items-start justify-between gap-2">
                               <div>
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+                                  <span className="fixed-prep-word text-lg font-black text-slate-950 dark:text-white tracking-tight">
                                     {item.word}
                                   </span>
                                   <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
                                     + {item.preposition}
                                   </span>
-                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 capitalize">
+                                  <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                                     {item.category}
                                   </span>
                                 </div>
@@ -1100,30 +1100,30 @@ export const FixedPrepositionsView: React.FC = () => {
                             </div>
 
                             {/* Hindi Meaning */}
-                            <div className="p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
-                              <span className="text-xs text-slate-400 font-semibold block mb-0.5">हिन्दी अर्थ:</span>
-                              <div className="text-sm font-black text-amber-600 dark:text-amber-400">
+                            <div className="fixed-prep-hindi-box p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5">
+                              <span className="fixed-prep-label text-xs text-slate-500 dark:text-slate-400 font-bold block mb-0.5">हिन्दी अर्थ:</span>
+                              <div className="fixed-prep-hindi-text text-sm font-black text-amber-700 dark:text-amber-300">
                                 {item.hindiMeaning}
                               </div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                              <div className="fixed-prep-english-text text-xs text-slate-600 dark:text-slate-300 mt-1 font-medium">
                                 {item.englishMeaning}
                               </div>
                             </div>
 
                             {/* Exact Exam Sentence */}
-                            <div className="text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200/50 dark:border-purple-500/15">
-                              <span className="font-bold text-purple-700 dark:text-purple-400 block mb-1">
+                            <div className="fixed-prep-example-box text-xs text-slate-800 dark:text-slate-200 p-3 rounded-xl bg-purple-50/60 dark:bg-purple-950/20 border border-purple-200/60 dark:border-purple-500/20">
+                              <span className="fixed-prep-example-label font-bold text-purple-800 dark:text-purple-300 block mb-1">
                                 Exam Example:
                               </span>
-                              <p className="italic leading-relaxed font-medium">
+                              <p className="fixed-prep-example-text italic leading-relaxed font-medium">
                                 "{highlightPreposition(item.example, item.preposition)}"
                               </p>
                             </div>
 
                             {/* Special Exam Note / Trap Tip */}
                             {item.note && (
-                              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-800 dark:text-amber-300 text-[11px] leading-snug flex items-start gap-1.5">
-                                <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                              <div className="fixed-prep-trap-box p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 text-[11px] leading-snug flex items-start gap-1.5 font-medium">
+                                <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                                 <span>{item.note}</span>
                               </div>
                             )}
@@ -1137,7 +1137,7 @@ export const FixedPrepositionsView: React.FC = () => {
                               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                                 isMastered
                                   ? 'bg-emerald-500 text-white shadow-xs'
-                                  : 'bg-slate-200/70 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
+                                  : 'fixed-prep-master-btn-inactive bg-slate-200/80 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
                               }`}
                             >
                               <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-white' : ''}`} />
@@ -1159,7 +1159,7 @@ export const FixedPrepositionsView: React.FC = () => {
           4. FILTER BAR & SEARCH (Shown for 'cards' & 'flashcards')
          ────────────────────────────────────────────────────────── */}
       {(activeMode === 'cards' || activeMode === 'flashcards') && (
-        <div className="space-y-3 p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm">
+        <div className="fixed-prep-cluster-card space-y-3 p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm">
           {/* Search bar + Action pills */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="relative flex-1">
@@ -1169,7 +1169,7 @@ export const FixedPrepositionsView: React.FC = () => {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Search across all 295+ prepositions by word, meaning, sentence (e.g. abstain, with, घृणा)..."
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all font-medium"
               />
               {searchQuery && (
                 <button
@@ -1193,8 +1193,8 @@ export const FixedPrepositionsView: React.FC = () => {
                 }}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
                   onlyStarred
-                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-600 dark:text-amber-400 font-black'
-                    : 'bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-700 dark:text-amber-400 font-black'
+                    : 'fixed-prep-filter-pill-inactive bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
                 }`}
               >
                 <Star className={`w-3.5 h-3.5 ${onlyStarred ? 'fill-amber-400 text-amber-400' : ''}`} />
@@ -1210,8 +1210,8 @@ export const FixedPrepositionsView: React.FC = () => {
                 }}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
                   onlyUnmastered
-                    ? 'bg-sky-500/15 border-sky-500/40 text-sky-600 dark:text-sky-400 font-black'
-                    : 'bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-sky-500/15 border-sky-500/40 text-sky-700 dark:text-sky-400 font-black'
+                    : 'fixed-prep-filter-pill-inactive bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
                 }`}
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -1242,7 +1242,7 @@ export const FixedPrepositionsView: React.FC = () => {
 
           {/* Quick Preposition Pills Filter Bar */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1 shrink-0">
+            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-1 shrink-0">
               Filter by Prep:
             </span>
             {PREPOSITION_LIST.map(prep => {
@@ -1262,11 +1262,11 @@ export const FixedPrepositionsView: React.FC = () => {
                   className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer shrink-0 border ${
                     isSelected
                       ? `${prepStyle.badge} border-transparent shadow-xs font-black scale-105`
-                      : 'bg-slate-100 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+                      : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-white/10'
                   }`}
                 >
                   <span>{prep}</span>
-                  <span className={`text-[10px] px-1 py-0.2 rounded-full ${isSelected ? 'bg-black/25 text-white' : 'text-slate-400'}`}>
+                  <span className={`text-[10px] px-1 py-0.2 rounded-full ${isSelected ? 'bg-black/25 text-white' : 'text-slate-500 dark:text-slate-400'}`}>
                     {count}
                   </span>
                 </button>
@@ -1277,7 +1277,7 @@ export const FixedPrepositionsView: React.FC = () => {
           {/* Category & Letter Selector Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/5 text-xs">
             <div className="flex items-center gap-1.5">
-              <span className="text-slate-400 font-semibold">Part of Speech:</span>
+              <span className="text-slate-500 dark:text-slate-400 font-bold">Part of Speech:</span>
               {(['all', 'verb', 'adjective', 'noun'] as const).map(cat => (
                 <button
                   key={cat}
@@ -1290,7 +1290,7 @@ export const FixedPrepositionsView: React.FC = () => {
                   className={`px-2.5 py-1 rounded-md text-[11px] font-bold capitalize transition-all cursor-pointer ${
                     selectedCategory === cat
                       ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black'
-                      : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      : 'fixed-prep-filter-pill-inactive bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
                   }`}
                 >
                   {cat === 'all' ? 'All Types' : cat}
@@ -1312,7 +1312,7 @@ export const FixedPrepositionsView: React.FC = () => {
                   className={`min-w-6 h-6 px-1.5 flex items-center justify-center rounded text-[11px] font-bold transition-all cursor-pointer ${
                     selectedLetter === letter
                       ? 'bg-sky-500 text-white font-black scale-105'
-                      : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]'
+                      : 'text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.06]'
                   }`}
                 >
                   {letter}
@@ -1367,7 +1367,7 @@ export const FixedPrepositionsView: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
+                    className={`fixed-prep-card group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
                       isMastered
                         ? 'bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-500/30'
                         : 'bg-white dark:bg-[#0B0D14] border-slate-200/90 dark:border-white/10 hover:border-sky-500/40 dark:hover:border-sky-500/40 shadow-xs hover:shadow-lg hover:-translate-y-0.5'
@@ -1377,7 +1377,7 @@ export const FixedPrepositionsView: React.FC = () => {
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+                            <span className="fixed-prep-word text-lg sm:text-xl font-black text-slate-950 dark:text-white tracking-tight">
                               {item.word}
                             </span>
                             <span
@@ -1385,11 +1385,11 @@ export const FixedPrepositionsView: React.FC = () => {
                             >
                               + {item.preposition}
                             </span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 capitalize">
+                            <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                               {item.category}
                             </span>
                           </div>
-                          <div className="text-xs font-black text-sky-600 dark:text-sky-400 mt-0.5">
+                          <div className="text-xs font-black text-sky-700 dark:text-sky-400 mt-0.5">
                             {item.phrase}
                           </div>
                         </div>
@@ -1432,30 +1432,30 @@ export const FixedPrepositionsView: React.FC = () => {
                       </div>
 
                       {/* Hindi Meaning & English Definition */}
-                      <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5">
-                        <div className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-baseline gap-2">
-                          <span className="text-slate-400 text-xs font-normal">अर्थ:</span>
-                          <span className="text-amber-600 dark:text-amber-400 font-black">{item.hindiMeaning}</span>
+                      <div className="fixed-prep-hindi-box space-y-1.5 p-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5">
+                        <div className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-baseline gap-2">
+                          <span className="fixed-prep-label text-slate-500 dark:text-slate-400 text-xs font-bold">अर्थ:</span>
+                          <span className="fixed-prep-hindi-text text-amber-700 dark:text-amber-300 font-black">{item.hindiMeaning}</span>
                         </div>
-                        <div className="text-xs text-slate-600 dark:text-slate-300">
+                        <div className="fixed-prep-english-text text-xs text-slate-700 dark:text-slate-300 font-medium">
                           {item.englishMeaning}
                         </div>
                       </div>
 
                       {/* Real Exam Example Sentence */}
-                      <div className="text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/50 dark:border-sky-500/15">
-                        <span className="font-bold text-sky-700 dark:text-sky-400 block mb-1">
+                      <div className="fixed-prep-example-box text-xs text-slate-800 dark:text-slate-200 p-3 rounded-xl bg-sky-50/60 dark:bg-sky-950/20 border border-sky-200/60 dark:border-sky-500/20">
+                        <span className="fixed-prep-example-label font-bold text-sky-800 dark:text-sky-400 block mb-1">
                           Exam Example:
                         </span>
-                        <p className="italic leading-relaxed font-medium">
+                        <p className="fixed-prep-example-text italic leading-relaxed font-medium">
                           "{highlightPreposition(item.example, item.preposition)}"
                         </p>
                       </div>
 
                       {/* Exam Trap Tip (If present) */}
                       {item.examTrapTip && (
-                        <div className="flex items-start gap-2 p-2.5 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 text-rose-700 dark:text-rose-300 text-[11px] leading-snug">
-                          <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" />
+                        <div className="fixed-prep-trap-box flex items-start gap-2 p-2.5 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 text-rose-800 dark:text-rose-300 text-[11px] leading-snug font-medium">
+                          <AlertTriangle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                           <div>
                             <span className="font-black uppercase tracking-wider mr-1">Exam Trap:</span>
                             <span>{item.examTrapTip}</span>
@@ -1470,7 +1470,7 @@ export const FixedPrepositionsView: React.FC = () => {
                         {item.repeatedIn?.slice(0, 3).map((exam, idx) => (
                           <span
                             key={idx}
-                            className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400"
+                            className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200/70 dark:bg-white/5 text-slate-700 dark:text-slate-300"
                           >
                             {exam}
                           </span>
@@ -1483,7 +1483,7 @@ export const FixedPrepositionsView: React.FC = () => {
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                           isMastered
                             ? 'bg-emerald-500 text-white shadow-xs'
-                            : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
+                            : 'fixed-prep-master-btn-inactive bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
                         }`}
                       >
                         <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-white' : ''}`} />
@@ -1553,27 +1553,27 @@ export const FixedPrepositionsView: React.FC = () => {
                   </div>
 
                   {!isFlashcardFlipped ? (
-                    <div className="my-auto py-8 text-center space-y-5">
-                      <div className="text-xs font-black uppercase tracking-widest text-slate-400">
+                    <div className="fixed-prep-flashcard-front my-auto py-8 text-center space-y-5">
+                      <div className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
                         Fill in the correct preposition:
                       </div>
-                      <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                        {currentFlashcard.word} + <span className="text-sky-500 underline decoration-dashed decoration-2">_____</span> ?
+                      <div className="fixed-prep-word text-2xl sm:text-3xl font-black text-slate-950 dark:text-white tracking-tight">
+                        {currentFlashcard.word} + <span className="text-sky-600 dark:text-sky-400 underline decoration-dashed decoration-2 font-black">_____</span> ?
                       </div>
-                      <div className="max-w-lg mx-auto p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/5 text-base sm:text-lg font-medium italic text-slate-700 dark:text-slate-200">
+                      <div className="sentence-box max-w-lg mx-auto p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/5 text-base sm:text-lg font-medium italic text-slate-800 dark:text-slate-100">
                         "{currentFlashcard.example.replace(
                           new RegExp(`\\b${currentFlashcard.preposition}\\b`, 'i'),
                           '_______'
                         )}"
                       </div>
-                      <div className="text-xs text-slate-500 flex items-center justify-center gap-2">
-                        <span>अर्थ का संकेत:</span>
-                        <span className="font-bold text-amber-600 dark:text-amber-400">{currentFlashcard.hindiMeaning}</span>
+                      <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2 font-medium">
+                        <span className="fixed-prep-label text-slate-500 dark:text-slate-400 font-bold">अर्थ का संकेत:</span>
+                        <span className="fixed-prep-hindi-text font-black text-amber-700 dark:text-amber-300">{currentFlashcard.hindiMeaning}</span>
                       </div>
                     </div>
                   ) : (
                     <div className="my-auto py-6 text-center space-y-4 animate-fade-in">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-400/30 text-xs font-bold">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Preposition Revealed!</span>
                       </div>
@@ -1586,18 +1586,18 @@ export const FixedPrepositionsView: React.FC = () => {
                       <div className="text-lg font-black text-amber-300">
                         {currentFlashcard.hindiMeaning}
                       </div>
-                      <div className="text-xs text-slate-300 max-w-md mx-auto">
+                      <div className="text-xs text-slate-200 max-w-md mx-auto font-medium">
                         {currentFlashcard.englishMeaning}
                       </div>
-                      <div className="p-3.5 rounded-2xl bg-white/[0.06] border border-white/10 text-xs text-slate-200 text-left max-w-lg mx-auto">
-                        <span className="font-bold text-sky-400 block mb-1">Full Sentence:</span>
-                        <p className="italic">"{currentFlashcard.example}"</p>
+                      <div className="p-3.5 rounded-2xl bg-white/[0.08] border border-white/15 text-xs text-slate-100 text-left max-w-lg mx-auto">
+                        <span className="font-bold text-sky-300 block mb-1">Full Sentence:</span>
+                        <p className="italic font-medium">"{currentFlashcard.example}"</p>
                       </div>
                       {currentFlashcard.examTrapTip && (
-                        <div className="p-2.5 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-200 text-xs text-left max-w-lg mx-auto flex items-start gap-2">
-                          <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                        <div className="p-2.5 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-100 text-xs text-left max-w-lg mx-auto flex items-start gap-2">
+                          <AlertTriangle className="w-4 h-4 text-rose-300 shrink-0 mt-0.5" />
                           <div>
-                            <span className="font-bold">Exam Trap: </span>
+                            <span className="font-bold text-rose-200">Exam Trap: </span>
                             {currentFlashcard.examTrapTip}
                           </div>
                         </div>
@@ -1707,28 +1707,28 @@ export const FixedPrepositionsView: React.FC = () => {
                   {group.items.map((item, iIdx) => (
                     <div
                       key={iIdx}
-                      className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/5 space-y-2.5 flex flex-col justify-between"
+                      className="fixed-prep-card p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/5 space-y-2.5 flex flex-col justify-between"
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between gap-1">
-                          <span className="text-base font-black text-slate-900 dark:text-white">
+                          <span className="fixed-prep-word text-base font-black text-slate-950 dark:text-white">
                             {item.phrase}
                           </span>
-                          <span className="text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                          <span className="fixed-prep-category-pill text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-slate-200">
                             {item.condition}
                           </span>
                         </div>
-                        <div className="text-xs font-bold text-amber-600 dark:text-amber-400">
+                        <div className="fixed-prep-hindi-text text-xs font-black text-amber-700 dark:text-amber-300">
                           {item.hindiMeaning}
                         </div>
-                        <div className="text-xs text-slate-600 dark:text-slate-300 italic p-2 rounded-xl bg-white dark:bg-black/20 border border-slate-200/40 dark:border-white/5">
+                        <div className="fixed-prep-example-text text-xs text-slate-800 dark:text-slate-200 italic p-2 rounded-xl bg-white dark:bg-black/20 border border-slate-200/60 dark:border-white/5 font-medium">
                           "{item.example}"
                         </div>
                       </div>
 
                       {item.trapWarning && (
-                        <div className="mt-2 p-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-[11px] font-semibold leading-tight flex items-start gap-1.5">
-                          <X className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-500" />
+                        <div className="fixed-prep-trap-box mt-2 p-2 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-800 dark:text-rose-300 text-[11px] font-semibold leading-tight flex items-start gap-1.5">
+                          <X className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-600 dark:text-rose-400 stroke-[2.5]" />
                           <span>{item.trapWarning}</span>
                         </div>
                       )}
@@ -1770,15 +1770,15 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-lg space-y-6">
+                  <div className="fixed-prep-cluster-card p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-lg space-y-6">
                     <div className="space-y-2">
-                      <div className="text-[11px] uppercase tracking-wider font-black text-slate-400">
+                      <div className="text-[11px] uppercase tracking-wider font-black text-slate-500 dark:text-slate-400">
                         Choose the correct preposition:
                       </div>
-                      <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white leading-relaxed">
+                      <h3 className="text-lg sm:text-xl font-black text-slate-950 dark:text-white leading-relaxed">
                         {currentQ.sentence}
                       </h3>
-                      <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+                      <p className="fixed-prep-hindi-text text-xs font-bold text-amber-700 dark:text-amber-300">
                         अर्थ: {currentQ.hindiMeaning}
                       </p>
                     </div>
@@ -1788,7 +1788,7 @@ export const FixedPrepositionsView: React.FC = () => {
                         const isThisSelected = userAns === option;
                         const isThisCorrect = option.toLowerCase() === currentQ.correctPreposition.toLowerCase();
 
-                        let btnStyle = 'bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/[0.08]';
+                        let btnStyle = 'fixed-prep-quiz-option bg-slate-50 dark:bg-white/[0.04] border-slate-200 dark:border-white/10 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/[0.08]';
                         if (hasAnswered) {
                           if (isThisCorrect) {
                             btnStyle = 'bg-emerald-500 text-white border-emerald-600 shadow-md scale-102';
@@ -1816,12 +1816,12 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
 
                     {hasAnswered && (
-                      <div className="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-500/20 text-xs space-y-2 animate-fade-in">
-                        <div className="flex items-center gap-2 font-black text-sky-700 dark:text-sky-300">
+                      <div className="fixed-prep-example-box p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-500/20 text-xs space-y-2 animate-fade-in">
+                        <div className="flex items-center gap-2 font-black text-sky-800 dark:text-sky-300">
                           <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                           <span>Correct Rule: {currentQ.phrase}</span>
                         </div>
-                        <p className="text-slate-700 dark:text-slate-200 leading-relaxed">
+                        <p className="fixed-prep-example-text text-slate-800 dark:text-slate-100 leading-relaxed font-medium">
                           {currentQ.explanation}
                         </p>
                       </div>
