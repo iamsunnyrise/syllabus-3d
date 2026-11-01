@@ -488,9 +488,6 @@ export const FixedPrepositionsView: React.FC = () => {
                 295+ PDF Rules (Part A & B)
               </span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              निश्चित संबंधबोधक अव्यय — परीक्षा के सभी महत्वपूर्ण नियमों का सम्पूर्ण संग्रह! <strong>Part-A (अर्थ-आधारित समूह)</strong> और <strong>Part-B (शब्दानुसार नियम)</strong> को छात्र-हितैषी कार्ड्स, एक्टिव रिकॉल फ़्लैशकार्ड्स, 10 कन्फ्यूजिंग ट्रैप्स और PYQ टेस्ट के साथ सरलता से याद करें।
-            </p>
           </div>
 
           {/* Quick Mastery Progress Metric Card */}
