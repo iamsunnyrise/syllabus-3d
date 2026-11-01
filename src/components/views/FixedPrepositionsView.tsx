@@ -29,7 +29,10 @@ import {
   Eye,
   EyeOff,
   CheckSquare,
-  Square
+  Square,
+  BookmarkCheck,
+  Tag,
+  ListFilter
 } from 'lucide-react';
 import {
   HIGH_YIELD_FIXED_PREPOSITIONS,
@@ -39,6 +42,15 @@ import {
   ConfusingPairGroup,
   FixedPrepositionQuizQuestion
 } from '../../data/highYieldFixedPrepositionsData';
+import {
+  PART_A_CLUSTERS,
+  PART_B_GROUPS,
+  getAllPdfFixedPrepositions,
+  FixedPrepPartACluster,
+  FixedPrepPartAItem,
+  FixedPrepPartBGroup,
+  FixedPrepPartBItem
+} from '../../data/fixedPrepositionsFullData';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
 import { fireCelebration } from '../../utils/confettiHelper';
@@ -56,7 +68,7 @@ const PREP_COLOR_MAP: Record<string, { bg: string; text: string; border: string;
     bg: 'bg-amber-500/10 dark:bg-amber-500/15',
     text: 'text-amber-600 dark:text-amber-400',
     border: 'border-amber-500/30',
-    badge: 'bg-amber-500 text-slate-950',
+    badge: 'bg-amber-500 text-slate-950 font-bold',
     glow: 'rgba(245, 158, 11, 0.25)'
   },
   for: {
@@ -127,9 +139,11 @@ const DEFAULT_PREP_COLOR = {
 
 const PREPOSITION_LIST = ['ALL', 'TO', 'OF', 'FOR', 'WITH', 'FROM', 'IN', 'ON', 'AT', 'BY', 'INTO'] as const;
 
+export type FixedPrepActiveMode = 'part-a' | 'part-b' | 'cards' | 'flashcards' | 'traps' | 'quiz';
+
 export const FixedPrepositionsView: React.FC = () => {
-  // Mode: 'cards' | 'flashcards' | 'traps' | 'quiz'
-  const [activeMode, setActiveMode] = useState<'cards' | 'flashcards' | 'traps' | 'quiz'>('cards');
+  // Mode: 'part-a' | 'part-b' | 'cards' | 'flashcards' | 'traps' | 'quiz'
+  const [activeMode, setActiveMode] = useState<FixedPrepActiveMode>('part-a');
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState('');
@@ -138,6 +152,28 @@ export const FixedPrepositionsView: React.FC = () => {
   const [selectedLetter, setSelectedLetter] = useState<string>('ALL');
   const [onlyStarred, setOnlyStarred] = useState(false);
   const [onlyUnmastered, setOnlyUnmastered] = useState(false);
+
+  // Part A specific cluster filter
+  const [selectedPartAClusterId, setSelectedPartAClusterId] = useState<string>('all');
+
+  // Part B specific preposition filter
+  const [selectedPartBPrep, setSelectedPartBPrep] = useState<string>('ALL');
+
+  // Unified All Items (Merged PDF + High-Yield PYQs)
+  const masterUnifiedItems = useMemo(() => {
+    const pdfItems = getAllPdfFixedPrepositions();
+    const map = new Map<string, any>();
+
+    HIGH_YIELD_FIXED_PREPOSITIONS.forEach(item => {
+      map.set(item.id, item);
+    });
+
+    pdfItems.forEach(item => {
+      map.set(item.id, item);
+    });
+
+    return Array.from(map.values()) as FixedPrepositionItem[];
+  }, []);
 
   // Persistence: Starred IDs
   const [starredIds, setStarredIds] = useState<Set<string>>(() => {
@@ -229,6 +265,7 @@ export const FixedPrepositionsView: React.FC = () => {
       } else {
         next.add(id);
         soundManager.playSuccess();
+        fireCelebration();
       }
       try {
         localStorage.setItem('syllabus_fixed_prepositions_mastered_v1', JSON.stringify(Array.from(next)));
@@ -239,10 +276,10 @@ export const FixedPrepositionsView: React.FC = () => {
     });
   }, []);
 
-  // Filtered List for Cards and Flashcards
+  // Filtered List for Master Cards and Flashcards
   const filteredItems = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    return HIGH_YIELD_FIXED_PREPOSITIONS.filter(item => {
+    return masterUnifiedItems.filter(item => {
       // Preposition filter
       if (selectedPrepFilter !== 'ALL' && item.preposition.toUpperCase() !== selectedPrepFilter) {
         return false;
@@ -271,14 +308,14 @@ export const FixedPrepositionsView: React.FC = () => {
         const matchesHindi = item.hindiMeaning.toLowerCase().includes(q);
         const matchesEng = item.englishMeaning.toLowerCase().includes(q);
         const matchesEx = item.example.toLowerCase().includes(q);
-        const matchesExam = item.repeatedIn.some(ex => ex.toLowerCase().includes(q));
+        const matchesExam = item.repeatedIn?.some(ex => ex.toLowerCase().includes(q));
         if (!matchesWord && !matchesPrep && !matchesPhrase && !matchesHindi && !matchesEng && !matchesEx && !matchesExam) {
           return false;
         }
       }
       return true;
     });
-  }, [searchQuery, selectedPrepFilter, selectedCategory, selectedLetter, onlyStarred, onlyUnmastered, starredIds, masteredIds]);
+  }, [masterUnifiedItems, searchQuery, selectedPrepFilter, selectedCategory, selectedLetter, onlyStarred, onlyUnmastered, starredIds, masteredIds]);
 
   // Keep flashcardIndex within range when list changes
   useEffect(() => {
@@ -337,7 +374,7 @@ export const FixedPrepositionsView: React.FC = () => {
 
   // Quiz Option Click Handler
   const handleQuizOption = useCallback((option: string) => {
-    if (selectedOption !== null) return; // Prevent double answer
+    if (selectedOption !== null) return;
     setSelectedOption(option);
     const currentQ = FIXED_PREPOSITIONS_QUIZ_DATA[quizIndex];
     const isCorrect = option.toLowerCase() === currentQ.correctPreposition.toLowerCase();
@@ -369,7 +406,7 @@ export const FixedPrepositionsView: React.FC = () => {
     }
   }, [quizIndex]);
 
-  const handleRestartQuiz = useCallback(() => {
+  const handleResetQuiz = useCallback(() => {
     soundManager.playClick();
     haptics.selection();
     setQuizIndex(0);
@@ -379,32 +416,55 @@ export const FixedPrepositionsView: React.FC = () => {
     setUserAnswers({});
   }, []);
 
-  // Preposition count map
+  // Counts for Top Preposition Filter
   const prepCounts = useMemo(() => {
-    const map: Record<string, number> = { ALL: HIGH_YIELD_FIXED_PREPOSITIONS.length };
-    HIGH_YIELD_FIXED_PREPOSITIONS.forEach(item => {
+    const counts: Record<string, number> = { ALL: masterUnifiedItems.length };
+    masterUnifiedItems.forEach(item => {
       const p = item.preposition.toUpperCase();
-      map[p] = (map[p] || 0) + 1;
+      counts[p] = (counts[p] || 0) + 1;
     });
-    return map;
-  }, []);
+    return counts;
+  }, [masterUnifiedItems]);
 
-  // Unique alphabet letters present in dataset
+  // Available Alphabet Letters
   const availableLetters = useMemo(() => {
     const letters = new Set<string>();
-    HIGH_YIELD_FIXED_PREPOSITIONS.forEach(item => {
-      letters.add(item.word.charAt(0).toUpperCase());
+    masterUnifiedItems.forEach(item => {
+      letters.add(item.word[0].toUpperCase());
     });
     return ['ALL', ...Array.from(letters).sort()];
-  }, []);
+  }, [masterUnifiedItems]);
 
-  // Progress stats
-  const totalCount = HIGH_YIELD_FIXED_PREPOSITIONS.length;
+  // Overall Mastery stats
+  const totalCount = masterUnifiedItems.length;
   const masteredCount = masteredIds.size;
   const starredCount = starredIds.size;
-  const progressPercent = Math.min(100, Math.round((masteredCount / totalCount) * 100));
+  const progressPercent = totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0;
 
   const currentFlashcard = filteredItems[flashcardIndex];
+
+  // Helper to highlight prepositions in example sentences
+  const highlightPreposition = (sentence: string, prep: string) => {
+    const regex = new RegExp(`(\\b${prep}\\b(?:/\\w+)?)`, 'gi');
+    const parts = sentence.split(regex);
+    return (
+      <>
+        {parts.map((part, idx) => {
+          if (part.toLowerCase().startsWith(prep.toLowerCase())) {
+            return (
+              <span
+                key={idx}
+                className="font-black px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 not-italic"
+              >
+                {part}
+              </span>
+            );
+          }
+          return part;
+        })}
+      </>
+    );
+  };
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
@@ -420,16 +480,16 @@ export const FixedPrepositionsView: React.FC = () => {
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs font-black tracking-wide uppercase">
               <Compass className="w-3.5 h-3.5 text-sky-400 animate-spin-slow" />
-              <span>SSC CGL, CHSL, CPO, CDS, Bank PO Special</span>
+              <span>SSC CGL, CHSL, CPO, CDS, NDA & Bank PO Complete Master Edition</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white flex items-center gap-2.5">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white flex items-center gap-2.5 flex-wrap">
               <span>Fixed Prepositions Mastery</span>
               <span className="text-xs sm:text-sm font-bold px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 shadow-xs">
-                170+ PYQ Items
+                295+ PDF Rules (Part A & B)
               </span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              निश्चित संबंधबोधक अव्यय — परीक्षा के सबसे बड़े ट्रैप्स को समझें! Smart Cards, Fill-in Active Recall Flashcards, 10 Confusing Pairs, और Real PYQ Speed Quiz के साथ एक बार में पक्का याद करें।
+              निश्चित संबंधबोधक अव्यय — परीक्षा के सभी महत्वपूर्ण नियमों का सम्पूर्ण संग्रह! <strong>Part-A (अर्थ-आधारित समूह)</strong> और <strong>Part-B (शब्दानुसार नियम)</strong> को छात्र-हितैषी कार्ड्स, एक्टिव रिकॉल फ़्लैशकार्ड्स, 10 कन्फ्यूजिंग ट्रैप्स और PYQ टेस्ट के साथ सरलता से याद करें।
             </p>
           </div>
 
@@ -454,8 +514,51 @@ export const FixedPrepositionsView: React.FC = () => {
           </div>
         </div>
 
-        {/* 4 Mode Navigation Switcher Tabs */}
+        {/* 6 Mode Navigation Switcher Tabs */}
         <div className="relative z-10 mt-6 pt-5 border-t border-white/10 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          {/* 1. Part - A: Meaning Clusters */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveMode('part-a');
+            }}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer whitespace-nowrap shadow-xs ${
+              activeMode === 'part-a'
+                ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white ring-2 ring-sky-300/40 shadow-sky-500/25'
+                : 'bg-white/10 text-slate-300 hover:text-white hover:bg-white/15'
+            }`}
+          >
+            <Layers className="w-4 h-4 text-sky-300" />
+            <span>Part - A: Meaning Clusters (अर्थ-आधारित)</span>
+            <span className="px-1.5 py-0.5 rounded-md bg-black/25 text-[10px] font-bold">
+              163 Items
+            </span>
+          </button>
+
+          {/* 2. Part - B: Word-Wise Vault */}
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveMode('part-b');
+            }}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer whitespace-nowrap shadow-xs ${
+              activeMode === 'part-b'
+                ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white ring-2 ring-indigo-300/40 shadow-indigo-500/25'
+                : 'bg-white/10 text-slate-300 hover:text-white hover:bg-white/15'
+            }`}
+          >
+            <BookOpen className="w-4 h-4 text-indigo-300" />
+            <span>Part - B: Word Vault (शब्दानुसार समूह)</span>
+            <span className="px-1.5 py-0.5 rounded-md bg-black/25 text-[10px] font-bold">
+              132 Items
+            </span>
+          </button>
+
+          {/* 3. All Master Cards */}
           <button
             type="button"
             onClick={() => {
@@ -469,13 +572,14 @@ export const FixedPrepositionsView: React.FC = () => {
                 : 'bg-white/10 text-slate-300 hover:text-white hover:bg-white/15'
             }`}
           >
-            <BookOpen className="w-4 h-4 text-sky-300" />
-            <span>Smart Cards (कार्ड्स ग्रिड)</span>
+            <Tag className="w-4 h-4 text-sky-300" />
+            <span>All Master Vault (A-Z)</span>
             <span className="px-1.5 py-0.5 rounded-md bg-black/25 text-[10px] font-bold">
               {filteredItems.length}
             </span>
           </button>
 
+          {/* 4. Active Recall Flashcards */}
           <button
             type="button"
             onClick={() => {
@@ -485,7 +589,7 @@ export const FixedPrepositionsView: React.FC = () => {
             }}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer whitespace-nowrap shadow-xs ${
               activeMode === 'flashcards'
-                ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white ring-2 ring-purple-300/40 shadow-purple-500/25'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white ring-2 ring-purple-300/40 shadow-purple-500/25'
                 : 'bg-white/10 text-slate-300 hover:text-white hover:bg-white/15'
             }`}
           >
@@ -496,6 +600,7 @@ export const FixedPrepositionsView: React.FC = () => {
             </span>
           </button>
 
+          {/* 5. Confusing Pairs */}
           <button
             type="button"
             onClick={() => {
@@ -516,6 +621,7 @@ export const FixedPrepositionsView: React.FC = () => {
             </span>
           </button>
 
+          {/* 6. PYQ Speed Quiz */}
           <button
             type="button"
             onClick={() => {
@@ -539,10 +645,524 @@ export const FixedPrepositionsView: React.FC = () => {
       </div>
 
       {/* ──────────────────────────────────────────────────────────
-          2. FILTER BAR & SEARCH (Shown for 'cards' & 'flashcards')
+          2. MODE: PART - A MEANING-BASED CLUSTERS VIEW (Pages 1-6)
+         ────────────────────────────────────────────────────────── */}
+      {activeMode === 'part-a' && (
+        <div className="space-y-6">
+          {/* Meaning Clusters Header & Sub-Selector */}
+          <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>Part - A: Meaning-Based Semantic Clusters</span>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                    PDF Pages 1 - 6
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  समान अर्थ वाले शब्द समान Preposition लेते हैं! समूह में याद करने से परीक्षा में कभी भ्रम नहीं होता।
+                </p>
+              </div>
+
+              {/* Quick Search inside Part A */}
+              <div className="relative w-full sm:w-72">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search in Part-A words..."
+                  className="w-full pl-9 pr-8 py-2 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Cluster Quick-Jump Pill Tabs */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setSelectedPartAClusterId('all');
+                }}
+                className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
+                  selectedPartAClusterId === 'all'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black shadow-xs'
+                    : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 border-slate-200 dark:border-white/10'
+                }`}
+              >
+                All Clusters (163)
+              </button>
+              {PART_A_CLUSTERS.map(cluster => {
+                const isSelected = selectedPartAClusterId === cluster.id;
+                return (
+                  <button
+                    key={cluster.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setSelectedPartAClusterId(cluster.id);
+                    }}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
+                      isSelected
+                        ? `${cluster.colorScheme.badge} shadow-xs font-black scale-102`
+                        : 'bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="font-mono uppercase font-black tracking-wide">
+                      '{cluster.preposition}'
+                    </span>
+                    <span className="truncate max-w-[140px] sm:max-w-none">{cluster.title.split(' ')[0]}</span>
+                    <span className="text-[10px] px-1 py-0.2 rounded-full bg-black/20 text-white font-mono">
+                      {cluster.items.length}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Clusters List */}
+          <div className="space-y-8">
+            {PART_A_CLUSTERS.filter(cluster => selectedPartAClusterId === 'all' || selectedPartAClusterId === cluster.id).map(cluster => {
+              // Filter cluster items based on search query
+              const filteredClusterItems = cluster.items.filter(item => {
+                if (!searchQuery.trim()) return true;
+                const q = searchQuery.toLowerCase().trim();
+                return (
+                  item.word.toLowerCase().includes(q) ||
+                  item.hindiMeaning.toLowerCase().includes(q) ||
+                  item.example.toLowerCase().includes(q) ||
+                  (item.subMeaningEng && item.subMeaningEng.toLowerCase().includes(q))
+                );
+              });
+
+              if (filteredClusterItems.length === 0) return null;
+
+              return (
+                <div
+                  key={cluster.id}
+                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5"
+                >
+                  {/* Cluster Header with Rule Concept */}
+                  <div className={`p-4 sm:p-5 rounded-2xl ${cluster.colorScheme.bg} border ${cluster.colorScheme.border} space-y-2`}>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <span className={`px-3 py-1 rounded-lg text-xs sm:text-sm font-black uppercase tracking-wider ${cluster.colorScheme.badge} shadow-xs`}>
+                          TAKES '{cluster.preposition}'
+                        </span>
+                        <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                          {cluster.title}
+                        </h4>
+                      </div>
+                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                        {filteredClusterItems.length} {filteredClusterItems.length === 1 ? 'Rule' : 'Rules'}
+                      </span>
+                    </div>
+
+                    <div className="text-xs sm:text-[13px] font-bold text-slate-700 dark:text-slate-200 flex items-start gap-2 pt-1">
+                      <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                      <p className="leading-relaxed">
+                        <strong className="text-slate-900 dark:text-white">Grammar Concept: </strong>
+                        {cluster.conceptRule}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Cards Grid for this Cluster */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {filteredClusterItems.map(item => {
+                      const isStarred = starredIds.has(item.id);
+                      const isMastered = masteredIds.has(item.id);
+                      const isPlaying = playingId === item.id;
+                      const isCopied = copiedId === item.id;
+                      const prepStyle = PREP_COLOR_MAP[item.preposition.toLowerCase()] || DEFAULT_PREP_COLOR;
+
+                      return (
+                        <div
+                          key={item.id}
+                          className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
+                            isMastered
+                              ? 'bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-500/30'
+                              : 'bg-slate-50/70 dark:bg-[#121422] border-slate-200/80 dark:border-white/5 hover:border-sky-500/40 hover:bg-white dark:hover:bg-[#161828] shadow-xs hover:shadow-md'
+                          }`}
+                        >
+                          <div className="space-y-3">
+                            {/* Word + Preposition Pill + Action Buttons */}
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+                                    {item.word}
+                                  </span>
+                                  <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
+                                    + {item.preposition}
+                                  </span>
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 capitalize">
+                                    {item.category}
+                                  </span>
+                                </div>
+                                <div className="text-xs font-bold text-sky-600 dark:text-sky-400 mt-0.5">
+                                  {item.phrase}
+                                </div>
+                              </div>
+
+                              {/* Action Tools */}
+                              <div className="flex items-center gap-1 shrink-0">
+                                <button
+                                  type="button"
+                                  onClick={() => speakText(item.phrase, item.id)}
+                                  title="Pronounce phrase"
+                                  className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                                    isPlaying ? 'bg-sky-500 text-white animate-pulse' : 'text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10'
+                                  }`}
+                                >
+                                  <Volume2 className="w-4 h-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => copyPhrase(item.phrase, item.id)}
+                                  title="Copy phrase"
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all cursor-pointer"
+                                >
+                                  {isCopied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => toggleStar(item.id)}
+                                  title={isStarred ? 'Remove bookmark' : 'Bookmark for revision'}
+                                  className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                                    isStarred ? 'text-amber-500 bg-amber-500/10' : 'text-slate-400 hover:text-amber-500 hover:bg-slate-200 dark:hover:bg-white/10'
+                                  }`}
+                                >
+                                  <Star className={`w-4 h-4 ${isStarred ? 'fill-amber-400' : ''}`} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Sub-Meaning Note if present in PDF */}
+                            {item.subMeaningEng && (
+                              <div className="p-2 rounded-xl bg-indigo-50/70 dark:bg-indigo-500/10 border border-indigo-200/60 dark:border-indigo-500/15 text-[11px] font-medium text-indigo-900 dark:text-indigo-300">
+                                <span className="font-bold text-indigo-700 dark:text-indigo-400 mr-1">Context:</span>
+                                <span>{item.subMeaningEng}</span>
+                              </div>
+                            )}
+
+                            {/* Hindi Meaning */}
+                            <div className="p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                              <span className="text-xs text-slate-400 font-semibold block mb-0.5">हिन्दी अर्थ:</span>
+                              <div className="text-sm font-black text-amber-600 dark:text-amber-400">
+                                {item.hindiMeaning}
+                              </div>
+                            </div>
+
+                            {/* Exact Exam Sentence */}
+                            <div className="text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/50 dark:border-sky-500/15">
+                              <span className="font-bold text-sky-700 dark:text-sky-400 block mb-1">
+                                Exam Sentence:
+                              </span>
+                              <p className="italic leading-relaxed font-medium">
+                                "{highlightPreposition(item.example, item.preposition)}"
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Mastered Button */}
+                          <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/5 flex items-center justify-end">
+                            <button
+                              type="button"
+                              onClick={() => toggleMastered(item.id)}
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                                isMastered
+                                  ? 'bg-emerald-500 text-white shadow-xs'
+                                  : 'bg-slate-200/70 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
+                              }`}
+                            >
+                              <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-white' : ''}`} />
+                              <span>{isMastered ? 'Mastered' : 'Mark Known'}</span>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ──────────────────────────────────────────────────────────
+          3. MODE: PART - B WORD-WISE VAULT VIEW (Pages 7-11)
+         ────────────────────────────────────────────────────────── */}
+      {activeMode === 'part-b' && (
+        <div className="space-y-6">
+          {/* Part B Header & Filter Pills */}
+          <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>Part - B: Miscellaneous Fixed Preposition Vault</span>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                    PDF Pages 7 - 11
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Preposition-wise वर्गीकृत शब्दकोश — TO, OF, FOR, FROM, ON, IN, WITH के साथ सभी आवश्यक शब्द व परीक्षा उदाहरण।
+                </p>
+              </div>
+
+              {/* Quick Search inside Part B */}
+              <div className="relative w-full sm:w-72">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search in Part-B words..."
+                  className="w-full pl-9 pr-8 py-2 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Preposition Switcher Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  soundManager.playClick();
+                  haptics.selection();
+                  setSelectedPartBPrep('ALL');
+                }}
+                className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
+                  selectedPartBPrep === 'ALL'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-black shadow-xs'
+                    : 'bg-slate-100 dark:bg-white/[0.04] text-slate-600 dark:text-slate-400 hover:text-slate-900 border-slate-200 dark:border-white/10'
+                }`}
+              >
+                All Prepositions (132)
+              </button>
+              {PART_B_GROUPS.map(group => {
+                const isSelected = selectedPartBPrep === group.preposition;
+                const prepStyle = PREP_COLOR_MAP[group.preposition.toLowerCase()] || DEFAULT_PREP_COLOR;
+
+                return (
+                  <button
+                    key={group.preposition}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setSelectedPartBPrep(group.preposition);
+                    }}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border ${
+                      isSelected
+                        ? `${prepStyle.badge} shadow-xs font-black scale-102`
+                        : 'bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <span>{group.preposition}</span>
+                    <span className="text-[10px] px-1 py-0.2 rounded-full bg-black/20 text-white font-mono">
+                      {group.items.length}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Part B Groups List */}
+          <div className="space-y-8">
+            {PART_B_GROUPS.filter(group => selectedPartBPrep === 'ALL' || selectedPartBPrep === group.preposition).map(group => {
+              const prepStyle = PREP_COLOR_MAP[group.preposition.toLowerCase()] || DEFAULT_PREP_COLOR;
+
+              // Filter group items based on search query
+              const filteredGroupItems = group.items.filter(item => {
+                if (!searchQuery.trim()) return true;
+                const q = searchQuery.toLowerCase().trim();
+                return (
+                  item.word.toLowerCase().includes(q) ||
+                  item.hindiMeaning.toLowerCase().includes(q) ||
+                  item.englishMeaning.toLowerCase().includes(q) ||
+                  item.example.toLowerCase().includes(q)
+                );
+              });
+
+              if (filteredGroupItems.length === 0) return null;
+
+              return (
+                <div
+                  key={group.preposition}
+                  className="rounded-3xl p-5 sm:p-7 bg-white dark:bg-[#0B0D14] border border-slate-200/90 dark:border-white/10 shadow-sm space-y-5"
+                >
+                  {/* Group Header */}
+                  <div className={`p-4 sm:p-5 rounded-2xl ${prepStyle.bg} border ${prepStyle.border} flex items-center justify-between flex-wrap gap-2`}>
+                    <div className="flex items-center gap-3">
+                      <span className={`px-3 py-1.5 rounded-xl text-sm font-black uppercase tracking-wider ${prepStyle.badge}`}>
+                        "{group.preposition}" PREPOSITION
+                      </span>
+                      <div>
+                        <h4 className="text-base font-black text-slate-900 dark:text-white">
+                          {group.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                          {group.description}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold px-2 py-1 rounded-lg bg-black/10 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                      {filteredGroupItems.length} Words
+                    </span>
+                  </div>
+
+                  {/* Cards Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {filteredGroupItems.map(item => {
+                      const isStarred = starredIds.has(item.id);
+                      const isMastered = masteredIds.has(item.id);
+                      const isPlaying = playingId === item.id;
+                      const isCopied = copiedId === item.id;
+
+                      return (
+                        <div
+                          key={item.id}
+                          className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 flex flex-col justify-between border ${
+                            isMastered
+                              ? 'bg-emerald-50/40 dark:bg-emerald-950/10 border-emerald-500/30'
+                              : 'bg-slate-50/70 dark:bg-[#121422] border-slate-200/80 dark:border-white/5 hover:border-purple-500/40 hover:bg-white dark:hover:bg-[#161828] shadow-xs hover:shadow-md'
+                          }`}
+                        >
+                          <div className="space-y-3">
+                            {/* Word + Category + Tools */}
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+                                    {item.word}
+                                  </span>
+                                  <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
+                                    + {item.preposition}
+                                  </span>
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-400 capitalize">
+                                    {item.category}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-1 shrink-0">
+                                <button
+                                  type="button"
+                                  onClick={() => speakText(`${item.word} ${item.preposition}`, item.id)}
+                                  title="Pronounce phrase"
+                                  className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                                    isPlaying ? 'bg-sky-500 text-white animate-pulse' : 'text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10'
+                                  }`}
+                                >
+                                  <Volume2 className="w-4 h-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => copyPhrase(`${item.word} ${item.preposition}`, item.id)}
+                                  title="Copy phrase"
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all cursor-pointer"
+                                >
+                                  {isCopied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => toggleStar(item.id)}
+                                  title={isStarred ? 'Remove bookmark' : 'Bookmark for revision'}
+                                  className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                                    isStarred ? 'text-amber-500 bg-amber-500/10' : 'text-slate-400 hover:text-amber-500 hover:bg-slate-200 dark:hover:bg-white/10'
+                                  }`}
+                                >
+                                  <Star className={`w-4 h-4 ${isStarred ? 'fill-amber-400' : ''}`} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Hindi Meaning */}
+                            <div className="p-2.5 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                              <span className="text-xs text-slate-400 font-semibold block mb-0.5">हिन्दी अर्थ:</span>
+                              <div className="text-sm font-black text-amber-600 dark:text-amber-400">
+                                {item.hindiMeaning}
+                              </div>
+                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                {item.englishMeaning}
+                              </div>
+                            </div>
+
+                            {/* Exact Exam Sentence */}
+                            <div className="text-xs text-slate-700 dark:text-slate-300 p-3 rounded-xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200/50 dark:border-purple-500/15">
+                              <span className="font-bold text-purple-700 dark:text-purple-400 block mb-1">
+                                Exam Example:
+                              </span>
+                              <p className="italic leading-relaxed font-medium">
+                                "{highlightPreposition(item.example, item.preposition)}"
+                              </p>
+                            </div>
+
+                            {/* Special Exam Note / Trap Tip */}
+                            {item.note && (
+                              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-800 dark:text-amber-300 text-[11px] leading-snug flex items-start gap-1.5">
+                                <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                                <span>{item.note}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Mastered Button */}
+                          <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/5 flex items-center justify-end">
+                            <button
+                              type="button"
+                              onClick={() => toggleMastered(item.id)}
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                                isMastered
+                                  ? 'bg-emerald-500 text-white shadow-xs'
+                                  : 'bg-slate-200/70 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-500'
+                              }`}
+                            >
+                              <CheckCircle2 className={`w-3.5 h-3.5 ${isMastered ? 'text-white' : ''}`} />
+                              <span>{isMastered ? 'Mastered' : 'Mark Known'}</span>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ──────────────────────────────────────────────────────────
+          4. FILTER BAR & SEARCH (Shown for 'cards' & 'flashcards')
          ────────────────────────────────────────────────────────── */}
       {(activeMode === 'cards' || activeMode === 'flashcards') && (
-        <div className="space-y-3 p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm">
+        <div className="space-y-3 p-4 sm:p-5 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm">
           {/* Search bar + Action pills */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="relative flex-1">
@@ -551,7 +1171,7 @@ export const FixedPrepositionsView: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search by word, preposition, Hindi meaning or exam (e.g., accused, with, चोरी, CGL)..."
+                placeholder="Search across all 295+ prepositions by word, meaning, sentence (e.g. abstain, with, घृणा)..."
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all"
               />
               {searchQuery && (
@@ -659,7 +1279,6 @@ export const FixedPrepositionsView: React.FC = () => {
 
           {/* Category & Letter Selector Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/5 text-xs">
-            {/* Category: Verb, Adjective, Noun */}
             <div className="flex items-center gap-1.5">
               <span className="text-slate-400 font-semibold">Part of Speech:</span>
               {(['all', 'verb', 'adjective', 'noun'] as const).map(cat => (
@@ -708,13 +1327,13 @@ export const FixedPrepositionsView: React.FC = () => {
       )}
 
       {/* ──────────────────────────────────────────────────────────
-          3. MODE: CARDS GRID VIEW
+          5. MODE: ALL MASTER CARDS GRID VIEW
          ────────────────────────────────────────────────────────── */}
       {activeMode === 'cards' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 px-1">
-            <span>Showing {filteredItems.length} Preposition Rules</span>
-            <span>Click speaker to pronounce, star to save</span>
+            <span>Showing {filteredItems.length} Master Preposition Rules</span>
+            <span>Click speaker to pronounce, star to save for revision</span>
           </div>
 
           {filteredItems.length === 0 ? (
@@ -757,7 +1376,6 @@ export const FixedPrepositionsView: React.FC = () => {
                         : 'bg-white dark:bg-[#0B0D14] border-slate-200/90 dark:border-white/10 hover:border-sky-500/40 dark:hover:border-sky-500/40 shadow-xs hover:shadow-lg hover:-translate-y-0.5'
                     }`}
                   >
-                    {/* Top Row: Word + Preposition Pill + Action Buttons */}
                     <div className="space-y-3">
                       <div className="flex items-start justify-between gap-2">
                         <div>
@@ -765,7 +1383,6 @@ export const FixedPrepositionsView: React.FC = () => {
                             <span className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
                               {item.word}
                             </span>
-                            {/* Prominent Fixed Preposition Badge */}
                             <span
                               className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider border shadow-xs ${prepStyle.badge} border-white/20`}
                             >
@@ -780,7 +1397,7 @@ export const FixedPrepositionsView: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* Top-Right Tools: Speak, Copy, Star */}
+                        {/* Tools: Speak, Copy, Star */}
                         <div className="flex items-center gap-1 shrink-0">
                           <button
                             type="button"
@@ -834,7 +1451,7 @@ export const FixedPrepositionsView: React.FC = () => {
                           Exam Example:
                         </span>
                         <p className="italic leading-relaxed font-medium">
-                          "{item.example}"
+                          "{highlightPreposition(item.example, item.preposition)}"
                         </p>
                       </div>
 
@@ -853,7 +1470,7 @@ export const FixedPrepositionsView: React.FC = () => {
                     {/* Bottom Row: Exam Tags & Mastered Toggle */}
                     <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2">
                       <div className="flex flex-wrap items-center gap-1">
-                        {item.repeatedIn.slice(0, 3).map((exam, idx) => (
+                        {item.repeatedIn?.slice(0, 3).map((exam, idx) => (
                           <span
                             key={idx}
                             className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400"
@@ -885,11 +1502,10 @@ export const FixedPrepositionsView: React.FC = () => {
       )}
 
       {/* ──────────────────────────────────────────────────────────
-          4. MODE: ACTIVE RECALL FLASHCARDS
+          6. MODE: ACTIVE RECALL FLASHCARDS
          ────────────────────────────────────────────────────────── */}
       {activeMode === 'flashcards' && (
         <div className="max-w-2xl mx-auto space-y-6">
-          {/* Instructions banner */}
           <div className="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-between text-xs text-purple-700 dark:text-purple-300">
             <div className="flex items-center gap-2">
               <Brain className="w-4 h-4 text-purple-500 shrink-0" />
@@ -914,7 +1530,6 @@ export const FixedPrepositionsView: React.FC = () => {
           ) : (
             currentFlashcard && (
               <div className="space-y-4">
-                {/* Flashcard Container */}
                 <div
                   className={`min-h-[360px] sm:min-h-[400px] rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative border shadow-xl ${
                     isFlashcardFlipped
@@ -922,7 +1537,6 @@ export const FixedPrepositionsView: React.FC = () => {
                       : 'bg-white dark:bg-[#0E101B] border-slate-200 dark:border-white/10 text-slate-900 dark:text-white'
                   }`}
                 >
-                  {/* Card Top: Counter + Part of speech badge + Star button */}
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-400">
                       Card {flashcardIndex + 1} of {filteredItems.length}
@@ -941,9 +1555,7 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Card Center: Front vs Back */}
                   {!isFlashcardFlipped ? (
-                    // FRONT: Fill-in-the-blank prompt
                     <div className="my-auto py-8 text-center space-y-5">
                       <div className="text-xs font-black uppercase tracking-widest text-slate-400">
                         Fill in the correct preposition:
@@ -963,7 +1575,6 @@ export const FixedPrepositionsView: React.FC = () => {
                       </div>
                     </div>
                   ) : (
-                    // BACK: The Answer & Rule
                     <div className="my-auto py-6 text-center space-y-4 animate-fade-in">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-400/30 text-xs font-bold">
                         <CheckCircle2 className="w-3.5 h-3.5" />
@@ -997,7 +1608,6 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Card Bottom: Single Primary Flip Button */}
                   <div className="pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-center">
                     <button
                       type="button"
@@ -1061,7 +1671,7 @@ export const FixedPrepositionsView: React.FC = () => {
       )}
 
       {/* ──────────────────────────────────────────────────────────
-          5. MODE: CONFUSING PAIRS & EXAM TRAPS
+          7. MODE: CONFUSING PAIRS & EXAM TRAPS
          ────────────────────────────────────────────────────────── */}
       {activeMode === 'traps' && (
         <div className="space-y-6">
@@ -1081,7 +1691,6 @@ export const FixedPrepositionsView: React.FC = () => {
                 key={group.id}
                 className="rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-sm space-y-4"
               >
-                {/* Header: Title & Golden Rule */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-white/5">
                   <div className="flex items-center gap-2.5">
                     <span className="w-7 h-7 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-xs shrink-0">
@@ -1097,7 +1706,6 @@ export const FixedPrepositionsView: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Comparison Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {group.items.map((item, iIdx) => (
                     <div
@@ -1137,7 +1745,7 @@ export const FixedPrepositionsView: React.FC = () => {
       )}
 
       {/* ──────────────────────────────────────────────────────────
-          6. MODE: PYQ SPEED QUIZ
+          8. MODE: PYQ SPEED QUIZ
          ────────────────────────────────────────────────────────── */}
       {activeMode === 'quiz' && (
         <div className="max-w-2xl mx-auto space-y-6">
@@ -1150,7 +1758,6 @@ export const FixedPrepositionsView: React.FC = () => {
 
               return (
                 <div className="space-y-5">
-                  {/* Top Progress & Score Bar */}
                   <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 text-xs">
                     <span className="font-bold text-slate-500 dark:text-slate-400">
                       Question {quizIndex + 1} of {FIXED_PREPOSITIONS_QUIZ_DATA.length}
@@ -1166,7 +1773,6 @@ export const FixedPrepositionsView: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Question Card */}
                   <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-lg space-y-6">
                     <div className="space-y-2">
                       <div className="text-[11px] uppercase tracking-wider font-black text-slate-400">
@@ -1180,7 +1786,6 @@ export const FixedPrepositionsView: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* 4 Options Grid */}
                     <div className="grid grid-cols-2 gap-3">
                       {currentQ.options.map(option => {
                         const isThisSelected = userAns === option;
@@ -1203,51 +1808,36 @@ export const FixedPrepositionsView: React.FC = () => {
                             type="button"
                             disabled={hasAnswered}
                             onClick={() => handleQuizOption(option)}
-                            className={`p-4 rounded-2xl border text-sm sm:text-base font-black transition-all cursor-pointer text-center capitalize ${btnStyle}`}
+                            className={`p-4 rounded-2xl border font-black text-base uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 ${btnStyle}`}
                           >
-                            {option}
+                            <span>{option}</span>
+                            {hasAnswered && isThisCorrect && <Check className="w-4 h-4 stroke-[3]" />}
+                            {hasAnswered && isThisSelected && !isThisCorrect && <X className="w-4 h-4 stroke-[3]" />}
                           </button>
                         );
                       })}
                     </div>
 
-                    {/* Feedback & Explanation Card */}
                     {hasAnswered && (
-                      <div
-                        className={`p-4 rounded-2xl text-xs space-y-2 animate-fade-in border ${
-                          isCorrect
-                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
-                            : 'bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-300'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 font-black text-sm">
-                          {isCorrect ? (
-                            <>
-                              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                              <span>Correct! Excellent memory!</span>
-                            </>
-                          ) : (
-                            <>
-                              <AlertTriangle className="w-4 h-4 text-rose-500" />
-                              <span>Incorrect! Correct preposition is "{currentQ.correctPreposition.toUpperCase()}"</span>
-                            </>
-                          )}
+                      <div className="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-500/20 text-xs space-y-2 animate-fade-in">
+                        <div className="flex items-center gap-2 font-black text-sky-700 dark:text-sky-300">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                          <span>Correct Rule: {currentQ.phrase}</span>
                         </div>
-                        <p className="leading-relaxed font-medium">
-                          <strong>Rule: </strong>{currentQ.explanation}
+                        <p className="text-slate-700 dark:text-slate-200 leading-relaxed">
+                          {currentQ.explanation}
                         </p>
                       </div>
                     )}
 
-                    {/* Next Button */}
                     {hasAnswered && (
                       <div className="flex justify-end pt-2">
                         <button
                           type="button"
                           onClick={handleNextQuizQuestion}
-                          className="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs sm:text-sm font-black shadow-lg shadow-sky-500/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95"
+                          className="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-black text-xs sm:text-sm shadow-md shadow-sky-500/25 flex items-center gap-2 cursor-pointer transition-all"
                         >
-                          <span>{quizIndex + 1 === FIXED_PREPOSITIONS_QUIZ_DATA.length ? 'View Results' : 'Next Question'}</span>
+                          <span>{quizIndex + 1 === FIXED_PREPOSITIONS_QUIZ_DATA.length ? 'Finish Test' : 'Next Question'}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
@@ -1257,52 +1847,40 @@ export const FixedPrepositionsView: React.FC = () => {
               );
             })()
           ) : (
-            // Quiz Completed Result Card
-            <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 shadow-xl text-center space-y-6 animate-scale-up">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center mx-auto shadow-xl shadow-amber-500/30">
-                <Trophy className="w-10 h-10" />
+            <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#0B0D14] border border-slate-200 dark:border-white/10 text-center space-y-5 shadow-2xl animate-scale-in">
+              <div className="w-20 h-20 rounded-full bg-amber-500/10 border-2 border-amber-500/30 flex items-center justify-center mx-auto text-amber-500 shadow-lg">
+                <Trophy className="w-10 h-10 animate-bounce" />
               </div>
-              <div className="space-y-2">
+
+              <div className="space-y-1">
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
-                  Quiz Completed! 🎉
+                  Quiz Completed!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                  You scored <strong className="text-amber-500 text-base">{quizScore}</strong> out of{' '}
-                  <strong className="text-slate-900 dark:text-white text-base">{FIXED_PREPOSITIONS_QUIZ_DATA.length}</strong>!
+                  You scored {quizScore} out of {FIXED_PREPOSITIONS_QUIZ_DATA.length} questions correctly.
                 </p>
               </div>
 
-              {/* Score bar */}
-              <div className="max-w-xs mx-auto p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/5 space-y-2">
-                <div className="flex justify-between text-xs font-bold">
-                  <span>Accuracy</span>
-                  <span className="text-sky-500 font-black">
-                    {Math.round((quizScore / FIXED_PREPOSITIONS_QUIZ_DATA.length) * 100)}%
-                  </span>
-                </div>
-                <div className="w-full h-3 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-sky-400 to-emerald-400 rounded-full"
-                    style={{ width: `${(quizScore / FIXED_PREPOSITIONS_QUIZ_DATA.length) * 100}%` }}
-                  />
-                </div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 text-sm font-black border border-sky-500/20">
+                <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+                <span>Accuracy: {Math.round((quizScore / FIXED_PREPOSITIONS_QUIZ_DATA.length) * 100)}%</span>
               </div>
 
-              <div className="flex items-center justify-center gap-3 pt-2">
+              <div className="pt-4 flex items-center justify-center gap-3">
                 <button
                   type="button"
-                  onClick={handleRestartQuiz}
-                  className="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs sm:text-sm font-black shadow-lg shadow-sky-500/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95"
+                  onClick={handleResetQuiz}
+                  className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                 >
-                  <RefreshCw className="w-4 h-4" />
-                  <span>Retake Quiz</span>
+                  <RotateCcw className="w-4 h-4" />
+                  <span>Try Again</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveMode('cards')}
-                  className="px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-800 dark:text-white text-xs sm:text-sm font-bold transition-all cursor-pointer"
+                  onClick={() => setActiveMode('part-a')}
+                  className="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-sky-500/25"
                 >
-                  <span>Review Cards</span>
+                  <span>Review Part - A Rules</span>
                 </button>
               </div>
             </div>

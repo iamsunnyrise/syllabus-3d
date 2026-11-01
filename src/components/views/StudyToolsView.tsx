@@ -1165,7 +1165,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     ? 'bg-white/20 text-white font-black'
                     : 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
                 }`}>
-                  170+ PYQ
+                  295+ Rules (Part A & B)
                 </span>
               </button>
 
