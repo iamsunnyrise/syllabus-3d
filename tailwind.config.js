@@ -135,13 +135,14 @@ export default {
           900: '#7A2300',
         },
         sky: {
+          DEFAULT: '#138EFF',
           50: '#EFF7FF',
           100: '#DCEDFE',
           200: '#B4DBFD',
           300: '#82C4FC',
           400: '#4AA8FB',
           500: '#138EFF',
-          600: '#138EFF',
+          600: '#0284C7',
           700: '#0771D6',
           800: '#0456A6',
           900: '#01386E',
@@ -322,7 +323,6 @@ export default {
         darkBorder: 'rgba(255, 255, 255, 0.09)',
         lavender: '#992BFF',
         pinkAccent: '#E950F7',
-        sky: '#138EFF',
         orangeAccent: '#FF6105',
         amberAccent: '#FF6105',
         luxury: {

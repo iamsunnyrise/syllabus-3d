@@ -803,8 +803,8 @@ export const FixedPrepositionsView: React.FC = () => {
                                   <span className="fixed-prep-word text-lg font-black text-slate-950 dark:text-white tracking-tight">
                                     {item.word}
                                   </span>
-                                  <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
-                                    + {item.preposition}
+                                  <span className={`fixed-prep-badge fixed-prep-badge-${item.preposition.toLowerCase().replace(/[^a-z]/g, '')} ${prepStyle.badge}`}>
+                                    + {item.preposition.toUpperCase()}
                                   </span>
                                   <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                                     {item.category}
@@ -1058,8 +1058,8 @@ export const FixedPrepositionsView: React.FC = () => {
                                   <span className="fixed-prep-word text-lg font-black text-slate-950 dark:text-white tracking-tight">
                                     {item.word}
                                   </span>
-                                  <span className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider ${prepStyle.badge}`}>
-                                    + {item.preposition}
+                                  <span className={`fixed-prep-badge fixed-prep-badge-${item.preposition.toLowerCase().replace(/[^a-z]/g, '')} ${prepStyle.badge}`}>
+                                    + {item.preposition.toUpperCase()}
                                   </span>
                                   <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                                     {item.category}
@@ -1381,9 +1381,9 @@ export const FixedPrepositionsView: React.FC = () => {
                               {item.word}
                             </span>
                             <span
-                              className={`px-2.5 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider border shadow-xs ${prepStyle.badge} border-white/20`}
+                              className={`fixed-prep-badge fixed-prep-badge-${item.preposition.toLowerCase().replace(/[^a-z]/g, '')} ${prepStyle.badge}`}
                             >
-                              + {item.preposition}
+                              + {item.preposition.toUpperCase()}
                             </span>
                             <span className="fixed-prep-category-pill text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 capitalize">
                               {item.category}
