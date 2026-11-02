@@ -265,6 +265,9 @@ export interface ExternalPlatform {
   pinned?: boolean;
   createdAt: string;
   lastAccessedAt?: string;
+  targetExamId?: string;
+  targetCategory?: string;
+  isUniversal?: boolean;
 }
 
 // ══════════════════════════════════════════════════════════════

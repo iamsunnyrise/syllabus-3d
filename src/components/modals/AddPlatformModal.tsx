@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { ExternalPlatform, PlatformCategory } from '../../types/syllabus';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { detectExamTrack, EXAM_TRACKS, ExamTrackCategory } from '../../data/examPlatformPresets';
 import { soundManager } from '../../utils/soundEffects';
 
 interface AddPlatformModalProps {
@@ -85,6 +86,16 @@ export const AddPlatformModal: React.FC<AddPlatformModalProps> = ({
   const [associatedSubjectId, setAssociatedSubjectId] = useState(editPlatformData?.associatedSubjectId || '');
   const [pinned, setPinned] = useState(editPlatformData?.pinned || false);
   const [error, setError] = useState<string | null>(null);
+
+  const activeExamTrack = detectExamTrack(currentExam);
+  const [targetCategory, setTargetCategory] = useState<ExamTrackCategory>(() => {
+    if (editPlatformData?.isUniversal) return 'general';
+    if (editPlatformData?.targetCategory && editPlatformData.targetCategory in EXAM_TRACKS) {
+      return editPlatformData.targetCategory as ExamTrackCategory;
+    }
+    return activeExamTrack;
+  });
+  const [isUniversal, setIsUniversal] = useState<boolean>(editPlatformData?.isUniversal || false);
 
   // Load and combine all saved & existing custom categories (Cleaned from emojis)
   const savedCustomCategories = useMemo(() => {
@@ -210,7 +221,10 @@ export const AddPlatformModal: React.FC<AddPlatformModalProps> = ({
         loginHint: loginHint.trim() || undefined,
         notes: notes.trim() || undefined,
         associatedSubjectId: associatedSubjectId || undefined,
-        pinned
+        pinned,
+        targetCategory: isUniversal ? 'general' : targetCategory,
+        targetExamId: isUniversal ? undefined : (currentExam?.id || undefined),
+        isUniversal
       });
     } else {
       addPlatform({
@@ -224,7 +238,10 @@ export const AddPlatformModal: React.FC<AddPlatformModalProps> = ({
         loginHint: loginHint.trim() || undefined,
         notes: notes.trim() || undefined,
         associatedSubjectId: associatedSubjectId || undefined,
-        pinned
+        pinned,
+        targetCategory: isUniversal ? 'general' : targetCategory,
+        targetExamId: isUniversal ? undefined : (currentExam?.id || undefined),
+        isUniversal
       });
     }
 
@@ -333,6 +350,131 @@ export const AddPlatformModal: React.FC<AddPlatformModalProps> = ({
 
           <form id="add-platform-form" onSubmit={handleSubmit} className="space-y-4">
             
+            {/* Target Exam / Track Scope */}
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
+                  <span>🎯 Target Exam / Track Scope *</span>
+                </label>
+                <span className="text-[11px] font-mono font-bold text-sky-600 dark:text-sky-400">
+                  {isUniversal ? '🌐 Universal (All Exams)' : `${EXAM_TRACKS[targetCategory]?.name || targetCategory}`}
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Choose whether this portal is for your active target exam (e.g. SSC CGL), coding, or universal for all targets.
+              </p>
+
+              <div className="flex flex-wrap gap-1.5">
+                {/* 1. Active Exam Option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsUniversal(false);
+                    setTargetCategory(activeExamTrack);
+                    soundManager.playClick();
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    !isUniversal && targetCategory === activeExamTrack
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                      : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-blue-400'
+                  }`}
+                >
+                  <span>📌 Active: {currentExam?.name || 'Current Exam'}</span>
+                </button>
+
+                {/* 2. Coding Option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsUniversal(false);
+                    setTargetCategory('coding');
+                    soundManager.playClick();
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    !isUniversal && targetCategory === 'coding'
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                      : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-emerald-400'
+                  }`}
+                >
+                  <span>💻 Coding & Tech</span>
+                </button>
+
+                {/* 3. SSC Option */}
+                {activeExamTrack !== 'ssc' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsUniversal(false);
+                      setTargetCategory('ssc');
+                      soundManager.playClick();
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                      !isUniversal && targetCategory === 'ssc'
+                        ? 'bg-sky-600 text-white border-sky-600 shadow-sm'
+                        : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-sky-400'
+                    }`}
+                  >
+                    <span>🏛️ SSC & Govt</span>
+                  </button>
+                )}
+
+                {/* 4. Banking Option */}
+                {activeExamTrack !== 'banking' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsUniversal(false);
+                      setTargetCategory('banking');
+                      soundManager.playClick();
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                      !isUniversal && targetCategory === 'banking'
+                        ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                        : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-purple-400'
+                    }`}
+                  >
+                    <span>🏦 Banking</span>
+                  </button>
+                )}
+
+                {/* 5. UPSC Option */}
+                {activeExamTrack !== 'upsc' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsUniversal(false);
+                      setTargetCategory('upsc');
+                      soundManager.playClick();
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                      !isUniversal && targetCategory === 'upsc'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-sm'
+                        : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-amber-400'
+                    }`}
+                  >
+                    <span>🇮🇳 UPSC CSE</span>
+                  </button>
+                )}
+
+                {/* 6. Universal Option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsUniversal(true);
+                    setTargetCategory('general');
+                    soundManager.playClick();
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    isUniversal
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-sm'
+                      : 'bg-white dark:bg-[#181926] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-slate-400'
+                  }`}
+                >
+                  <span>🌐 Universal (All Exams)</span>
+                </button>
+              </div>
+            </div>
+
             {/* Category Selector */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">

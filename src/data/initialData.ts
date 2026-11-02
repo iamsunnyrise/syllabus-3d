@@ -1632,6 +1632,241 @@ export const INITIAL_STATE_PCS_SUBJECTS: Subject[] = [
   }
 ];
 
+export const INITIAL_CODING_SUBJECTS: Subject[] = [
+  {
+    id: 'subj_dsa',
+    name: 'Data Structures & Algorithms',
+    icon: 'Code',
+    color: '#10B981',
+    totalChapters: 2,
+    chapters: [
+      {
+        id: 'chap_dsa_core',
+        name: 'Arrays, Two Pointers & Binary Search',
+        description: 'Time Complexity, Sliding Window, Prefix Sums, Binary Search Space',
+        topics: [
+          {
+            id: 'top_arrays_two_pointers',
+            name: 'Arrays, Two Pointers & Sliding Window',
+            subtopics: ['Two Sum Variants', 'Max Subarray Sum (Kadane)', 'Variable Size Sliding Window'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 5,
+            notes: 'Two pointer approach optimizes O(n^2) nested loops into O(n) linear scans for sorted arrays.',
+            mistakes: []
+          },
+          {
+            id: 'top_binary_search_space',
+            name: 'Binary Search & Monotonic Predicates',
+            subtopics: ['Rotated Sorted Array', 'Binary Search on Answers', 'Lower/Upper Bounds'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 5,
+            notes: 'Whenever monotonic condition F->T holds, apply binary search on solution space.',
+            mistakes: []
+          }
+        ]
+      },
+      {
+        id: 'chap_dsa_trees_dp',
+        name: 'Trees, Graphs & Dynamic Programming',
+        description: 'Binary Search Trees, BFS/DFS, 1D & 2D Memoization',
+        topics: [
+          {
+            id: 'top_trees_bst',
+            name: 'Binary Trees & Tree Traversals (BFS/DFS)',
+            subtopics: ['Lowest Common Ancestor', 'Level Order BFS', 'Diameter of Tree'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 6,
+            notes: 'Most tree problems are naturally recursive DFS with base cases checking null root.',
+            mistakes: []
+          },
+          {
+            id: 'top_dynamic_programming',
+            name: 'Dynamic Programming (Knapsack & Subsequences)',
+            subtopics: ['0/1 Knapsack Pattern', 'Longest Common Subsequence', 'Coin Change Memoization'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Hard',
+            isWeak: false,
+            weightage: 7,
+            notes: 'Identify optimal substructure & overlapping subproblems. Define state dp[i][w] clearly.',
+            mistakes: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'subj_web_eng',
+    name: 'Full Stack Web Engineering',
+    icon: 'Globe',
+    color: '#0284C7',
+    totalChapters: 2,
+    chapters: [
+      {
+        id: 'chap_frontend_dev',
+        name: 'Modern Frontend & TypeScript',
+        description: 'React 19, Custom Hooks, State Architecture & Tailwind CSS',
+        topics: [
+          {
+            id: 'top_react_typescript',
+            name: 'React 19, Hooks & State Modeling',
+            subtopics: ['Custom Hook Composition', 'Optimistic UI Updates', 'Type-safe Props & Context'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 5,
+            notes: 'Keep component state local when possible; lift state only to closest common ancestor.',
+            mistakes: []
+          },
+          {
+            id: 'top_web_performance',
+            name: 'Web Performance & Core Web Vitals',
+            subtopics: ['LCP & INP Optimization', 'Code Splitting & Lazy Loading', 'Server Components'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 4,
+            notes: 'Avoid heavy JavaScript on critical render path to safeguard INP and FID.',
+            mistakes: []
+          }
+        ]
+      },
+      {
+        id: 'chap_backend_systems',
+        name: 'Backend Architecture & Databases',
+        description: 'RESTful Services, Node.js, PostgreSQL & Auth',
+        topics: [
+          {
+            id: 'top_nodejs_rest_auth',
+            name: 'Node.js, REST APIs & Security',
+            subtopics: ['Middleware Pipelines', 'JWT & OAuth2 Protocols', 'Rate Limiting & CORS'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Medium',
+            isWeak: false,
+            weightage: 6,
+            notes: 'Always validate and sanitize incoming payloads before passing to services or queries.',
+            mistakes: []
+          },
+          {
+            id: 'top_db_sql_caching',
+            name: 'Databases (SQL vs NoSQL) & Redis Caching',
+            subtopics: ['Indexing & Query Plans', 'Transactions (ACID)', 'Cache-Aside Pattern with Redis'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Hard',
+            isWeak: false,
+            weightage: 6,
+            notes: 'Add composite B-Tree indexes on frequently filtered & sorted columns to prevent full table scans.',
+            mistakes: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'subj_cs_fundamentals',
+    name: 'CS Fundamentals & System Design',
+    icon: 'Layers',
+    color: '#8B5CF6',
+    totalChapters: 1,
+    chapters: [
+      {
+        id: 'chap_cs_system',
+        name: 'Operating Systems, Networks & System Design',
+        description: 'OS Concurrency, TCP/IP, Load Balancers & Distributed Systems',
+        topics: [
+          {
+            id: 'top_system_design_basics',
+            name: 'System Design: Scalability, Caching & Queues',
+            subtopics: ['Horizontal vs Vertical Scaling', 'Message Queues (Kafka/RabbitMQ)', 'Database Sharding'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Hard',
+            isWeak: false,
+            weightage: 7,
+            notes: 'Use message queues to decouple slow asynchronous workloads from synchronous API responses.',
+            mistakes: []
+          },
+          {
+            id: 'top_git_ci_cd',
+            name: 'Git Workflows, Docker & CI/CD Pipelines',
+            subtopics: ['Rebase vs Merge', 'Containerization (Docker)', 'Automated GitHub Actions'],
+            status: 'not_started',
+            completionPercentage: 0,
+            studyTimeMinutes: 0,
+            lastStudied: null,
+            nextRevision: null,
+            accuracy: 0,
+            mockAttempts: 0,
+            difficulty: 'Easy',
+            isWeak: false,
+            weightage: 4,
+            notes: 'Keep Docker containers lightweight by utilizing multi-stage builds and Alpine base images.',
+            mistakes: []
+          }
+        ]
+      }
+    ]
+  }
+];
+
 export const INITIAL_EXAMS: Exam[] = [
   {
     id: 'exam_ssc_cgl_2026',
@@ -1640,6 +1875,14 @@ export const INITIAL_EXAMS: Exam[] = [
     targetYear: 2026,
     examDate: '2026-10-25',
     subjects: INITIAL_SSC_SUBJECTS
+  },
+  {
+    id: 'exam_coding_software_2026',
+    name: 'Coding & Software Engineering 2026',
+    code: 'CODING_SWE',
+    targetYear: 2026,
+    examDate: '2026-12-31',
+    subjects: INITIAL_CODING_SUBJECTS
   },
   {
     id: 'exam_upsc_cse_2027',
@@ -1706,6 +1949,17 @@ export const EXAM_PRESETS_CATALOG: ExamPresetCatalogItem[] = [
     category: 'ssc',
     description: 'Tier 1 & Tier 2: Quant, Reasoning, English, General Awareness',
     subjects: INITIAL_SSC_SUBJECTS
+  },
+  {
+    id: 'exam_coding_software_2026',
+    name: 'Coding & Software Engineering 2026',
+    code: 'CODING_SWE',
+    targetYear: 2026,
+    examDate: '2026-12-31',
+    badge: 'Tech & Software Dev',
+    category: 'coding',
+    description: 'DSA (LeetCode Patterns), Full Stack Web Dev, Backend Systems & CS Fundamentals',
+    subjects: INITIAL_CODING_SUBJECTS
   },
   {
     id: 'exam_upsc_cse_2027',

@@ -48,6 +48,11 @@ import {
   saveStoredReflection,
   deleteStoredReflection
 } from '../utils/dailyProductivityStorage';
+import {
+  CURATED_EXAM_PLATFORMS,
+  detectExamTrack,
+  ExamTrackCategory
+} from '../data/examPlatformPresets';
 import { soundManager } from '../utils/soundEffects';
 import { haptics } from '../utils/haptics';
 import { useAuth } from './AuthContext';
@@ -294,6 +299,7 @@ interface SyllabusContextType {
   deletePlatform: (platformId: string) => void;
   togglePinPlatform: (platformId: string) => void;
   recordPlatformAccess: (platformId: string) => void;
+  importCuratedPlatformsForExam: (trackCategoryOrExamId?: string) => void;
 
   // Top 3 Non-Negotiable Targets
   top3Targets: Top3Target[];
@@ -1304,6 +1310,37 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const recordPlatformAccess = (platformId: string) => {
     setPlatforms(prev => prev.map(p => p.id === platformId ? { ...p, lastAccessedAt: new Date().toISOString() } : p));
+  };
+
+  const importCuratedPlatformsForExam = (trackCategoryOrExamId?: string) => {
+    const track = detectExamTrack(trackCategoryOrExamId || currentExam);
+    const presets = CURATED_EXAM_PLATFORMS[track as ExamTrackCategory] || [];
+    if (presets.length === 0) return;
+
+    setPlatforms(prev => {
+      const existingUrls = new Set(
+        prev.map(p => p.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '').toLowerCase())
+      );
+      const toAdd: ExternalPlatform[] = [];
+      presets.forEach(preset => {
+        const norm = preset.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '').toLowerCase();
+        if (!existingUrls.has(norm)) {
+          toAdd.push({
+            ...preset,
+            id: `plat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+            createdAt: new Date().toISOString(),
+            targetCategory: track,
+            targetExamId: currentExam?.id
+          });
+        }
+      });
+      if (toAdd.length > 0) {
+        soundManager.playCompleteChime();
+        confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
+        return [...toAdd, ...prev];
+      }
+      return prev;
+    });
   };
 
 
@@ -3373,6 +3410,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     deletePlatform,
     togglePinPlatform,
     recordPlatformAccess,
+    importCuratedPlatformsForExam,
     top3Targets,
     updateTop3Target,
     toggleTop3Target,

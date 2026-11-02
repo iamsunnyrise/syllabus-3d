@@ -25,6 +25,31 @@ import { AddPlatformModal } from '../modals/AddPlatformModal';
 import { SectionBadgeIcon } from '../common/SectionBadgeIcon';
 import { soundManager } from '../../utils/soundEffects';
 import { useTheme } from '../../context/ThemeContext';
+import {
+  detectExamTrack,
+  detectPlatformTrack,
+  EXAM_TRACKS,
+  ExamTrackCategory
+} from '../../data/examPlatformPresets';
+
+export const getTrackBadgeClass = (track: ExamTrackCategory): string => {
+  switch (track) {
+    case 'coding':
+      return 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/25';
+    case 'ssc':
+      return 'bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-500/25';
+    case 'banking':
+      return 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/25';
+    case 'upsc':
+      return 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/25';
+    case 'railway':
+      return 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/25';
+    case 'defence':
+      return 'bg-green-500/10 text-green-700 dark:text-green-300 border-green-500/25';
+    default:
+      return 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/25';
+  }
+};
 
 export const stripEmojis = (str: string): string => {
   if (!str) return '';
@@ -548,32 +573,77 @@ export const getCategoryMeta = (category: string, customName?: string) => {
 };
 
 export const PlatformsView: React.FC = () => {
-  const { platforms, togglePinPlatform, deletePlatform } = useSyllabus();
+  const {
+    platforms,
+    togglePinPlatform,
+    deletePlatform,
+    currentExam,
+    importCuratedPlatformsForExam
+  } = useSyllabus();
   const { theme, isDark } = useTheme();
   const isWarmCream = theme === 'warm-cream';
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [examScope, setExamScope] = useState<string>('active');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingPlatform, setEditingPlatform] = useState<ExternalPlatform | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Dynamic custom categories from existing platforms (Cleaned from emojis)
+  // Active Target Exam Track Metadata
+  const activeExamTrack = useMemo(() => detectExamTrack(currentExam), [currentExam]);
+  const activeTrackMeta = EXAM_TRACKS[activeExamTrack];
+
+  // Scoped platforms based on Target Exam Track
+  const scopedPlatforms = useMemo(() => {
+    if (examScope === 'all') return platforms;
+    const targetTrack = examScope === 'active' ? activeExamTrack : examScope;
+    return platforms.filter(p => {
+      const pTrack = detectPlatformTrack(p, activeExamTrack);
+      return pTrack === targetTrack || p.isUniversal || pTrack === 'general';
+    });
+  }, [platforms, examScope, activeExamTrack]);
+
+  // Track portal counts for all tracks
+  const trackCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      all: platforms.length,
+      active: 0,
+      coding: 0,
+      ssc: 0,
+      banking: 0,
+      upsc: 0,
+      railway: 0,
+      defence: 0
+    };
+    platforms.forEach(p => {
+      const pTrack = detectPlatformTrack(p, activeExamTrack);
+      if (pTrack === activeExamTrack || p.isUniversal || pTrack === 'general') {
+        counts.active++;
+      }
+      if (pTrack in counts) {
+        counts[pTrack]++;
+      }
+    });
+    return counts;
+  }, [platforms, activeExamTrack]);
+
+  // Dynamic custom categories from scoped platforms (Cleaned from emojis)
   const customCategoriesList = useMemo(() => {
     const list = new Set<string>();
-    platforms.forEach(p => {
+    scopedPlatforms.forEach(p => {
       if (p.customCategoryName && p.customCategoryName.trim()) {
         const clean = stripEmojis(p.customCategoryName.trim());
         if (clean) list.add(clean);
       }
     });
     return Array.from(list);
-  }, [platforms]);
+  }, [scopedPlatforms]);
 
-  // Category counts
+  // Category counts based on scoped platforms
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {
-      all: platforms.length,
+      all: scopedPlatforms.length,
       course: 0,
       test_series: 0,
       reference: 0,
@@ -581,7 +651,7 @@ export const PlatformsView: React.FC = () => {
       pinned: 0
     };
 
-    platforms.forEach(p => {
+    scopedPlatforms.forEach(p => {
       if (p.pinned) counts.pinned++;
       if (p.category === 'course') counts.course++;
       if (p.category === 'test_series') counts.test_series++;
@@ -597,11 +667,11 @@ export const PlatformsView: React.FC = () => {
     });
 
     return counts;
-  }, [platforms]);
+  }, [scopedPlatforms]);
 
   // Filtered Platforms
   const filteredPlatforms = useMemo(() => {
-    return platforms.filter(p => {
+    return scopedPlatforms.filter(p => {
       const matchesSearch =
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -622,7 +692,7 @@ export const PlatformsView: React.FC = () => {
 
       return p.category === selectedCategory;
     });
-  }, [platforms, searchQuery, selectedCategory]);
+  }, [scopedPlatforms, searchQuery, selectedCategory]);
 
   // Statistics
   const coursesCount = categoryCounts.course;
@@ -749,8 +819,16 @@ export const PlatformsView: React.FC = () => {
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-3.5 sm:gap-5">
           <div className="space-y-2 max-w-xl">
-            {/* Top Badge: Platforms Linked Status Pill */}
+            {/* Top Badges: Target Exam Track Pill + Platforms Linked Status Pill */}
             <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/15 border border-white/25 text-white backdrop-blur-md shadow-xs select-none">
+                <span className="text-sm">{activeTrackMeta.icon}</span>
+                <span>Target: <strong className="text-white font-black">{currentExam?.name || 'SSC CGL 2026'}</strong></span>
+                <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded-md bg-white/20 text-white font-black">
+                  {activeTrackMeta.shortLabel}
+                </span>
+              </span>
+
               <span className={`study-hub-pill-badge inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-xs select-none border transition-all ${
                 isWarmCream
                   ? 'bg-[#121104]/85 border-[#E1A837]/40 text-[#FAEED9]'
@@ -761,7 +839,7 @@ export const PlatformsView: React.FC = () => {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
                 <span>
-                  <strong className="text-white font-black tabular-nums">{platforms.length}</strong> Platforms Connected
+                  <strong className="text-white font-black tabular-nums">{scopedPlatforms.length}</strong> {examScope === 'all' ? 'Total' : activeTrackMeta.shortLabel} Portals
                 </span>
                 <span className="opacity-40">•</span>
                 <span className="text-[11px] font-medium opacity-85">1-Click Fast Launch</span>
@@ -788,14 +866,22 @@ export const PlatformsView: React.FC = () => {
                   className="study-hub-banner-subtitle text-xs sm:text-[13px] font-medium leading-snug mt-1 max-w-md"
                   style={{ color: '#F8F1DE', textShadow: '0 1px 4px rgba(0,0,0,0.85)' }}
                 >
-                  Your unified cockpit for coaching portals, test series & study tools.
+                  Target-tailored study tools & portals for {currentExam?.name || 'your preparation'}.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* CTA: Add Platform Button */}
-          <div className="flex items-center shrink-0">
+          {/* CTA: Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
+            <button
+              onClick={() => importCuratedPlatformsForExam(examScope === 'active' ? activeExamTrack : examScope)}
+              title={`Load recommended study portals for ${activeTrackMeta.name}`}
+              className="group flex items-center gap-1.5 py-2.5 px-3.5 sm:px-4 text-xs sm:text-[13px] rounded-xl font-bold cursor-pointer active:scale-95 transition-all duration-200 border bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md shadow-xs hover:border-white/40"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300 transition-transform group-hover:rotate-12" />
+              <span>Explore Curated</span>
+            </button>
             <button
               onClick={handleOpenAdd}
               className="study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer active:scale-95 transition-all duration-200 border bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-[#7C3AED] text-white border-blue-400/30 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.55),0_8px_24px_-3px_rgba(37,99,235,0.5)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.75),0_12px_28px_-3px_rgba(37,99,235,0.65)] hover:brightness-105"
@@ -995,6 +1081,158 @@ export const PlatformsView: React.FC = () => {
           boxShadow: isDark ? '0 8px 30px rgba(0, 0, 0, 0.4)' : '0 8px 24px -4px rgba(15, 23, 42, 0.08)'
         }}
       >
+        {/* Row 0: Target Exam Track Scope */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 pb-2.5 border-b border-slate-200 dark:border-white/10">
+          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto py-0.5 scrollbar-thin">
+            <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
+              <span>🎯 Exam Track:</span>
+            </span>
+
+            {/* 1. Active Target Exam */}
+            <button
+              type="button"
+              onClick={() => {
+                setExamScope('active');
+                soundManager.playClick();
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                examScope === 'active'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                  : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-blue-400'
+              }`}
+            >
+              <span>{activeTrackMeta.icon}</span>
+              <span>Active: {currentExam?.name || 'Current Exam'}</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                examScope === 'active' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}>
+                {trackCounts.active}
+              </span>
+            </button>
+
+            {/* 2. Coding Track Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setExamScope('coding');
+                soundManager.playClick();
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                examScope === 'coding'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-emerald-400'
+              }`}
+            >
+              <span>💻 Coding & Tech</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                examScope === 'coding' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}>
+                {trackCounts.coding}
+              </span>
+            </button>
+
+            {/* 3. SSC Track Button (if not current active) */}
+            {activeExamTrack !== 'ssc' && (
+              <button
+                type="button"
+                onClick={() => {
+                  setExamScope('ssc');
+                  soundManager.playClick();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                  examScope === 'ssc'
+                    ? 'bg-sky-600 text-white border-sky-600 shadow-sm'
+                    : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-sky-400'
+                }`}
+              >
+                <span>🏛️ SSC CGL</span>
+                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                  examScope === 'ssc' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                }`}>
+                  {trackCounts.ssc}
+                </span>
+              </button>
+            )}
+
+            {/* 4. Banking Track Button */}
+            {activeExamTrack !== 'banking' && (
+              <button
+                type="button"
+                onClick={() => {
+                  setExamScope('banking');
+                  soundManager.playClick();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                  examScope === 'banking'
+                    ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                    : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-purple-400'
+                }`}
+              >
+                <span>🏦 Banking</span>
+                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                  examScope === 'banking' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                }`}>
+                  {trackCounts.banking}
+                </span>
+              </button>
+            )}
+
+            {/* 5. UPSC Track Button */}
+            {activeExamTrack !== 'upsc' && (
+              <button
+                type="button"
+                onClick={() => {
+                  setExamScope('upsc');
+                  soundManager.playClick();
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                  examScope === 'upsc'
+                    ? 'bg-amber-600 text-white border-amber-600 shadow-sm'
+                    : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-amber-400'
+                }`}
+              >
+                <span>🇮🇳 UPSC</span>
+                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                  examScope === 'upsc' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                }`}>
+                  {trackCounts.upsc}
+                </span>
+              </button>
+            )}
+
+            {/* 6. All Platforms Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setExamScope('all');
+                soundManager.playClick();
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
+                examScope === 'all'
+                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-sm'
+                  : 'bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-slate-400'
+              }`}
+            >
+              <span>🌐 All Portals</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
+                examScope === 'all' ? 'bg-white/20 text-white dark:text-black dark:bg-black/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+              }`}>
+                {trackCounts.all}
+              </span>
+            </button>
+          </div>
+
+          {/* Quick Curated Import Action */}
+          <button
+            type="button"
+            onClick={() => importCuratedPlatformsForExam(examScope === 'active' ? activeExamTrack : examScope)}
+            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/10 to-indigo-500/10 hover:from-blue-500/20 hover:to-indigo-500/20 border border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer shrink-0 transition-all active:scale-95 ml-auto"
+            title={`Import recommended portals for ${examScope === 'active' ? activeTrackMeta.name : examScope}`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+            <span>Load Curated {examScope === 'active' ? activeTrackMeta.shortLabel : examScope.toUpperCase()}</span>
+          </button>
+        </div>
         
         {/* Row 1: Search Bar + Live Portals Count */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
@@ -1140,20 +1378,35 @@ export const PlatformsView: React.FC = () => {
       {/* 3. PLATFORM CARDS GRID (Issues 1, 2, 3, 5, 6, 7, 8, 12) */}
       {filteredPlatforms.length === 0 ? (
         <div className="p-8 sm:p-14 rounded-2xl bg-white dark:bg-[#151622] border border-slate-200 dark:border-slate-800 text-center space-y-4 shadow-sm">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20 flex items-center justify-center mx-auto shadow-xs">
-            <Globe className="w-7 h-7 stroke-[1.8]" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20 flex items-center justify-center mx-auto shadow-xs text-2xl sm:text-3xl">
+            {scopedPlatforms.length === 0 ? activeTrackMeta.icon : <Globe className="w-7 h-7 stroke-[1.8]" />}
           </div>
           <div className="space-y-1">
             <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-sans">
-              {searchQuery.trim() || selectedCategory !== 'all' ? 'No study platforms found' : 'No Study Platforms Linked'}
+              {searchQuery.trim() || selectedCategory !== 'all'
+                ? 'No study platforms found'
+                : scopedPlatforms.length === 0
+                  ? `No ${examScope === 'active' ? activeTrackMeta.name : examScope.toUpperCase()} portals linked yet`
+                  : 'No Study Platforms Linked'}
             </h2>
-            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 max-w-sm mx-auto font-normal">
+            <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 max-w-md mx-auto font-normal">
               {searchQuery.trim() || selectedCategory !== 'all'
                 ? `No portals match "${searchQuery || selectedCategory}". Try resetting your filter.`
-                : 'Link your coaching batches, mock test series, and study portals for 1-click launch.'}
+                : scopedPlatforms.length === 0
+                  ? `You are currently viewing ${currentExam?.name || activeTrackMeta.name}. You can 1-click load official recommended portals or add your own.`
+                  : 'Link your coaching batches, mock test series, and study portals for 1-click launch.'}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1 w-full sm:w-auto">
+            {scopedPlatforms.length === 0 && (
+              <button
+                onClick={() => importCuratedPlatformsForExam(examScope === 'active' ? activeExamTrack : examScope)}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black shadow-md cursor-pointer inline-flex items-center justify-center gap-2 active:scale-95 transition-all"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>Load Recommended {examScope === 'active' ? activeTrackMeta.shortLabel : examScope.toUpperCase()} Portals</span>
+              </button>
+            )}
             {(searchQuery.trim() || selectedCategory !== 'all') && (
               <button
                 onClick={() => {
@@ -1238,12 +1491,24 @@ export const PlatformsView: React.FC = () => {
                           )}
                         </div>
 
-                        {/* Category & Step Number Badge */}
+                        {/* Category & Track & Step Number Badge */}
                         <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold border ${catMeta.badgeClass}`}>
                             {catMeta.icon}
                             <span className="truncate max-w-[130px] sm:max-w-[180px]">{formatTitleCase(catMeta.label)}</span>
                           </span>
+
+                          {/* Target Exam Track Badge */}
+                          {(() => {
+                            const pTrack = detectPlatformTrack(platform, activeExamTrack);
+                            const pMeta = EXAM_TRACKS[pTrack];
+                            return (
+                              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border ${getTrackBadgeClass(pTrack)}`}>
+                                <span>{pMeta.icon}</span>
+                                <span className="truncate max-w-[90px]">{platform.isUniversal ? 'Universal' : pMeta.shortLabel}</span>
+                              </span>
+                            );
+                          })()}
 
                           <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200/60 dark:border-white/[0.06] px-1.5 py-0.5 rounded-md">
                             #{stepNumber}
