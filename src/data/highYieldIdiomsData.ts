@@ -1,6 +1,6 @@
-// HIGH YIELD IDIOMS & PHRASES - LEVEL 1 SET 01
+// HIGH YIELD IDIOMS & PHRASES - LEVEL 1 SETS (50 IDIOMS PER SET)
 // Extracted and curated from Toppers' Vocab / Prashant Solanki English
-// Exactly 61 High-Frequency Idioms with Complete Origin, Mnemonics & Exam Usages
+// Exactly 50 idioms per set with complete Hindi, Phonetics, Examples, Synonyms, Antonyms, and Origin/Tricks
 
 import { VocabItem } from './highYieldVocabData';
 
@@ -66,7 +66,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -100,8 +100,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -133,7 +133,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -168,7 +168,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -201,8 +201,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "NDA",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -236,7 +236,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Railway",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -269,8 +269,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -305,7 +305,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -340,7 +340,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -372,8 +372,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -408,7 +408,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -476,7 +476,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -508,8 +508,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "MTS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -545,7 +545,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -612,8 +612,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -647,7 +647,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -750,7 +750,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -786,7 +786,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -820,8 +820,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -889,8 +889,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "NDA",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -924,7 +924,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "CDS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -992,8 +992,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
-      "Banking",
-      "Railway",
+      "CHSL",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1028,7 +1028,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1062,8 +1062,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1096,7 +1096,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1130,8 +1130,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1165,7 +1165,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1199,7 +1199,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1233,7 +1233,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1301,7 +1301,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1335,7 +1335,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1369,8 +1369,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1405,7 +1405,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1439,8 +1439,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "Banking",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1473,7 +1473,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "CDS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1540,8 +1540,8 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1609,7 +1609,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1644,7 +1644,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1715,7 +1715,7 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 01",
       "Idioms & Phrases"
@@ -1723,9 +1723,12 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "collocation": "A dab hand at cooking / coding",
     "level": "level-1",
     "set": "set-01"
-  },
+  }
+];
+
+export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
   {
-    "id": "v-idiom-l1-s1-51",
+    "id": "v-idiom-l1-s2-1",
     "word": "A damsel in distress",
     "phonetic": "/ə ˈdæm.zəl ɪn dɪˈstres/",
     "hindi": "मुसीबत में फँसी असहाय स्त्री या युवती",
@@ -1747,18 +1750,18 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Rescue a damsel in distress",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-52",
+    "id": "v-idiom-l1-s2-2",
     "word": "A dark horse",
     "phonetic": "/ə dɑːk hɔːs/",
     "hindi": "अप्रत्याशित विजेता / छुपा रुस्तम",
@@ -1785,15 +1788,15 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Emerge as the dark horse",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-53",
+    "id": "v-idiom-l1-s2-3",
     "word": "A dead duck",
     "phonetic": "/ə ded dʌk/",
     "hindi": "बेकार / असफल होने वाला व्यक्ति या असफल योजना",
@@ -1817,17 +1820,17 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Regarded as a dead duck",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-54",
+    "id": "v-idiom-l1-s2-4",
     "word": "A dead heat",
     "phonetic": "/ə ded hiːt/",
     "hindi": "बराबरी की टक्कर / अनिर्णीत मुकाबला (टाई)",
@@ -1854,15 +1857,15 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Finish in a dead heat",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-55",
+    "id": "v-idiom-l1-s2-5",
     "word": "A dead letter",
     "phonetic": "/ə ded ˈlet.ər/",
     "hindi": "बेअसर नियम / निष्प्रभावी कानून",
@@ -1885,18 +1888,18 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Become a dead letter in practice",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-56",
+    "id": "v-idiom-l1-s2-6",
     "word": "A dead lock",
     "phonetic": "/ə ded lɒk/",
     "hindi": "गतिरोध / अटकाव की स्थिति",
@@ -1921,17 +1924,17 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Reach a complete deadlock",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-57",
+    "id": "v-idiom-l1-s2-7",
     "word": "A dead loss",
     "phonetic": "/ə ded lɒs/",
     "hindi": "एकदम बेकार / ऐसा नुकसान जिसकी भरपाई न हो सके",
@@ -1955,17 +1958,17 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Prove to be a dead loss",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-58",
+    "id": "v-idiom-l1-s2-8",
     "word": "A diamond in the rough",
     "phonetic": "/ə ˈdaɪə.mənd ɪn ðə rʌf/",
     "hindi": "कच्चा हीरा / छुपी हुई प्रतिभा",
@@ -1991,15 +1994,15 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "A true diamond in the rough",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-59",
+    "id": "v-idiom-l1-s2-9",
     "word": "A dead ringer",
     "phonetic": "/ə ded ˈrɪŋ.ər/",
     "hindi": "हूबहू हमशक्ल / बिल्कुल एक जैसा",
@@ -2024,17 +2027,17 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "A dead ringer for his father",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-60",
+    "id": "v-idiom-l1-s2-10",
     "word": "A dime a dozen",
     "phonetic": "/ə daɪm ə ˈdʌz.ən/",
     "hindi": "बहुत आम / कौड़ियों के भाव / सहज सुलभ",
@@ -2062,15 +2065,15 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Be a dime a dozen",
     "level": "level-1",
-    "set": "set-01"
+    "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s1-61",
+    "id": "v-idiom-l1-s2-11",
     "word": "A dog’s breakfast",
     "phonetic": "/ə dɒɡz ˈbrek.fəst/",
     "hindi": "एकदम अस्त-व्यस्त स्थिति / बदहाली / लीपापोती",
@@ -2097,18 +2100,15 @@ export const LEVEL_1_SET_01_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 01",
+      "Set 02",
       "Idioms & Phrases"
     ],
     "collocation": "Make a dog's breakfast of",
     "level": "level-1",
-    "set": "set-01"
-  }
-];
-
-export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
+    "set": "set-02"
+  },
   {
-    "id": "v-idiom-l1-s2-1",
+    "id": "v-idiom-l1-s2-12",
     "word": "A dry run",
     "phonetic": "/ə draɪ rʌn/",
     "hindi": "अभ्यास / पूर्वाभ्यास",
@@ -2142,7 +2142,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-2",
+    "id": "v-idiom-l1-s2-13",
     "word": "A face like thunder",
     "phonetic": "/ə feɪs laɪk ˈθʌn.dər/",
     "hindi": "बहुत गुस्से में होना / क्रोधित मुखमुद्रा",
@@ -2166,7 +2166,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2176,7 +2176,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-3",
+    "id": "v-idiom-l1-s2-14",
     "word": "A far cry",
     "phonetic": "/ə fɑː kraɪ/",
     "hindi": "बिल्कुल अलग होना / ज़मीन-आसमान का फर्क होना",
@@ -2200,8 +2200,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2211,7 +2211,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-4",
+    "id": "v-idiom-l1-s2-15",
     "word": "A fat cat",
     "phonetic": "/ə fæt kæt/",
     "hindi": "एक अमीर और प्रभावशाली व्यक्ति / मलाईदार पद वाला पूंजीपति",
@@ -2236,7 +2236,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2246,7 +2246,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-5",
+    "id": "v-idiom-l1-s2-16",
     "word": "A feather in one's cap",
     "phonetic": "/ə ˈfeð.ər ɪn wʌnz kæp/",
     "hindi": "गर्व की बात / एक बड़ी उपलब्धि / सम्मान की वृद्धि",
@@ -2271,7 +2271,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2281,7 +2281,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-6",
+    "id": "v-idiom-l1-s2-17",
     "word": "A fine state of affairs",
     "phonetic": "/ə faɪn steɪt əv əˈfeəz/",
     "hindi": "एक बुरी या विकट स्थिति / दुर्दशा",
@@ -2304,8 +2304,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "NDA",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2315,7 +2315,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-7",
+    "id": "v-idiom-l1-s2-18",
     "word": "A finger in every pie",
     "phonetic": "/ə ˈfɪŋ.ɡər ɪn ˈev.ri paɪ/",
     "hindi": "एक साथ कई काम करना / हर मामले में दखल देना",
@@ -2338,7 +2338,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Railway",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2348,7 +2348,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-8",
+    "id": "v-idiom-l1-s2-19",
     "word": "A fire in someone's belly",
     "phonetic": "/ə ˈfaɪər ɪn ˈsʌm.wʌnz ˈbel.i/",
     "hindi": "कुछ कर दिखाने का जुनून / दृढ़ संकल्प / अंदर की आग",
@@ -2372,8 +2372,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2383,7 +2383,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-9",
+    "id": "v-idiom-l1-s2-20",
     "word": "A flash in the pan",
     "phonetic": "/ə flæʃ ɪn ðə pæn/",
     "hindi": "क्षणिक सफलता / चार दिन का तमाशा",
@@ -2407,7 +2407,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2417,7 +2417,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-10",
+    "id": "v-idiom-l1-s2-21",
     "word": "A fly on the wall",
     "phonetic": "/ə flaɪ ɒn ðə wɔːl/",
     "hindi": "किसी घटना को चुपचाप / गुप्त रूप से देखने वाला",
@@ -2441,7 +2441,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2451,7 +2451,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-11",
+    "id": "v-idiom-l1-s2-22",
     "word": "A flying visit",
     "phonetic": "/ə ˈflaɪ.ɪŋ ˈvɪz.ɪt/",
     "hindi": "थोड़ी देर के लिए मिलना / संक्षिप्त मुलाकात",
@@ -2474,8 +2474,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2485,7 +2485,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-12",
+    "id": "v-idiom-l1-s2-23",
     "word": "A fool and his money are easily parted",
     "phonetic": "/ə fuːl ænd hɪz ˈmʌn.i ɑː ˈiː.zəl.i ˈpɑː.tɪd/",
     "hindi": "मूर्ख अपने पैसे को बहुत जल्दी गंवा देता है",
@@ -2508,7 +2508,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2518,7 +2518,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-13",
+    "id": "v-idiom-l1-s2-24",
     "word": "A foul play",
     "phonetic": "/ə faʊl pleɪ/",
     "hindi": "बेईमानी / कपटपूर्ण आचरण / संदिग्ध अपराध",
@@ -2554,7 +2554,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-14",
+    "id": "v-idiom-l1-s2-25",
     "word": "A French leave",
     "phonetic": "/ə frentʃ liːv/",
     "hindi": "बिना सूचना के चले जाना / बिना बताए गायब होना",
@@ -2578,7 +2578,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2588,7 +2588,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-15",
+    "id": "v-idiom-l1-s2-26",
     "word": "A gentleman at large",
     "phonetic": "/ə ˈdʒen.təl.mən æt lɑːdʒ/",
     "hindi": "जिसके पास कोई निश्चित काम न हो / निठल्ला या फुर्सत में रहने वाला व्यक्ति",
@@ -2612,8 +2612,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "MTS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2623,7 +2623,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-16",
+    "id": "v-idiom-l1-s2-27",
     "word": "A glass ceiling",
     "phonetic": "/ə ɡlɑːs ˈsiː.lɪŋ/",
     "hindi": "एक अदृश्य बाधा जो महिलाओं या वंचितों की पदोन्नति रोकती है",
@@ -2646,7 +2646,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2656,7 +2656,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-17",
+    "id": "v-idiom-l1-s2-28",
     "word": "A go getter",
     "phonetic": "/ə ˈɡəʊ ˈɡet.ər/",
     "hindi": "ऊर्जावान और महत्वाकांक्षी व्यक्ति / कर्मठ व लगनशील",
@@ -2692,7 +2692,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-18",
+    "id": "v-idiom-l1-s2-29",
     "word": "A god's ape",
     "phonetic": "/ə ɡɒdz eɪp/",
     "hindi": "जन्मजात मूर्ख / नकलची बंदर",
@@ -2717,8 +2717,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2728,7 +2728,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-19",
+    "id": "v-idiom-l1-s2-30",
     "word": "A golden mean",
     "phonetic": "/ə ˈɡəʊl.dən miːn/",
     "hindi": "बीच का रास्ता / मध्यम मार्ग / संतुलित नीति",
@@ -2754,7 +2754,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2764,7 +2764,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-20",
+    "id": "v-idiom-l1-s2-31",
     "word": "A good turn",
     "phonetic": "/ə ɡʊd tɜːn/",
     "hindi": "किसी की भलाई करना / उपकार का कार्य",
@@ -2789,7 +2789,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2799,7 +2799,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-21",
+    "id": "v-idiom-l1-s2-32",
     "word": "A good grief",
     "phonetic": "/ə ɡʊd ɡriːf/",
     "hindi": "आश्चर्य या झुंझलाहट व्यक्त करने वाला उद्गार",
@@ -2823,7 +2823,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2833,7 +2833,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-22",
+    "id": "v-idiom-l1-s2-33",
     "word": "A good samaritan",
     "phonetic": "/ə ɡʊd səˈmær.ɪ.tən/",
     "hindi": "नेक इंसान / परोपकारी / संकट में निस्वार्थ मदद करने वाला",
@@ -2867,7 +2867,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-23",
+    "id": "v-idiom-l1-s2-34",
     "word": "A grass widow",
     "phonetic": "/ə ɡrɑːs ˈwɪd.əʊ/",
     "hindi": "वह महिला जिसका पति लंबे समय के लिए काम से बाहर हो",
@@ -2887,8 +2887,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2898,7 +2898,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-24",
+    "id": "v-idiom-l1-s2-35",
     "word": "A green horn",
     "phonetic": "/ə ɡriːn hɔːn/",
     "hindi": "अनुभवहीन व्यक्ति / नौसिखिया / कच्चा खिलाड़ी",
@@ -2924,7 +2924,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2934,7 +2934,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-25",
+    "id": "v-idiom-l1-s2-36",
     "word": "A grey area",
     "phonetic": "/ə ɡreɪ ˈeə.ri.ə/",
     "hindi": "अस्पष्ट स्थिति / अनिश्चित दायरा / दोराहा",
@@ -2958,7 +2958,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -2968,7 +2968,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-26",
+    "id": "v-idiom-l1-s2-37",
     "word": "A Herculean task",
     "phonetic": "/ə hɜː.kjʊˈliː.ən tɑːsk/",
     "hindi": "अत्यंत कठिन कार्य / भागीरथ प्रयास / अति दुष्कर कार्य",
@@ -3003,7 +3003,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-27",
+    "id": "v-idiom-l1-s2-38",
     "word": "A Hobson's choice",
     "phonetic": "/ə ˈhɒb.sənz tʃɔɪs/",
     "hindi": "विकल्प न होना / मजबूरी का चुनाव / विवशता",
@@ -3025,8 +3025,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3036,7 +3036,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-28",
+    "id": "v-idiom-l1-s2-39",
     "word": "A hornet's nest",
     "phonetic": "/ə ˈhɔː.nɪts nest/",
     "hindi": "विवादास्पद स्थिति / ततैये का छत्ता / उपद्रव का कारण",
@@ -3070,7 +3070,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-29",
+    "id": "v-idiom-l1-s2-40",
     "word": "A hot potato",
     "phonetic": "/ə hɒt pəˈteɪ.təʊ/",
     "hindi": "विवादास्पद मुद्दा जिसे कोई हाथ न लगाना चाहे / ज्वलंत समस्या",
@@ -3094,7 +3094,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3104,7 +3104,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-30",
+    "id": "v-idiom-l1-s2-41",
     "word": "A house of cards",
     "phonetic": "/ə haʊs əv kɑːdz/",
     "hindi": "ताश का घर / कमज़ोर बुनियाद वाली योजना",
@@ -3128,7 +3128,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3138,7 +3138,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-31",
+    "id": "v-idiom-l1-s2-42",
     "word": "A jaundiced eye",
     "phonetic": "/ə ˈdʒɔːn.dɪst aɪ/",
     "hindi": "पक्षपातपूर्ण नज़रिया / ईर्ष्या या पूर्वाग्रह से देखना",
@@ -3161,8 +3161,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3172,7 +3172,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-32",
+    "id": "v-idiom-l1-s2-43",
     "word": "A lame excuse",
     "phonetic": "/ə leɪm ɪkˈskjuːs/",
     "hindi": "कमज़ोर बहाना / लचर दलील",
@@ -3196,7 +3196,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3206,7 +3206,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-33",
+    "id": "v-idiom-l1-s2-44",
     "word": "A lean patch",
     "phonetic": "/ə liːn pætʃ/",
     "hindi": "असफलता का दौर / मंदी का समय / सूखे का दौर",
@@ -3241,7 +3241,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-34",
+    "id": "v-idiom-l1-s2-45",
     "word": "A left handed compliment",
     "phonetic": "/ə left ˈhæn.dɪd ˈkɒm.plɪ.mənt/",
     "hindi": "प्रशंसा के रूप में किया गया अपमान / व्यंग्यबाण",
@@ -3264,7 +3264,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Steno",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3274,7 +3274,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-35",
+    "id": "v-idiom-l1-s2-46",
     "word": "A leopard can't change its spots",
     "phonetic": "/ə ˈlep.əd kɑːnt tʃeɪndʒ ɪts spɒts/",
     "hindi": "मनुष्य का मूल स्वभाव नहीं बदलता",
@@ -3296,8 +3296,8 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3307,7 +3307,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-36",
+    "id": "v-idiom-l1-s2-47",
     "word": "A level head",
     "phonetic": "/ə ˈlev.əl hed/",
     "hindi": "शांत और समझदार / संतुलित दिमाग / धैर्यवान",
@@ -3332,7 +3332,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3342,7 +3342,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-37",
+    "id": "v-idiom-l1-s2-48",
     "word": "A little bird told me",
     "phonetic": "/ə ˈlɪt.əl bɜːd təʊld miː/",
     "hindi": "उड़ती-उड़ती खबर मिलना / गुप्त सूत्र से ज्ञात होना",
@@ -3366,7 +3366,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
       "Set 02",
       "Idioms & Phrases"
@@ -3376,7 +3376,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-38",
+    "id": "v-idiom-l1-s2-49",
     "word": "A little gush of gratitude",
     "phonetic": "/ə ˈlɪt.əl ɡʌʃ əv ˈɡræt.ɪ.tjuːd/",
     "hindi": "अचानक उमड़ा हुआ आभार / दिली शुक्रिया का अहसास",
@@ -3409,7 +3409,7 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "set": "set-02"
   },
   {
-    "id": "v-idiom-l1-s2-39",
+    "id": "v-idiom-l1-s2-50",
     "word": "A long shot",
     "phonetic": "/ə lɒŋ ʃɒt/",
     "hindi": "सफल होने की उम्मीद बहुत कम होना / दूर की कौड़ी",
@@ -3442,9 +3442,12 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "collocation": "Admittedly a long shot",
     "level": "level-1",
     "set": "set-02"
-  },
+  }
+];
+
+export const LEVEL_1_SET_03_IDIOMS: VocabItem[] = [
   {
-    "id": "v-idiom-l1-s2-40",
+    "id": "v-idiom-l1-s3-1",
     "word": "A man of letters",
     "phonetic": "/ə mæn əv ˈlet.əz/",
     "hindi": "विद्वान / प्रख्यात साहित्यकार / सुशिक्षित पुरुष",
@@ -3472,15 +3475,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Celebrated as a man of letters",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-41",
+    "id": "v-idiom-l1-s3-2",
     "word": "A man of means",
     "phonetic": "/ə mæn əv miːnz/",
     "hindi": "अमीर व्यक्ति / साधन-संपन्न इंसान / धनी पुरुष",
@@ -3504,18 +3507,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
-      "Banking",
-      "Railway",
+      "CHSL",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A prominent man of means",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-42",
+    "id": "v-idiom-l1-s3-3",
     "word": "A man of spirit",
     "phonetic": "/ə mæn əv ˈspɪr.ɪt/",
     "hindi": "साहसी व्यक्ति / दिलेर इंसान / ऊँचे हौसले वाला",
@@ -3539,18 +3542,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "NDA",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A true man of spirit",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-43",
+    "id": "v-idiom-l1-s3-4",
     "word": "A man of straw",
     "phonetic": "/ə mæn əv strɔː/",
     "hindi": "कमजोर चरित्र का व्यक्ति / नाममात्र का व्यक्ति / तिनके जैसा इंसान",
@@ -3574,17 +3577,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "CDS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Regarded as a man of straw",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-44",
+    "id": "v-idiom-l1-s3-5",
     "word": "A mare's nest",
     "phonetic": "/ə meəz nest/",
     "hindi": "भारी गड़बड़ी / व्यर्थ का भ्रम / झूठी खोज",
@@ -3611,15 +3614,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Turn out to be a mare's nest",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-45",
+    "id": "v-idiom-l1-s3-6",
     "word": "A method to/in my madness",
     "phonetic": "/ə ˈmeθ.əd tuː maɪ ˈmæd.nəs/",
     "hindi": "बाहर से अव्यवस्थित दिखने वाले काम के पीछे भी कोई गहरी योजना होना",
@@ -3642,17 +3645,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "There is a method to one's madness",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-46",
+    "id": "v-idiom-l1-s3-7",
     "word": "A milestone",
     "phonetic": "/ə ˈmaɪl.stəʊn/",
     "hindi": "एक महत्वपूर्ण उपलब्धि / मील का पत्थर / युगांतरकारी मोड़",
@@ -3676,17 +3679,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Achieve / mark a major milestone",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-47",
+    "id": "v-idiom-l1-s3-8",
     "word": "A month of Sundays",
     "phonetic": "/ə mʌnθ əv ˈsʌn.deɪz/",
     "hindi": "बहुत लंबा समय / अनंत काल / जो कभी खत्म न हो",
@@ -3710,18 +3713,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Not seen in a month of Sundays",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-48",
+    "id": "v-idiom-l1-s3-9",
     "word": "A moot point",
     "phonetic": "/ə muːt pɔɪnt/",
     "hindi": "विवादास्पद मुद्दा / वाद-विवाद का विषय / अप्रासंगिक बात",
@@ -3747,15 +3750,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Remain a moot point",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-49",
+    "id": "v-idiom-l1-s3-10",
     "word": "A nine days' wonder",
     "phonetic": "/ə naɪn deɪz ˈwʌn.dər/",
     "hindi": "चार दिन की चाँदनी / अल्पकालिक आकर्षण",
@@ -3779,17 +3782,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Prove to be a nine days' wonder",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-50",
+    "id": "v-idiom-l1-s3-11",
     "word": "A pain in the neck",
     "phonetic": "/ə peɪn ɪn ðə nek/",
     "hindi": "बहुत परेशान करने वाला व्यक्ति या बात / सिरदर्द",
@@ -3815,17 +3818,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A real pain in the neck",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-51",
+    "id": "v-idiom-l1-s3-12",
     "word": "A part and parcel",
     "phonetic": "/ə pɑːt ænd ˈpɑː.səl/",
     "hindi": "अभिन्न अंग / अनिवार्य हिस्सा",
@@ -3851,15 +3854,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Be part and parcel of something",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-52",
+    "id": "v-idiom-l1-s3-13",
     "word": "A Parthian shot",
     "phonetic": "/ə ˈpɑː.θi.ən ʃɒt/",
     "hindi": "जाते-जाते कही गई कड़वी बात / विदाई प्रहार",
@@ -3882,18 +3885,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Fire / deliver a Parthian shot",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-53",
+    "id": "v-idiom-l1-s3-14",
     "word": "A Penelope's web",
     "phonetic": "/ə pəˈnel.ə.piz web/",
     "hindi": "ऐसा काम जो कभी समाप्त न हो / कभी न खत्म होने वाला कार्य",
@@ -3915,18 +3918,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "NDA",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A never-ending Penelope's web",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-54",
+    "id": "v-idiom-l1-s3-15",
     "word": "A penny for your thoughts",
     "phonetic": "/ə ˈpen.i fɔː jɔː θɔːts/",
     "hindi": "आप किस सोच में डूबे हैं? / क्या सोच रहे हैं?",
@@ -3948,17 +3951,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A penny for your thoughts, friend?",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-55",
+    "id": "v-idiom-l1-s3-16",
     "word": "A perfect storm",
     "phonetic": "/ə ˈpɜː.fɪkt stɔːm/",
     "hindi": "अत्यंत विषम परिस्थिति / सभी विपत्तियों का एक साथ आना",
@@ -3981,17 +3984,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Face a perfect storm of crises",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-56",
+    "id": "v-idiom-l1-s3-17",
     "word": "A picture paints a thousand words",
     "phonetic": "/ə ˈpɪk.tʃər peɪnts ə ˈθaʊ.zənd wɜːdz/",
     "hindi": "एक चित्र हज़ार शब्दों के बराबर होता है / दृश्य प्रस्तुति का महत्व",
@@ -4016,15 +4019,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Prove that a picture paints a thousand words",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-57",
+    "id": "v-idiom-l1-s3-18",
     "word": "A pie in the sky",
     "phonetic": "/ə paɪ ɪn ðə skaɪ/",
     "hindi": "ख्याली पुलाव / असंभव आशा / झूठा वादा",
@@ -4048,17 +4051,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Regard as pie in the sky",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-58",
+    "id": "v-idiom-l1-s3-19",
     "word": "A piece of the pie",
     "phonetic": "/ə piːs əv ðə paɪ/",
     "hindi": "लाभ या मुनाफ़े में हिस्सा / साझेदारी",
@@ -4082,17 +4085,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Fight for a piece of the pie",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-59",
+    "id": "v-idiom-l1-s3-20",
     "word": "A pig in a poke",
     "phonetic": "/ə pɪɡ ɪn ə pəʊk/",
     "hindi": "बिना जांचे-परखे ली गई वस्तु / धोखे का सौदा",
@@ -4114,18 +4117,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Buy a pig in a poke",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-60",
+    "id": "v-idiom-l1-s3-21",
     "word": "A pipe dream",
     "phonetic": "/ə paɪp driːm/",
     "hindi": "एक असंभव आशा या योजना / हवाई महल / अफीमचियों जैसा सपना",
@@ -4151,15 +4154,15 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
       "CHSL",
       "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Dismiss as a mere pipe dream",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-61",
+    "id": "v-idiom-l1-s3-22",
     "word": "A plum job",
     "phonetic": "/ə plʌm dʒɒb/",
     "hindi": "एक बहुत ही अच्छी, आकर्षक और मलाईदार नौकरी",
@@ -4184,17 +4187,17 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "Banking",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Land / secure a plum job",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-62",
+    "id": "v-idiom-l1-s3-23",
     "word": "A queer fish",
     "phonetic": "/ə kwɪər fɪʃ/",
     "hindi": "सनकी या अजीब स्वभाव का व्यक्ति / विचित्र इंसान",
@@ -4218,18 +4221,18 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "frequency": "Repeated",
     "examTags": [
       "SSC CGL",
+      "CHSL",
       "CPO",
-      "CDS",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "A bit of a queer fish",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
   },
   {
-    "id": "v-idiom-l1-s2-63",
+    "id": "v-idiom-l1-s3-24",
     "word": "A quick buck",
     "phonetic": "/ə kwɪk bʌk/",
     "hindi": "जल्दबाज़ी में या आसान तरीक़े से कमाया गया पैसा / त्वरित कमाई",
@@ -4253,13 +4256,4266 @@ export const LEVEL_1_SET_02_IDIOMS: VocabItem[] = [
     "examTags": [
       "SSC CGL",
       "CHSL",
-      "MTS",
+      "CPO",
       "Level 1",
-      "Set 02",
+      "Set 03",
       "Idioms & Phrases"
     ],
     "collocation": "Make a quick buck",
     "level": "level-1",
-    "set": "set-02"
+    "set": "set-03"
+  },
+  {
+    "word": "A rap over the knuckles",
+    "phonetic": "/ə ræp ˈoʊ.vər ðə ˈnʌk.əlz/",
+    "hindi": "चेतावनी भरी डांट / हल्की सजा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Criticism or punishment that is given in a gentle way for something done wrong.",
+    "example": "The judge gave the first-time offender a rap over the knuckles and let him go with a small fine.",
+    "mnemonic": "Origin (England): Class mein shararat karne par teacher scale se ungliyon ke jod (knuckles) par halka sa maarta tha (rap). Dheere-dheere yeh kisi bhi tarah ki \"halki saza\" ya \"daant\" ke liye use hone laga.",
+    "synonyms": [
+      "Mild reprimand",
+      "Gentle rebuke",
+      "Slap on the wrist"
+    ],
+    "antonyms": [
+      "Severe punishment",
+      "Harsh retribution",
+      "Heavy penalty"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Get a rap over the knuckles",
+    "id": "v-idiom-l1-s3-25",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wise head keeps a still tongue",
+    "phonetic": "/ə waɪz hɛd kiːps ə stɪl tʌŋ/",
+    "hindi": "बुद्धिमान व्यक्ति कम बोलता है",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An intelligent person knows when to stay silent and listen carefully.",
+    "example": "The negotiator won the deal by listening more than he spoke, following the rule that a wise head keeps a still tongue.",
+    "mnemonic": "Origin: \"The Wise Old Owl\" kahani se—jitna woh chup rehta tha, utna hi use duniya ki samajh aati thi. Silence ko wisdom se joda gaya hai.",
+    "synonyms": [
+      "Discreet silence",
+      "Taciturn wisdom",
+      "Quiet intelligence"
+    ],
+    "antonyms": [
+      "Loose lips",
+      "Garrulousness",
+      "Loquacity"
+    ],
+    "frequency": "High",
+    "collocation": "Remember that a wise head keeps a still tongue",
+    "id": "v-idiom-l1-s3-26",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A rash of something",
+    "phonetic": "/ə ræʃ əv ˈsʌm.θɪŋ/",
+    "hindi": "अचानक बहुतायत / एक साथ बहुत सी घटनाएं",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A large number of similar things or events happening in a short period.",
+    "example": "The dry summer has led to a rash of forest fires across the mountain range.",
+    "mnemonic": "Origin: Skin par jaise achanak laal daane (rash) nikal aate hain, waise hi shehar mein achanak \"crimes\" ya \"accidents\" nikalne par \"a rash of something\" kehte hain.",
+    "synonyms": [
+      "Sudden outbreak",
+      "Spate",
+      "Wave",
+      "Surge"
+    ],
+    "antonyms": [
+      "Lull",
+      "Downturn",
+      "Dearth"
+    ],
+    "frequency": "Repeated",
+    "collocation": "A rash of burglaries / complaints",
+    "id": "v-idiom-l1-s3-27",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A raw deal",
+    "phonetic": "/ə rɔː diːl/",
+    "hindi": "अन्यायपूर्ण व्यवहार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Unfair, harsh, or disadvantageous treatment.",
+    "example": "Many people believe that the infantry soldiers got a raw deal after the war ended.",
+    "mnemonic": "Origin: Purane zamane mein taash (cards) baantne ko dealing kehte the. Jaan-boojhkar bure cards milna \"raw deal\" tha. Jaise kacha maas (raw meat) hazam karna mushkil hota hai, waise hi anyay ko.",
+    "synonyms": [
+      "Unfair treatment",
+      "Injustice",
+      "Short shrift",
+      "Bad break"
+    ],
+    "antonyms": [
+      "Square deal",
+      "Fair shake",
+      "Equal opportunity"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Get a raw deal",
+    "id": "v-idiom-l1-s3-28",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A ray of hope",
+    "phonetic": "/ə reɪ əv hoʊp/",
+    "hindi": "आशा की किरण",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A small sign of a positive outcome in a difficult situation.",
+    "example": "Seeing the vacancy notification for SSC 2026 was a ray of hope for many struggling aspirants.",
+    "mnemonic": "Trick: Ghan-ghor andhere mein suraj ki ek patli kiran (ray) umeed jaga deti hai, waise hi ghor niraasha mein thodi si umeed \"ray of hope\" hoti hai.",
+    "synonyms": [
+      "Silver lining",
+      "Beacon of hope",
+      "Glimmer of hope"
+    ],
+    "antonyms": [
+      "Despair",
+      "Hopelessness",
+      "Bleak outlook"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Offer a ray of hope",
+    "id": "v-idiom-l1-s3-29",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A red letter day",
+    "phonetic": "/ə rɛd ˈlɛt.ər deɪ/",
+    "hindi": "बहुत विशेष / यादगार दिन",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A memorable, joyful, and highly important day.",
+    "example": "August 15th is a red letter day in the history of India.",
+    "mnemonic": "Origin: Medieval zamane mein calendars mein Sundays aur tyoharon ko red ink se likha jata tha taaki alag se dikhein. Isliye khas din ko \"Red letter day\" kehte hain.",
+    "synonyms": [
+      "Milestone day",
+      "Historic day",
+      "Gala day",
+      "Golden day"
+    ],
+    "antonyms": [
+      "Black day",
+      "Ordinary day",
+      "Forgettable day"
+    ],
+    "frequency": "Very High",
+    "collocation": "Mark a red letter day",
+    "id": "v-idiom-l1-s3-30",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A red rag to a bull",
+    "phonetic": "/ə rɛd ræɡ tuː ə bʊl/",
+    "hindi": "किसी को भड़काने वाली बात",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An object, utterance, or act which is certain to provoke someone to intense anger.",
+    "example": "Talking about \"easy shortcuts\" to a serious teacher is like a red rag to a bull.",
+    "mnemonic": "Origin: Spanish bullfighting mein maana jata tha ki laal kapda (red rag) dekh kar saand bhadak uthta hai aur attack karta hai.",
+    "synonyms": [
+      "Provocation",
+      "Incitement",
+      "Trigger"
+    ],
+    "antonyms": [
+      "Calming gesture",
+      "Olive branch",
+      "Pacifier"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Act like a red rag to a bull",
+    "id": "v-idiom-l1-s3-31",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A rotten apple",
+    "phonetic": "/ə ˈrɒt.ən ˈæp.əl/",
+    "hindi": "खराब / दुष्ट व्यक्ति (जो सबको बिगाड़ दे)",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A single bad person or thing in a group that corrupts others.",
+    "example": "The teacher realized that one rotten apple was encouraging the entire class to bully the new student.",
+    "mnemonic": "Trick: Seb ke tokre mein ek bhi sada seb (rotten apple) sabhi acche sebon ko sada deta hai (\"One rotten apple spoils the whole barrel\").",
+    "synonyms": [
+      "Bad apple",
+      "Corrupting influence",
+      "Troublemaker"
+    ],
+    "antonyms": [
+      "Role model",
+      "Paragon",
+      "Upright person"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Identify the rotten apple",
+    "id": "v-idiom-l1-s3-32",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A sacred cow",
+    "phonetic": "/ə ˈseɪ.krɪd kaʊ/",
+    "hindi": "ऐसा व्यक्ति या विषय जो आलोचना से परे हो",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Something or someone considered immune from question or criticism, especially unreasonably so.",
+    "example": "Using this specific programming language has become a sacred cow for the senior developers, despite there being much faster alternatives available now.",
+    "mnemonic": "Origin: Bharat mein gaay pavitra maani jaati hai aur use tokna manaa hota hai. Western context mein aisi cheez jisko koi criticise na kar sake.",
+    "synonyms": [
+      "Untouchable belief",
+      "Taboo subject",
+      "Dogma"
+    ],
+    "antonyms": [
+      "Open debate",
+      "Questionable practice",
+      "Fair target"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Treat something as a sacred cow",
+    "id": "v-idiom-l1-s3-33",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A shot in the arm",
+    "phonetic": "/ə ʃɒt ɪn ðiː ɑːrm/",
+    "hindi": "उत्साह / ऊर्जा बढ़ाने वाली चीज़",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A boost, encouragement, or stimulant that gives renewed energy.",
+    "example": "The discovery of a new battery material gave the electric vehicle industry a massive shot in the arm.",
+    "mnemonic": "Origin: Baanh (arm) mein laga dawai ka injection (shot) jo marij ko turant taqat aur rahat deta hai.",
+    "synonyms": [
+      "Boost",
+      "Stimulant",
+      "Lifeline",
+      "Impetus"
+    ],
+    "antonyms": [
+      "Dampener",
+      "Setback",
+      "Blow"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Provide a shot in the arm",
+    "id": "v-idiom-l1-s3-34",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A sight for sore eyes",
+    "phonetic": "/ə saɪt fɔːr sɔːr aɪz/",
+    "hindi": "देखने में बहुत सुखद चीज़ या व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person or thing that one is extremely pleased and relieved to see.",
+    "example": "After a week of heavy rain and clouds, the morning sun was a sight for sore eyes.",
+    "mnemonic": "Origin: Jonathan Swift ne use kiya tha. Dukhne wali ya thaki hui aankhon (sore eyes) ke samne pyara chehra aana thakawat door kar deta hai.",
+    "synonyms": [
+      "Welcome relief",
+      "Pleasant surprise",
+      "Delightful vision"
+    ],
+    "antonyms": [
+      "Eyesore",
+      "Unwelcome sight"
+    ],
+    "frequency": "Very High",
+    "collocation": "You are a sight for sore eyes",
+    "id": "v-idiom-l1-s3-35",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A skeleton in the cupboard",
+    "phonetic": "/ə ˈskɛl.ɪ.tən ɪn ðə ˈkʌb.əd/",
+    "hindi": "एक छुपा हुआ शर्मनाक राज़",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An embarrassing, shameful, or discreditable fact kept secret.",
+    "example": "Almost every old family has a skeleton in the cupboard that they don't want the neighbors to know about.",
+    "mnemonic": "Origin: 19th-century doctors kankal (skeleton) almari mein chhipa kar rakhte the kyunki dissection par kanoonan rok thi. Pakde jane par badnami hoti thi.",
+    "synonyms": [
+      "Family secret",
+      "Hidden scandal",
+      "Dark secret"
+    ],
+    "antonyms": [
+      "Open book",
+      "Transparent record"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Hide a skeleton in the cupboard",
+    "id": "v-idiom-l1-s3-36",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A snowball effect",
+    "phonetic": "/ə ˈsnoʊ.bɔːl ɪˈfɛkt/",
+    "hindi": "धीरे-धीरे बढ़ता हुआ विशाल प्रभाव",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An accelerating growth of magnitude as something progresses.",
+    "example": "If you don't pay your credit card bill, the interest creates a snowball effect of debt.",
+    "mnemonic": "Trick: Pahadi se ludhakta hua chota barf ka gola (snowball) aage chalkar vishal baraf ka toofan ban jata hai.",
+    "synonyms": [
+      "Chain reaction",
+      "Cascade effect",
+      "Domino effect"
+    ],
+    "antonyms": [
+      "Deceleration",
+      "Gradual dissipation"
+    ],
+    "frequency": "High",
+    "collocation": "Trigger a snowball effect",
+    "id": "v-idiom-l1-s3-37",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A sore point",
+    "phonetic": "/ə sɔːr pɔɪnt/",
+    "hindi": "संवेदनशील / दुखती रग वाला विषय",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An issue about which someone feels distressed, sensitive, or annoyed.",
+    "example": "The team's loss in the final minute is still a sore point for the fans.",
+    "mnemonic": "Trick: Sharir par jahan chot (sore) ho, wahan chhoone se dard hota hai. Dimaag ke un zakhmon ki baat karne se gussa ya dukh hota hai.",
+    "synonyms": [
+      "Touchy subject",
+      "Tender spot",
+      "Nerve-racking topic"
+    ],
+    "antonyms": [
+      "Pleasant topic",
+      "Source of pride"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Touch upon a sore point",
+    "id": "v-idiom-l1-s3-38",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A square deal",
+    "phonetic": "/ə skwɛər diːl/",
+    "hindi": "निष्पक्ष व ईमानदार व्यवहार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A completely honest, fair, and equitable transaction or trade.",
+    "example": "If you give me a square deal on this used bike, I will recommend your shop to all my friends.",
+    "mnemonic": "Origin: President Theodore Roosevelt ki policy. Square ki chaaron sides barabar (equal) hoti hain, isliye barabari aur imandari ka prateek bana.",
+    "synonyms": [
+      "Fair bargain",
+      "Honest transaction",
+      "Equitable trade"
+    ],
+    "antonyms": [
+      "Raw deal",
+      "Rip-off",
+      "Swindle"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Expect a square deal",
+    "id": "v-idiom-l1-s3-39",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A square peg in a round hole",
+    "phonetic": "/ə skwɛər pɛɡ ɪn ə raʊnd hoʊl/",
+    "hindi": "बेमेल स्थिति / अनुपयुक्त व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person who is not suitable for the job or position they are in; a complete misfit.",
+    "example": "He's a bit of a square peg in a round hole at these formal parties; he'd much rather be camping.",
+    "mnemonic": "Trick: Gol chhed (round hole) mein chaukor lakdi (square peg) kabhi theek se fit nahi baithegi.",
+    "synonyms": [
+      "Misfit",
+      "Fish out of water",
+      "Odd man out"
+    ],
+    "antonyms": [
+      "Perfect fit",
+      "Right person in the right place"
+    ],
+    "frequency": "Very High",
+    "collocation": "Feel like a square peg in a round hole",
+    "id": "v-idiom-l1-s3-40",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A stick-in-the-mud",
+    "phonetic": "/ə stɪk ɪn ðə mʌd/",
+    "hindi": "पुरानी दकियानूसी सोच वाला व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person who refuses to try new things and resists change or modern ways.",
+    "example": "My brother is such a stick-in-the-mud; he refuses to eat anything except dalchawal, even at a Chinese restaurant.",
+    "mnemonic": "Origin: Gaadi ka pahiya ya lakdi (stick) jab keechad (mud) mein phans jaye toh aage nahi badh sakti. Jo apni purani soch mein atka rahe.",
+    "synonyms": [
+      "Traditionalist",
+      "Diehard",
+      "Old fogey"
+    ],
+    "antonyms": [
+      "Trailblazer",
+      "Innovator",
+      "Progressive"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Do not be such a stick-in-the-mud",
+    "id": "v-idiom-l1-s3-41",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A stiff-necked person",
+    "phonetic": "/ə stɪf nɛkt ˈpɜːr.sən/",
+    "hindi": "ज़िद्दी व घमंडी व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An obstinate, stubborn, and haughty person who refuses to submit or change.",
+    "example": "It is hard to have a productive debate with a stiff-necked person who views every suggestion as a personal attack.",
+    "mnemonic": "Origin: Khet jotte waqt ziddi bail (ox) gardan sakht (stiff) kar leta tha aur hal ke niche jhukne se mana kar deta tha.",
+    "synonyms": [
+      "Obstinate",
+      "Intransigent",
+      "Pig-headed"
+    ],
+    "antonyms": [
+      "Pliable",
+      "Amenable",
+      "Submissive"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Dealing with a stiff-necked person",
+    "id": "v-idiom-l1-s3-42",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A sting in the tail",
+    "phonetic": "/ə stɪŋ ɪn ðə teɪl/",
+    "hindi": "शुरुआत अच्छी, पर अंत खराब या कष्टदायक",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An unexpected, typically unpleasant or problematic ending to something otherwise enjoyable.",
+    "example": "The movie was a romantic comedy, but it had a sting in the tail when the main character suddenly died in the last scene.",
+    "mnemonic": "Origin: Bichhoo (scorpion) ki poonchh (tail) par zehreela dank (sting) hota hai jo aakhri mein chubhta hai.",
+    "synonyms": [
+      "Unpleasant twist",
+      "Nasty surprise",
+      "Hidden trap"
+    ],
+    "antonyms": [
+      "Happy ending",
+      "Bonus",
+      "Pleasant finale"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Leave a sting in the tail",
+    "id": "v-idiom-l1-s3-43",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A stitch in time saves nine",
+    "phonetic": "/ə stɪtʃ ɪn taɪm seɪvz naɪn/",
+    "hindi": "समय पर किया गया छोटा काम बड़े नुकसान से बचाता है",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Dealing with a problem immediately prevents it from becoming much worse and harder to fix later.",
+    "example": "Repairing the car's brakes now is a stitch in time saves nine situation before a major accident occurs.",
+    "mnemonic": "Trick: Kapde ka chota chhed samay par 1 taanka (stitch) lagane se ruk jata hai, warna baad mein 9 taanke lagane padte hain.",
+    "synonyms": [
+      "Timely intervention",
+      "Preemptive action",
+      "Early fix"
+    ],
+    "antonyms": [
+      "Procrastination",
+      "Neglect"
+    ],
+    "frequency": "Very High",
+    "collocation": "Remember that a stitch in time saves nine",
+    "id": "v-idiom-l1-s3-44",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A storm in a tea cup",
+    "phonetic": "/ə stɔːrm ɪn ə ˈtiː kʌp/",
+    "hindi": "छोटी बात पर बड़ा हंगामा / राई का पहाड़",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A great deal of excitement, worry, or anger over a trivial matter.",
+    "example": "The slight delay in the meeting was a storm in a tea cup; it didn't affect the final deal at all.",
+    "mnemonic": "Trick: Chai ke pyale (teacup) mein toofan (storm) uthana vyarth ka shor hai.",
+    "synonyms": [
+      "Tempest in a teapot",
+      "Much ado about nothing",
+      "Brouhaha"
+    ],
+    "antonyms": [
+      "Serious crisis",
+      "Major dilemma"
+    ],
+    "frequency": "Very High",
+    "collocation": "Create a storm in a tea cup",
+    "id": "v-idiom-l1-s3-45",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A straight shooter",
+    "phonetic": "/ə streɪt ˈʃuː.tər/",
+    "hindi": "साफ़ और ईमानदार व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A thoroughly upright, direct, and straightforward person who speaks the truth.",
+    "example": "The voters liked the candidate because he came across as a straight shooter who didn't make fake promises.",
+    "mnemonic": "Origin: Shooter jiski goli seedha (straight) nishane par lagti thi. Jo kabhi dhokha na de aur seedhi baat kare.",
+    "synonyms": [
+      "Candid person",
+      "Honest dealer",
+      "Frank individual"
+    ],
+    "antonyms": [
+      "Deceiver",
+      "Crooked dealer"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Regarded as a straight shooter",
+    "id": "v-idiom-l1-s3-46",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A stuffed shirt",
+    "phonetic": "/ə stʌft ʃɜːrt/",
+    "hindi": "घमंडी व दिखावटी व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A pompous, self-important, formal, and inflexible person without real substance.",
+    "example": "We need a leader with a vision, not some stuffed shirt who only cares about corporate protocols.",
+    "mnemonic": "Origin: Shirt mein kachra thuns (stuff) kar putla banana. Bahar se formal lagta hai par andar dil-dimaag nahi hota.",
+    "synonyms": [
+      "Pompous person",
+      "Prig",
+      "Blowhard"
+    ],
+    "antonyms": [
+      "Down-to-earth person",
+      "Humble individual"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Act like a stuffed shirt",
+    "id": "v-idiom-l1-s3-47",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A stumbling block",
+    "phonetic": "/ə ˈstʌm.blɪŋ blɒk/",
+    "hindi": "प्रगति में बाधा / रोड़ा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An obstacle, hurdle, or problem that hinders progress.",
+    "example": "The high cost of raw materials is the biggest stumbling block for the new startup.",
+    "mnemonic": "Trick: Raaste ka pathhar jis par pair takra kar insaan ladkhadaye (stumble) aur gir jaye.",
+    "synonyms": [
+      "Obstacle",
+      "Hurdle",
+      "Impediment",
+      "Roadblock"
+    ],
+    "antonyms": [
+      "Stepping stone",
+      "Catalyst",
+      "Facilitator"
+    ],
+    "frequency": "Very High",
+    "collocation": "Overcome a stumbling block",
+    "id": "v-idiom-l1-s3-48",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A swan song",
+    "phonetic": "/ə swɒn sɒŋ/",
+    "hindi": "अंतिम प्रदर्शन / रचना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person's final achievement, performance, or work before death or retirement.",
+    "example": "The author’s last novel, published after his death, is being hailed as his swan song.",
+    "mnemonic": "Origin: Maana jata tha ki Hans (swan) marne se theek pehle ek behad surila aur dardnak geet gaata hai.",
+    "synonyms": [
+      "Final farewell",
+      "Valedictory performance",
+      "Parting work"
+    ],
+    "antonyms": [
+      "Maiden speech",
+      "Debut"
+    ],
+    "frequency": "Very High",
+    "collocation": "Deliver a swan song",
+    "id": "v-idiom-l1-s3-49",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A thorn in the flesh",
+    "phonetic": "/ə θɔːrn ɪn ðə flɛʃ/",
+    "hindi": "लगातार परेशान करने वाली चीज़ / कांटा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A continuous nuisance, trouble, or person that annoys you incessantly.",
+    "example": "For many aspirants, ‘non-finite verbs’ remains a thorn in the flesh until they master the rules.",
+    "mnemonic": "Origin: Bible (2 Corinthians) jahan Saint Paul ne shareer mein chubhe kaante (thorn in flesh) ka zikr kiya jo chain se rehne na de.",
+    "synonyms": [
+      "Pain in the neck",
+      "Constant nuisance",
+      "Perpetual irritant"
+    ],
+    "antonyms": [
+      "Comfort",
+      "Blessing",
+      "Solace"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Remain a thorn in the flesh",
+    "id": "v-idiom-l1-s3-50",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-03",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 03",
+      "Idioms & Phrases"
+    ]
   }
 ];
+
+export const LEVEL_1_SET_04_IDIOMS: VocabItem[] = [
+  {
+    "word": "A vexed question",
+    "phonetic": "/ə vɛkst ˈkwɛs.tʃən/",
+    "hindi": "विवादित व उलझा हुआ प्रश्न",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A controversial, contentious, and much-debated issue that is difficult to solve.",
+    "example": "The division of river waters between the two neighboring states remains a vexed question.",
+    "mnemonic": "Trick: Vex ka matlab gussa dilana ya pareshan karna. Aisa sawal jo hal karte waqt sabko pareshan kar de.",
+    "synonyms": [
+      "Contentious issue",
+      "Bones of contention",
+      "Mooth point"
+    ],
+    "antonyms": [
+      "Settled matter",
+      "Resolved question"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Debate a vexed question",
+    "id": "v-idiom-l1-s4-1",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A vicious cycle",
+    "phonetic": "/ə ˈvɪʃ.əs ˈsaɪ.kəl/",
+    "hindi": "एक बुराई जिससे दूसरी बुराई पैदा हो / दुष्चक्र",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A sequence of negative events in which each problem intensifies or leads to another.",
+    "example": "The vicious cycle of anxiety often starts with a small worry that grows into a full panic attack.",
+    "mnemonic": "Trick: Kutta apni hi poonchh ko pakadne ke liye ghoomta hai par nateeja sirf thakawat aur pareshani hota hai.",
+    "synonyms": [
+      "Downward spiral",
+      "Chain of misfortune",
+      "Loop of trouble"
+    ],
+    "antonyms": [
+      "Virtuous cycle",
+      "Upward spiral"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Break the vicious cycle",
+    "id": "v-idiom-l1-s4-2",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A walk of life",
+    "phonetic": "/ə wɔːk əv laɪf/",
+    "hindi": "जीवन के अलग-अलग क्षेत्र / तबका",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person's occupation, social background, or standing in society.",
+    "example": "The university attracts students from all walks of life, making the campus a very diverse place.",
+    "mnemonic": "Origin: 16th century mein \"walk\" ka matlab rasta tha. Zindagi ke safar mein har insaan ka apna alag pesha aur rasta hota hai.",
+    "synonyms": [
+      "Strata of society",
+      "Social background",
+      "Calling"
+    ],
+    "antonyms": [
+      "Monoculture",
+      "Homogeneous group"
+    ],
+    "frequency": "Repeated",
+    "collocation": "People from all walks of life",
+    "id": "v-idiom-l1-s4-3",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wet blanket",
+    "phonetic": "/ə wɛt ˈblæŋ.kɪt/",
+    "hindi": "मज़ा खराब करने वाला व्यक्ति / रंग में भंग",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Someone who ruins other people’s fun by being gloomy, pessimistic, or discouraging.",
+    "example": "The manager was a bit of a wet blanket when he told us we couldn't have a pizza party in the office.",
+    "mnemonic": "Origin: Aag bujhane ke liye geela kambal (wet blanket) phenka jata tha. Mehfil ke josh par thanda pani phekne wala.",
+    "synonyms": [
+      "Killjoy",
+      "Party pooper",
+      "Spoilsport"
+    ],
+    "antonyms": [
+      "Life of the party",
+      "Enthusiast"
+    ],
+    "frequency": "Very High",
+    "collocation": "Act like a wet blanket",
+    "id": "v-idiom-l1-s4-4",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A whale of a time",
+    "phonetic": "/ə weɪl əv ə taɪm/",
+    "hindi": "भरपूर आनंद लेना / शानदार समय बिताना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To enjoy oneself exceedingly; to have an exciting and fun time.",
+    "example": "The kids had a whale of a time playing on the beach during our summer vacation.",
+    "mnemonic": "Trick: Whale duniya ka sabse bada jeev hai. Aisa samay jo maze ke maamle mein whale jitna bada aur shandar ho.",
+    "synonyms": [
+      "Gala time",
+      "Blast",
+      "High time"
+    ],
+    "antonyms": [
+      "Miserable experience",
+      "Dreadful ordeal"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Have a whale of a time",
+    "id": "v-idiom-l1-s4-5",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A white elephant",
+    "phonetic": "/ə waɪt ˈɛl.ɪ.fənt/",
+    "hindi": "महँगी लेकिन बेकार वस्तु",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A costly but useless possession that is difficult and burdensome to maintain.",
+    "example": "The company’s expensive supercomputer turned out to be a white elephant because the staff preferred using their own laptops for the same tasks.",
+    "mnemonic": "Origin: Siam ke raja gusse mein darbari ko safed haathi gift karte the jiske kharche se woh kangal ho jata tha.",
+    "synonyms": [
+      "Costly liability",
+      "Financial drain",
+      "Useless possession"
+    ],
+    "antonyms": [
+      "Cash cow",
+      "Lucrative asset",
+      "Boon"
+    ],
+    "frequency": "Very High",
+    "collocation": "Prove to be a white elephant",
+    "id": "v-idiom-l1-s4-6",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wide berth",
+    "phonetic": "/ə waɪd bɜːrθ/",
+    "hindi": "दूर रहना / सुरक्षित दूरी बनाए रखना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To avoid or stay away from someone or something dangerous or unpleasant.",
+    "example": "I'm giving all junk food a wide berth until I finish my training for the marathon.",
+    "mnemonic": "Origin: Samundar mein jahaz takrane se bachne ke liye captain kehta tha \"Give it a wide berth\" (safe distance rakho).",
+    "synonyms": [
+      "Steer clear of",
+      "Keep at arm’s length",
+      "Avoid"
+    ],
+    "antonyms": [
+      "Embrace",
+      "Confront",
+      "Approach"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Give someone a wide berth",
+    "id": "v-idiom-l1-s4-7",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wild goose chase",
+    "phonetic": "/ə waɪld ɡuːs tʃeɪs/",
+    "hindi": "बेकार खोज / व्यर्थ का प्रयास",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A futile, hopeless search or endeavor with no chance of success.",
+    "example": "The marketing team's search for a cheap celebrity influencer turned out to be a wild goose chase; none of them were willing to work for such a low budget.",
+    "mnemonic": "Origin: Jungli hans (wild geese) ke piche bhagna bekar ki mehnat maani jaati thi kyunki unka rasta zigzag aur unpredictable hota hai.",
+    "synonyms": [
+      "Fruitless search",
+      "Fool’s errand",
+      "Futile pursuit"
+    ],
+    "antonyms": [
+      "Productive endeavor",
+      "Successful quest"
+    ],
+    "frequency": "Very High",
+    "collocation": "Embark on a wild goose chase",
+    "id": "v-idiom-l1-s4-8",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wildcat strike",
+    "phonetic": "/ə ˈwaɪld.kæt straɪk/",
+    "hindi": "अचानक हड़ताल (बिना यूनियन की अनुमति के)",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "An unofficial, sudden strike called by workers without union authorization.",
+    "example": "The production line came to a halt when a wildcat strike broke out among the evening shift workers.",
+    "mnemonic": "Origin: Jungli billi (wildcat) achanak aur tezi se bina kisi niyam ke hamla karti hai.",
+    "synonyms": [
+      "Spontaneous strike",
+      "Illegal walkout",
+      "Unauthorized stoppage"
+    ],
+    "antonyms": [
+      "Sanctioned strike",
+      "Negotiated settlement"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Call a wildcat strike",
+    "id": "v-idiom-l1-s4-9",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "A wolf in sheep's clothing",
+    "phonetic": "/ə wʊlf ɪn ʃiːps ˈkloʊ.ðɪŋ/",
+    "hindi": "भेष बदलकर बैठा दुश्मन / कपटी मित्र",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A dangerous person pretending to be harmless and friendly.",
+    "example": "She realized too late that her 'best friend' was a wolf in sheep's clothing who was spreading rumors behind her back.",
+    "mnemonic": "Origin: Aesop fable jahan bhediye ne bhed ki khaal pehni taaki bina shor ke shikaar kar sake.",
+    "synonyms": [
+      "Hypocrite",
+      "Deceiver",
+      "Traitor",
+      "Snake in the grass"
+    ],
+    "antonyms": [
+      "True friend",
+      "Loyal ally"
+    ],
+    "frequency": "Very High",
+    "collocation": "Beware of a wolf in sheep’s clothing",
+    "id": "v-idiom-l1-s4-10",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "ABC of something",
+    "phonetic": "/ˌeɪ.biːˈsiː əv ˈsʌm.θɪŋ/",
+    "hindi": "किसी विषय की मूल बातें / आधारभूत नियम",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "The essential facts, basic principles, or foundation of a subject.",
+    "example": "Understanding how to save money is the ABC of financial planning.",
+    "mnemonic": "Trick: ABCD sikhne se hi bhasha shuru hoti hai. Kisi bhi cheez ke aadharbhoot niyam.",
+    "synonyms": [
+      "Rudiments",
+      "Basics",
+      "Fundamentals",
+      "Essentials"
+    ],
+    "antonyms": [
+      "Advanced nuances",
+      "Complexities"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Learn the ABC of investing",
+    "id": "v-idiom-l1-s4-11",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Above board",
+    "phonetic": "/əˈbʌv bɔːrd/",
+    "hindi": "पूरी तरह ईमानदार व स्पष्ट",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Honest, open, legitimate, and free from deceit.",
+    "example": "We only do business with partners who are above board and follow all environmental regulations.",
+    "mnemonic": "Origin: Taash khelte waqt cheating rokne ke liye haath table (board) ke upar rakhna anivarya tha.",
+    "synonyms": [
+      "Straightforward",
+      "Honest",
+      "Transparent",
+      "Legitimate"
+    ],
+    "antonyms": [
+      "Underhand",
+      "Deceitful",
+      "Shady"
+    ],
+    "frequency": "Very High",
+    "collocation": "Completely open and above board",
+    "id": "v-idiom-l1-s4-12",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Above/Over one's head",
+    "phonetic": "/əˈbʌv wʌnz hɛd/",
+    "hindi": "समझ से बाहर / सिर के ऊपर से जाना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Beyond one's capability to understand something.",
+    "example": "I tried to read the legal document, but most of the terminology went above my head.",
+    "mnemonic": "Trick: Paani agar sar ke upar chala jaye toh insaan doobta hai, waise hi gyan sar ke upar se nikal jana.",
+    "synonyms": [
+      "Incomprehensible",
+      "Overwhelming",
+      "Beyond grasp"
+    ],
+    "antonyms": [
+      "Easy to grasp",
+      "Crystal clear"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Go right over my head",
+    "id": "v-idiom-l1-s4-13",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Absence makes the heart grow fonder",
+    "phonetic": "/ˈæb.səns meɪks ðə hɑːrt ɡroʊ ˈfɒn.dər/",
+    "hindi": "दूरी से प्रेम बढ़ता है",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "We feel more affection for those we love when parted from them.",
+    "example": "They decided to spend their vacations separately to see if absence makes the heart grow fonder.",
+    "mnemonic": "Origin: Roman poet Sextus Propertius aur Thomas Haynes Bayly ke geet se. Door hone par kami khalti hai aur pyaar badhta hai.",
+    "synonyms": [
+      "Love increases with distance",
+      "Fondness through separation"
+    ],
+    "antonyms": [
+      "Out of sight out of mind",
+      "Familiarity breeds contempt"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Prove that absence makes the heart grow fonder",
+    "id": "v-idiom-l1-s4-14",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Actions speak louder than words",
+    "phonetic": "/ˈæk.ʃənz spiːk ˈlaʊ.dər ðæn wɜːrdz/",
+    "hindi": "बातों की तुलना में काम का अधिक महत्व होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "What you do is more important and genuine than what you say.",
+    "example": "He kept promising to change his behavior, but he never did; I finally realized that actions speak louder than words.",
+    "mnemonic": "Trick: Zubaan se bolna asaan hai, par asli pehchan karam (actions) se hoti hai.",
+    "synonyms": [
+      "Deeds not words",
+      "Proof is in the pudding"
+    ],
+    "antonyms": [
+      "Lip service",
+      "Empty promises"
+    ],
+    "frequency": "Very High",
+    "collocation": "Remember that actions speak louder than words",
+    "id": "v-idiom-l1-s4-15",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Adam's ale",
+    "phonetic": "/ˈæd.əmz eɪl/",
+    "hindi": "सादा शुद्ध पानी",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Unadulterated, pure drinking water.",
+    "example": "If you want to lose weight, stop drinking sugary drinks and stick to Adam's ale.",
+    "mnemonic": "Origin: Adam ke paas Eden garden mein peene ke liye koi beer (ale) nahi thi, sirf nadiyon ka saaf paani tha.",
+    "synonyms": [
+      "Pure water",
+      "Drinking water",
+      "Aqua"
+    ],
+    "antonyms": [
+      "Liquor",
+      "Alcohol"
+    ],
+    "frequency": "Repeated",
+    "collocation": "A glass of Adam’s ale",
+    "id": "v-idiom-l1-s4-16",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Add insult to injury",
+    "phonetic": "/æd ˈɪn.sʌlt tuː ˈɪn.dʒər.i/",
+    "hindi": "जले पर नमक छिड़कना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To make a bad situation even worse or more humiliating.",
+    "example": "The company fired him without notice, and to add insult to injury, they refused to pay his final month’s salary.",
+    "mnemonic": "Origin: Aesop ki kahani mein chot (injury) lagne ke baad mazaak (insult) udaya gaya.",
+    "synonyms": [
+      "Make matters worse",
+      "Rub salt into the wound",
+      "Aggravate"
+    ],
+    "antonyms": [
+      "Heal the wound",
+      "Make amends"
+    ],
+    "frequency": "Very High",
+    "collocation": "Add insult to injury",
+    "id": "v-idiom-l1-s4-17",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "After a fashion",
+    "phonetic": "/ˈæf.tər ə ˈfæʃ.ən/",
+    "hindi": "कामचलाऊ तरीके से",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To only a certain extent but not very well; clumsily.",
+    "example": "The mechanic fixed the engine after a fashion, but I still hear a strange noise whenever I accelerate.",
+    "mnemonic": "Origin: Fashion ka purana arth \"tareeka\" tha. Dhancha bana liya par gunwatta nahi aayi.",
+    "synonyms": [
+      "In a makeshift way",
+      "Passably",
+      "Somehow or other"
+    ],
+    "antonyms": [
+      "Masterfully",
+      "Impeccably"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Work after a fashion",
+    "id": "v-idiom-l1-s4-18",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "After one's own heart",
+    "phonetic": "/ˈæf.tər wʌnz oʊn hɑːrt/",
+    "hindi": "अपनी पसंद का व्यक्ति",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Someone has likes and dislikes similar to one's own.",
+    "example": "You ordered an extra-spicy pizza too? You are a person after my own heart!",
+    "mnemonic": "Origin: Bible (1 Samuel 13:14) King David ke baare mein kaha gaya tha ki he is a man after God’s own heart.",
+    "synonyms": [
+      "Like-minded",
+      "Kindred spirit",
+      "Soulmate"
+    ],
+    "antonyms": [
+      "Opposite temperament",
+      "Incompatible"
+    ],
+    "frequency": "Repeated",
+    "collocation": "A friend after my own heart",
+    "id": "v-idiom-l1-s4-19",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Against one's grain",
+    "phonetic": "/əˈɡɛnst wʌnz ɡreɪn/",
+    "hindi": "मन व स्वभाव के विरुद्ध",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Contrary to one's feelings, nature, or natural inclination.",
+    "example": "It goes against the grain for him to be polite to people he doesn't respect.",
+    "mnemonic": "Origin: Woodworking mein lakdi ke reshon (grain) ke vipreet aari chalana mushkil hota hai aur lakdi kharab ho jaati hai.",
+    "synonyms": [
+      "Counter-intuitive",
+      "Contrary to nature",
+      "Distasteful"
+    ],
+    "antonyms": [
+      "Natural",
+      "Harmonious"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Go against the grain",
+    "id": "v-idiom-l1-s4-20",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Against the clock",
+    "phonetic": "/əˈɡɛnst ðə klɒk/",
+    "hindi": "बहुत तेज़ी से काम करना (समय सीमा के विरुद्ध)",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In a great hurry to do something before a deadline.",
+    "example": "I'm really against the clock today; I have three meetings and a flight to catch by 4 PM.",
+    "mnemonic": "Origin: Stopwatch ke khilaf race lagana. Business aur exams mein time sabse bada dushman hota hai.",
+    "synonyms": [
+      "In a race against time",
+      "Under tight deadline",
+      "At breakneck speed"
+    ],
+    "antonyms": [
+      "At leisure",
+      "Unrushed"
+    ],
+    "frequency": "Very High",
+    "collocation": "Work against the clock",
+    "id": "v-idiom-l1-s4-21",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Aid and abet",
+    "phonetic": "/eɪd ænd əˈbɛt/",
+    "hindi": "अपराध में सहायता करना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To help someone to commit a crime or wrongdoing.",
+    "example": "The technology company was accused of aiding and abetting digital piracy by not fixing the security flaw.",
+    "mnemonic": "Origin: Aid = madad, Abet = janwar ko uksana. Kanoonan dono barabar gunahgaar maane jaate hain.",
+    "synonyms": [
+      "Inciting",
+      "Colluding",
+      "Accomplice"
+    ],
+    "antonyms": [
+      "Deterring",
+      "Hindering"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Aid and abet a criminal",
+    "id": "v-idiom-l1-s4-22",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Airy-Fairy",
+    "phonetic": "/ˈɛə.ri ˈfɛə.ri/",
+    "hindi": "हवाई बातें / अव्यावहारिक विचार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Not practical or not useful in real situations; unrealistic.",
+    "example": "Stop with the airy-fairy talk and tell me exactly how much this trip is going to cost!",
+    "mnemonic": "Trick: Airy (hawa jaisa) aur Fairy (pariyon ki kahaniyan). Asali duniya se door kalpanik baatein.",
+    "synonyms": [
+      "Impractical",
+      "Quixotic",
+      "Pie-in-the-sky"
+    ],
+    "antonyms": [
+      "Pragmatic",
+      "Down-to-earth"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Airy-fairy notions",
+    "id": "v-idiom-l1-s4-23",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Aladdin's cave",
+    "phonetic": "/əˈlæd.ɪnz keɪv/",
+    "hindi": "ऐसी जगह जहाँ बहुत सारी दिलचस्प चीज़ें हों",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A place that contains many interesting, valuable, or magical objects.",
+    "example": "The small boutique turned out to be an Aladdin’s cave of handmade jewelry and silk scarves.",
+    "mnemonic": "Origin: Alif Laila ki Aladdin wali gufa jo upar se niche tak khazane aur jadui chizon se bhari thi.",
+    "synonyms": [
+      "Treasure trove",
+      "Bonanza",
+      "Cornucopia"
+    ],
+    "antonyms": [
+      "Empty shell",
+      "Barren wasteland"
+    ],
+    "frequency": "Repeated",
+    "collocation": "An Aladdin’s cave of treasures",
+    "id": "v-idiom-l1-s4-24",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Alarums and Excursions",
+    "phonetic": "/əˈlɑː.rəmz ænd ɪkˈskɜːr.ʒənz/",
+    "hindi": "अफरा-तफरी / भाग-दौड़ व शोरगुल",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Confused activity, clamor, noise, and uproar.",
+    "example": "Despite all the alarums and excursions during the rehearsal, the actual wedding ceremony went perfectly.",
+    "mnemonic": "Origin: Natak ke stage par dhol bajna (alarum) aur sipahiyon ki ladai (excursions) jisse hungama banta tha.",
+    "synonyms": [
+      "Hubbub",
+      "Uproar",
+      "Commotion"
+    ],
+    "antonyms": [
+      "Tranquility",
+      "Serenity"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Amid alarums and excursions",
+    "id": "v-idiom-l1-s4-25",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Alive and kicking",
+    "phonetic": "/əˈlaɪv ænd ˈkɪk.ɪŋ/",
+    "hindi": "पूरी तरह स्वस्थ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In good health, vigorous, and active.",
+    "example": "The ancient art of hand-weaving is still alive and kicking in many small villages of India.",
+    "mnemonic": "Origin: Machhli bechne wale grahakon ko yakin dilane ke liye chillate the—\"Alive and kicking!\" (taazi zinda machhli).",
+    "synonyms": [
+      "Hale and hearty",
+      "In fine fettle",
+      "Thriving"
+    ],
+    "antonyms": [
+      "Moribund",
+      "Ailing"
+    ],
+    "frequency": "Very High",
+    "collocation": "Still alive and kicking",
+    "id": "v-idiom-l1-s4-26",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All agog",
+    "phonetic": "/ɔːl əˈɡɒɡ/",
+    "hindi": "बहुत उत्साहित / उत्सुक",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Excited or eager, often in anticipation of something.",
+    "example": "Fans were all agog to see the first trailer of the much-awaited sequel.",
+    "mnemonic": "Origin: French \"en gogo\" (khushi/masti). Poori tarah se excitement aur maze ke mood mein hona.",
+    "synonyms": [
+      "On tenderhooks",
+      "Eagerly expectant",
+      "Agog"
+    ],
+    "antonyms": [
+      "Apathetic",
+      "Indifferent"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Keep the crowd all agog",
+    "id": "v-idiom-l1-s4-27",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All and sundry",
+    "phonetic": "/ɔːl ænd ˈsʌn.dri/",
+    "hindi": "हर कोई / सब लोग बिना भेदभाव के",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Everyone without distinction; everybody.",
+    "example": "He told his secrets to all and sundry, and now the whole office knows about his plans.",
+    "mnemonic": "Origin: All = poora group, Sundry = har alag vyakti. Dono ko milakar bana sab log.",
+    "synonyms": [
+      "One and all",
+      "Every Tom Dick and Harry"
+    ],
+    "antonyms": [
+      "Select few",
+      "Inner circle"
+    ],
+    "frequency": "Very High",
+    "collocation": "Announce to all and sundry",
+    "id": "v-idiom-l1-s4-28",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All bark and no bite",
+    "phonetic": "/ɔːl bɑːrk ænd noʊ baɪt/",
+    "hindi": "सिर्फ धमकी देने वाला",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Full of talk, but low on action / unable to do real harm.",
+    "example": "The rival nation made several threats of war, but the diplomats knew it was all bark and no bite.",
+    "mnemonic": "Trick: Bhaunkne wala kutta jo kaat-ta nahi.",
+    "synonyms": [
+      "Paper tiger",
+      "Toothless threat",
+      "Empty bluster"
+    ],
+    "antonyms": [
+      "Formidable force",
+      "Deadly menace"
+    ],
+    "frequency": "Very High",
+    "collocation": "He is all bark and no bite",
+    "id": "v-idiom-l1-s4-29",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All eyes and ears",
+    "phonetic": "/ɔːl aɪz ænd ɪərz/",
+    "hindi": "पूरी तरह ध्यानपूर्वक सुनना-देखना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "With full focus & attention.",
+    "example": "The bodyguards were all eyes and ears as the minister walked through the crowded market.",
+    "mnemonic": "Trick: Poori tarah se aankh aur kaan khule rakhkar dhyan dena.",
+    "synonyms": [
+      "Rapt with attention",
+      "Attentive",
+      "Vigilant"
+    ],
+    "antonyms": [
+      "Distracted",
+      "Oblivious"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be all eyes and ears",
+    "id": "v-idiom-l1-s4-30",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All Greek to me",
+    "phonetic": "/ɔːl ɡriːk tuː miː/",
+    "hindi": "पूरी तरह से समझ से बाहर होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Completely incomprehensible or unintelligible.",
+    "example": "I tried reading the manual for the new software, but it's all Greek to me.",
+    "mnemonic": "Origin: Vidwan Latin kitabo mein Greek aane par likhte the: \"Yeh Greek hai, ise padha nahi ja sakta\".",
+    "synonyms": [
+      "Double Dutch",
+      "Gibberish",
+      "Incomprehensible"
+    ],
+    "antonyms": [
+      "Plain English",
+      "Crystal clear"
+    ],
+    "frequency": "Very High",
+    "collocation": "Sound like all Greek to me",
+    "id": "v-idiom-l1-s4-31",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All hands on deck",
+    "phonetic": "/ɔːl hændz ɒn dɛk/",
+    "hindi": "सबकी सहायता की आवश्यकता / सामूहिक प्रयास",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Everyone available to help with a problem / everyone needs to work together to achieve a goal.",
+    "example": "The product launch is tomorrow, so it’s all hands on deck in the office tonight.",
+    "mnemonic": "Origin: Toofan aane par captain sabhi jahaziyo (hands) ko deck par aane ka order deta tha taaki jahaz bach sake.",
+    "synonyms": [
+      "Joint effort",
+      "Collective action"
+    ],
+    "antonyms": [
+      "Individual effort",
+      "One-man show"
+    ],
+    "frequency": "Very High",
+    "collocation": "Call for all hands on deck",
+    "id": "v-idiom-l1-s4-32",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All hat and no cattle",
+    "phonetic": "/ɔːl hæt ænd noʊ ˈkæt.əl/",
+    "hindi": "दिखावा करने वाला",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "One who is full of big talk but lacks substance, power, and action.",
+    "example": "The candidate made many big promises during the rally, but the public knows he's all hat and no cattle.",
+    "mnemonic": "Origin: Texas mein bada cowboy hat pehanna par ranch mein ek bhi gaay (cattle) na hona.",
+    "synonyms": [
+      "All talk and no trousers",
+      "Empty suit",
+      "Poseur"
+    ],
+    "antonyms": [
+      "The real deal",
+      "Man of action"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Turn out to be all hat and no cattle",
+    "id": "v-idiom-l1-s4-33",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All in",
+    "phonetic": "/ɔːl ɪn/",
+    "hindi": "बहुत थका हुआ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Exhausted / tired / completely drained of energy.",
+    "example": "After running the marathon, I was completely all in.",
+    "mnemonic": "Origin: Poker mein saare chips table par laga dena ya shareer ki poori taqat nichod dena.",
+    "synonyms": [
+      "Dead beat",
+      "Worn out",
+      "Dog-tired"
+    ],
+    "antonyms": [
+      "Fresh as a daisy",
+      "Invigorated"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Feel completely all in",
+    "id": "v-idiom-l1-s4-34",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All in a day's work",
+    "phonetic": "/ɔːl ɪn ə deɪz wɜːrk/",
+    "hindi": "रोज़मर्रा का काम",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Part of a person's typical work or daily routine.",
+    "example": "For a doctor, dealing with emergencies at midnight is all in a day’s work.",
+    "mnemonic": "Origin: Sailors ka khatarnak kaam jo unke din bhar ke kaam ka sadharan hissa tha.",
+    "synonyms": [
+      "Routine matter",
+      "Par for the course"
+    ],
+    "antonyms": [
+      "Extraordinary event"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Consider it all in a day’s work",
+    "id": "v-idiom-l1-s4-35",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All in all",
+    "phonetic": "/ɔːl ɪn ɔːl/",
+    "hindi": "जिसके पास सारा अधिकार हो / कुल मिलाकर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Having all authority / On the whole; altogether.",
+    "example": "In the absence of the principal, the vice-principal is the all in all of the school.",
+    "mnemonic": "Origin: 14th century se chala aa raha hai, jahan iska matlab hota tha \"everything in everything\".",
+    "synonyms": [
+      "Supreme authority",
+      "On the whole"
+    ],
+    "antonyms": [
+      "Subordinate",
+      "Partially"
+    ],
+    "frequency": "Very High",
+    "collocation": "He is the all in all here",
+    "id": "v-idiom-l1-s4-36",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All moonshine",
+    "phonetic": "/ɔːl ˈmuːn.ʃaɪn/",
+    "hindi": "बिल्कुल बकवास",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Empty talk or promises; impractical or unrealistic.",
+    "example": "The story he told for being late was all moonshine; he was actually sleeping.",
+    "mnemonic": "Origin: Moonshine raat ke andhere mein banayi gayi gair-kanooni sharab aur bina proof ki gapp hoti thi.",
+    "synonyms": [
+      "Total rubbish",
+      "Humbug",
+      "Claptrap"
+    ],
+    "antonyms": [
+      "Gospel truth",
+      "Verifiable fact"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Dismiss as all moonshine",
+    "id": "v-idiom-l1-s4-37",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All our might and main",
+    "phonetic": "/ɔːl ˈaʊ.ər maɪt ænd meɪn/",
+    "hindi": "पूरी शक्ति के साथ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "With full force, strength, and complete energy.",
+    "example": "To clear the SSC exam, you must study with all your might and main.",
+    "mnemonic": "Origin: Might aur Main dono purani English mein shakti ke shabd the. Zor dene ke liye dono ko joda gaya.",
+    "synonyms": [
+      "With might and main",
+      "Tooth and nail"
+    ],
+    "antonyms": [
+      "Half-heartedly"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Fight with all our might and main",
+    "id": "v-idiom-l1-s4-38",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All over hell's half acre",
+    "phonetic": "/ɔːl ˈoʊ.vər hɛlz hæf ˈeɪ.kər/",
+    "hindi": "सब जगह बिखरा हुआ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Everywhere (all over the place) in a chaotic, messy fashion.",
+    "example": "Your toys are scattered all over hell’s half acre; pick them up right now!",
+    "mnemonic": "Origin: Hell’s Half Acre kisi ujaad lawless jagah ko kehte the. Jahan har jagah gandagi bikhri ho.",
+    "synonyms": [
+      "Far and wide",
+      "Here, there and everywhere"
+    ],
+    "antonyms": [
+      "Neatly contained"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Scattered all over hell’s half acre",
+    "id": "v-idiom-l1-s4-39",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All thumbs",
+    "phonetic": "/ɔːl θʌmz/",
+    "hindi": "हाथों से काम करने में अनाड़ी होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Very awkward with the hands; clumsy.",
+    "example": "My grandmother is all thumbs when it comes to using a smartphone.",
+    "mnemonic": "Trick: Pancho ungliyan agar mota angootha ban jayein toh naazuk kaam nahi ho payega.",
+    "synonyms": [
+      "Clumsy",
+      "Ham-fisted",
+      "Butterfingers"
+    ],
+    "antonyms": [
+      "Deft",
+      "Dexterous"
+    ],
+    "frequency": "Very High",
+    "collocation": "Be all thumbs",
+    "id": "v-idiom-l1-s4-40",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "All wet",
+    "phonetic": "/ɔːl wɛt/",
+    "hindi": "गलतफहमी में होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Completely mistaken or entirely wrong.",
+    "example": "He thinks I'm the one who broke the vase, but he's all wet.",
+    "mnemonic": "Trick: Geela gunpowder ya maachis kisi kaam ka nahi hota, waise hi bekar logic.",
+    "synonyms": [
+      "Barking up the wrong tree",
+      "Totally mistaken"
+    ],
+    "antonyms": [
+      "Spot on",
+      "Right on the money"
+    ],
+    "frequency": "Repeated",
+    "collocation": "You are all wet",
+    "id": "v-idiom-l1-s4-41",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Alpha and omega",
+    "phonetic": "/ˈæl.fə ænd oʊˈmeɪ.ɡə/",
+    "hindi": "शुरुआत और अंत",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Beginning and end; the fundamental and most vital element.",
+    "example": "Trust is the alpha and omega of a healthy friendship.",
+    "mnemonic": "Origin: Greek alphabet ka pehla letter Alpha aur aakhri letter Omega hota hai.",
+    "synonyms": [
+      "Be-all and end-all",
+      "Beginning and end"
+    ],
+    "antonyms": [
+      "Irrelevant detail"
+    ],
+    "frequency": "Very High",
+    "collocation": "The alpha and omega of life",
+    "id": "v-idiom-l1-s4-42",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Alphabet Soup",
+    "phonetic": "/ˈæl.fə.bɛt suːp/",
+    "hindi": "उलझन भरा / संक्षिप्त रूपों की भरमार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Incomprehensible or confusing mixture of things and abbreviations.",
+    "example": "Medical reports can often feel like an alphabet soup to a common person.",
+    "mnemonic": "Origin: America ke President Roosevelt ke time banayi nayi agencies ke initials ka dher.",
+    "synonyms": [
+      "Jargon salad",
+      "Word soup"
+    ],
+    "antonyms": [
+      "Plain language"
+    ],
+    "frequency": "Repeated",
+    "collocation": "An alphabet soup of acronyms",
+    "id": "v-idiom-l1-s4-43",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Always a bridesmaid never a bride",
+    "phonetic": "/ˈɔːl.weɪz ə ˈbraɪdz.meɪd ˈnɛv.ər ə braɪd/",
+    "hindi": "हमेशा दूसरे स्थान पर रहना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Someone who always comes second and never gets top recognition.",
+    "example": "The team has reached the finals five times but lost every time. They are always a bridesmaid, never a bride.",
+    "mnemonic": "Origin: Listerine ad jisme Edna sundar thi par shaadi mein hamesha dulhan ki saheli hi banti reh jaati thi.",
+    "synonyms": [
+      "Perennial runner-up",
+      "Second fiddle"
+    ],
+    "antonyms": [
+      "Winner",
+      "Champion"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Remain always a bridesmaid never a bride",
+    "id": "v-idiom-l1-s4-44",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An about turn",
+    "phonetic": "/æn əˈbaʊt tɜːrn/",
+    "hindi": "विचार में अचानक बदलाव",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Complete change of opinion, decision, or direction.",
+    "example": "She said she hated spicy food, but then she did an about turn and ordered a hot chilly pizza.",
+    "mnemonic": "Origin: Army drill jahan soldier 180 degrees peeche ghoom jata hai.",
+    "synonyms": [
+      "U-turn",
+      "Volte-face",
+      "Flip-flop"
+    ],
+    "antonyms": [
+      "Steadfastness",
+      "Consistency"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Do an about turn",
+    "id": "v-idiom-l1-s4-45",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An Achilles' Heel",
+    "phonetic": "/æn əˈkɪl.iːz hiːl/",
+    "hindi": "कमज़ोर कड़ी",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A vulnerable point or fault in one's character or system.",
+    "example": "I'm good at all subjects, but Trigonometry is my Achilles' heel.",
+    "mnemonic": "Origin: Achilles yoddha jise uski maa ne heel se pakad kar Styx nadi mein duboya tha, jisse heel kamzor reh gaya.",
+    "synonyms": [
+      "Weak spot",
+      "Fatal flaw",
+      "Chink in the armor"
+    ],
+    "antonyms": [
+      "Tower of strength",
+      "Strong suit"
+    ],
+    "frequency": "Very High",
+    "collocation": "Prove to be an Achilles’ heel",
+    "id": "v-idiom-l1-s4-46",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An acid test",
+    "phonetic": "/æn ˈæs.ɪd tɛst/",
+    "hindi": "असली परख / कठिन परीक्षा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A fact, event, or situation that decisively proves something.",
+    "example": "The match against Australia will be an acid test for our young cricket team.",
+    "mnemonic": "Origin: Sone (gold) ki asliyat check karne ke liye Nitric acid ka istemal kiya jata tha.",
+    "synonyms": [
+      "Litmus test",
+      "Crucial trial"
+    ],
+    "antonyms": [
+      "Superficial check"
+    ],
+    "frequency": "Very High",
+    "collocation": "Stand the acid test",
+    "id": "v-idiom-l1-s4-47",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An albatross around the neck",
+    "phonetic": "/æn ˈæl.bə.trɒs əˈraʊnd ðə nɛk/ ",
+    "hindi": "गले की फाँस / निरंतर सताने वाला भारी बोझ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A heavy burden someone carries, especially a burden that torments someone incessantly.",
+    "example": "His past criminal record was like an albatross around his neck, making it hard to find a job.",
+    "mnemonic": "Origin: Coleridge ki kavita mein mariner ke gale mein mara hua albatross pakshi baandh diya gaya tha.",
+    "synonyms": [
+      "Millstone around one’s neck",
+      "Heavy cross to bear"
+    ],
+    "antonyms": [
+      "Asset",
+      "Boon"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Wear an albatross around the neck",
+    "id": "v-idiom-l1-s4-48",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An arm and a leg",
+    "phonetic": "/æn ɑːrm ænd ə lɛɡ/",
+    "hindi": "बहुत महँगा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Very expensive.",
+    "example": "I’d love to buy that designer suit, but it costs an arm and a leg.",
+    "mnemonic": "Origin: Purane zamane mein portraits mein chehre ke alawa haath aur pair dikhane ke zyada paise lagte the.",
+    "synonyms": [
+      "A king’s ransom",
+      "Exorbitant sum"
+    ],
+    "antonyms": [
+      "Dirt cheap",
+      "A dime a dozen"
+    ],
+    "frequency": "Very High",
+    "collocation": "Cost an arm and a leg",
+    "id": "v-idiom-l1-s4-49",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An arrow in the quiver",
+    "phonetic": "/æn ˈær.oʊ ɪn ðə ˈkwɪv.ər/",
+    "hindi": "कौशल जो समय आने पर काम आए",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Strategies, skills, or resources that can be followed or used when needed.",
+    "example": "Learning a second language is another arrow in your quiver when looking for a job.",
+    "mnemonic": "Origin: Tarkash (quiver) mein shikaari ke teer jo aane wale sankat mein kaam aate hain.",
+    "synonyms": [
+      "Ace up one’s sleeve",
+      "String to one’s bow"
+    ],
+    "antonyms": [
+      "Helplessness"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Another arrow in the quiver",
+    "id": "v-idiom-l1-s4-50",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-04",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 04",
+      "Idioms & Phrases"
+    ]
+  }
+];
+
+export const LEVEL_1_SET_05_IDIOMS: VocabItem[] = [
+  {
+    "word": "An article of faith",
+    "phonetic": "/æn ˈɑːr.tɪ.kəl əv feɪθ/",
+    "hindi": "दृढ़ विश्वास",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A firmly held belief.",
+    "example": "Providing the best quality at the lowest price is an article of faith for this brand.",
+    "mnemonic": "Origin: Dharam ke pakke niyam jinpar bina sawal kiye vishwas kiya jata tha.",
+    "synonyms": [
+      "Deep conviction",
+      "Core dogma"
+    ],
+    "antonyms": [
+      "Skepticism",
+      "Doubt"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Hold as an article of faith",
+    "id": "v-idiom-l1-s5-1",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An axe to grind",
+    "phonetic": "/æn æks tuː ɡraɪnd/",
+    "hindi": "अपना उल्लू सीधा करना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A personal reason or selfish motive for being involved in something.",
+    "example": "I don't trust his suggestion for the new project; I think he has an axe to grind.",
+    "mnemonic": "Origin: Benjamin Franklin ki kahani jahan aadmi ne bache se apni kulhari tez karwayi aur chala gaya.",
+    "synonyms": [
+      "Ulterior motive",
+      "Selfish agenda",
+      "Vested interest"
+    ],
+    "antonyms": [
+      "Altruistic intent"
+    ],
+    "frequency": "Very High",
+    "collocation": "Have an axe to grind",
+    "id": "v-idiom-l1-s5-2",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An ear to the ground",
+    "phonetic": "/æn ɪər tuː ðə ɡraʊnd/",
+    "hindi": "चौकन्ना रहना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Informed and updated about everything; monitoring trends closely.",
+    "example": "A successful businessman always keeps his ear to the ground to know what customers want.",
+    "mnemonic": "Origin: Trackers zameen par kaan lagakar door aane wale ghodo ki aahat sunte the.",
+    "synonyms": [
+      "Keeping tabs on",
+      "Vigilance"
+    ],
+    "antonyms": [
+      "Oblivious detachment"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Keep an ear to the ground",
+    "id": "v-idiom-l1-s5-3",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An eye wash",
+    "phonetic": "/æn aɪ wɒʃ/",
+    "hindi": "पूरी तरह दिखावा / धोखा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A pretence or superficial action designed to deceive people.",
+    "example": "The government inquiry into the corruption case was just an eye wash to calm the public.",
+    "mnemonic": "Origin: Sirf aankh dhone se rog theek nahi hota, yeh asliyat chhipane ka tareeka hota hai.",
+    "synonyms": [
+      "Window dressing",
+      "Pretence",
+      "Sham"
+    ],
+    "antonyms": [
+      "Genuine reform"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Nothing but an eye wash",
+    "id": "v-idiom-l1-s5-4",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An eyesore",
+    "phonetic": "/æn ˈaɪ.sɔːr/",
+    "hindi": "भद्दी वस्तु",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Something that is unpleasant or offensive to look at.",
+    "example": "I love my room, but this orange carpet is an eyesore; I need to change it.",
+    "mnemonic": "Origin: Eye (aankh) + Sore (zakhm). Jo dekhne par sundarta ko kharab kare aur chidh paida kare.",
+    "synonyms": [
+      "Blemish",
+      "Blot on the landscape",
+      "Monstrosity"
+    ],
+    "antonyms": [
+      "Sight for sore eyes",
+      "Cynosure"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Considered an eyesore",
+    "id": "v-idiom-l1-s5-5",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An iron hand",
+    "phonetic": "/æn ˈaɪ.ərn hænd/",
+    "hindi": "कठोर अनुशासन",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Strict and harsh control.",
+    "example": "The dictator ruled the country with an iron hand for thirty years.",
+    "mnemonic": "Origin: Yoddha ke lohe ke dastane (iron gauntlets). \"An iron hand in a velvet glove\".",
+    "synonyms": [
+      "Mailed fist",
+      "Iron fist",
+      "Ruthless control"
+    ],
+    "antonyms": [
+      "Gentle persuasion",
+      "Lenient rule"
+    ],
+    "frequency": "Very High",
+    "collocation": "Rule with an iron hand",
+    "id": "v-idiom-l1-s5-6",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "An olive branch",
+    "phonetic": "/æn ˈɒl.ɪv brɑːntʃ/",
+    "hindi": "शांति का प्रस्ताव",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A gesture of peace and reconciliation.",
+    "example": "After their big fight, Sarah sent a text message to her friend as an olive branch.",
+    "mnemonic": "Origin: Purane Yunan mein Zaitoon (olive) ki tehni shanti aur ladai rokne ka prateek maani jaati thi.",
+    "synonyms": [
+      "Peace offering",
+      "Conciliatory gesture",
+      "Truce offer"
+    ],
+    "antonyms": [
+      "Declaration of war"
+    ],
+    "frequency": "Very High",
+    "collocation": "Hold out an olive branch",
+    "id": "v-idiom-l1-s5-7",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Apple pie order",
+    "phonetic": "/ˈæp.əl paɪ ˈɔːr.dər/",
+    "hindi": "सुव्यवस्थित",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In perfect order; neatly and methodically arranged.",
+    "example": "Prashant Sir always keeps his desk and files in apple pie order.",
+    "mnemonic": "Origin: Apple pie banate samay seb ke slices ko bariki aur suvyavastha ke sath sajaya jata hai.",
+    "synonyms": [
+      "Shipshape",
+      "Spick and span",
+      "Pristine order"
+    ],
+    "antonyms": [
+      "At sixes and sevens",
+      "Chaos"
+    ],
+    "frequency": "Very High",
+    "collocation": "Kept in apple pie order",
+    "id": "v-idiom-l1-s5-8",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Apple-cart",
+    "phonetic": "/ˈæp.əl kɑːrt/",
+    "hindi": "रायता फैलाना / योजना बिगाड़ना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Spoil careful plans or disrupt arrangements.",
+    "example": "The sudden change in tax laws really upset the apple-cart for small businesses.",
+    "mnemonic": "Origin: Kisan ki seb ki rehdi (cart) palat jane par saari mehnat aur plans par paani phir jata tha.",
+    "synonyms": [
+      "Throw a spanner in the works",
+      "Derail plans"
+    ],
+    "antonyms": [
+      "Facilitate",
+      "Ensure success"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Upset the apple-cart",
+    "id": "v-idiom-l1-s5-9",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Apropos of nothing",
+    "phonetic": "/ˌæp.rəˈpoʊ əv ˈnʌθ.ɪŋ/",
+    "hindi": "बिना किसी संदर्भ के",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Having no relevance to any previous discussion or situation.",
+    "example": "He stood up and, apropos of nothing, announced that he was quitting his job.",
+    "mnemonic": "Origin: French \"à propos\" (appropriate) + of nothing. Jo kisi bhi pehle ki baat se judaa na ho.",
+    "synonyms": [
+      "Out of the blue",
+      "Irrelevantly"
+    ],
+    "antonyms": [
+      "Contextually relevant"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Announce apropos of nothing",
+    "id": "v-idiom-l1-s5-10",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Argus-eyed",
+    "phonetic": "/ˈɑːr.ɡəs aɪd/",
+    "hindi": "चौकन्ना / सतर्क",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Carefully observant or attentive; constantly watchful.",
+    "example": "Our boss is Argus-eyed when it comes to checking the final reports for mistakes.",
+    "mnemonic": "Origin: Greek daitya Argus Panoptes jiske 100 aankhein thin aur sote waqt bhi 98 aankhein khuli rehti thin.",
+    "synonyms": [
+      "Hawk-eyed",
+      "Vigilant",
+      "Eagle-eyed"
+    ],
+    "antonyms": [
+      "Unobservant",
+      "Asleep at the wheel"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Remain Argus-eyed",
+    "id": "v-idiom-l1-s5-11",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Arm-chair critic",
+    "phonetic": "/ˈɑːrm.tʃɛər ˈkrɪt.ɪk/",
+    "hindi": "जिसे व्यावहारिक ज्ञान न हो",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A person who knows about a subject only by reading or hearing about it rather than from practical experience.",
+    "example": "It’s easy to be an arm-chair critic when you’re just watching the game from home.",
+    "mnemonic": "Origin: Aaram-kursi par baith kar door se bina dhoop-mehnat ke doosron ki kamiyan nikalne wala.",
+    "synonyms": [
+      "Backseat driver",
+      "Sideline commentator"
+    ],
+    "antonyms": [
+      "Practitioner",
+      "Seasoned veteran"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be an arm-chair critic",
+    "id": "v-idiom-l1-s5-12",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Armed to the teeth",
+    "phonetic": "/ɑːrmd tuː ðə tiːθ/",
+    "hindi": "साज़ो-सामान से भरपूर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Fully armed, having many weapons or complete equipment.",
+    "example": "The special forces were armed to the teeth when they entered the building.",
+    "mnemonic": "Origin: Pirates dono haathon mein hathiyar aur daanton mein chaku daba lete the taaki ek inch jagah bhi khali na rahe.",
+    "synonyms": [
+      "Heavily armed",
+      "Equipped to the hilt"
+    ],
+    "antonyms": [
+      "Defenseless",
+      "Unarmed"
+    ],
+    "frequency": "Very High",
+    "collocation": "Armed to the teeth",
+    "id": "v-idiom-l1-s5-13",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Around the clock",
+    "phonetic": "/əˈraʊnd ðə klɒk/",
+    "hindi": "बिना रुके लगातार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "For an entire 24-hour day; continuously non-stop.",
+    "example": "The doctors worked around the clock to save the patient’s life.",
+    "mnemonic": "Origin: Ghadi ke 12 ghante poora din aur raat lagatar suiyon ke saath ghoomte rehna.",
+    "synonyms": [
+      "Day and night",
+      "Nonstop",
+      "Ceaselessly"
+    ],
+    "antonyms": [
+      "Intermittently",
+      "Occasionally"
+    ],
+    "frequency": "Very High",
+    "collocation": "Work around the clock",
+    "id": "v-idiom-l1-s5-14",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As a matter of fact",
+    "phonetic": "/æz ə ˈmæt.ər əv fækt/",
+    "hindi": "वास्तव में",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Actually as it happened; in reality.",
+    "example": "He thinks I'm new here, but as a matter of fact, I've worked here for five years.",
+    "mnemonic": "Trick: Maamle (matter) ke tathya (fact) ko seedhe bayaan karna.",
+    "synonyms": [
+      "Actually",
+      "In truth",
+      "In reality"
+    ],
+    "antonyms": [
+      "Supposedly"
+    ],
+    "frequency": "Repeated",
+    "collocation": "As a matter of fact",
+    "id": "v-idiom-l1-s5-15",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As clean as a whistle",
+    "phonetic": "/æz kliːn æz ə ˈwɪs.əl/",
+    "hindi": "बिल्कुल साफ़-सुथरा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Completely clean or pure; innocent.",
+    "example": "After the deep cleaning, the whole house was as clean as a whistle.",
+    "mnemonic": "Origin: Whistle tabhi sahi bajti hai jab uske andar dhool ya kachra na ho.",
+    "synonyms": [
+      "Spotless",
+      "Squeaky clean",
+      "Immaculate"
+    ],
+    "antonyms": [
+      "Filthy",
+      "Tarnished"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Clean as a whistle",
+    "id": "v-idiom-l1-s5-16",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As clear as a bell",
+    "phonetic": "/æz klɪər æz ə bɛl/",
+    "hindi": "जो आसानी से समझ आ जाए",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Readily understood; distinct and clear sound.",
+    "example": "Even from the back of the hall, the singer's voice was as clear as a bell.",
+    "mnemonic": "Origin: Acchi ghanti (bell) ki awaaz door tak bina kisi shor ke saaf sunai deti hai.",
+    "synonyms": [
+      "Crystal clear",
+      "Audible and distinct"
+    ],
+    "antonyms": [
+      "Muffled",
+      "Inaudible"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Clear as a bell",
+    "id": "v-idiom-l1-s5-17",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As clear as mud",
+    "phonetic": "/æz klɪər æz mʌd/",
+    "hindi": "बिल्कुल अस्पष्ट",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Impossible to understand; completely confusing.",
+    "example": "The politician's speech about the new budget was as clear as mud to the public.",
+    "mnemonic": "Origin: Keechad (mud) opaque hota hai jiske paar kuch nahi dikhta. Taunt maarne ke liye kehte hain \"clear as mud\".",
+    "synonyms": [
+      "Baffling",
+      "Opaque",
+      "Murky"
+    ],
+    "antonyms": [
+      "Crystal clear",
+      "Self-evident"
+    ],
+    "frequency": "Repeated",
+    "collocation": "As clear as mud",
+    "id": "v-idiom-l1-s5-18",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As daft as a brush",
+    "phonetic": "/æz dɑːft æz ə brʌʃ/",
+    "hindi": "बेवकूफ / मूर्ख",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Extremely foolish or silly.",
+    "example": "He’s a great guy, but sometimes he can be as daft as a brush.",
+    "mnemonic": "Origin: Daft ka purana matlab \"soft\" tha. Dimaag se kamzor ya bewakoof insaan.",
+    "synonyms": [
+      "Silly",
+      "Foolish",
+      "Scatterbrained"
+    ],
+    "antonyms": [
+      "Shrewd",
+      "Wise"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be as daft as a brush",
+    "id": "v-idiom-l1-s5-19",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As dead as a doornail",
+    "phonetic": "/æz dɛd æz ə ˈdɔːr.neɪl/",
+    "hindi": "एकदम बेजान",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Completely obsolete, dead, or unusable.",
+    "example": "The project was as dead as a doornail after the company lost its funding.",
+    "mnemonic": "Origin: Darwaze ki keel thokne ke baad piche se mod kar \"dead\" kar di jaati thi taaki nikal na sake.",
+    "synonyms": [
+      "Lifeless",
+      "Defunct",
+      "Stone-dead"
+    ],
+    "antonyms": [
+      "Alive and kicking"
+    ],
+    "frequency": "Very High",
+    "collocation": "Dead as a doornail",
+    "id": "v-idiom-l1-s5-20",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As fit as a fiddle",
+    "phonetic": "/æz fɪt æz ə ˈfɪd.əl/",
+    "hindi": "पूरी तरह स्वस्थ",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In good health, active, and robust.",
+    "example": "The player looks as fit as a fiddle and is ready for the final match.",
+    "mnemonic": "Origin: Violin (fiddle) tabhi acchi awaaz nikalta hai jab taarein aur polish perfect condition mein hon.",
+    "synonyms": [
+      "In the pink of health",
+      "Hale and hearty"
+    ],
+    "antonyms": [
+      "Ailing",
+      "Infirm"
+    ],
+    "frequency": "Very High",
+    "collocation": "Feel as fit as a fiddle",
+    "id": "v-idiom-l1-s5-21",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As genuine/phony as a three-dollar bill",
+    "phonetic": "/æz ˈfoʊ.ni æz ə θriː ˈdɒl.ər bɪl/",
+    "hindi": "बिल्कुल नकली",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Completely fake or counterfeit.",
+    "example": "I don't trust his big smile; it feels as phony as a three-dollar bill.",
+    "mnemonic": "Origin: America mein 3 dollar ka note kabhi chapa hi nahi, isliye woh 100% nakli hai.",
+    "synonyms": [
+      "Counterfeit",
+      "Spurious",
+      "Bogus"
+    ],
+    "antonyms": [
+      "Authentic",
+      "Genuine"
+    ],
+    "frequency": "Repeated",
+    "collocation": "As phony as a three-dollar bill",
+    "id": "v-idiom-l1-s5-22",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As hard as nails",
+    "phonetic": "/æz hɑːrd æz neɪlz/",
+    "hindi": "बहुत कठोर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Physically or mentally tough; uncompromising and unsympathetic.",
+    "example": "You have to be as hard as nails to succeed in this competitive market.",
+    "mnemonic": "Origin: Lohe ki keel (nail) asani se mudti nahi hai, waise hi bina roye ladne wala sakht insaan.",
+    "synonyms": [
+      "Tough as leather",
+      "Callous",
+      "Unyielding"
+    ],
+    "antonyms": [
+      "Soft-hearted",
+      "Tender"
+    ],
+    "frequency": "Very High",
+    "collocation": "Hard as nails",
+    "id": "v-idiom-l1-s5-23",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As high as a kite",
+    "phonetic": "/æz haɪ æz ə kaɪt/",
+    "hindi": "नशे में धुत / अत्यधिक खुश",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Intoxicated with alcohol/drugs or feeling very happy and excited.",
+    "example": "After winning the lottery, he was as high as a kite all week.",
+    "mnemonic": "Origin: Unchi udti patang zameen ke dukh-dard se door rehti hai, waise hi nashe ya khushi mein mast hona.",
+    "synonyms": [
+      "Exhilarated",
+      "Intoxicated"
+    ],
+    "antonyms": [
+      "Sober",
+      "Down in the dumps"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Fly as high as a kite",
+    "id": "v-idiom-l1-s5-24",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As keen as mustard",
+    "phonetic": "/æz kiːn æz ˈmʌs.tərd/",
+    "hindi": "बहुत उत्साहित",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Very excited and interested.",
+    "example": "She is as keen as mustard about her new photography classes.",
+    "mnemonic": "Origin: Keen ka matlab tez (sharp) tha aur sarson (mustard) apne teekhepan aur bhoonk jagane ke liye jani jati hai.",
+    "synonyms": [
+      "Gung-ho",
+      "Avid",
+      "Eager beaver"
+    ],
+    "antonyms": [
+      "Apathetic",
+      "Reluctant"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Keen as mustard",
+    "id": "v-idiom-l1-s5-25",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As mad as a hatter",
+    "phonetic": "/æz mæd æz ə ˈhæt.ər/",
+    "hindi": "सिरफिरा",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Eccentric, crazy, or insane.",
+    "example": "My old uncle is as mad as a hatter; he talks to his plants all day.",
+    "mnemonic": "Origin: 19th-century mein topi banane wale mercury ke fumes mein kaam karte the jisse unka dimaag kharab ho jata tha.",
+    "synonyms": [
+      "Nutty as a fruitcake",
+      "Off one’s rocker"
+    ],
+    "antonyms": [
+      "Sane",
+      "Rational"
+    ],
+    "frequency": "Very High",
+    "collocation": "Go as mad as a hatter",
+    "id": "v-idiom-l1-s5-26",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As plain as day",
+    "phonetic": "/æz pleɪn æz deɪ/",
+    "hindi": "बिल्कुल स्पष्ट",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Very obvious and easy to understand.",
+    "example": "The teacher's explanation was as plain as day; everyone understood it.",
+    "mnemonic": "Origin: Din ke ujale mein suraj ki roshni mein har cheez bina dhundhlepan ke saaf dikhayi deti hai.",
+    "synonyms": [
+      "Self-evident",
+      "Crystal clear"
+    ],
+    "antonyms": [
+      "Cryptic",
+      "Enigmatic"
+    ],
+    "frequency": "Very High",
+    "collocation": "As plain as day",
+    "id": "v-idiom-l1-s5-27",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As sly as a fox",
+    "phonetic": "/æz slaɪ æz ə fɒks/",
+    "hindi": "बेहद चतुर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Smart and clever; cunning.",
+    "example": "Don't trust his innocent face; he is as sly as a fox and always gets his way.",
+    "mnemonic": "Origin: Panchatantra aur Aesop fables mein lomdi hamesha chalaaki se kaam nikaalti hai.",
+    "synonyms": [
+      "Cunning",
+      "Crafty",
+      "Wily"
+    ],
+    "antonyms": [
+      "Guileless",
+      "Naive"
+    ],
+    "frequency": "Repeated",
+    "collocation": "As sly as a fox",
+    "id": "v-idiom-l1-s5-28",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As swift as an eagle",
+    "phonetic": "/æz swɪft æz æn ˈiː.ɡəl/",
+    "hindi": "बहुत तेज़",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Moving or able to move quickly; agile.",
+    "example": "The young sprinter was as swift as an eagle and finished the race in 10 seconds.",
+    "mnemonic": "Origin: Baaz (eagle) jab shikaar par dive maarta hai toh uski gati bemisaal hoti hai.",
+    "synonyms": [
+      "Fleet-footed",
+      "Lightning fast"
+    ],
+    "antonyms": [
+      "Sluggish",
+      "Plodding"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Swift as an eagle",
+    "id": "v-idiom-l1-s5-29",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As the crow flies",
+    "phonetic": "/æz ðə kroʊ flaɪz/",
+    "hindi": "सीधा रास्ता / हवाई दूरी",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "The shortest route; measured in a straight line.",
+    "example": "The village is 20 miles away by road, but only 10 miles as the crow flies.",
+    "mnemonic": "Origin: Kauwa (crow) aasmaan mein bina sadak ke mod aur pahadon ki parwah kiye bina seedha udta hai.",
+    "synonyms": [
+      "In a beeline",
+      "Direct distance"
+    ],
+    "antonyms": [
+      "Circuitous route",
+      "Roundabout way"
+    ],
+    "frequency": "Very High",
+    "collocation": "Distance as the crow flies",
+    "id": "v-idiom-l1-s5-30",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As thick as thieves",
+    "phonetic": "/æz θɪk æz θiːvz/",
+    "hindi": "घनिष्ठ मित्र",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Having a close friendship; inseparable.",
+    "example": "Rahul and Satyam have been as thick as thieves since primary school.",
+    "mnemonic": "Origin: Choro ko ek-doosre par gehra vishwas rakhna padta hai. Thick ka purana arth close tha.",
+    "synonyms": [
+      "Bosom buddies",
+      "Chummy"
+    ],
+    "antonyms": [
+      "Estranged",
+      "At daggers drawn"
+    ],
+    "frequency": "Very High",
+    "collocation": "Be as thick as thieves",
+    "id": "v-idiom-l1-s5-31",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "As thick as two short planks",
+    "phonetic": "/æz θɪk æz tuː ʃɔːrt plæŋks/",
+    "hindi": "एकदम बुद्धू",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Extremely stupid.",
+    "example": "I've explained this math problem ten times, but he's as thick as two short planks.",
+    "mnemonic": "Origin: Lakdi ke do takhte thos hote hain jisme dimaag nahi hota. Moti buddhi wala.",
+    "synonyms": [
+      "Dense",
+      "Dim-witted",
+      "Doltish"
+    ],
+    "antonyms": [
+      "Sharp as a tack",
+      "Brilliant"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Thick as two short planks",
+    "id": "v-idiom-l1-s5-32",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Ask for trouble",
+    "phonetic": "/æsk fɔːr ˈtrʌb.əl/",
+    "hindi": "आफत मोल लेना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To be likely to cause problems or difficulties for yourself.",
+    "example": "Driving a car with worn-out tires is simply asking for trouble.",
+    "mnemonic": "Origin: Bina helmet ke tez chalana musibat ko invitation card dene jaisa hai.",
+    "synonyms": [
+      "Courting disaster",
+      "Playing with fire"
+    ],
+    "antonyms": [
+      "Playing it safe",
+      "Prudent caution"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Ask for trouble",
+    "id": "v-idiom-l1-s5-33",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Assume airs",
+    "phonetic": "/əˈsjuːm ɛərz/",
+    "hindi": "अकड़ दिखाना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Pretend superiority; act arrogantly.",
+    "example": "Don't assume airs with me; I knew you when you had nothing.",
+    "mnemonic": "Origin: Apne aas-paas royal hawa ka artificial mahaul banana aur seena taan kar chalna.",
+    "synonyms": [
+      "Put on airs",
+      "Lord it over"
+    ],
+    "antonyms": [
+      "Act modestly",
+      "Be unassuming"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Assume airs",
+    "id": "v-idiom-l1-s5-34",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a crossroads",
+    "phonetic": "/æt ə ˈkrɒs.roʊdz/",
+    "hindi": "जीवन के ऐसे मोड़ पर होना जहाँ कोई महत्वपूर्ण निर्णय लेना हो",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "A point in life where your decisions will have long term consequences.",
+    "example": "She was at a crossroads in her relationship and didn't know whether to stay or leave.",
+    "mnemonic": "Origin: Sadak jab do dishaon mein batt jaye toh rasta chunna anivarya ho jata hai.",
+    "synonyms": [
+      "Turning point",
+      "Juncture",
+      "Decisive moment"
+    ],
+    "antonyms": [
+      "Status quo",
+      "Rut"
+    ],
+    "frequency": "Very High",
+    "collocation": "Stand at a crossroads",
+    "id": "v-idiom-l1-s5-35",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a loose end",
+    "phonetic": "/æt ə luːs ɛnd/",
+    "hindi": "कोई निश्चित काम न होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Nothing to do; free and unoccupied.",
+    "example": "If you are at a loose end this weekend, come over and we can watch a movie.",
+    "mnemonic": "Origin: Rassi ka sira khula latak raha ho toh kisi kaam ka nahi hota. Khali insaan.",
+    "synonyms": [
+      "Twiddling one’s thumbs",
+      "At leisure"
+    ],
+    "antonyms": [
+      "Tied up",
+      "Busy as a bee"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Find oneself at a loose end",
+    "id": "v-idiom-l1-s5-36",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a loss for words",
+    "phonetic": "/æt ə lɒs fɔːr wɜːrdz/",
+    "hindi": "समझ न आना कि क्या कहें",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Not know what to say; completely overwhelmed or astonished.",
+    "example": "The view from the top of the mountain left me at a loss for words.",
+    "mnemonic": "Origin: Dimaag ke kosh mein shabdon ki kami pad jana jab jazbaat gehre hon.",
+    "synonyms": [
+      "Speechless",
+      "Dumbfounded"
+    ],
+    "antonyms": [
+      "Articulate",
+      "Voluble"
+    ],
+    "frequency": "Very High",
+    "collocation": "Left at a loss for words",
+    "id": "v-idiom-l1-s5-37",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a low ebb",
+    "phonetic": "/æt ə loʊ ɛb/",
+    "hindi": "बहुत बुरे दौर में होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In a depressed or weak state.",
+    "example": "After losing the match, the team's spirits were at a low ebb.",
+    "mnemonic": "Origin: Samundar ka bhaata (low ebb) jab paani piche hatt kar satah sabse neeche chali jaati hai.",
+    "synonyms": [
+      "In the doldrums",
+      "Nadir",
+      "In slump"
+    ],
+    "antonyms": [
+      "At high tide",
+      "Zenith"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be at a low ebb",
+    "id": "v-idiom-l1-s5-38",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a push",
+    "phonetic": "/æt ə pʊʃ/",
+    "hindi": "बड़ी मुश्किल से",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "If required, probably possible but difficult.",
+    "example": "The car can seat five people at a push, but four is more comfortable.",
+    "mnemonic": "Origin: Gaadi ko zor se dhakka (push) dekar badi mushkil se start karna.",
+    "synonyms": [
+      "At a pinch",
+      "With difficulty"
+    ],
+    "antonyms": [
+      "With ease",
+      "Effortlessly"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Possible at a push",
+    "id": "v-idiom-l1-s5-39",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At a stretch",
+    "phonetic": "/æt ə strɛtʃ/",
+    "hindi": "लगातार",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Continuously without interruption.",
+    "example": "He drove for ten hours at a stretch to reach home before Diwali.",
+    "mnemonic": "Origin: Rubber band ko stretch karne par seedhi akhand line banti hai.",
+    "synonyms": [
+      "Uninterruptedly",
+      "Continuously",
+      "At one go"
+    ],
+    "antonyms": [
+      "Intermittently",
+      "Fitfully"
+    ],
+    "frequency": "Very High",
+    "collocation": "Work for hours at a stretch",
+    "id": "v-idiom-l1-s5-40",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At all cost/costs",
+    "phonetic": "/æt ɔːl kɒsts/",
+    "hindi": "हर कीमत पर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Whatever is needed to achieve something.",
+    "example": "This project must be finished by Friday at all costs.",
+    "mnemonic": "Origin: Jahan lakshya ke liye budget ya mehnat ki koi seema na ho.",
+    "synonyms": [
+      "Come what may",
+      "At any price"
+    ],
+    "antonyms": [
+      "Conditionally"
+    ],
+    "frequency": "Very High",
+    "collocation": "Achieve at all costs",
+    "id": "v-idiom-l1-s5-41",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At cross purposes",
+    "phonetic": "/æt krɒs ˈpɜːr.pə.sɪz/",
+    "hindi": "एक-दूसरे को गलत समझना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Disagreeing with each other's ideas; working in conflict due to misunderstanding.",
+    "example": "The marketing and sales teams were working at cross purposes, which confused the customers.",
+    "mnemonic": "Origin: Do log alag angle se pul banayein toh raaste aapas mein takra kar cross kar jaate hain.",
+    "synonyms": [
+      "In conflict",
+      "At variance"
+    ],
+    "antonyms": [
+      "In harmony",
+      "On the same page"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Talk at cross purposes",
+    "id": "v-idiom-l1-s5-42",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At daggers drawn with somebody",
+    "phonetic": "/æt ˈdæɡ.ərz drɔːn wɪð ˈsʌm.bə.di/",
+    "hindi": "जानी दुश्मन होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Bitterly hostile towards each other.",
+    "example": "The two brothers are at daggers drawn over the division of their ancestral property.",
+    "mnemonic": "Origin: Khanjar (dagger) ko mian se bahar nikal lena jab samjhauta khatam ho chuka ho.",
+    "synonyms": [
+      "Sworn enemies",
+      "Bitter rivals"
+    ],
+    "antonyms": [
+      "As thick as thieves",
+      "Amicable"
+    ],
+    "frequency": "Very High",
+    "collocation": "Be at daggers drawn",
+    "id": "v-idiom-l1-s5-43",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At each other's throats",
+    "phonetic": "/æt iːtʃ ˈʌð.ərz θroʊts/",
+    "hindi": "बुरी तरह लड़ना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Arguing angrily and violently.",
+    "example": "The two sisters are at each other’s throats over who will wear the new dress.",
+    "mnemonic": "Origin: Janwar jab ladte hain toh ek-doosre ke gale (throat) par hamla karte hain.",
+    "synonyms": [
+      "Squabbling violently",
+      "Clashing"
+    ],
+    "antonyms": [
+      "Living in peace"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be at each other’s throats",
+    "id": "v-idiom-l1-s5-44",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At his disposal",
+    "phonetic": "/æt hɪz dɪˈspoʊ.zəl/",
+    "hindi": "उपलब्ध होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Available for use.",
+    "example": "The company put a car and a driver at his disposal during his stay in Delhi.",
+    "mnemonic": "Origin: \"Dispose\" ka purana matlab sajakar rakhna tha taaki zaroorat padne par turant use kiya ja sake.",
+    "synonyms": [
+      "On tap",
+      "At hand"
+    ],
+    "antonyms": [
+      "Unavailable"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Placed at his disposal",
+    "id": "v-idiom-l1-s5-45",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At large",
+    "phonetic": "/æt lɑːrdʒ/",
+    "hindi": "पकड़ा न जाना / कुल मिलाकर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Not caught / free / As a whole.",
+    "example": "The police warned that the armed robber is still at large.",
+    "mnemonic": "Origin: Chhoti cell todkar bahar ki badi (large) duniya mein azaad ghoomna.",
+    "synonyms": [
+      "On the loose",
+      "Unapprehended",
+      "In general"
+    ],
+    "antonyms": [
+      "Behind bars",
+      "In custody"
+    ],
+    "frequency": "Very High",
+    "collocation": "Fugitive still at large",
+    "id": "v-idiom-l1-s5-46",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At loggerheads",
+    "phonetic": "/æt ˈlɒɡ.ər.hɛdz/",
+    "hindi": "मतभेद होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Disagreeing strongly with someone.",
+    "example": "The government and the opposition are at loggerheads over the new tax bill.",
+    "mnemonic": "Origin: Loggerhead purana lohe ka auzaar tha jisse maar-peet ke liye hathiyar ki tarah use kiya jata tha.",
+    "synonyms": [
+      "At odds",
+      "In deadlock"
+    ],
+    "antonyms": [
+      "In agreement",
+      "Consensus"
+    ],
+    "frequency": "Very High",
+    "collocation": "Be at loggerheads with",
+    "id": "v-idiom-l1-s5-47",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At one’s beck and call",
+    "phonetic": "/æt wʌnz bɛk ænd kɔːl/",
+    "hindi": "हुकुम का गुलाम होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Always ready to do whatever someone asks.",
+    "example": "The assistant is at the boss's beck and call 24 hours a day.",
+    "mnemonic": "Origin: Beckon (ishara) aur call (awaz) par turant hazir hone wala naukar.",
+    "synonyms": [
+      "Subservient",
+      "At someone’s bidding"
+    ],
+    "antonyms": [
+      "Independent",
+      "Autonomous"
+    ],
+    "frequency": "Very High",
+    "collocation": "At someone’s beck and call",
+    "id": "v-idiom-l1-s5-48",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At one's elbow",
+    "phonetic": "/æt wʌnz ˈɛl.boʊ/",
+    "hindi": "बिल्कुल पास",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Next to someone; ready to assist.",
+    "example": "The secretary was always at his elbow to take notes during the meeting.",
+    "mnemonic": "Origin: Kohni (elbow) ke paas khada sahayak taaki fauran kaam ho sake.",
+    "synonyms": [
+      "Close by",
+      "At hand"
+    ],
+    "antonyms": [
+      "Far away"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Always at one’s elbow",
+    "id": "v-idiom-l1-s5-49",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At one's wit's end",
+    "phonetic": "/æt wʌnz wɪts ɛnd/",
+    "hindi": "परेशान हो जाना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Puzzled and didn't know what to do.",
+    "example": "The baby has been crying for hours, and the tired mother is at her wit’s end.",
+    "mnemonic": "Origin: Wit (buddhi) ka aakhri chhor aa jana jahan naye vichar na soojhein.",
+    "synonyms": [
+      "At the end of one’s tether",
+      "Distraught"
+    ],
+    "antonyms": [
+      "Calm and collected"
+    ],
+    "frequency": "Very High",
+    "collocation": "Be at one’s wit’s end",
+    "id": "v-idiom-l1-s5-50",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-05",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 05",
+      "Idioms & Phrases"
+    ]
+  }
+];
+
+export const LEVEL_1_SET_06_IDIOMS: VocabItem[] = [
+  {
+    "word": "At sea",
+    "phonetic": "/æt siː/",
+    "hindi": "उलझन में",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Perplexed / confused.",
+    "example": "For the first few days in my new office, I was completely at sea.",
+    "mnemonic": "Origin: Samundar ke beech bina compass ke charo taraf sirf paani dekh kar rasta bhatak jana.",
+    "synonyms": [
+      "Baffled",
+      "Perplexed",
+      "Disoriented"
+    ],
+    "antonyms": [
+      "In one’s element",
+      "Confident"
+    ],
+    "frequency": "Very High",
+    "collocation": "Feel totally at sea",
+    "id": "v-idiom-l1-s6-1",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At sixes and sevens",
+    "phonetic": "/æt ˈsɪk.sɪz ænd ˈsɛv.ənz/",
+    "hindi": "उलझन में होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In a state of total confusion or disorder.",
+    "example": "He was at sixes and sevens after the accident and didn't know what to do.",
+    "mnemonic": "Origin: London ke do vyapari samuh (Merchant Taylors aur Skinners) ki 6th aur 7th rank ki ladaai.",
+    "synonyms": [
+      "Topsy-turvy",
+      "In chaos",
+      "Disorganized"
+    ],
+    "antonyms": [
+      "In apple-pie order",
+      "Shipshape"
+    ],
+    "frequency": "Very High",
+    "collocation": "Leave everything at sixes and sevens",
+    "id": "v-idiom-l1-s6-2",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At stake",
+    "phonetic": "/æt steɪk/",
+    "hindi": "जोखिम में होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In danger of being lost or at risk.",
+    "example": "We must act fast; thousands of lives are at stake due to the flood.",
+    "mnemonic": "Origin: Juwe (gambling) mein jo paisa daav (stake) par lagaya jata hai.",
+    "synonyms": [
+      "In jeopardy",
+      "At risk",
+      "On the line"
+    ],
+    "antonyms": [
+      "Safe and sound",
+      "Secure"
+    ],
+    "frequency": "Very High",
+    "collocation": "Put everything at stake",
+    "id": "v-idiom-l1-s6-3",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At the drop of a dime/ hat",
+    "phonetic": "/æt ðə drɒp əv ə daɪm/",
+    "hindi": "बिना किसी देरी के",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Without hesitation, immediately.",
+    "example": "My best friend is amazing; he will help me at the drop of a dime.",
+    "mnemonic": "Origin: Race ya fight shuru karne ke liye referee topi (hat) niche gira deta tha.",
+    "synonyms": [
+      "At a moment’s notice",
+      "Instantly"
+    ],
+    "antonyms": [
+      "Reluctantly"
+    ],
+    "frequency": "Very High",
+    "collocation": "Ready at the drop of a dime",
+    "id": "v-idiom-l1-s6-4",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At the eleventh hour",
+    "phonetic": "/æt ðiː ɪˈlɛv.ənθ ˈaʊ.ər/",
+    "hindi": "अंतिम समय पर",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "At the last moment.",
+    "example": "The trip was cancelled at the eleventh hour due to bad weather.",
+    "mnemonic": "Origin: 12 ghante ke working day mein 11th hour aakhri ghanta hota tha kaam poora karne ke liye.",
+    "synonyms": [
+      "In the nick of time",
+      "At the last minute"
+    ],
+    "antonyms": [
+      "Well in advance"
+    ],
+    "frequency": "Very High",
+    "collocation": "Decide at the eleventh hour",
+    "id": "v-idiom-l1-s6-5",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At the top of your lungs",
+    "phonetic": "/æt ðə tɒp əv jɔːr lʌŋz/",
+    "hindi": "गला फाड़कर चिल्लाना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "Extremely loudly.",
+    "example": "The fans were singing along with the rockstar at the top of their lungs.",
+    "mnemonic": "Origin: Phephadon (lungs) ki poori taqat se aakhri hadd tak chillana.",
+    "synonyms": [
+      "At full blast",
+      "Deafeningly"
+    ],
+    "antonyms": [
+      "In a whisper"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Scream at the top of your lungs",
+    "id": "v-idiom-l1-s6-6",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "At variance with",
+    "phonetic": "/æt ˈvɛə.ri.əns wɪð/",
+    "hindi": "विपरीत होना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "In opposite or in state of conflict.",
+    "example": "His statement is at variance with the facts found by the police.",
+    "mnemonic": "Origin: Maths/Science mein variance ka matlab antar hota hai. Do cheezon ka ek-doosre se alag hona.",
+    "synonyms": [
+      "Incompatible with",
+      "At odds with"
+    ],
+    "antonyms": [
+      "In accordance with"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Be at variance with",
+    "id": "v-idiom-l1-s6-7",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  },
+  {
+    "word": "Average itself out",
+    "phonetic": "/ˈæv.ər.ɪdʒ ɪtˈsɛlf aʊt/",
+    "hindi": "समय के साथ संतुलित हो जाना",
+    "partOfSpeech": "Idiom / Phrase",
+    "meaning": "To be or become equal in amount or number over time.",
+    "example": "The stock market is volatile today, but it usually averages itself out over the year.",
+    "mnemonic": "Origin: Cricket mein 100 aur agle match mein 0 run banane par average 50 ban kar balance ho jata hai.",
+    "synonyms": [
+      "Level off",
+      "Balance out",
+      "Even out"
+    ],
+    "antonyms": [
+      "Diverge wildly"
+    ],
+    "frequency": "Repeated",
+    "collocation": "Average itself out over time",
+    "id": "v-idiom-l1-s6-8",
+    "type": "idiom",
+    "level": "level-1",
+    "set": "set-06",
+    "examTags": [
+      "SSC CGL",
+      "CHSL",
+      "CPO",
+      "Level 1",
+      "Set 06",
+      "Idioms & Phrases"
+    ]
+  }
+];
+

@@ -85,7 +85,11 @@ import {
 } from '../../data/highYieldVocabData';
 import { 
   LEVEL_1_SET_01_IDIOMS, 
-  LEVEL_1_SET_02_IDIOMS 
+  LEVEL_1_SET_02_IDIOMS,
+  LEVEL_1_SET_03_IDIOMS,
+  LEVEL_1_SET_04_IDIOMS,
+  LEVEL_1_SET_05_IDIOMS,
+  LEVEL_1_SET_06_IDIOMS
 } from '../../data/highYieldIdiomsData';
 import { 
   LEVEL_1_SET_01_OWS,
@@ -235,6 +239,10 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_2_SET_02_WORDS,
   ...LEVEL_1_SET_01_IDIOMS,
   ...LEVEL_1_SET_02_IDIOMS,
+  ...LEVEL_1_SET_03_IDIOMS,
+  ...LEVEL_1_SET_04_IDIOMS,
+  ...LEVEL_1_SET_05_IDIOMS,
+  ...LEVEL_1_SET_06_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
   ...LEVEL_1_SET_02_OWS,
   ...LEVEL_1_SET_03_OWS,
@@ -248,44 +256,7 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_11_OWS,
   ...LEVEL_1_SET_12_OWS,
   ...LEVEL_1_SET_13_OWS,
-  ...HIGH_YIELD_ROOT_WORDS,
-  // Idioms & Roots Mock Examples
-  {
-    id: 'v-idiom-1',
-    word: 'Spill the beans',
-    phonetic: '/spɪl ðə biːnz/',
-    hindi: 'भेद खोलना / रहस्य उजागर करना',
-    type: 'idiom',
-    partOfSpeech: 'Idiom / Phrase',
-    meaning: 'To disclose a secret prematurely or indiscreetly.',
-    synonyms: ['Let the cat out of the bag', 'Divulge', 'Disclose', 'Reveal'],
-    antonyms: ['Keep under wraps', 'Clam up', 'Conceal'],
-    example: 'Trust him with your surprise party plan and he is sure to spill the beans.',
-    mnemonic: 'Imagine dropping a jar of beans -> All hidden beans scatter in the open!',
-    frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'MTS', 'Level 1', 'Set 03', 'Idioms & Phrases'],
-    collocation: 'Spill the beans to the press / police',
-    level: 'level-1',
-    set: 'set-03'
-  },
-  {
-    id: 'v-idiom-2',
-    word: 'Burn the midnight oil',
-    phonetic: '/bɜːn ðə ˈmɪd.naɪt ɔɪl/',
-    hindi: 'देर रात तक कड़ी मेहनत / पढ़ाई करना',
-    type: 'idiom',
-    partOfSpeech: 'Idiom / Phrase',
-    meaning: 'To work or study late into the night.',
-    synonyms: ['Work overtime', 'Burn the candle at both ends', 'Toil'],
-    antonyms: ['Slack off', 'Idleness', 'Procrastinate'],
-    example: 'Aspirants often burn the midnight oil during the final revision month.',
-    mnemonic: 'Before electricity, studying late required keeping the oil lamp burning until midnight.',
-    frequency: 'Repeated',
-    examTags: ['SSC CGL', 'CHSL', 'Railway', 'Level 1', 'Set 03', 'Idioms & Phrases'],
-    collocation: 'Burn the midnight oil to crack exam',
-    level: 'level-1',
-    set: 'set-03'
-  }
+  ...HIGH_YIELD_ROOT_WORDS
 ];
 
 
