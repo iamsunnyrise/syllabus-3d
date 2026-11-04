@@ -100,7 +100,9 @@ import {
   LEVEL_1_SET_14_IDIOMS,
   LEVEL_1_SET_15_IDIOMS,
   LEVEL_1_SET_16_IDIOMS,
-  LEVEL_1_SET_17_IDIOMS
+  LEVEL_1_SET_17_IDIOMS,
+  LEVEL_1_SET_18_IDIOMS,
+  LEVEL_1_SET_19_IDIOMS
 } from '../../data/highYieldIdiomsData';
 import { 
   LEVEL_1_SET_01_OWS,
@@ -171,7 +173,9 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-14', label: 'Set 14' },
       { id: 'set-15', label: 'Set 15' },
       { id: 'set-16', label: 'Set 16' },
-      { id: 'set-17', label: 'Set 17' }
+      { id: 'set-17', label: 'Set 17' },
+      { id: 'set-18', label: 'Set 18' },
+      { id: 'set-19', label: 'Set 19' }
     ]
   },
   {
@@ -197,7 +201,9 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-14', label: 'Set 14' },
       { id: 'set-15', label: 'Set 15' },
       { id: 'set-16', label: 'Set 16' },
-      { id: 'set-17', label: 'Set 17' }
+      { id: 'set-17', label: 'Set 17' },
+      { id: 'set-18', label: 'Set 18' },
+      { id: 'set-19', label: 'Set 19' }
     ]
   },
   {
@@ -223,7 +229,9 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-14', label: 'Set 14' },
       { id: 'set-15', label: 'Set 15' },
       { id: 'set-16', label: 'Set 16' },
-      { id: 'set-17', label: 'Set 17' }
+      { id: 'set-17', label: 'Set 17' },
+      { id: 'set-18', label: 'Set 18' },
+      { id: 'set-19', label: 'Set 19' }
     ]
   },
   {
@@ -277,6 +285,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_15_IDIOMS,
   ...LEVEL_1_SET_16_IDIOMS,
   ...LEVEL_1_SET_17_IDIOMS,
+  ...LEVEL_1_SET_18_IDIOMS,
+  ...LEVEL_1_SET_19_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
   ...LEVEL_1_SET_02_OWS,
   ...LEVEL_1_SET_03_OWS,
