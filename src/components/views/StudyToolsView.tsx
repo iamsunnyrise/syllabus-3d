@@ -102,7 +102,9 @@ import {
   LEVEL_1_SET_16_IDIOMS,
   LEVEL_1_SET_17_IDIOMS,
   LEVEL_1_SET_18_IDIOMS,
-  LEVEL_1_SET_19_IDIOMS
+  LEVEL_1_SET_19_IDIOMS,
+  LEVEL_1_SET_20_IDIOMS,
+  LEVEL_1_SET_21_IDIOMS
 } from '../../data/highYieldIdiomsData';
 import { 
   LEVEL_1_SET_01_OWS,
@@ -175,7 +177,9 @@ const HIGH_YIELD_LEVELS: VocabLevelConfig[] = [
       { id: 'set-16', label: 'Set 16' },
       { id: 'set-17', label: 'Set 17' },
       { id: 'set-18', label: 'Set 18' },
-      { id: 'set-19', label: 'Set 19' }
+      { id: 'set-19', label: 'Set 19' },
+      { id: 'set-20', label: 'Set 20' },
+      { id: 'set-21', label: 'Set 21' }
     ]
   },
   {
@@ -287,6 +291,8 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_1_SET_17_IDIOMS,
   ...LEVEL_1_SET_18_IDIOMS,
   ...LEVEL_1_SET_19_IDIOMS,
+  ...LEVEL_1_SET_20_IDIOMS,
+  ...LEVEL_1_SET_21_IDIOMS,
   ...LEVEL_1_SET_01_OWS,
   ...LEVEL_1_SET_02_OWS,
   ...LEVEL_1_SET_03_OWS,
