@@ -31,10 +31,13 @@ import {
   FolderOpen,
   ArrowRight,
   TrendingUp,
-  Star
+  Star,
+  Award,
+  Timer
 } from 'lucide-react';
 import { EditSubjectModal } from '../modals/EditSubjectModal';
 import { EditChapterModal } from '../modals/EditChapterModal';
+import { ExamDateModal } from '../modals/ExamDateModal';
 import { soundManager } from '../../utils/soundEffects';
 import { calculatePacingForecast } from '../../utils/pacingCalculator';
 import { SyllabusCircularProgressWidget } from '../syllabus/SyllabusCircularProgressWidget';
@@ -74,6 +77,7 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false);
   const [editingChapter, setEditingChapter] = useState<{ subjectId: string; chapter: Chapter | null } | null>(null);
   const [isAddChapterOpen, setIsAddChapterOpen] = useState(false);
+  const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
 
   // 150ms Debounce for 60 FPS typing and filtering across massive syllabus hierarchies
   useEffect(() => {
@@ -207,9 +211,21 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
   // Live remaining days
   const daysRemaining = (() => {
     if (!currentExam.examDate) return 0;
-    const target = new Date(currentExam.examDate).getTime();
     const now = new Date().getTime();
-    const diff = target - now;
+    let y = currentExam.targetYear || 2026;
+    let m = 9;
+    let d = 15;
+    if (currentExam.examDate.includes('-')) {
+      const parts = currentExam.examDate.split('-').map(Number);
+      if (parts.length >= 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+        y = parts[0];
+        m = parts[1] - 1;
+        d = parts[2];
+      }
+    }
+    const targetTime = new Date(y, m, d, 9, 0, 0).getTime();
+    if (isNaN(targetTime)) return 0;
+    const diff = targetTime - now;
     return diff > 0 ? Math.ceil(diff / (1000 * 60 * 60 * 24)) : 0;
   })();
 
@@ -1421,9 +1437,16 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
           <span className="text-[11px] font-bold text-amber-700/80 dark:text-amber-400/80 sm:hidden">
             Exam Runway
           </span>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-400/40 dark:border-amber-400/30 text-amber-900 dark:text-amber-200 text-xs sm:text-[13px] font-bold font-mono shadow-2xs shrink-0">
+          <div
+            onClick={() => {
+              soundManager.playClick();
+              setIsExamDateModalOpen(true);
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-400/40 dark:border-amber-400/30 text-amber-900 dark:text-amber-200 text-xs sm:text-[13px] font-bold font-mono shadow-2xs shrink-0 cursor-pointer hover:bg-amber-500/25 transition-all"
+            title="Click to view countdown & change exam date"
+          >
             <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-500 text-amber-500 shrink-0" />
-            <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Exam Today'}</span>
+            <span>{daysRemaining > 0 ? `${daysRemaining} Days Left` : 'Set Exam Date'}</span>
           </div>
         </div>
       </div>
@@ -1432,30 +1455,56 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
       <SyllabusCircularProgressWidget
         title="SYLLABUS PROGRESS"
         completionText={`${completedTopicsCount}/${totalTopicsCount} completed`}
+        completionPercentage={overallPercentage}
         items={[
           {
             id: 'total-topics',
             label: 'Total Topics',
-            subtext: `${currentExam.subjects.reduce((sum, s) => sum + s.chapters.length, 0)} Chapters in track`,
+            subtext: `${(currentExam.subjects || []).reduce((sum, s) => sum + (s.chapters || []).length, 0)} Chapters in track`,
             topValue: totalTopicsCount,
-            bottomValue: `${currentExam.subjects.length} ${currentExam.subjects.length === 1 ? 'Sub' : 'Subs'}`,
+            bottomValue: `${(currentExam.subjects || []).length} ${(currentExam.subjects || []).length === 1 ? 'Sub' : 'Subs'}`,
             colorTheme: 'amber',
+            badgeTag: 'Curriculum',
+            progressPercent: totalTopicsCount > 0 ? 100 : 0,
+            icon: <Layers className="w-3.5 h-3.5 text-amber-500" />,
+            interactiveHint: 'View subjects',
+            onClick: () => {
+              soundManager.playClick();
+              const el = document.getElementById('syllabus-subjects-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            },
           },
           {
             id: 'mastered-topics',
             label: 'Mastered Topics',
             subtext: `${Math.max(0, totalTopicsCount - completedTopicsCount)} topics remaining`,
             topValue: completedTopicsCount,
-            bottomValue: totalTopicsCount,
+            bottomValue: `of ${totalTopicsCount}`,
             colorTheme: 'rose',
+            badgeTag: 'Mastery',
+            progressPercent: totalTopicsCount > 0 ? Math.round((completedTopicsCount / totalTopicsCount) * 100) : 0,
+            icon: <Award className="w-3.5 h-3.5 text-rose-500" />,
+            interactiveHint: statusFilter === 'completed' ? 'Reset filter' : 'Filter mastered',
+            onClick: () => {
+              soundManager.playClick();
+              setStatusFilter(prev => prev === 'completed' ? 'all' : 'completed');
+            },
           },
           {
             id: 'exam-runway',
             label: 'Exam Runway',
-            subtext: daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left • ${formattedExamDate}` : formattedExamDate,
-            topValue: daysRemaining > 0 ? daysRemaining : 0,
-            bottomValue: 'days',
+            subtext: daysRemaining > 0 ? `${Math.ceil(daysRemaining / 7)}w Left • ${formattedExamDate}` : `Target: ${formattedExamDate}`,
+            topValue: daysRemaining > 0 ? daysRemaining : 'Set',
+            bottomValue: daysRemaining > 0 ? 'days' : 'target',
             colorTheme: 'sky',
+            badgeTag: 'Countdown',
+            progressPercent: daysRemaining > 0 ? Math.min(100, Math.max(12, Math.round((daysRemaining / 180) * 100))) : 0,
+            icon: <Timer className="w-3.5 h-3.5 text-sky-500" />,
+            interactiveHint: 'Tap to change date',
+            onClick: () => {
+              soundManager.playClick();
+              setIsExamDateModalOpen(true);
+            },
           },
           {
             id: 'completion-rate',
@@ -1464,12 +1513,16 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             topValue: `${overallPercentage}%`,
             bottomValue: '100%',
             colorTheme: 'emerald',
+            badgeTag: 'Milestone',
+            progressPercent: overallPercentage,
+            icon: <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />,
+            interactiveHint: `${overallPercentage}% mastered`,
           },
         ]}
       />
 
       {/* 4. PORTAL CONTENT CONTAINER */}
-      <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151728] border border-slate-200/90 dark:border-white/15 shadow-sm space-y-4 print:p-0 print:border-none print:shadow-none">
+      <div id="syllabus-subjects-section" className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#151728] border border-slate-200/90 dark:border-white/15 shadow-sm space-y-4 print:p-0 print:border-none print:shadow-none">
         
         {/* Executive Header & Search Toolbar */}
         <div className="space-y-3 sm:space-y-3.5 pb-3 sm:pb-3.5 border-b border-slate-100 dark:border-white/[0.06] no-print">
@@ -1677,6 +1730,14 @@ export const SyllabusView: React.FC<SyllabusViewProps> = ({
             setEditingSubject(null);
             setIsAddSubjectOpen(false);
           }}
+        />
+      )}
+
+      {/* Exam Date & Runway Modal */}
+      {isExamDateModalOpen && (
+        <ExamDateModal
+          isOpen={isExamDateModalOpen}
+          onClose={() => setIsExamDateModalOpen(false)}
         />
       )}
     </div>
