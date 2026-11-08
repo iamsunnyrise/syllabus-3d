@@ -56,6 +56,8 @@ export const AddEditMockModal: React.FC = () => {
     setIsAddModalOpen, 
     editingMock, 
     setEditingMock, 
+    addModalPrefill,
+    setAddModalPrefill,
     addMock, 
     editMock,
     customPlatforms,
@@ -372,6 +374,44 @@ export const AddEditMockModal: React.FC = () => {
           isQualifying: s.isQualifying
         })));
       }
+    } else if (addModalPrefill) {
+      const p = addModalPrefill;
+      const initialType = p.mockType || 'CHAPTER_WISE';
+      setMockType(initialType);
+      setTestName(p.testName || (p.chapterName ? `${p.chapterName} Drill` : `Drill #${Math.floor(Math.random() * 90 + 10)}`));
+      setExam(p.exam || 'SSC CGL');
+      setTier(p.tier || 'Tier 1');
+      setExamCategory('All');
+      setSubjectName((p.subjectName as SectionName) || 'Quantitative Aptitude');
+      setChapterName(p.chapterName || 'Percentage & Fractional Values');
+      setDifficulty(p.difficulty || 'Moderate');
+      setTopicFocus(p.topicFocus || '');
+      setTestPlatform(p.testPlatform || 'Testbook');
+      setDate(p.date || new Date().toISOString().split('T')[0]);
+      setTotalQuestions(p.totalQuestions || (initialType === 'CHAPTER_WISE' ? 15 : 25));
+      setMaxMarks(p.maxMarks || (initialType === 'CHAPTER_WISE' ? 30 : 50));
+      setTotalTimeMinutes(p.totalTimeMinutes || (initialType === 'CHAPTER_WISE' ? 15 : 20));
+      setTimeTakenMinutes(p.timeTakenMinutes || (initialType === 'CHAPTER_WISE' ? 12 : 16));
+      setAttempted(p.attempted || (initialType === 'CHAPTER_WISE' ? 15 : 22));
+      setCorrect(p.correct || (initialType === 'CHAPTER_WISE' ? 13 : 19));
+      setWrong(p.wrong || (initialType === 'CHAPTER_WISE' ? 2 : 3));
+      setMarksPerCorrect(p.marksPerCorrect || 2.0);
+      setNegativeRatio(p.negativeRatio || '1/4');
+      setCustomNegativeMarks(p.customNegativeMarks || 0.50);
+      setHasSectionalTimers(false);
+      setHasTypingTest(false);
+      setHasDescriptive(false);
+      setTypingSpeedWpm(0);
+      setTypingAccuracy(100);
+      setTypingKeystrokes(0);
+      setDescriptiveScore(0);
+      setDescriptiveMaxMarks(25);
+      setPercentile(p.percentile || 94.0);
+      setRank(p.rank || 120);
+      setTotalStudents(p.totalStudents || 3500);
+      setCutoffMarks(p.cutoffMarks || (initialType === 'CHAPTER_WISE' ? 22 : 34));
+      setAnalysisNotes(p.analysisNotes || '');
+      setSections([]);
     } else {
       setTestName(`SSC CGL Tier 1 Live Mock #${Math.floor(Math.random() * 90 + 10)}`);
       setExam('SSC CGL');
@@ -609,6 +649,7 @@ export const AddEditMockModal: React.FC = () => {
 
     setIsAddModalOpen(false);
     setEditingMock(null);
+    setAddModalPrefill(null);
   };
 
   const handleSaveCustomPlatform = () => {
@@ -637,6 +678,7 @@ export const AddEditMockModal: React.FC = () => {
       onClose={() => {
         setIsAddModalOpen(false);
         setEditingMock(null);
+        setAddModalPrefill(null);
       }}
       title={
         <div className="flex items-center gap-2">
@@ -1987,6 +2029,7 @@ export const AddEditMockModal: React.FC = () => {
             onClick={() => {
               setIsAddModalOpen(false);
               setEditingMock(null);
+              setAddModalPrefill(null);
             }}
             className="px-4 py-2.5 sm:px-5 rounded-xl text-xs sm:text-sm font-black text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer active:scale-95"
           >

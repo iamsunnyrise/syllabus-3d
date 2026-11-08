@@ -69,6 +69,28 @@ export interface SubjectDefinition {
   isCustom?: boolean;
 }
 
+export interface ChapterTestAttemptComparison {
+  testId: string;
+  testName: string;
+  testIndex: number;
+  date: string;
+  score: number;
+  maxMarks: number;
+  accuracy: number;
+  timeTakenMinutes: number;
+  paceSecondsPerQuestion: number;
+  correct: number;
+  wrong: number;
+  unattempted: number;
+  negativeMarks: number;
+  difficulty?: 'Easy' | 'Moderate' | 'Hard' | 'Mixed';
+  platform: string;
+  scoreDeltaVsPrev?: number;
+  accuracyDeltaVsPrev?: number;
+  notes?: string;
+  weakAreas?: string[];
+}
+
 export interface ChapterMasterySummary {
   subject: string;
   chapterName: string;
@@ -84,6 +106,16 @@ export interface ChapterMasterySummary {
   maxMarks: number;
   masteryStatus: 'Mastered' | 'Strong' | 'Needs Practice' | 'Not Started';
   recentTests: MockTest[];
+
+  // Enhanced Multi-Test Analytics
+  latestScore?: number;
+  latestAccuracy?: number;
+  latestTestDate?: string;
+  scoreTrend?: 'improving' | 'declining' | 'stable' | 'single' | 'none';
+  scoreGrowthPercent?: number;
+  accuracyTrend?: 'improving' | 'declining' | 'stable' | 'single' | 'none';
+  totalNegativeMarks?: number;
+  testAttempts?: ChapterTestAttemptComparison[];
 }
 
 export interface SectionPerformance {

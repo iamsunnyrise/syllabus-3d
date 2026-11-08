@@ -5,6 +5,7 @@ import {
   SubjectDefinition, 
   ChapterDefinition, 
   ChapterMasterySummary,
+  ChapterTestAttemptComparison,
   AspirantGamification
 } from '../types/mockTracker';
 import { OverallKPIs, SubjectStat, WeakSectionDiagnosis, PerformanceInsight } from '../types/mockAnalytics';
@@ -80,6 +81,9 @@ export interface MockContextType {
   setIsAddModalOpen: (open: boolean) => void;
   editingMock: MockTest | null;
   setEditingMock: (mock: MockTest | null) => void;
+  addModalPrefill: Partial<MockTest> | null;
+  setAddModalPrefill: (prefill: Partial<MockTest> | null) => void;
+  openAddModalWithPrefill: (prefill: Partial<MockTest>) => void;
   isSearchModalOpen: boolean;
   setIsSearchModalOpen: (open: boolean) => void;
   isComparisonModalOpen: boolean;
@@ -200,6 +204,13 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const [isComparisonModalOpen, setIsComparisonModalOpen] = useState<boolean>(false);
   const [viewingMockDetail, setViewingMockDetail] = useState<MockTest | null>(null);
+  const [addModalPrefill, setAddModalPrefill] = useState<Partial<MockTest> | null>(null);
+
+  const openAddModalWithPrefill = useCallback((prefill: Partial<MockTest>) => {
+    setEditingMock(null);
+    setAddModalPrefill(prefill);
+    setIsAddModalOpen(true);
+  }, []);
 
   // Toast
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
@@ -376,13 +387,17 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return mocks.filter(m => m.mockType === 'CHAPTER_WISE');
   }, [mocks]);
 
-  // Computed Chapter Mastery Summary for any chapter (with Syllabus Explorer baseline awareness)
+  // Computed Chapter Mastery Summary for any chapter (with multi-test progression analytics)
   const getChapterMasterySummary = useCallback((subjectName: string, chapterName: string): ChapterMasterySummary => {
-    const tests = chapterMocks.filter(m => 
-      (m.chapterName && m.chapterName.toLowerCase() === chapterName.toLowerCase()) ||
-      (m.topicFocus && m.topicFocus.toLowerCase().includes(chapterName.toLowerCase())) ||
-      (m.testName && m.testName.toLowerCase().includes(chapterName.toLowerCase()))
-    );
+    const tests = chapterMocks.filter(m => {
+      const matchSubject = !m.subjectName || m.subjectName.toLowerCase() === subjectName.toLowerCase();
+      if (!matchSubject) return false;
+      return (
+        (m.chapterName && m.chapterName.toLowerCase() === chapterName.toLowerCase()) ||
+        (m.topicFocus && m.topicFocus.toLowerCase().includes(chapterName.toLowerCase())) ||
+        (m.testName && m.testName.toLowerCase().includes(chapterName.toLowerCase()))
+      );
+    });
 
     if (tests.length === 0) {
       // Check if syllabus topics in this chapter have calibrated baseline accuracy in Syllabus Explorer
@@ -411,7 +426,12 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
           bestScore: 0,
           maxMarks: 50,
           masteryStatus: status,
-          recentTests: []
+          recentTests: [],
+          scoreTrend: 'none',
+          accuracyTrend: 'none',
+          scoreGrowthPercent: 0,
+          totalNegativeMarks: 0,
+          testAttempts: []
         };
       }
 
@@ -429,7 +449,12 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
         bestScore: 0,
         maxMarks: 0,
         masteryStatus: 'Not Started',
-        recentTests: []
+        recentTests: [],
+        scoreTrend: 'none',
+        accuracyTrend: 'none',
+        scoreGrowthPercent: 0,
+        totalNegativeMarks: 0,
+        testAttempts: []
       };
     }
 
@@ -449,6 +474,67 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (avgAccuracy >= 85) masteryStatus = 'Mastered';
     else if (avgAccuracy >= 70) masteryStatus = 'Strong';
 
+    // Multi-test chronological progression & comparison
+    const sortedChronological = [...tests].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime() || a.createdAt - b.createdAt
+    );
+
+    const testAttempts: ChapterTestAttemptComparison[] = sortedChronological.map((t, idx) => {
+      const prevTest = idx > 0 ? sortedChronological[idx - 1] : null;
+      const scoreDeltaVsPrev = prevTest ? Number((t.score - prevTest.score).toFixed(1)) : undefined;
+      const accuracyDeltaVsPrev = prevTest ? Number((t.accuracy - prevTest.accuracy).toFixed(1)) : undefined;
+      const paceSecondsPerQuestion = t.attempted > 0 ? Math.round((t.timeTakenMinutes * 60) / t.attempted) : 0;
+
+      return {
+        testId: t.id,
+        testName: t.testName,
+        testIndex: idx + 1,
+        date: t.date,
+        score: t.score,
+        maxMarks: t.maxMarks,
+        accuracy: t.accuracy,
+        timeTakenMinutes: t.timeTakenMinutes,
+        paceSecondsPerQuestion,
+        correct: t.correct,
+        wrong: t.wrong,
+        unattempted: t.unattempted,
+        negativeMarks: t.negativeMarks || 0,
+        difficulty: t.difficulty,
+        platform: t.testPlatform,
+        scoreDeltaVsPrev,
+        accuracyDeltaVsPrev,
+        notes: t.analysisNotes,
+        weakAreas: t.weakAreas
+      };
+    });
+
+    const latestAttempt = testAttempts[testAttempts.length - 1];
+    const firstAttempt = testAttempts[0];
+
+    let scoreTrend: 'improving' | 'declining' | 'stable' | 'single' | 'none' = 'none';
+    let accuracyTrend: 'improving' | 'declining' | 'stable' | 'single' | 'none' = 'none';
+    let scoreGrowthPercent = 0;
+
+    if (testAttempts.length >= 2) {
+      const scoreDiff = latestAttempt.score - firstAttempt.score;
+      if (firstAttempt.score > 0) {
+        scoreGrowthPercent = Math.round((scoreDiff / firstAttempt.score) * 100);
+      }
+      if (scoreDiff >= 1.5) scoreTrend = 'improving';
+      else if (scoreDiff <= -1.5) scoreTrend = 'declining';
+      else scoreTrend = 'stable';
+
+      const accDiff = latestAttempt.accuracy - firstAttempt.accuracy;
+      if (accDiff >= 3) accuracyTrend = 'improving';
+      else if (accDiff <= -3) accuracyTrend = 'declining';
+      else accuracyTrend = 'stable';
+    } else if (testAttempts.length === 1) {
+      scoreTrend = 'single';
+      accuracyTrend = 'single';
+    }
+
+    const totalNegativeMarks = tests.reduce((acc, t) => acc + (t.negativeMarks || 0), 0);
+
     return {
       subject: subjectName,
       chapterName,
@@ -463,7 +549,15 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
       bestScore: parseFloat(bestScore.toFixed(1)),
       maxMarks,
       masteryStatus,
-      recentTests: tests.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      recentTests: [...sortedChronological].reverse(),
+      latestScore: latestAttempt?.score,
+      latestAccuracy: latestAttempt?.accuracy,
+      latestTestDate: latestAttempt?.date,
+      scoreTrend,
+      scoreGrowthPercent,
+      accuracyTrend,
+      totalNegativeMarks: parseFloat(totalNegativeMarks.toFixed(2)),
+      testAttempts
     };
   }, [chapterMocks, currentExam]);
 
@@ -774,6 +868,9 @@ export const MockProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsAddModalOpen,
         editingMock,
         setEditingMock,
+        addModalPrefill,
+        setAddModalPrefill,
+        openAddModalWithPrefill,
         isSearchModalOpen,
         setIsSearchModalOpen,
         isComparisonModalOpen,
