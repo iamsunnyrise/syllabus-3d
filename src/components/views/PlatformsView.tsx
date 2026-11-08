@@ -873,15 +873,7 @@ export const PlatformsView: React.FC = () => {
           </div>
 
           {/* CTA: Action Buttons */}
-          <div className="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
-            <button
-              onClick={() => importCuratedPlatformsForExam(examScope === 'active' ? activeExamTrack : examScope)}
-              title={`Load recommended study portals for ${activeTrackMeta.name}`}
-              className="group flex items-center gap-1.5 py-2.5 px-3.5 sm:px-4 text-xs sm:text-[13px] rounded-xl font-bold cursor-pointer active:scale-95 transition-all duration-200 border bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md shadow-xs hover:border-white/40"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-300 transition-transform group-hover:rotate-12" />
-              <span>Explore Curated</span>
-            </button>
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleOpenAdd}
               className="study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer active:scale-95 transition-all duration-200 border bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-[#7C3AED] text-white border-blue-400/30 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.55),0_8px_24px_-3px_rgba(37,99,235,0.5)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.75),0_12px_28px_-3px_rgba(37,99,235,0.65)] hover:brightness-105"
@@ -1221,17 +1213,6 @@ export const PlatformsView: React.FC = () => {
               </span>
             </button>
           </div>
-
-          {/* Quick Curated Import Action */}
-          <button
-            type="button"
-            onClick={() => importCuratedPlatformsForExam(examScope === 'active' ? activeExamTrack : examScope)}
-            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/10 to-indigo-500/10 hover:from-blue-500/20 hover:to-indigo-500/20 border border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer shrink-0 transition-all active:scale-95 ml-auto"
-            title={`Import recommended portals for ${examScope === 'active' ? activeTrackMeta.name : examScope}`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-            <span>Load Curated {examScope === 'active' ? activeTrackMeta.shortLabel : examScope.toUpperCase()}</span>
-          </button>
         </div>
         
         {/* Row 1: Search Bar + Live Portals Count */}
