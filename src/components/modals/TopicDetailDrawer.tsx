@@ -163,7 +163,20 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     );
   }, [liveTopic?.difficulty, liveTopic?.accuracy, liveTopic?.isWeak, liveTopic?.status]);
 
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState<string>(() => {
+    if (topic?.id && typeof window !== 'undefined') {
+      try {
+        const atomic = localStorage.getItem(`syllabus3d_topic_notes_${topic.id}`);
+        if (atomic) {
+          const parsed = JSON.parse(atomic);
+          if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
+            return parsed.notes;
+          }
+        }
+      } catch (e) {}
+    }
+    return liveTopic?.notes || topic?.notes || '';
+  });
   const [accuracyInput, setAccuracyInput] = useState<number>(0);
   const [studyMinutesInput, setStudyMinutesInput] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<'overview' | 'notes' | 'lectures' | 'mistakes'>('overview');
@@ -209,7 +222,19 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
   // Synchronize state with live topic
   useEffect(() => {
     if (liveTopic) {
-      setNotes(liveTopic.notes || '');
+      let resolvedNotes = liveTopic.notes || '';
+      if (!resolvedNotes && liveTopic.id && typeof window !== 'undefined') {
+        try {
+          const atomic = localStorage.getItem(`syllabus3d_topic_notes_${liveTopic.id}`);
+          if (atomic) {
+            const parsed = JSON.parse(atomic);
+            if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
+              resolvedNotes = parsed.notes;
+            }
+          }
+        } catch (e) {}
+      }
+      setNotes(resolvedNotes);
       setAccuracyInput(liveTopic.accuracy !== undefined ? liveTopic.accuracy : 0);
       setStudyMinutesInput(liveTopic.studyTimeMinutes || 0);
       setEditName(liveTopic.name);
@@ -418,6 +443,17 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
   const handleSaveNotes = (newNotes: string, noteItems?: TopicNoteItem[]) => {
     setNotes(newNotes);
+    if (liveTopic?.id && typeof window !== 'undefined') {
+      try {
+        const payload = {
+          topicId: liveTopic.id,
+          notes: newNotes,
+          noteItems: noteItems || [],
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem(`syllabus3d_topic_notes_${liveTopic.id}`, JSON.stringify(payload));
+      } catch (e) {}
+    }
     updateTopicNotes(liveTopic.id, newNotes, noteItems);
   };
 

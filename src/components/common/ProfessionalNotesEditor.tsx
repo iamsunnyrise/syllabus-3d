@@ -833,16 +833,15 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     }
   }, [topicName, initialNoteItems, initialContent]);
 
-  // Handle async delivery of noteItems for current topic if initially empty
+  // Handle async delivery of noteItems or initialContent for current topic if editor is currently empty
   useEffect(() => {
-    if (
-      initialNoteItems &&
-      initialNoteItems.length > 0 &&
-      noteItems.length === 1 &&
-      noteItems[0].id === 'note_1' &&
-      !noteItems[0].content &&
-      prevTopicRef.current === topicName
-    ) {
+    const isCurrentlyEmpty =
+      noteItems.length === 0 ||
+      (noteItems.length === 1 && noteItems[0].id === 'note_1' && !noteItems[0].content?.trim());
+
+    if (!isCurrentlyEmpty) return;
+
+    if (initialNoteItems && initialNoteItems.length > 0) {
       const sanitized = initialNoteItems.map(item => ({
         ...item,
         content: repairMalformedHighlights(item.content)
@@ -851,8 +850,20 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       if (!sanitized.some(n => n.id === activeNoteId)) {
         setActiveNoteId(sanitized[0].id);
       }
+    } else if (initialContent && initialContent.trim().length > 0) {
+      const sanitized = repairMalformedHighlights(initialContent);
+      setNoteItems([
+        {
+          id: 'note_1',
+          title: 'Main Notes',
+          content: sanitized,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      ]);
+      setActiveNoteId('note_1');
     }
-  }, [initialNoteItems, topicName]);
+  }, [initialNoteItems, initialContent, noteItems, activeNoteId]);
 
   // Load Saved Freehand Strokes per Topic & Note
   useEffect(() => {
@@ -892,6 +903,28 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }, 600);
   };
+
+  // Ensure unmount flushes any pending debounced auto-save
+  const latestAutoSaveRef = useRef({ content, noteItems, onSave, activeNoteId });
+  useEffect(() => {
+    latestAutoSaveRef.current = { content, noteItems, onSave, activeNoteId };
+  }, [content, noteItems, onSave, activeNoteId]);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+        debounceTimerRef.current = null;
+        const { content: c, noteItems: items, onSave: saveFn, activeNoteId: actId } = latestAutoSaveRef.current;
+        const currentText = textareaRef.current?.value || c;
+        const flushedItems = items.map(it => it.id === actId ? { ...it, content: currentText, updatedAt: new Date().toISOString() } : it);
+        const primary = (actId === 'note_1' || actId === flushedItems[0]?.id)
+          ? currentText
+          : (flushedItems.find(n => n.id === 'note_1')?.content || flushedItems[0]?.content || currentText);
+        saveFn(primary, flushedItems);
+      }
+    };
+  }, []);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -1721,9 +1754,36 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   };
 
   const handleSave = () => {
-    onSave(content, noteItems);
+    // 🛡️ Read freshest text directly from textarea ref to avoid any debounce / closure race conditions
+    const latestActiveText = textareaRef.current ? textareaRef.current.value : content;
+
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
+
+    const updatedItems = noteItems.map(item => {
+      if (item.id === activeNoteId) {
+        return {
+          ...item,
+          content: latestActiveText,
+          updatedAt: new Date().toISOString()
+        };
+      }
+      return item;
+    });
+
+    setNoteItems(updatedItems);
+
+    const primaryText = (activeNoteId === 'note_1' || activeNoteId === noteItems[0]?.id)
+      ? latestActiveText
+      : (noteItems.find(n => n.id === 'note_1')?.content || noteItems[0]?.content || latestActiveText);
+
+    onSave(primaryText, updatedItems);
     soundManager.playClick();
     setSaveSuccess(true);
+    setSaveStatus('saved');
+    setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     setTimeout(() => setSaveSuccess(false), 2000);
     setViewMode('study');
   };

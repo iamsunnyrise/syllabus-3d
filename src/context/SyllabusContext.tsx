@@ -58,6 +58,7 @@ import { haptics } from '../utils/haptics';
 import { useAuth } from './AuthContext';
 import { fireCelebration as confetti } from '../utils/confettiHelper';
 import { storageManager, StorageHealthMetrics, FullAppSnapshot } from '../services/storageManager';
+import { appDB } from '../services/db';
 import { deleteImageFromStorage } from '../utils/imageStorage';
 import {
   fetchUserCloudData,
@@ -454,17 +455,51 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   });
 
   const [exams, setExams] = useState<Exam[]>(() => {
-    if (initialActiveDataset?.exams) return initialActiveDataset.exams;
-    if (typeof window !== 'undefined') {
+    let baseExams: Exam[] = INITIAL_EXAMS;
+    if (initialActiveDataset?.exams) {
+      baseExams = initialActiveDataset.exams;
+    } else if (typeof window !== 'undefined') {
       try {
         const saved = localStorage.getItem('syllabus3d_exams');
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed) && parsed.length > 0) baseExams = parsed;
         }
       } catch (e) {}
     }
-    return INITIAL_EXAMS;
+
+    // Hydrate any notes from dedicated atomic storage if available for zero-loss persistence
+    if (typeof window !== 'undefined') {
+      try {
+        baseExams = baseExams.map(exam => ({
+          ...exam,
+          subjects: exam.subjects.map(subj => ({
+            ...subj,
+            chapters: subj.chapters.map(chap => ({
+              ...chap,
+              topics: chap.topics.map(top => {
+                const atomicRaw = localStorage.getItem(`syllabus3d_topic_notes_${top.id}`);
+                if (atomicRaw) {
+                  try {
+                    const parsed = JSON.parse(atomicRaw);
+                    if (parsed && typeof parsed.notes === 'string') {
+                      return {
+                        ...top,
+                        notes: parsed.notes || top.notes,
+                        noteItems: (parsed.noteItems && parsed.noteItems.length > 0) ? parsed.noteItems : top.noteItems
+                      };
+                    }
+                  } catch {}
+                }
+                return top;
+              })
+            }))
+          }))
+        }));
+      } catch (e) {}
+    }
+
+    return baseExams;
   });
 
   const [profile, setProfile] = useState<UserProgressProfile>(() => {
@@ -1488,20 +1523,61 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateTopicNotes = (topicId: string, notes: string, noteItems?: TopicNoteItem[]) => {
-    setExams(prevExams => prevExams.map(exam => ({
-      ...exam,
-      subjects: exam.subjects.map(subj => ({
-        ...subj,
-        chapters: subj.chapters.map(chap => ({
-          ...chap,
-          topics: chap.topics.map(top => (top.id === topicId ? {
-            ...top,
-            notes,
-            noteItems: noteItems !== undefined ? noteItems : top.noteItems
-          } : top))
+    // 1. Dedicated atomic storage write (Immediate, synchronous)
+    if (typeof window !== 'undefined') {
+      try {
+        const atomicPayload = {
+          topicId,
+          notes,
+          noteItems: noteItems || [],
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem(`syllabus3d_topic_notes_${topicId}`, JSON.stringify(atomicPayload));
+        // Asynchronously mirror to IndexedDB for safety
+        appDB.set('app_state', `topic_notes_${topicId}`, atomicPayload).catch(() => {});
+      } catch (e) {
+        console.warn('Atomic topic notes save warning:', e);
+      }
+    }
+
+    // 2. Update reactive exams state and immediately commit synchronously
+    setExams(prevExams => {
+      const nextExams = prevExams.map(exam => ({
+        ...exam,
+        subjects: exam.subjects.map(subj => ({
+          ...subj,
+          chapters: subj.chapters.map(chap => ({
+            ...chap,
+            topics: chap.topics.map(top => (top.id === topicId ? {
+              ...top,
+              notes,
+              noteItems: noteItems !== undefined ? noteItems : top.noteItems
+            } : top))
+          }))
         }))
-      }))
-    })));
+      }));
+
+      // Immediate synchronous commit to localStorage so page refresh never loses it!
+      if (typeof window !== 'undefined') {
+        try {
+          if (activeProfileId === 'profile_default') {
+            storageManager.safeSetItem('syllabus3d_exams', nextExams);
+          } else if (activeProfileId) {
+            const currentProfileKey = `syllabus3d_profile_data_${activeProfileId}`;
+            const existingRaw = localStorage.getItem(currentProfileKey);
+            if (existingRaw) {
+              const existingData = JSON.parse(existingRaw);
+              existingData.exams = nextExams;
+              storageManager.safeSetItem(currentProfileKey, existingData);
+            }
+          }
+        } catch (err) {
+          console.warn('Direct exams persistence warning:', err);
+        }
+      }
+
+      return nextExams;
+    });
   };
 
   const addTopicMistake = (
