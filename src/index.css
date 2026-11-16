@@ -3248,6 +3248,23 @@ html:not(.warm-cream) .study-hub-hero-banner .study-hub-pill-badge {
   background: rgba(129, 140, 248, 1);
 }
 
+/* On mobile devices, hide native scrollbars to prevent unsightly scrollbar bars under pill buttons */
+@media (max-width: 640px) {
+  .visible-pill-scrollbar,
+  .visible-pill-scrollbar-emerald,
+  .visible-pill-scrollbar-indigo {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .visible-pill-scrollbar::-webkit-scrollbar,
+  .visible-pill-scrollbar-emerald::-webkit-scrollbar,
+  .visible-pill-scrollbar-indigo::-webkit-scrollbar {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+}
+
 .pb-safe {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }

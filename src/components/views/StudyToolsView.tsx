@@ -44,6 +44,10 @@ import {
   Maximize2,
   Minimize2,
   ExternalLink,
+  Grid,
+  ChevronUp,
+  SlidersHorizontal,
+  CheckSquare,
   X
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
@@ -743,6 +747,38 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
     }
   });
 
+  // 📱 Mobile UX Enhancement State
+  const [showMobileCategorySheet, setShowMobileCategorySheet] = useState(false);
+  const [showMobileSetModal, setShowMobileSetModal] = useState(false);
+  const [showWordListModal, setShowWordListModal] = useState(false);
+  const [showMathToolModal, setShowMathToolModal] = useState(false);
+
+  // 👆 Mobile Touch Swipe Gestures for Flashcard
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const handleCardTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleCardTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
+
+    // Detect horizontal swipe if deltaX > 45px and dominant over vertical deltaY
+    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+      if (deltaX < 0) {
+        handleNextCard();
+      } else {
+        handlePrevCard();
+      }
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+  };
+
   // Auto-scroll horizontal vocabulary pill into view
   useEffect(() => {
     const activeEl = document.getElementById(`vocab-pill-${activeCardIndex}`);
@@ -908,10 +944,85 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   }, [gaSubject, gaSearch]);
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto space-y-5 sm:space-y-6 pb-32 sm:pb-16 pt-1 sm:pt-2 px-2.5 sm:px-4 lg:px-6 animate-view-fade">
+    <div className="w-full max-w-[1920px] mx-auto space-y-4 sm:space-y-6 pb-36 sm:pb-16 pt-1 sm:pt-2 px-2.5 sm:px-4 lg:px-6 animate-view-fade">
       
-      {/* 🌟 Top Hero Portal Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-4 sm:p-8 shadow-xs">
+      {/* 🌟 Mobile-Optimized Sleek Header Bar (Saves 150px+ vertical space for mobile studying) */}
+      <div className="sm:hidden p-3 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-2.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <h1 className="text-base font-black text-slate-950 dark:text-white leading-tight">Study Tools</h1>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Vocab • Speed Maths • GA Notes</p>
+            </div>
+          </div>
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+            {activeTab === 'vocab' ? `${filteredVocab.length} Items` : activeTab === 'maths' ? '11 Tools' : `${filteredGaTopics.length} Topics`}
+          </span>
+        </div>
+
+        {/* 3 Main Tool Selector Tabs (Sleek Segmented Control on Mobile) */}
+        <div className="grid grid-cols-3 p-1 rounded-xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 gap-1">
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveTab('vocab');
+              onNavigate?.('study-tools-vocab');
+            }}
+            className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
+              activeTab === 'vocab'
+                ? 'bg-amber-500 text-slate-950 font-black shadow-xs ring-1 ring-amber-400/50'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5 shrink-0" />
+            <span>Vocab</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveTab('maths');
+              onNavigate?.('study-tools-calc-booster');
+            }}
+            className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
+              activeTab === 'maths'
+                ? 'bg-blue-600 text-white font-black shadow-xs ring-1 ring-blue-400/50'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
+            }`}
+          >
+            <Zap className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+            <span>Maths</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              soundManager.playClick();
+              haptics.selection();
+              setActiveTab('ga');
+              onNavigate?.('study-tools-ga');
+            }}
+            className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-center ${
+              activeTab === 'ga'
+                ? 'bg-purple-600 text-white font-black shadow-xs ring-1 ring-purple-400/50'
+                : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5 shrink-0" />
+            <span>GA Notes</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 🌟 Desktop Hero Portal Banner */}
+      <div className="hidden sm:block relative overflow-hidden rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200/90 dark:border-white/10 p-4 sm:p-8 shadow-xs">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-72 h-72 bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/3 -mb-20 w-80 h-80 bg-gradient-to-tr from-blue-500/10 via-indigo-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -995,17 +1106,44 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           MODULE 1: VOCABULARY ENGINE
           ========================================================= */}
       {activeTab === 'vocab' && (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-4 sm:space-y-6 animate-fade-in">
           
+          {/* Mobile Quick Category Switcher Bar */}
+          <div className="sm:hidden flex items-center justify-between p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xl shrink-0">
+                {vocabSubTab === 'core' ? '📖' : vocabSubTab === 'roots' ? '🌳' : vocabSubTab === 'ows' ? '🎯' : vocabSubTab === 'idioms' ? '🔥' : vocabSubTab === 'homophones' ? '🔊' : vocabSubTab === 'homographs' ? '📑' : vocabSubTab === 'fixed-prepositions' ? '🧭' : '✨'}
+              </span>
+              <div className="min-w-0">
+                <span className="text-[10px] uppercase font-mono font-bold text-slate-500 dark:text-slate-400 block leading-tight">Module</span>
+                <span className="text-xs font-black text-slate-900 dark:text-white truncate block">
+                  {vocabSubTab === 'core' ? 'Core Vocabulary' : vocabSubTab === 'roots' ? 'Root Words (30 Roots)' : vocabSubTab === 'ows' ? 'One Word Substitution' : vocabSubTab === 'idioms' ? 'Idioms & Phrases' : vocabSubTab === 'homophones' ? 'Homophones' : vocabSubTab === 'homographs' ? 'Homographs' : vocabSubTab === 'fixed-prepositions' ? 'Fixed Prepositions' : 'SSC Special'}
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                soundManager.playClick();
+                haptics.selection();
+                setShowMobileCategorySheet(true);
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-black shrink-0 shadow-xs active:scale-95 transition-all"
+            >
+              <span>All 8 Modules</span>
+              <ChevronDown className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
           {/* Sub Navigation: Core Vocabulary vs Root Words vs OWS vs Idioms vs Homophones vs Homographs vs SSC Special */}
-          <div className="relative flex items-center gap-1.5 sm:gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+          <div className="relative flex items-center gap-1.5 sm:gap-2 border-b border-slate-200/80 dark:border-white/10 pb-2.5 sm:pb-3">
             {/* Scroll Left Button */}
             <button
               type="button"
               onClick={() => scrollVocabNav('left')}
               title="Scroll Tabs Left"
               aria-label="Scroll vocabulary tabs left"
-              className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              className="hidden sm:flex p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95 items-center justify-center"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -1238,7 +1376,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               onClick={() => scrollVocabNav('right')}
               title="Scroll Tabs Right"
               aria-label="Scroll vocabulary tabs right"
-              className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+              className="hidden sm:flex p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 transition-all cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95 items-center justify-center"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -1556,8 +1694,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               {/* Core Vocabulary Level & Sets Navigation */}
               {vocabSubTab === 'core' && (
                 <div className="space-y-3 animate-fade-in">
-                  {/* Levels Navigation Bar: Active Levels Only */}
-                  <div className="grid gap-2.5 sm:gap-3 grid-cols-2">
+                  {/* Desktop Levels Grid (2 Cards) */}
+                  <div className="hidden sm:grid gap-2.5 sm:gap-3 grid-cols-2">
                     {HIGH_YIELD_LEVELS.filter(lvl =>
                       DEFAULT_VOCAB_DATA.some(w => w.type === 'word' && w.level === lvl.id)
                     ).map(lvl => {
@@ -1607,9 +1745,60 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     })}
                   </div>
 
+                  {/* Mobile High-End Segmented Level Switcher (Zero Text Truncation, 38px height) */}
+                  <div className="sm:hidden grid grid-cols-2 p-1 rounded-xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 gap-1">
+                    {HIGH_YIELD_LEVELS.filter(lvl =>
+                      DEFAULT_VOCAB_DATA.some(w => w.type === 'word' && w.level === lvl.id)
+                    ).map(lvl => {
+                      const isSelected = activeLevel === lvl.id;
+                      const totalLevelWords = DEFAULT_VOCAB_DATA.filter(
+                        w => w.type === 'word' && w.level === lvl.id
+                      ).length;
+                      return (
+                        <button
+                          key={lvl.id}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            haptics.selection();
+                            setActiveLevel(lvl.id);
+                            setActiveSet('set-01');
+                            setActiveCardIndex(0);
+                          }}
+                          className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 min-w-0 ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                              : 'text-slate-600 dark:text-slate-300'
+                          }`}
+                        >
+                          <span className="truncate">{lvl.id === 'level-1' ? 'Level 1: Foundation' : 'Level 2: Intermediate'}</span>
+                          <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full shrink-0 ${
+                            isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300'
+                          }`}>
+                            {totalLevelWords}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
                   {/* Sets Selector */}
                   <div className="flex items-center gap-2 overflow-x-auto visible-pill-scrollbar pb-1.5 p-2 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
-                    <span className="text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 flex items-center gap-1.5">
+                    {/* Mobile Quick Set Button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setShowMobileSetModal(true);
+                      }}
+                      className="sm:hidden px-2.5 py-1.5 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 text-xs font-black flex items-center gap-1 shrink-0 active:scale-95 transition-all"
+                    >
+                      <Layers className="w-3.5 h-3.5 text-amber-500" />
+                      <span>{currentLevelConfig.sets.find(s => s.id === activeSet)?.label || 'Set 01'} ▾</span>
+                    </button>
+
+                    <span className="hidden sm:flex text-xs font-bold text-slate-600 dark:text-slate-200 px-2 shrink-0 items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5 text-amber-500" />
                       <span>Sets:</span>
                     </span>
@@ -1752,29 +1941,46 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
               )}
 
-          {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories with Visible Scrollbar & Arrow Buttons) */}
+          {/* Universal Horizontal Vocabulary Strip (One-Tap Navigation for All Categories with Mobile List Drawer Trigger) */}
           {filteredVocab.length > 0 && (
             <div className={`p-2 sm:p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] ${
               vocabTypeFilter === 'root' ? 'border-emerald-500/30' : 'border-amber-500/30'
             } border dark:border-white/10 shadow-xs flex items-center gap-1.5 sm:gap-2`}>
               
-              {/* Category Pill Indicator */}
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-1.5 sm:px-2 shrink-0 flex items-center gap-1.5">
-                <span className="text-base">
-                  {vocabTypeFilter === 'root' ? '🌳' : vocabTypeFilter === 'ows' ? '🎯' : vocabTypeFilter === 'idiom' ? '🏛️' : '📚'}
+              {/* Category Pill Indicator + Mobile Word List Drawer Trigger */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-200 px-1 sm:px-2 shrink-0 flex items-center gap-1">
+                  <span className="text-sm">
+                    {vocabTypeFilter === 'root' ? '🌳' : vocabTypeFilter === 'ows' ? '🎯' : vocabTypeFilter === 'idiom' ? '🏛️' : '📚'}
+                  </span>
+                  <span className="font-mono whitespace-nowrap text-[11px] sm:text-xs">
+                    {activeCardIndex + 1}/{filteredVocab.length}
+                  </span>
                 </span>
-                <span className="font-mono whitespace-nowrap">
-                  {vocabTypeFilter === 'root' ? 'Roots' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idioms' : 'Words'} ({filteredVocab.length}):
-                </span>
-              </span>
+                
+                {/* Mobile Quick Word List Modal Trigger */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setShowWordListModal(true);
+                  }}
+                  title="Open Word List Modal"
+                  className="sm:hidden px-2 py-1 rounded-lg bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 text-[11px] font-black flex items-center gap-1 shrink-0 active:scale-95 transition-all"
+                >
+                  <Grid className="w-3 h-3" />
+                  <span>List</span>
+                </button>
+              </div>
 
-              {/* Scroll Left Button */}
+              {/* Scroll Left Button (Desktop only, mobile swipes) */}
               <button
                 type="button"
                 onClick={() => scrollPills('left')}
                 title="Scroll Left"
                 aria-label="Scroll left in word list"
-                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+                className="hidden sm:flex p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95 items-center justify-center"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -1827,13 +2033,13 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 })}
               </div>
 
-              {/* Scroll Right Button */}
+              {/* Scroll Right Button (Desktop only, mobile swipes) */}
               <button
                 type="button"
                 onClick={() => scrollPills('right')}
                 title="Scroll Right"
                 aria-label="Scroll right in word list"
-                className="p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95"
+                className="hidden sm:flex p-1 sm:p-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0 border border-slate-200/80 dark:border-white/10 shadow-2xs hover:scale-105 active:scale-95 items-center justify-center"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -1844,14 +2050,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           {currentFlashcard ? (
             <div className="w-full">
               
-              {/* Full-Width Interactive Word Flashcard */}
-              <div className={`w-full flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] ${vocabTypeFilter === 'root' ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-emerald-500/5' : 'border-amber-500/30 dark:border-amber-500/20'} sm:border-2 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]`}>
+              {/* Full-Width Interactive Word Flashcard with Native Mobile Swipe Gestures */}
+              <div
+                onTouchStart={handleCardTouchStart}
+                onTouchEnd={handleCardTouchEnd}
+                className={`w-full flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] ${vocabTypeFilter === 'root' ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-emerald-500/5' : 'border-amber-500/30 dark:border-amber-500/20'} sm:border-2 shadow-md relative overflow-hidden min-h-[380px] sm:min-h-[480px] lg:min-h-[520px] select-none`}
+              >
                 
                 {/* 1. Top Card Meta Bar */}
                 <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
                   <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
-                    <span className="px-2.5 sm:px-3.5 py-1 rounded-xl text-[11px] sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs shrink-0 whitespace-nowrap">
-                      {vocabTypeFilter === 'root' ? 'ROOT CARD' : 'CARD'} {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}
+                    <span className="px-2 sm:px-3.5 py-1 rounded-xl text-[11px] sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs shrink-0 whitespace-nowrap">
+                      {vocabTypeFilter === 'root' ? 'ROOT' : 'CARD'} {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}
                     </span>
                     <span className="text-[11px] sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0 whitespace-nowrap">
                       <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300 shrink-0" />
@@ -1863,7 +2073,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                   <button
                     type="button"
                     onClick={() => toggleMastered(currentFlashcard.id)}
-                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs shrink-0 whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs shrink-0 whitespace-nowrap ${
                       masteredVocabIds.has(currentFlashcard.id)
                         ? 'bg-emerald-500 hover:bg-emerald-600 text-white font-black shadow-xs'
                         : 'bg-slate-100 dark:bg-white/[0.10] text-slate-900 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/15'
@@ -1875,32 +2085,38 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* 2. Central Word, Pronunciation & Meaning Area */}
-                <div className="py-3.5 sm:py-6 space-y-4 sm:space-y-6 flex-1 flex flex-col justify-center">
+                <div className="py-3 sm:py-6 space-y-3 sm:space-y-6 flex-1 flex flex-col justify-center">
                   
                   {/* Word Header Block */}
-                  <div className="space-y-2.5 sm:space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {/* Row 1: Word + Part of Speech + Audio Speaker + Phonetic Badge */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3.5">
-                      <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
+                      <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
                         {currentFlashcard.word}
                       </h2>
                       {/* Part of Speech attached directly to the Word */}
-                      <span className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
+                      <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl text-[10px] sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
                         {currentFlashcard.partOfSpeech}
                       </span>
                       <button
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
                         title="Pronounce word"
-                        className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                        className="p-1.5 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
                       >
                         <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
                       </button>
                       {currentFlashcard.phonetic && (
-                        <span className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-xs sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
+                        <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl text-xs sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
                           {currentFlashcard.phonetic}
                         </span>
                       )}
+                    </div>
+
+                    {/* Mobile Touch Navigation Hint */}
+                    <div className="sm:hidden flex items-center justify-between text-[10.5px] font-mono text-slate-600 dark:text-slate-300 py-0.5">
+                      <span className="font-bold">👈 Swipe Card for Next Word 👉</span>
+                      <span className="text-amber-700 dark:text-amber-400 font-bold">Tap Details below</span>
                     </div>
 
                     {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
@@ -2343,33 +2559,32 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* 4. Bottom Navigation Bar */}
-                <div className="flex items-center justify-between gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
+                <div className="flex items-center justify-between gap-2 sm:gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="px-4 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
+                    className="flex-1 sm:flex-initial px-3 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 text-center shrink-0 whitespace-nowrap"
                   >
-                    ← Previous {vocabTypeFilter === 'root' ? 'Root' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idiom' : 'Card'}
+                    ← Prev
                   </button>
 
-                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300">
-                    <span>{vocabTypeFilter === 'root' ? 'Root' : vocabTypeFilter === 'ows' ? 'OWS' : vocabTypeFilter === 'idiom' ? 'Idiom' : 'Card'} {activeCardIndex + 1} of {filteredVocab.length}</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
-                    <span className="text-emerald-700 dark:text-emerald-400">
-                      {filteredVocab.filter(v => masteredVocabIds.has(v.id)).length} Mastered
+                  <div className="flex items-center justify-center gap-1.5 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 px-1">
+                    <span>{activeCardIndex + 1}/{filteredVocab.length}</span>
+                    <span className="hidden xs:inline text-emerald-600 dark:text-emerald-400">
+                      • {filteredVocab.filter(v => masteredVocabIds.has(v.id)).length}✓
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleNextCard}
-                    className={`px-5 sm:px-7 py-2.5 rounded-xl ${
+                    className={`flex-1 sm:flex-initial px-4 sm:px-7 py-2.5 rounded-xl ${
                       vocabTypeFilter === 'root'
                         ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950'
                         : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950'
-                    } text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap ml-auto sm:ml-0`}
+                    } text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md text-center shrink-0 whitespace-nowrap`}
                   >
-                    {vocabTypeFilter === 'root' ? 'Next Root →' : vocabTypeFilter === 'ows' ? 'Next OWS →' : vocabTypeFilter === 'idiom' ? 'Next Idiom →' : 'Next Card →'}
+                    Next →
                   </button>
                 </div>
 
@@ -2455,8 +2670,35 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           MODULE 2: CALCULATION BOOSTER (7 SPEED MATHS TOOLS)
           ========================================================= */}
       {activeTab === 'maths' && (
-        <div className="space-y-6 animate-fade-in">
-              {/* Calculation Booster Tool Sub-Navigation */}
+        <div className="space-y-4 sm:space-y-6 animate-fade-in">
+              {/* Mobile Tool Selector Pill */}
+              <div className="sm:hidden flex items-center justify-between p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black shrink-0">
+                    ⚡
+                  </span>
+                  <div className="min-w-0">
+                    <span className="text-[10px] uppercase font-mono font-bold text-slate-500 dark:text-slate-400 block leading-tight">Selected Tool</span>
+                    <span className="text-xs font-black text-slate-900 dark:text-white capitalize truncate block">
+                      {calcBoosterTool} Mastery
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setShowMathToolModal(true);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-black shrink-0 shadow-xs active:scale-95 transition-all"
+                >
+                  <span>All 11 Tools</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* Calculation Booster Tool Sub-Navigation (Horizontal Scroll) */}
               <div className="flex items-center p-1.5 pb-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs gap-1.5 self-start max-w-full overflow-x-auto visible-pill-scrollbar-indigo">
                 <button
                   type="button"
@@ -2781,7 +3023,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       {topic.htmlFile && (
                         <button
                           type="button"
@@ -2791,10 +3033,10 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             setIframeLoading(true);
                             setInteractiveGaModal({ url: topic.htmlFile!, title: topic.title });
                           }}
-                          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer"
+                          className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-[11px] sm:text-xs font-bold shadow-xs transition-all cursor-pointer shrink-0 active:scale-95"
                         >
-                          <BookOpen className="w-3.5 h-3.5" />
-                          <span>Open Master Notes</span>
+                          <BookOpen className="w-3.5 h-3.5 shrink-0" />
+                          <span><span className="hidden xs:inline">Open </span>Notes</span>
                         </button>
                       )}
                       <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
@@ -2954,6 +3196,343 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               onLoad={() => setIframeLoading(false)}
               className="w-full h-full border-none"
             />
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 📱 Mobile Modal 1: 8 Vocab Modules Quick Sheet */}
+      {showMobileCategorySheet && createPortal(
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end bg-slate-950/80 backdrop-blur-xs animate-fade-in sm:hidden">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setShowMobileCategorySheet(false)} 
+            aria-hidden="true" 
+          />
+          <div className="relative z-10 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white dark:bg-[#0E101B] border-t border-slate-200 dark:border-white/10 p-5 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">Select Vocab Module</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">8 specialized vocabulary learning systems</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMobileCategorySheet(false)}
+                className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 hover:bg-slate-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {[
+                { id: 'core', label: 'Core Vocabulary', badge: 'L1 & L2 (593 Words)', icon: '📖', desc: 'High-frequency exam words with Hindi & definitions' },
+                { id: 'roots', label: 'Root Words & Etymology', badge: '30 Roots', icon: '🌳', desc: 'Latin & Greek roots to decode unfamiliar words' },
+                { id: 'ows', label: 'One Word Substitution', badge: '1400+ Terms', icon: '🎯', desc: 'Frequently asked single-word substitutes for SSC/Bank' },
+                { id: 'idioms', label: 'Idioms & Phrases', badge: '89 Themes / 800+', icon: '🔥', desc: 'Color, Body, Animal, Action themed idioms' },
+                { id: 'homophones', label: 'Homophones', badge: 'Top 400', icon: '🔊', desc: 'Same pronunciation, different spelling & meanings' },
+                { id: 'homographs', label: 'Homographs', badge: '603 Groups', icon: '📑', desc: 'Same spelling, multiple distinct contexts' },
+                { id: 'fixed-prepositions', label: 'Fixed Prepositions', badge: '295+ Rules', icon: '🧭', desc: 'Critical preposition combos tested in error spotting' },
+                { id: 'ssc-special', label: 'SSC Special Module', badge: '7 Modules', icon: '✨', desc: 'Targeted compilation for SSC CGL / CHSL' },
+              ].map(cat => {
+                const isSelected = vocabSubTab === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setVocabSubTab(cat.id as any);
+                      if (cat.id === 'core') {
+                        setVocabTypeFilter('word');
+                        setActiveLevel('level-1');
+                        setActiveSet('set-01');
+                      } else if (cat.id === 'roots') {
+                        setVocabTypeFilter('root');
+                        setActiveLevel('level-1');
+                        setActiveSet('set-01');
+                      } else if (cat.id === 'ows') {
+                        setVocabTypeFilter('ows');
+                        setActiveLevel('level-1');
+                        setActiveSet('set-01');
+                      } else if (cat.id === 'idioms') {
+                        setVocabTypeFilter('idiom');
+                        setIdiomSubMode('themes');
+                      }
+                      setActiveCardIndex(0);
+                      setShowMobileCategorySheet(false);
+                    }}
+                    className={`w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all ${
+                      isSelected
+                        ? 'bg-amber-500/15 border-amber-500/40 text-slate-950 dark:text-white'
+                        : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200/80 dark:border-white/5 text-slate-700 dark:text-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="text-2xl shrink-0">{cat.icon}</span>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-black truncate">{cat.label}</span>
+                          {isSelected && (
+                            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">{cat.desc}</p>
+                      </div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-200 dark:bg-white/10 shrink-0 ml-2">
+                      {cat.badge}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 📱 Mobile Modal 2: Quick Set Selector Modal */}
+      {showMobileSetModal && createPortal(
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end bg-slate-950/80 backdrop-blur-xs animate-fade-in sm:hidden">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setShowMobileSetModal(false)} 
+            aria-hidden="true" 
+          />
+          <div className="relative z-10 max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white dark:bg-[#0E101B] border-t border-slate-200 dark:border-white/10 p-5 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">
+                    Jump to Set ({activeLevel === 'level-1' ? 'Level 1' : 'Level 2'})
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Select any set to instantly practice its flashcards</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMobileSetModal(false)}
+                className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 hover:bg-slate-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              {currentLevelConfig.sets
+                .map(s => {
+                  const countInSet = DEFAULT_VOCAB_DATA.filter(w => {
+                    if (vocabSubTab === 'roots') return w.type === 'root' && w.level === activeLevel && w.set === s.id;
+                    if (vocabSubTab === 'ows') return w.type === 'ows' && w.level === activeLevel && w.set === s.id;
+                    if (vocabSubTab === 'idioms') return w.type === 'idiom' && w.level === activeLevel && w.set === s.id;
+                    return (w.type === 'word' || !w.type) && w.level === activeLevel && w.set === s.id;
+                  }).length;
+                  return { ...s, countInSet };
+                })
+                .filter(s => s.countInSet > 0)
+                .map(s => {
+                  const isSetSelected = activeSet === s.id;
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        haptics.selection();
+                        setActiveSet(s.id);
+                        setActiveCardIndex(0);
+                        setShowMobileSetModal(false);
+                      }}
+                      className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
+                        isSetSelected
+                          ? 'bg-amber-500 text-slate-950 font-black border-amber-400 shadow-md ring-2 ring-amber-400/30'
+                          : 'bg-slate-50 dark:bg-white/[0.04] text-slate-800 dark:text-slate-200 border-slate-200/80 dark:border-white/5 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span className="text-xs font-bold">{s.label}</span>
+                      <span className={`text-[10px] font-mono mt-0.5 px-2 py-0.2 rounded-full ${
+                        isSetSelected ? 'bg-black/20 text-slate-950 font-black' : 'bg-slate-200 dark:bg-white/10 text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {s.countInSet} words
+                      </span>
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 📱 Mobile Modal 3: Full Word List Modal for Active Set */}
+      {showWordListModal && createPortal(
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end bg-slate-950/80 backdrop-blur-xs animate-fade-in sm:hidden">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setShowWordListModal(false)} 
+            aria-hidden="true" 
+          />
+          <div className="relative z-10 max-h-[85vh] flex flex-col rounded-t-3xl bg-white dark:bg-[#0E101B] border-t border-slate-200 dark:border-white/10 shadow-2xl">
+            <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-white/10 shrink-0">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold">
+                  <Grid className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">
+                    Words in {currentLevelConfig.sets.find(s => s.id === activeSet)?.label || 'Current Set'}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {filteredVocab.length} words • {filteredVocab.filter(v => masteredVocabIds.has(v.id)).length} Mastered
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowWordListModal(false)}
+                className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 hover:bg-slate-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Scrollable list */}
+            <div className="p-3 overflow-y-auto divide-y divide-slate-100 dark:divide-white/5">
+              {filteredVocab.map((w, idx) => {
+                const isSelected = activeCardIndex === idx;
+                const isMastered = masteredVocabIds.has(w.id);
+                return (
+                  <button
+                    key={w.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setActiveCardIndex(idx);
+                      setIsCardFlipped(false);
+                      setShowWordListModal(false);
+                    }}
+                    className={`w-full flex items-center justify-between py-2.5 px-3 rounded-xl text-left transition-all ${
+                      isSelected
+                        ? 'bg-amber-500/15 text-amber-900 dark:text-amber-300 font-bold'
+                        : 'hover:bg-slate-50 dark:hover:bg-white/[0.03] text-slate-800 dark:text-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className="text-[11px] font-mono text-slate-400 w-6 shrink-0">
+                        {String(idx + 1).padStart(2, '0')}.
+                      </span>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm font-black truncate">{w.word}</span>
+                          {w.partOfSpeech && (
+                            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-white/10 text-slate-500">
+                              {w.partOfSpeech}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                          {w.hindi || w.meaning}
+                        </p>
+                      </div>
+                    </div>
+                    {isMastered && (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 ml-2" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 📱 Mobile Modal 4: 11 Calculation Booster Tools Modal */}
+      {showMathToolModal && createPortal(
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end bg-slate-950/80 backdrop-blur-xs animate-fade-in sm:hidden">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => setShowMathToolModal(false)} 
+            aria-hidden="true" 
+          />
+          <div className="relative z-10 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white dark:bg-[#0E101B] border-t border-slate-200 dark:border-white/10 p-5 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-500 flex items-center justify-center font-bold">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-slate-900 dark:text-white">Calculation Booster</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">11 speed maths & mental calculation tools</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMathToolModal(false)}
+                className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 hover:bg-slate-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {[
+                { id: 'addition', label: 'Addition Mastery', icon: '➕', desc: 'Fast 2-digit & 3-digit mental addition' },
+                { id: 'subtraction', label: 'Subtraction Mastery', icon: '➖', desc: 'Reflex subtraction & complement drills' },
+                { id: 'multiplication', label: 'Multiplication Mastery', icon: '✖️', desc: 'Cross-multiplication & Vedic techniques' },
+                { id: 'division', label: 'Division Mastery', icon: '➗', desc: 'Approximations & quick remainder drills' },
+                { id: 'tables', label: 'Multiplication Tables', icon: '🔢', desc: 'Drills for tables 1 to 30' },
+                { id: 'squares', label: 'Squares (1-100)', icon: '📐', desc: 'Fast squaring & base 50/100 tricks' },
+                { id: 'cubes', label: 'Cubes (1-50)', icon: '🧊', desc: 'Cube memorization & rapid checks' },
+                { id: 'fractions', label: 'Fraction to Percentage', icon: '🍕', desc: 'Crucial 1/2 to 1/25 percentage conversions' },
+                { id: 'triplets', label: 'Pythagorean Triplets', icon: '🔺', desc: 'Geometry & Mensuration standard triplets' },
+                { id: 'powers', label: 'Powers & Exponents', icon: '⚡', desc: 'Powers of 2, 3, 5 memorization' },
+                { id: 'primes', label: 'Prime Numbers', icon: '🎯', desc: 'Primes up to 1000 & divisibility rules' },
+              ].map(tool => {
+                const isSelected = calcBoosterTool === tool.id;
+                return (
+                  <button
+                    key={tool.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      haptics.selection();
+                      setCalcBoosterTool(tool.id as any);
+                      setShowMathToolModal(false);
+                    }}
+                    className={`w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all ${
+                      isSelected
+                        ? 'bg-blue-600/15 border-blue-500/40 text-slate-950 dark:text-white'
+                        : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200/80 dark:border-white/5 text-slate-700 dark:text-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="text-xl shrink-0 w-7 text-center">{tool.icon}</span>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-black truncate">{tool.label}</span>
+                          {isSelected && (
+                            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">{tool.desc}</p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>,
         document.body
