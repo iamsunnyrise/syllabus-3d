@@ -177,6 +177,25 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     }
     return liveTopic?.notes || topic?.notes || '';
   });
+
+  const [resolvedNoteItems, setResolvedNoteItems] = useState<TopicNoteItem[]>(() => {
+    const tid = topic?.id || liveTopic?.id;
+    if (tid && typeof window !== 'undefined') {
+      try {
+        const atomic = localStorage.getItem(`syllabus3d_topic_notes_${tid}`);
+        if (atomic) {
+          const parsed = JSON.parse(atomic);
+          if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
+            return parsed.noteItems;
+          }
+        }
+      } catch (e) {}
+    }
+    if (Array.isArray(liveTopic?.noteItems) && liveTopic.noteItems.length > 0) {
+      return liveTopic.noteItems;
+    }
+    return Array.isArray(topic?.noteItems) ? topic.noteItems : [];
+  });
   const [accuracyInput, setAccuracyInput] = useState<number>(0);
   const [studyMinutesInput, setStudyMinutesInput] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<'overview' | 'notes' | 'lectures' | 'mistakes'>('overview');
@@ -223,18 +242,44 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
   useEffect(() => {
     if (liveTopic) {
       let resolvedNotes = liveTopic.notes || '';
-      if (!resolvedNotes && liveTopic.id && typeof window !== 'undefined') {
+      let resolvedItems = Array.isArray(liveTopic.noteItems) ? liveTopic.noteItems : [];
+
+      if (liveTopic.id && typeof window !== 'undefined') {
         try {
           const atomic = localStorage.getItem(`syllabus3d_topic_notes_${liveTopic.id}`);
           if (atomic) {
             const parsed = JSON.parse(atomic);
             if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
-              resolvedNotes = parsed.notes;
+              if (!resolvedNotes || parsed.notes.length >= resolvedNotes.length) {
+                resolvedNotes = parsed.notes;
+              }
+            }
+            if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
+              if (resolvedItems.length === 0 || parsed.noteItems.length >= resolvedItems.length) {
+                resolvedItems = parsed.noteItems;
+              }
             }
           }
         } catch (e) {}
       }
+
+      if (liveTopic.name && typeof window !== 'undefined') {
+        try {
+          const backup = localStorage.getItem(`syllabus3d_editor_backup_${liveTopic.name}`);
+          if (backup) {
+            const parsedBackup = JSON.parse(backup);
+            if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > resolvedNotes.length) {
+              resolvedNotes = parsedBackup.notes;
+            }
+            if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.length > resolvedItems.length) {
+              resolvedItems = parsedBackup.noteItems;
+            }
+          }
+        } catch (e) {}
+      }
+
       setNotes(resolvedNotes);
+      setResolvedNoteItems(resolvedItems);
       setAccuracyInput(liveTopic.accuracy !== undefined ? liveTopic.accuracy : 0);
       setStudyMinutesInput(liveTopic.studyTimeMinutes || 0);
       setEditName(liveTopic.name);
@@ -248,7 +293,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
     liveTopic?.weightage,
     liveTopic?.accuracy,
     liveTopic?.studyTimeMinutes,
-    liveTopic?.notes
+    liveTopic?.notes,
+    liveTopic?.noteItems
   ]);
 
   // Reset stopwatch & edit mode when topic changes
@@ -360,7 +406,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
         soundManager.playCompleteChime();
         haptics.success();
         if (liveTopic) {
-          updateTopicNotes(liveTopic.id, notes);
+          handleSaveNotes(notes, resolvedNoteItems);
           setEditSavedNotice(true);
           scheduleNotice(() => setEditSavedNotice(false), 2200);
         }
@@ -443,15 +489,22 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
   const handleSaveNotes = (newNotes: string, noteItems?: TopicNoteItem[]) => {
     setNotes(newNotes);
+    if (noteItems && noteItems.length > 0) {
+      setResolvedNoteItems(noteItems);
+    }
     if (liveTopic?.id && typeof window !== 'undefined') {
       try {
         const payload = {
           topicId: liveTopic.id,
+          topicName: liveTopic.name,
           notes: newNotes,
           noteItems: noteItems || [],
           savedAt: new Date().toISOString()
         };
         localStorage.setItem(`syllabus3d_topic_notes_${liveTopic.id}`, JSON.stringify(payload));
+        if (liveTopic.name) {
+          localStorage.setItem(`syllabus3d_editor_backup_${liveTopic.name}`, JSON.stringify(payload));
+        }
       } catch (e) {}
     }
     updateTopicNotes(liveTopic.id, newNotes, noteItems);
@@ -1643,7 +1696,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                   <Suspense fallback={<DrawerTabSkeleton label="Loading Notes Workspace..." />}>
                     <ProfessionalNotesEditor
                       initialContent={notes}
-                      initialNoteItems={liveTopic.noteItems}
+                      initialNoteItems={resolvedNoteItems.length > 0 ? resolvedNoteItems : liveTopic.noteItems}
                       onSave={handleSaveNotes}
                       topicName={liveTopic.name}
                       subjectName={subjectName}

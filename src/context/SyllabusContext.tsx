@@ -473,25 +473,49 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       try {
         baseExams = baseExams.map(exam => ({
           ...exam,
-          subjects: exam.subjects.map(subj => ({
+          subjects: (exam.subjects || []).map(subj => ({
             ...subj,
-            chapters: subj.chapters.map(chap => ({
+            chapters: (subj.chapters || []).map(chap => ({
               ...chap,
-              topics: chap.topics.map(top => {
+              topics: (chap.topics || []).map(top => {
                 const atomicRaw = localStorage.getItem(`syllabus3d_topic_notes_${top.id}`);
+                const backupRaw = localStorage.getItem(`syllabus3d_editor_backup_${top.name}`);
+                let candidateNotes = top.notes || '';
+                let candidateNoteItems = Array.isArray(top.noteItems) ? top.noteItems : [];
+
                 if (atomicRaw) {
                   try {
                     const parsed = JSON.parse(atomicRaw);
-                    if (parsed && typeof parsed.notes === 'string') {
-                      return {
-                        ...top,
-                        notes: parsed.notes || top.notes,
-                        noteItems: (parsed.noteItems && parsed.noteItems.length > 0) ? parsed.noteItems : top.noteItems
-                      };
+                    if (typeof parsed?.notes === 'string' && parsed.notes.trim().length > 0) {
+                      if (!candidateNotes || parsed.notes.length >= candidateNotes.length) {
+                        candidateNotes = parsed.notes;
+                      }
+                    }
+                    if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
+                      if (candidateNoteItems.length === 0 || parsed.noteItems.length >= candidateNoteItems.length) {
+                        candidateNoteItems = parsed.noteItems;
+                      }
                     }
                   } catch {}
                 }
-                return top;
+
+                if (backupRaw) {
+                  try {
+                    const parsedBackup = JSON.parse(backupRaw);
+                    if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > candidateNotes.length) {
+                      candidateNotes = parsedBackup.notes;
+                    }
+                    if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.length > candidateNoteItems.length) {
+                      candidateNoteItems = parsedBackup.noteItems;
+                    }
+                  } catch {}
+                }
+
+                return {
+                  ...top,
+                  notes: candidateNotes,
+                  noteItems: candidateNoteItems
+                };
               })
             }))
           }))
@@ -799,10 +823,87 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     };
   }, [exams, profile, achievements, activityHistory, revisions, plannerTasks, platforms, top3Targets, reflectionsHistory]);
 
-  // Helper to hydrate entire app from a FullAppSnapshot
+  // 🛡️ Helper to guarantee that atomic local topic notes are NEVER lost when applying any snapshot or loading profiles
+  const mergeExamsWithAtomicNotes = useCallback((incomingExams: Exam[]): Exam[] => {
+    if (typeof window === 'undefined' || !Array.isArray(incomingExams)) return incomingExams;
+    try {
+      return incomingExams.map(exam => ({
+        ...exam,
+        subjects: (exam.subjects || []).map(subj => ({
+          ...subj,
+          chapters: (subj.chapters || []).map(chap => ({
+            ...chap,
+            topics: (chap.topics || []).map(top => {
+              const atomicRaw = localStorage.getItem(`syllabus3d_topic_notes_${top.id}`);
+              const backupRaw = localStorage.getItem(`syllabus3d_editor_backup_${top.name}`);
+              let candidateNotes = top.notes || '';
+              let candidateNoteItems = Array.isArray(top.noteItems) ? top.noteItems : [];
+
+              if (atomicRaw) {
+                try {
+                  const parsed = JSON.parse(atomicRaw);
+                  if (typeof parsed?.notes === 'string' && parsed.notes.trim().length > 0) {
+                    if (!candidateNotes || parsed.notes.length >= candidateNotes.length) {
+                      candidateNotes = parsed.notes;
+                    }
+                  }
+                  if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
+                    if (candidateNoteItems.length === 0 || parsed.noteItems.length >= candidateNoteItems.length) {
+                      candidateNoteItems = parsed.noteItems;
+                    }
+                  }
+                } catch {}
+              }
+
+              if (backupRaw) {
+                try {
+                  const parsedBackup = JSON.parse(backupRaw);
+                  if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > candidateNotes.length) {
+                    candidateNotes = parsedBackup.notes;
+                  }
+                  if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.length > candidateNoteItems.length) {
+                    candidateNoteItems = parsedBackup.noteItems;
+                  }
+                } catch {}
+              }
+
+              return {
+                ...top,
+                notes: candidateNotes,
+                noteItems: candidateNoteItems
+              };
+            })
+          }))
+        }))
+      }));
+    } catch (e) {
+      console.warn('mergeExamsWithAtomicNotes warning:', e);
+      return incomingExams;
+    }
+  }, []);
+
+  // Helper to hydrate entire app from a FullAppSnapshot with zero-loss note preservation
   const applySnapshot = useCallback((snap: FullAppSnapshot) => {
     if (!snap) return;
-    if (Array.isArray(snap.exams) && snap.exams.length > 0) setExams(snap.exams);
+    if (Array.isArray(snap.exams) && snap.exams.length > 0) {
+      const mergedExams = mergeExamsWithAtomicNotes(snap.exams);
+      setExams(mergedExams);
+      if (typeof window !== 'undefined') {
+        try {
+          if (activeProfileId === 'profile_default') {
+            storageManager.safeSetItem('syllabus3d_exams', mergedExams);
+          } else if (activeProfileId) {
+            const currentProfileKey = `syllabus3d_profile_data_${activeProfileId}`;
+            const existingRaw = localStorage.getItem(currentProfileKey);
+            if (existingRaw) {
+              const existingData = JSON.parse(existingRaw);
+              existingData.exams = mergedExams;
+              storageManager.safeSetItem(currentProfileKey, existingData);
+            }
+          }
+        } catch {}
+      }
+    }
     if (snap.profile) setProfile(snap.profile);
     if (Array.isArray(snap.achievements)) setAchievements(snap.achievements);
     if (Array.isArray(snap.activityHistory)) setActivityHistory(snap.activityHistory);
@@ -811,7 +912,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (Array.isArray(snap.platforms)) setPlatforms(snap.platforms);
     if (Array.isArray(snap.top3Targets)) setTop3Targets(snap.top3Targets);
     if (Array.isArray(snap.reflectionsHistory)) setReflectionsHistory(snap.reflectionsHistory);
-  }, []);
+  }, [mergeExamsWithAtomicNotes, activeProfileId]);
 
   // 1. On User Login / Change: Fetch Cloud Server Data & Auto-Recover
   useEffect(() => {
@@ -1562,6 +1663,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         try {
           if (activeProfileId === 'profile_default') {
             storageManager.safeSetItem('syllabus3d_exams', nextExams);
+            localStorage.setItem('syllabus3d_exams', JSON.stringify(nextExams));
           } else if (activeProfileId) {
             const currentProfileKey = `syllabus3d_profile_data_${activeProfileId}`;
             const existingRaw = localStorage.getItem(currentProfileKey);
@@ -1569,8 +1671,24 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
               const existingData = JSON.parse(existingRaw);
               existingData.exams = nextExams;
               storageManager.safeSetItem(currentProfileKey, existingData);
+              localStorage.setItem(currentProfileKey, JSON.stringify(existingData));
             }
           }
+
+          // 🛡️ Synchronously update Cloud Vault if user is logged in
+          if (user?.id) {
+            const vaultKey = `syllabus3d_cloud_vault_${user.id}`;
+            const existingVaultRaw = localStorage.getItem(vaultKey);
+            let vaultSnap: any = existingVaultRaw ? JSON.parse(existingVaultRaw) : null;
+            if (vaultSnap && typeof vaultSnap === 'object') {
+              vaultSnap.exams = nextExams;
+              vaultSnap.timestamp = new Date().toISOString();
+              localStorage.setItem(vaultKey, JSON.stringify(vaultSnap));
+            }
+          }
+
+          // Immediately flush any debounced writes
+          storageManager.flushAll();
         } catch (err) {
           console.warn('Direct exams persistence warning:', err);
         }
@@ -2891,7 +3009,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const refSaved = localStorage.getItem('syllabus3d_reflections');
 
         return {
-          exams: examsSaved ? JSON.parse(examsSaved) : INITIAL_EXAMS,
+          exams: mergeExamsWithAtomicNotes(examsSaved ? JSON.parse(examsSaved) : INITIAL_EXAMS),
           profile: profileSaved ? JSON.parse(profileSaved) : INITIAL_PROFILE,
           achievements: achSaved ? JSON.parse(achSaved) : INITIAL_ACHIEVEMENTS,
           activityHistory: actSaved ? JSON.parse(actSaved) : INITIAL_ACTIVITY_HISTORY,
@@ -2910,7 +3028,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           const parsed = JSON.parse(raw);
           if (parsed && typeof parsed === 'object') {
             return {
-              exams: Array.isArray(parsed.exams) && parsed.exams.length > 0 ? parsed.exams : generateCleanExamDataset('exam_ssc_cgl_2026', '2026-10-15'),
+              exams: mergeExamsWithAtomicNotes(Array.isArray(parsed.exams) && parsed.exams.length > 0 ? parsed.exams : generateCleanExamDataset('exam_ssc_cgl_2026', '2026-10-15')),
               profile: parsed.profile || {
                 ...INITIAL_PROFILE,
                 id: profileId,
@@ -2934,7 +3052,7 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       } catch (e) {}
       return null;
     }
-  }, [generateCleanExamDataset]);
+  }, [generateCleanExamDataset, mergeExamsWithAtomicNotes]);
 
   const switchProfile = useCallback((targetProfileId: string) => {
     if (!targetProfileId || targetProfileId === activeProfileId) return;

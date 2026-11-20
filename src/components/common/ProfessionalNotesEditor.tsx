@@ -622,16 +622,56 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
   // Multiple Notes Pages State
   const [noteItems, setNoteItems] = useState<TopicNoteItem[]>(() => {
     if (initialNoteItems && initialNoteItems.length > 0) {
+      const hasAnyContentInItems = initialNoteItems.some(item => item.content && item.content.trim().length > 0);
+      if (hasAnyContentInItems) {
+        return initialNoteItems.map(item => ({
+          ...item,
+          content: repairMalformedHighlights(item.content || '')
+        }));
+      }
+    }
+    if (initialContent && initialContent.trim().length > 0) {
+      return [
+        {
+          id: 'note_1',
+          title: 'Main Notes',
+          content: repairMalformedHighlights(initialContent),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      ];
+    }
+    if (initialNoteItems && initialNoteItems.length > 0) {
       return initialNoteItems.map(item => ({
         ...item,
         content: repairMalformedHighlights(item.content || '')
       }));
     }
+    if (typeof window !== 'undefined' && topicName) {
+      try {
+        const bkp = localStorage.getItem(`syllabus3d_editor_backup_${topicName}`);
+        if (bkp) {
+          const parsed = JSON.parse(bkp);
+          if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
+            return parsed.noteItems;
+          }
+          if (typeof parsed?.notes === 'string' && parsed.notes.trim().length > 0) {
+            return [{
+              id: 'note_1',
+              title: 'Main Notes',
+              content: repairMalformedHighlights(parsed.notes),
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            }];
+          }
+        }
+      } catch {}
+    }
     return [
       {
         id: 'note_1',
         title: 'Main Notes',
-        content: repairMalformedHighlights(initialContent || ''),
+        content: '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       }
@@ -842,13 +882,16 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     if (!isCurrentlyEmpty) return;
 
     if (initialNoteItems && initialNoteItems.length > 0) {
-      const sanitized = initialNoteItems.map(item => ({
-        ...item,
-        content: repairMalformedHighlights(item.content)
-      }));
-      setNoteItems(sanitized);
-      if (!sanitized.some(n => n.id === activeNoteId)) {
-        setActiveNoteId(sanitized[0].id);
+      const hasContentInIncoming = initialNoteItems.some(i => i.content && i.content.trim().length > 0);
+      if (hasContentInIncoming) {
+        const sanitized = initialNoteItems.map(item => ({
+          ...item,
+          content: repairMalformedHighlights(item.content)
+        }));
+        setNoteItems(sanitized);
+        if (!sanitized.some(n => n.id === activeNoteId)) {
+          setActiveNoteId(sanitized[0].id);
+        }
       }
     } else if (initialContent && initialContent.trim().length > 0) {
       const sanitized = repairMalformedHighlights(initialContent);
@@ -893,12 +936,29 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     setNoteItems(updatedItems);
     setSaveStatus('saving');
 
+    const primary = (activeNoteId === 'note_1' || activeNoteId === updatedItems[0]?.id)
+      ? repairedText
+      : (updatedItems.find(n => n.id === 'note_1')?.content || updatedItems[0]?.content || repairedText);
+
+    // 🛡️ Direct synchronous backup to localStorage for zero-loss survival across browser close / reloads
+    if (typeof window !== 'undefined' && topicName) {
+      try {
+        const bkpPayload = {
+          topicName,
+          notes: primary,
+          noteItems: updatedItems,
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem(`syllabus3d_editor_backup_${topicName}`, JSON.stringify(bkpPayload));
+      } catch {}
+    }
+
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
 
     debounceTimerRef.current = setTimeout(() => {
-      onSave(repairedText, updatedItems);
+      onSave(primary, updatedItems);
       setSaveStatus('saved');
       setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }, 600);
@@ -915,16 +975,28 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current);
         debounceTimerRef.current = null;
-        const { content: c, noteItems: items, onSave: saveFn, activeNoteId: actId } = latestAutoSaveRef.current;
-        const currentText = textareaRef.current?.value || c;
+      }
+      const { content: c, noteItems: items, onSave: saveFn, activeNoteId: actId } = latestAutoSaveRef.current;
+      const currentText = textareaRef.current?.value || c;
+      if (currentText || items.some(it => it.content)) {
         const flushedItems = items.map(it => it.id === actId ? { ...it, content: currentText, updatedAt: new Date().toISOString() } : it);
         const primary = (actId === 'note_1' || actId === flushedItems[0]?.id)
           ? currentText
           : (flushedItems.find(n => n.id === 'note_1')?.content || flushedItems[0]?.content || currentText);
         saveFn(primary, flushedItems);
+        if (typeof window !== 'undefined' && topicName) {
+          try {
+            localStorage.setItem(`syllabus3d_editor_backup_${topicName}`, JSON.stringify({
+              topicName,
+              notes: primary,
+              noteItems: flushedItems,
+              savedAt: new Date().toISOString()
+            }));
+          } catch {}
+        }
       }
     };
-  }, []);
+  }, [topicName]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -1778,6 +1850,19 @@ export const ProfessionalNotesEditor: React.FC<ProfessionalNotesEditorProps> = (
     const primaryText = (activeNoteId === 'note_1' || activeNoteId === noteItems[0]?.id)
       ? latestActiveText
       : (noteItems.find(n => n.id === 'note_1')?.content || noteItems[0]?.content || latestActiveText);
+
+    // 🛡️ Direct synchronous backup to localStorage for zero-loss survival across browser close / reloads
+    if (typeof window !== 'undefined' && topicName) {
+      try {
+        const bkpPayload = {
+          topicName,
+          notes: primaryText,
+          noteItems: updatedItems,
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem(`syllabus3d_editor_backup_${topicName}`, JSON.stringify(bkpPayload));
+      } catch {}
+    }
 
     onSave(primaryText, updatedItems);
     soundManager.playClick();
