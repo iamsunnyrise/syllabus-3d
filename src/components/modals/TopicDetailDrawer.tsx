@@ -164,13 +164,26 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
   }, [liveTopic?.difficulty, liveTopic?.accuracy, liveTopic?.isWeak, liveTopic?.status]);
 
   const [notes, setNotes] = useState<string>(() => {
-    if (topic?.id && typeof window !== 'undefined') {
+    const tid = topic?.id || liveTopic?.id;
+    const tname = topic?.name || liveTopic?.name;
+    if (typeof window !== 'undefined') {
       try {
-        const atomic = localStorage.getItem(`syllabus3d_topic_notes_${topic.id}`);
-        if (atomic) {
-          const parsed = JSON.parse(atomic);
-          if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
-            return parsed.notes;
+        if (tid) {
+          const atomic = localStorage.getItem(`syllabus3d_topic_notes_${tid}`);
+          if (atomic) {
+            const parsed = JSON.parse(atomic);
+            if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
+              return parsed.notes;
+            }
+          }
+        }
+        if (tname) {
+          const backup = localStorage.getItem(`syllabus3d_editor_backup_${tname}`);
+          if (backup) {
+            const parsed = JSON.parse(backup);
+            if (parsed && typeof parsed.notes === 'string' && parsed.notes.trim()) {
+              return parsed.notes;
+            }
           }
         }
       } catch (e) {}
@@ -180,21 +193,53 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
 
   const [resolvedNoteItems, setResolvedNoteItems] = useState<TopicNoteItem[]>(() => {
     const tid = topic?.id || liveTopic?.id;
-    if (tid && typeof window !== 'undefined') {
+    const tname = topic?.name || liveTopic?.name;
+    let candidateItems: TopicNoteItem[] = [];
+
+    if (typeof window !== 'undefined') {
       try {
-        const atomic = localStorage.getItem(`syllabus3d_topic_notes_${tid}`);
-        if (atomic) {
-          const parsed = JSON.parse(atomic);
-          if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
-            return parsed.noteItems;
+        if (tid) {
+          const atomic = localStorage.getItem(`syllabus3d_topic_notes_${tid}`);
+          if (atomic) {
+            const parsed = JSON.parse(atomic);
+            if (Array.isArray(parsed?.noteItems) && parsed.noteItems.some((i: any) => i.content && i.content.trim())) {
+              candidateItems = parsed.noteItems;
+            }
+          }
+        }
+        if (candidateItems.length === 0 && tname) {
+          const backup = localStorage.getItem(`syllabus3d_editor_backup_${tname}`);
+          if (backup) {
+            const parsed = JSON.parse(backup);
+            if (Array.isArray(parsed?.noteItems) && parsed.noteItems.some((i: any) => i.content && i.content.trim())) {
+              candidateItems = parsed.noteItems;
+            }
           }
         }
       } catch (e) {}
     }
-    if (Array.isArray(liveTopic?.noteItems) && liveTopic.noteItems.length > 0) {
-      return liveTopic.noteItems;
+
+    if (candidateItems.length === 0) {
+      if (Array.isArray(liveTopic?.noteItems) && liveTopic.noteItems.some(i => i.content && i.content.trim())) {
+        candidateItems = liveTopic.noteItems;
+      } else if (Array.isArray(topic?.noteItems) && topic.noteItems.some(i => i.content && i.content.trim())) {
+        candidateItems = topic.noteItems;
+      }
     }
-    return Array.isArray(topic?.noteItems) ? topic.noteItems : [];
+
+    // 🛡️ Consistency safeguard: if notes has text but candidateItems is empty, generate structured item
+    const baseNotes = (typeof notes === 'string' && notes.trim()) ? notes : (liveTopic?.notes || topic?.notes || '');
+    if (candidateItems.length === 0 && baseNotes.trim()) {
+      return [{
+        id: 'note_1',
+        title: 'Main Notes',
+        content: baseNotes,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }];
+    }
+
+    return candidateItems;
   });
   const [accuracyInput, setAccuracyInput] = useState<number>(0);
   const [studyMinutesInput, setStudyMinutesInput] = useState<number>(0);
@@ -254,10 +299,8 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 resolvedNotes = parsed.notes;
               }
             }
-            if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
-              if (resolvedItems.length === 0 || parsed.noteItems.length >= resolvedItems.length) {
-                resolvedItems = parsed.noteItems;
-              }
+            if (Array.isArray(parsed?.noteItems) && parsed.noteItems.some((i: any) => i.content && i.content.trim())) {
+              resolvedItems = parsed.noteItems;
             }
           }
         } catch (e) {}
@@ -271,11 +314,26 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
             if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > resolvedNotes.length) {
               resolvedNotes = parsedBackup.notes;
             }
-            if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.length > resolvedItems.length) {
-              resolvedItems = parsedBackup.noteItems;
+            if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.some((i: any) => i.content && i.content.trim())) {
+              const bkpLen = parsedBackup.noteItems.reduce((acc: number, it: any) => acc + (it.content?.length || 0), 0);
+              const curLen = resolvedItems.reduce((acc, it) => acc + (it.content?.length || 0), 0);
+              if (bkpLen > curLen) {
+                resolvedItems = parsedBackup.noteItems;
+              }
             }
           }
         } catch (e) {}
+      }
+
+      // 🛡️ Consistency safeguard: if notes has text but resolvedItems has empty content, construct structured item
+      if (resolvedNotes.trim().length > 0 && (!resolvedItems.length || resolvedItems.every(i => !i.content || !i.content.trim()))) {
+        resolvedItems = [{
+          id: 'note_1',
+          title: 'Main Notes',
+          content: resolvedNotes,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }];
       }
 
       setNotes(resolvedNotes);
@@ -1695,6 +1753,7 @@ export const TopicDetailDrawer: React.FC<TopicDetailDrawerProps> = ({
                 <ViewErrorBoundary compact sectionName="Topic Notes Editor">
                   <Suspense fallback={<DrawerTabSkeleton label="Loading Notes Workspace..." />}>
                     <ProfessionalNotesEditor
+                      topicId={liveTopic.id}
                       initialContent={notes}
                       initialNoteItems={resolvedNoteItems.length > 0 ? resolvedNoteItems : liveTopic.noteItems}
                       onSave={handleSaveNotes}

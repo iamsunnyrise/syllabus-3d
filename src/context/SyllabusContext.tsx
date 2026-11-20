@@ -511,6 +511,16 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                   } catch {}
                 }
 
+                if (candidateNotes.trim().length > 0 && (!candidateNoteItems.length || candidateNoteItems.every(i => !i.content || !i.content.trim()))) {
+                  candidateNoteItems = [{
+                    id: 'note_1',
+                    title: 'Main Notes',
+                    content: candidateNotes,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                  }];
+                }
+
                 return {
                   ...top,
                   notes: candidateNotes,
@@ -823,59 +833,164 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     };
   }, [exams, profile, achievements, activityHistory, revisions, plannerTasks, platforms, top3Targets, reflectionsHistory]);
 
-  // 🛡️ Helper to guarantee that atomic local topic notes are NEVER lost when applying any snapshot or loading profiles
+  // 🛡️ Two-Way Zero-Loss Merger: Guarantees that local exams, subjects, chapters, topics and rich notes are NEVER lost
   const mergeExamsWithAtomicNotes = useCallback((incomingExams: Exam[]): Exam[] => {
-    if (typeof window === 'undefined' || !Array.isArray(incomingExams)) return incomingExams;
+    if (typeof window === 'undefined') return incomingExams || [];
     try {
-      return incomingExams.map(exam => ({
-        ...exam,
-        subjects: (exam.subjects || []).map(subj => ({
-          ...subj,
-          chapters: (subj.chapters || []).map(chap => ({
-            ...chap,
-            topics: (chap.topics || []).map(top => {
-              const atomicRaw = localStorage.getItem(`syllabus3d_topic_notes_${top.id}`);
-              const backupRaw = localStorage.getItem(`syllabus3d_editor_backup_${top.name}`);
-              let candidateNotes = top.notes || '';
-              let candidateNoteItems = Array.isArray(top.noteItems) ? top.noteItems : [];
+      // 1. Read existing local exams from localStorage as persistent ground truth
+      let localExams: Exam[] = [];
+      try {
+        const saved = localStorage.getItem('syllabus3d_exams');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) localExams = parsed;
+        }
+      } catch {}
 
-              if (atomicRaw) {
-                try {
-                  const parsed = JSON.parse(atomicRaw);
-                  if (typeof parsed?.notes === 'string' && parsed.notes.trim().length > 0) {
-                    if (!candidateNotes || parsed.notes.length >= candidateNotes.length) {
-                      candidateNotes = parsed.notes;
-                    }
-                  }
-                  if (Array.isArray(parsed?.noteItems) && parsed.noteItems.length > 0) {
-                    if (candidateNoteItems.length === 0 || parsed.noteItems.length >= candidateNoteItems.length) {
-                      candidateNoteItems = parsed.noteItems;
-                    }
-                  }
-                } catch {}
+      const incomingList = Array.isArray(incomingExams) ? incomingExams : [];
+      const examMap = new Map<string, Exam>();
+
+      // Populate with incoming exams
+      incomingList.forEach(ex => examMap.set(ex.id, ex));
+
+      // 🛡️ Preserve any local exams that do not exist in incoming (e.g. newly created custom exams)
+      localExams.forEach(localEx => {
+        if (!examMap.has(localEx.id)) {
+          examMap.set(localEx.id, localEx);
+        }
+      });
+
+      return Array.from(examMap.values()).map(exam => {
+        const localExam = localExams.find(e => e.id === exam.id);
+
+        // Two-way merge subjects
+        const subjMap = new Map<string, Subject>();
+        (exam.subjects || []).forEach(s => subjMap.set(s.id, s));
+        (localExam?.subjects || []).forEach(localSub => {
+          if (!subjMap.has(localSub.id)) {
+            subjMap.set(localSub.id, localSub);
+          }
+        });
+
+        const subjects = Array.from(subjMap.values()).map(subj => {
+          const localSubj = localExam?.subjects?.find(s => s.id === subj.id);
+
+          // Two-way merge chapters
+          const chapMap = new Map<string, Chapter>();
+          (subj.chapters || []).forEach(ch => chapMap.set(ch.id, ch));
+          (localSubj?.chapters || []).forEach(localCh => {
+            if (!chapMap.has(localCh.id)) {
+              chapMap.set(localCh.id, localCh);
+            }
+          });
+
+          const chapters = Array.from(chapMap.values()).map(chap => {
+            const localChap = localSubj?.chapters?.find(c => c.id === chap.id);
+
+            // Two-way merge topics
+            const topicMap = new Map<string, Topic>();
+            (chap.topics || []).forEach(t => topicMap.set(t.id, t));
+            (localChap?.topics || []).forEach(localTop => {
+              if (!topicMap.has(localTop.id)) {
+                topicMap.set(localTop.id, localTop);
+              }
+            });
+
+            const topics = Array.from(topicMap.values()).map(top => {
+              const localTop = localChap?.topics?.find(t => t.id === top.id);
+
+              let bestNotes = top.notes || '';
+              let bestItems = Array.isArray(top.noteItems) ? top.noteItems : [];
+
+              // Check local topic state
+              if (localTop?.notes && localTop.notes.trim().length > bestNotes.trim().length) {
+                bestNotes = localTop.notes;
+              }
+              if (Array.isArray(localTop?.noteItems) && localTop.noteItems.some(i => i.content && i.content.trim().length > 0)) {
+                const localLen = localTop.noteItems.reduce((acc, i) => acc + (i.content?.length || 0), 0);
+                const bestLen = bestItems.reduce((acc, i) => acc + (i.content?.length || 0), 0);
+                if (localLen > bestLen) {
+                  bestItems = localTop.noteItems;
+                }
               }
 
-              if (backupRaw) {
-                try {
+              // Check atomic storage key
+              try {
+                const atomicRaw = localStorage.getItem(`syllabus3d_topic_notes_${top.id}`);
+                if (atomicRaw) {
+                  const parsed = JSON.parse(atomicRaw);
+                  if (typeof parsed?.notes === 'string' && parsed.notes.trim().length > bestNotes.trim().length) {
+                    bestNotes = parsed.notes;
+                  }
+                  if (Array.isArray(parsed?.noteItems) && parsed.noteItems.some((i: any) => i.content && i.content.trim().length > 0)) {
+                    const atomicLen = parsed.noteItems.reduce((acc: number, i: any) => acc + (i.content?.length || 0), 0);
+                    const bestLen = bestItems.reduce((acc, i) => acc + (i.content?.length || 0), 0);
+                    if (atomicLen > bestLen) {
+                      bestItems = parsed.noteItems;
+                    }
+                  }
+                }
+              } catch {}
+
+              // Check topicName backup key
+              try {
+                const backupRaw = localStorage.getItem(`syllabus3d_editor_backup_${top.name}`);
+                if (backupRaw) {
                   const parsedBackup = JSON.parse(backupRaw);
-                  if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > candidateNotes.length) {
-                    candidateNotes = parsedBackup.notes;
+                  if (typeof parsedBackup?.notes === 'string' && parsedBackup.notes.trim().length > bestNotes.trim().length) {
+                    bestNotes = parsedBackup.notes;
                   }
-                  if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.length > candidateNoteItems.length) {
-                    candidateNoteItems = parsedBackup.noteItems;
+                  if (Array.isArray(parsedBackup?.noteItems) && parsedBackup.noteItems.some((i: any) => i.content && i.content.trim().length > 0)) {
+                    const backupLen = parsedBackup.noteItems.reduce((acc: number, i: any) => acc + (i.content?.length || 0), 0);
+                    const bestLen = bestItems.reduce((acc, i) => acc + (i.content?.length || 0), 0);
+                    if (backupLen > bestLen) {
+                      bestItems = parsedBackup.noteItems;
+                    }
                   }
-                } catch {}
+                }
+              } catch {}
+
+              // Consistency guarantee: if bestNotes has text but bestItems has empty content, generate item from text!
+              if (bestNotes.trim().length > 0 && (!bestItems.length || bestItems.every(i => !i.content || !i.content.trim()))) {
+                bestItems = [{
+                  id: 'note_1',
+                  title: 'Main Notes',
+                  content: bestNotes,
+                  createdAt: new Date().toISOString(),
+                  updatedAt: new Date().toISOString()
+                }];
+              } else if (bestItems.length > 0 && !bestNotes.trim()) {
+                const primaryItemText = bestItems.find(i => i.id === 'note_1')?.content || bestItems[0]?.content || '';
+                if (primaryItemText.trim().length > 0) {
+                  bestNotes = primaryItemText;
+                }
               }
 
               return {
                 ...top,
-                notes: candidateNotes,
-                noteItems: candidateNoteItems
+                notes: bestNotes,
+                noteItems: bestItems
               };
-            })
-          }))
-        }))
-      }));
+            });
+
+            return {
+              ...chap,
+              topics
+            };
+          });
+
+          return {
+            ...subj,
+            chapters,
+            totalChapters: chapters.length
+          };
+        });
+
+        return {
+          ...exam,
+          subjects
+        };
+      });
     } catch (e) {
       console.warn('mergeExamsWithAtomicNotes warning:', e);
       return incomingExams;
@@ -890,16 +1005,19 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setExams(mergedExams);
       if (typeof window !== 'undefined') {
         try {
-          if (activeProfileId === 'profile_default') {
-            storageManager.safeSetItem('syllabus3d_exams', mergedExams);
-          } else if (activeProfileId) {
+          storageManager.safeSetItem('syllabus3d_exams', mergedExams);
+          localStorage.setItem('syllabus3d_exams', JSON.stringify(mergedExams));
+
+          if (activeProfileId && activeProfileId !== 'profile_default') {
             const currentProfileKey = `syllabus3d_profile_data_${activeProfileId}`;
             const existingRaw = localStorage.getItem(currentProfileKey);
+            let pData: any = {};
             if (existingRaw) {
-              const existingData = JSON.parse(existingRaw);
-              existingData.exams = mergedExams;
-              storageManager.safeSetItem(currentProfileKey, existingData);
+              try { pData = JSON.parse(existingRaw); } catch {}
             }
+            pData.exams = mergedExams;
+            storageManager.safeSetItem(currentProfileKey, pData);
+            localStorage.setItem(currentProfileKey, JSON.stringify(pData));
           }
         } catch {}
       }
@@ -927,6 +1045,26 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       try {
         const cloudData = await fetchUserCloudData(user.id);
         if (!isMounted) return;
+
+        // 🛡️ CRITICAL TIMESTAMP CHECK: Never overwrite newer local state with older cloud snapshot!
+        const lastLocalEdit = typeof window !== 'undefined' ? localStorage.getItem('syllabus3d_last_local_edit_at') : null;
+        const isCloudOutdated = Boolean(
+          lastLocalEdit &&
+          cloudData?.timestamp &&
+          new Date(cloudData.timestamp).getTime() < new Date(lastLocalEdit).getTime()
+        );
+
+        if (isCloudOutdated) {
+          console.info('[CloudSync] Local dataset is newer than cloud snapshot. Syncing local dataset up to cloud...');
+          const currentSnap = getCurrentSnapshot();
+          await saveUserCloudData(user.id, currentSnap);
+          setCloudSyncStatus('synced');
+          setLastCloudSyncAt(currentSnap.timestamp);
+          if (typeof window !== 'undefined') {
+            try { localStorage.setItem('syllabus3d_last_cloud_sync_at', currentSnap.timestamp); } catch {}
+          }
+          return;
+        }
 
         if (cloudData && Array.isArray(cloudData.exams) && cloudData.exams.length > 0) {
           applySnapshot(cloudData);
@@ -1624,6 +1762,8 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateTopicNotes = (topicId: string, notes: string, noteItems?: TopicNoteItem[]) => {
+    const nowIso = new Date().toISOString();
+
     // 1. Dedicated atomic storage write (Immediate, synchronous)
     if (typeof window !== 'undefined') {
       try {
@@ -1631,9 +1771,10 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           topicId,
           notes,
           noteItems: noteItems || [],
-          savedAt: new Date().toISOString()
+          savedAt: nowIso
         };
         localStorage.setItem(`syllabus3d_topic_notes_${topicId}`, JSON.stringify(atomicPayload));
+        localStorage.setItem('syllabus3d_last_local_edit_at', nowIso);
         // Asynchronously mirror to IndexedDB for safety
         appDB.set('app_state', `topic_notes_${topicId}`, atomicPayload).catch(() => {});
       } catch (e) {
@@ -1661,18 +1802,19 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       // Immediate synchronous commit to localStorage so page refresh never loses it!
       if (typeof window !== 'undefined') {
         try {
-          if (activeProfileId === 'profile_default') {
-            storageManager.safeSetItem('syllabus3d_exams', nextExams);
-            localStorage.setItem('syllabus3d_exams', JSON.stringify(nextExams));
-          } else if (activeProfileId) {
+          storageManager.safeSetItem('syllabus3d_exams', nextExams);
+          localStorage.setItem('syllabus3d_exams', JSON.stringify(nextExams));
+
+          if (activeProfileId && activeProfileId !== 'profile_default') {
             const currentProfileKey = `syllabus3d_profile_data_${activeProfileId}`;
             const existingRaw = localStorage.getItem(currentProfileKey);
+            let profileData: any = {};
             if (existingRaw) {
-              const existingData = JSON.parse(existingRaw);
-              existingData.exams = nextExams;
-              storageManager.safeSetItem(currentProfileKey, existingData);
-              localStorage.setItem(currentProfileKey, JSON.stringify(existingData));
+              try { profileData = JSON.parse(existingRaw); } catch {}
             }
+            profileData.exams = nextExams;
+            storageManager.safeSetItem(currentProfileKey, profileData);
+            localStorage.setItem(currentProfileKey, JSON.stringify(profileData));
           }
 
           // 🛡️ Synchronously update Cloud Vault if user is logged in
@@ -1682,9 +1824,24 @@ export const SyllabusProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             let vaultSnap: any = existingVaultRaw ? JSON.parse(existingVaultRaw) : null;
             if (vaultSnap && typeof vaultSnap === 'object') {
               vaultSnap.exams = nextExams;
-              vaultSnap.timestamp = new Date().toISOString();
+              vaultSnap.timestamp = nowIso;
               localStorage.setItem(vaultKey, JSON.stringify(vaultSnap));
             }
+
+            // Real-time asynchronous push to Google Cloud Firestore (no 3s debounce delay)
+            saveUserCloudData(user.id, {
+              version: '3.0.0',
+              timestamp: nowIso,
+              exams: nextExams,
+              profile,
+              achievements,
+              activityHistory,
+              revisions,
+              plannerTasks,
+              platforms,
+              top3Targets,
+              reflectionsHistory
+            }).catch(() => {});
           }
 
           // Immediately flush any debounced writes
