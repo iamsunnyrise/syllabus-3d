@@ -55,10 +55,10 @@
       ]
     },
     {
-      "name": "Study Prompts",
-      "short_name": "Prompts",
-      "description": "Professional AI study prompt library for exams",
-      "url": "/?view=study-prompts",
+      "name": "Study Tools",
+      "short_name": "Tools",
+      "description": "Vocabulary, Maths Formulas, and General Awareness tools",
+      "url": "/?view=study-tools",
       "icons": [
         {
           "src": "/logo.png",

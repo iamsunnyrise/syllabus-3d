@@ -41,7 +41,6 @@ const SettingsView = lazy(() => import('./components/views/SettingsView').then(m
 const PlatformsView = lazy(() => import('./components/views/PlatformsView').then(m => ({ default: m.PlatformsView })));
 const PacingView = lazy(() => import('./components/views/PacingView').then(m => ({ default: m.PacingView })));
 const LandingPage = lazy(() => import('./components/landing/LandingPage').then(m => ({ default: m.LandingPage })));
-const StudyPromptsView = lazy(() => import('./components/views/StudyPromptsView').then(m => ({ default: m.StudyPromptsView })));
 const YouTubeNotesView = lazy(() => import('./components/views/YouTubeNotesView').then(m => ({ default: m.YouTubeNotesView })));
 const MockTrackerView = lazy(() => import('./components/views/MockTrackerView').then(m => ({ default: m.MockTrackerView })));
 const DailyTargetsView = lazy(() => import('./components/views/DailyTargetsView').then(m => ({ default: m.DailyTargetsView })));
@@ -94,7 +93,6 @@ const VALID_VIEWS = new Set<AppView>([
   'heatmap',
   'pacing',
   'settings',
-  'study-prompts',
   'youtube-notes',
   'mock-tracker',
   'landing',
@@ -286,7 +284,7 @@ export const App: React.FC = () => {
 
   // Navigate with History Push
   const handleNavigate = useCallback((newView: AppView) => {
-    const rawTarget = newView === 'youtube-notes' ? 'study-prompts' : newView;
+    const rawTarget = (newView as string) === 'youtube-notes' || (newView as string) === 'study-prompts' ? 'study-tools' : newView;
     const targetView: AppView = rawTarget && VALID_VIEWS.has(rawTarget) ? rawTarget : 'overview';
     if (targetView === currentView) return;
     if (targetView !== 'syllabus') {
@@ -1117,14 +1115,6 @@ export const App: React.FC = () => {
                       onNavigate={handleNavigate}
                       onNavigateToSubject={handleNavigateToSubject}
                     />
-                  </ViewErrorBoundary>
-                </div>
-              )}
-
-              {visitedViews.has('study-prompts') && (
-                <div className={currentView === 'study-prompts' ? 'block animate-view-fade' : 'hidden'}>
-                  <ViewErrorBoundary sectionName="AI Study Prompts Library" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                    <StudyPromptsView />
                   </ViewErrorBoundary>
                 </div>
               )}

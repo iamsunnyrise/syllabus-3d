@@ -47,7 +47,6 @@ export type AppView =
   | 'heatmap'
   | 'pacing'
   | 'settings'
-  | 'study-prompts'
   | 'youtube-notes'
   | 'mock-tracker'
   | 'landing'
@@ -198,7 +197,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           '2': 'syllabus',
           '3': 'targets',
           '4': 'pacing',
-          '5': 'study-prompts',
+          '5': 'study-tools',
           '6': 'mock-tracker'
         };
         const dest = shortcutMap[e.key];
@@ -302,12 +301,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'analytics',
       label: 'Analytics',
       icon: BarChart3
-    },
-    {
-      id: 'study-prompts',
-      label: 'Study Prompts',
-      icon: Sparkles,
-      shortcut: '5'
     },
     {
       id: 'mindmap',

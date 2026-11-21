@@ -21,6 +21,23 @@ interface MobileNavProps {
   onOpenMobileMenu?: () => void;
 }
 
+interface MobileNavItem {
+  id: AppView;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isActive: boolean;
+  accentColor: string;
+  darkAccentColor: string;
+  glowColor: string;
+  lightCircleBg: string;
+  darkCircleBg: string;
+  lightRing: string;
+  darkRing: string;
+  hasPing?: boolean;
+  badgeText?: string;
+  count?: number;
+}
+
 export const MobileNav: React.FC<MobileNavProps> = ({
   activeView,
   onSelectView,
@@ -34,7 +51,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
   const isSyllabusActive = activeView === 'syllabus' || activeView === 'subjects';
 
   // 5 Signature Navigation Modules matching Magic Navigation Menu
-  const navItems = [
+  const navItems: MobileNavItem[] = [
     {
       id: 'overview' as AppView,
       label: 'Home',
@@ -76,18 +93,17 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       hasPing: true
     },
     {
-      id: 'study-prompts' as AppView,
-      label: 'Prompts',
+      id: 'study-tools' as AppView,
+      label: 'Tools',
       icon: Sparkles,
-      isActive: activeView === 'study-prompts',
-      accentColor: '#9333EA', // Vibrant AI Purple
+      isActive: activeView === 'study-tools' || activeView.startsWith('study-tools-'),
+      accentColor: '#9333EA', // Vibrant Purple
       darkAccentColor: '#C084FC',
       glowColor: 'rgba(147, 51, 234, 0.45)',
       lightCircleBg: '#FFFFFF',
       darkCircleBg: '#2E1065',
       lightRing: '#9333EA',
-      darkRing: '#C084FC',
-      badgeText: 'AI'
+      darkRing: '#C084FC'
     },
     {
       id: 'planner' as AppView,

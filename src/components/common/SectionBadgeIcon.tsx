@@ -220,8 +220,6 @@ function getSectionTheme(section: string, uid: string): { gradientId: string; gl
       return { gradientId: `bg-planner-${uid}`, glowColor: '#138EFF' };
     case 'pacing':
       return { gradientId: `bg-pacing-${uid}`, glowColor: '#0BA84A' };
-    case 'study-prompts':
-      return { gradientId: `bg-prompts-${uid}`, glowColor: '#9333EA' };
     case 'youtube-notes':
       return { gradientId: `bg-youtube-${uid}`, glowColor: '#FF3B4B' };
     case 'mock-tracker':
@@ -385,27 +383,6 @@ function renderSectionGlyph(section: string): React.ReactNode {
           <line x1="50" y1="56" x2="68" y2="35" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
           {/* Spark Arrow */}
           <polygon points="72,62 76,54 72,54 75,46 68,55 72,55" fill="#FDE047" />
-        </g>
-      );
-
-    // ═════════════════════════════════════════════════════════════════════════
-    // 5. AI STUDY PROMPTS: Sparkle Matrix + Terminal / Prompt Card
-    // ═════════════════════════════════════════════════════════════════════════
-    case 'study-prompts':
-      return (
-        <g>
-          {/* Terminal / Prompt Card */}
-          <rect x="22" y="26" width="56" height="48" rx="10" fill="#FFFFFF" opacity="0.95" />
-          <rect x="25" y="29" width="50" height="42" rx="7" fill="#F3E8FF" />
-          {/* Prompt CLI symbols (> _) */}
-          <path d="M 32 40 L 40 47 L 32 54" stroke="#9333EA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <line x1="44" y1="54" x2="54" y2="54" stroke="#9333EA" strokeWidth="3" strokeLinecap="round" />
-          {/* AI Sparkle Star (Top Right) */}
-          <path
-            d="M 68 20 L 70 26 L 76 28 L 70 30 L 68 36 L 66 30 L 60 28 L 66 26 Z"
-            fill="#FBBF24"
-          />
-          <circle cx="76" cy="38" r="2.5" fill="#FDE047" />
         </g>
       );
 
