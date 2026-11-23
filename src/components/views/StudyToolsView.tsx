@@ -88,6 +88,9 @@ import {
   LEVEL_2_SET_04_WORDS,
   LEVEL_2_SET_05_WORDS,
   LEVEL_2_SET_06_WORDS,
+  LEVEL_2_SET_07_WORDS,
+  LEVEL_2_SET_08_WORDS,
+  LEVEL_2_SET_09_WORDS,
   VocabItem, 
   VocabLevel 
 } from '../../data/highYieldVocabData';
@@ -294,6 +297,9 @@ const DEFAULT_VOCAB_DATA: VocabItem[] = [
   ...LEVEL_2_SET_04_WORDS,
   ...LEVEL_2_SET_05_WORDS,
   ...LEVEL_2_SET_06_WORDS,
+  ...LEVEL_2_SET_07_WORDS,
+  ...LEVEL_2_SET_08_WORDS,
+  ...LEVEL_2_SET_09_WORDS,
   ...LEVEL_1_SET_01_IDIOMS,
   ...LEVEL_1_SET_02_IDIOMS,
   ...LEVEL_1_SET_03_IDIOMS,
@@ -3239,7 +3245,7 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
             <div className="grid grid-cols-1 gap-2">
               {[
-                { id: 'core', label: 'Core Vocabulary', badge: 'L1 & L2 (800 Words)', icon: '📖', desc: 'High-frequency exam words with Hindi & definitions' },
+                { id: 'core', label: 'Core Vocabulary', badge: 'L1 & L2 (950 Words)', icon: '📖', desc: 'High-frequency exam words with Hindi & definitions' },
                 { id: 'roots', label: 'Root Words & Etymology', badge: '30 Roots', icon: '🌳', desc: 'Latin & Greek roots to decode unfamiliar words' },
                 { id: 'ows', label: 'One Word Substitution', badge: '1400+ Terms', icon: '🎯', desc: 'Frequently asked single-word substitutes for SSC/Bank' },
                 { id: 'idioms', label: 'Idioms & Phrases', badge: '89 Themes / 800+', icon: '🔥', desc: 'Color, Body, Animal, Action themed idioms' },
