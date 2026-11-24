@@ -38,12 +38,12 @@ const ModernAioPcFrame: React.FC<{
       {/* Chin gradient */}
       <linearGradient id="aioChinGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor={isDark ? "#1C2337" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} />
-        <stop offset="100%" stopColor={isDark ? "#101424" : isWarmCream ? "#F3E5CF" : "#E2E8F0"} />
+        <stop offset="100%" stopColor={isDark ? "#101424" : isWarmCream ? "#F3E5CF" : "#CBD5E1"} />
       </linearGradient>
       {/* Base gradient */}
       <linearGradient id="aioBaseGrad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor={isDark ? "#1A2136" : isWarmCream ? "#FAF2E4" : "#FFFFFF"} />
-        <stop offset="100%" stopColor={isDark ? "#0E1220" : isWarmCream ? "#EAD9BF" : "#F1F5F9"} />
+        <stop offset="100%" stopColor={isDark ? "#0E1220" : isWarmCream ? "#EAD9BF" : "#CBD5E1"} />
       </linearGradient>
     </defs>
 
@@ -53,27 +53,27 @@ const ModernAioPcFrame: React.FC<{
     {/* Stand: Modern Vertical Ribbed Column */}
     <g filter="url(#aioStandShadow)">
       {/* Pedestal Base (Flat Rectangular Foot) */}
-      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#D8C6A5" : "#CBD5E1"} strokeWidth="1" />
+      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#D8C6A5" : "#94A3B8"} strokeWidth="1" />
       {/* Dark rubber foot pad */}
-      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill={isDark ? "#0F1320" : isWarmCream ? "#8D7A02" : "#475569"} opacity={isWarmCream ? 0.4 : 0.7} />
+      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill={isDark ? "#0F1320" : isWarmCream ? "#8D7A02" : "#334155"} opacity={isWarmCream ? 0.4 : 0.8} />
 
       {/* Vertical Column with Ribbed Fluting */}
-      <rect x="103" y="123" width="34" height="26" rx="1.5" fill={isDark ? "#13182A" : isWarmCream ? "#FAF0DC" : "#F8FAFC"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#D8C6A5" : "#CBD5E1"} strokeWidth="1" />
+      <rect x="103" y="123" width="34" height="26" rx="1.5" fill={isDark ? "#13182A" : isWarmCream ? "#FAF0DC" : "#F1F5F9"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#D8C6A5" : "#94A3B8"} strokeWidth="1" />
       {/* Vertical ribbed groove lines - Architectural Fluting */}
       <line x1="107" y1="123" x2="107" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="111" y1="123" x2="111" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="115" y1="123" x2="115" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="119" y1="123" x2="119" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="123" y1="123" x2="123" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="127" y1="123" x2="127" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
       <line x1="131" y1="123" x2="131" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
     </g>
 
     {/* Top Center Raised Webcam Module */}
@@ -84,17 +84,19 @@ const ModernAioPcFrame: React.FC<{
 
     {/* Monitor Chassis Bezel */}
     <g filter="url(#aioScreenShadow)">
-      <rect x="18" y="10" width="204" height="115" rx="7" fill={isDark ? "#111526" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#E2D1B3" : "#E2E8F0"} strokeWidth="1.5" />
+      <rect x="18" y="10" width="204" height="115" rx="7" fill={isDark ? "#111526" : isWarmCream ? "#FFFDF8" : "#F8FAFC"} stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="1.2" />
+      {/* Sleek Inner Display Bezel framing the screen */}
+      <rect x="21.5" y="13.5" width="197" height="102" rx="3.5" fill={isDark ? "#000000" : isWarmCream ? "#38370D" : "#1E293B"} />
       {/* Active Screen Display Area */}
-      <rect x="22" y="14" width="196" height="101" rx="3" fill={isDark ? "#080B14" : isWarmCream ? "#FBF7ED" : "#F8FAFC"} />
-      <rect x="22" y="14" width="196" height="101" rx="3" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : isWarmCream ? "#EFE0C2" : "#E2E8F0"} strokeWidth="0.8" />
+      <rect x="22.5" y="14.5" width="195" height="100" rx="2.5" fill={isDark ? "#080B14" : isWarmCream ? "#FBF7ED" : "#FFFFFF"} />
+      <rect x="22.5" y="14.5" width="195" height="100" rx="2.5" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : isWarmCream ? "#EFE0C2" : "#CBD5E1"} strokeWidth="0.6" />
 
       {/* Screen Content Rendered Inside Display */}
       {children}
 
       {/* Bottom Chin Bar with subtle branding badge */}
-      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#E2D1B3" : "#E2E8F0"} strokeWidth="0.8" />
-      <rect x="114" y="119" width="12" height="2" rx="1" fill={isDark ? "#64748B" : isWarmCream ? "#C4B291" : "#94A3B8"} opacity="0.7" />
+      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.8" />
+      <rect x="114" y="119" width="12" height="2" rx="1" fill={isDark ? "#64748B" : isWarmCream ? "#C4B291" : "#475569"} opacity="0.8" />
     </g>
   </svg>
 );
@@ -361,9 +363,13 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </p>
 
           {/* High-Contrast Golden CTA Button */}
-          <div className="syllabus-start-btn w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.75),0_8px_20px_-3px_rgba(245,158,11,0.42)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_12px_25px_-3px_rgba(245,158,11,0.55)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-amber-300/50">
-            <span className="font-black text-slate-950">Open Mock Tracker</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 text-slate-950" />
+          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm text-white flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${
+            isWarmCream
+              ? 'bg-gradient-to-r from-amber-500 via-orange-600 to-amber-600 hover:from-amber-400 hover:to-orange-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_20px_-3px_rgba(180,83,9,0.38)] border border-amber-400/30'
+              : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(245,158,11,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(245,158,11,0.5)] border border-amber-400/30'
+          }`}>
+            <span>Open Mock Tracker</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
         </div>
       </div>
