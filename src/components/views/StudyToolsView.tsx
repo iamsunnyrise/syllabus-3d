@@ -2120,31 +2120,33 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/[0.04] dark:bg-indigo-500/[0.03] rounded-full blur-3xl pointer-events-none" />
 
                 {/* 1. Top Card Meta Bar */}
-                <div className="relative z-10 flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
-                  <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
-                    <span className="px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider bg-slate-100/90 dark:bg-white/[0.08] text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-white/15 shadow-2xs shrink-0 whitespace-nowrap flex items-center gap-1.5">
+                <div className="relative z-10 flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4">
+                  {/* Left Badges: Card Index & High Frequency */}
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <span className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-black tracking-wider bg-slate-100/90 dark:bg-white/[0.08] text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-white/15 shadow-2xs flex items-center gap-1 shrink-0">
                       <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                       <span>{vocabTypeFilter === 'root' ? 'ROOT' : 'CARD'} {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}</span>
                     </span>
 
-                    <span className="text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1.5 shadow-2xs shrink-0 whitespace-nowrap">
+                    <span className="text-[11px] sm:text-xs font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0">
                       <Flame className="w-3.5 h-3.5 text-amber-500 animate-pulse shrink-0" />
                       <span>{currentFlashcard.frequency}</span>
-                      <span className="hidden xs:inline font-mono text-[11px] opacity-80">Freq</span>
                     </span>
                   </div>
 
+                  {/* Right Action: Mastered Toggle */}
                   <button
                     type="button"
                     onClick={() => toggleMastered(currentFlashcard.id)}
-                    className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-xs shrink-0 whitespace-nowrap ${
+                    className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-xs shrink-0 ${
                       masteredVocabIds.has(currentFlashcard.id)
                         ? 'bg-emerald-500 hover:bg-emerald-600 text-white font-black shadow-emerald-500/25 ring-2 ring-emerald-500/40'
                         : 'bg-slate-100/90 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/15'
                     }`}
                   >
-                    <CheckCircle2 className={`w-4 h-4 ${masteredVocabIds.has(currentFlashcard.id) ? 'text-white' : 'text-slate-400 dark:text-slate-500'} shrink-0`} />
-                    <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered ✓' : 'Mark Mastered'}</span>
+                    <CheckCircle2 className={`w-3.5 h-3.5 ${masteredVocabIds.has(currentFlashcard.id) ? 'text-white' : 'text-slate-400 dark:text-slate-500'} shrink-0`} />
+                    <span className="hidden xs:inline">{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered ✓' : 'Mark Mastered'}</span>
+                    <span className="xs:hidden">{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered ✓' : 'Mastered?'}</span>
                   </button>
                 </div>
 
@@ -2220,52 +2222,63 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                       ? 'bg-slate-50/90 dark:bg-[#121528] border-emerald-500/35 dark:border-emerald-500/25 shadow-emerald-500/5'
                       : 'bg-slate-50/90 dark:bg-[#121528] border-slate-200/90 dark:border-white/10'
                   } border sm:border-2 shadow-xs space-y-3.5 sm:space-y-4`}>
-                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
+                    {/* Unified Horizontal Header Bar: Section Title + Flip/Hide Action */}
+                    <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/10 w-full">
                       <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl ${
                         currentFlashcard.type === 'root'
                           ? 'bg-emerald-500/15 dark:bg-emerald-400/20 border-emerald-500/30 dark:border-emerald-400/35 text-emerald-950 dark:text-emerald-200'
                           : 'bg-amber-500/15 dark:bg-amber-400/20 border-amber-500/30 dark:border-amber-400/35 text-amber-950 dark:text-amber-200'
-                      } border text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider font-mono min-w-0 shadow-2xs`}>
+                      } border text-[11px] sm:text-xs font-black uppercase tracking-wider font-mono shadow-2xs shrink-0`}>
                         {currentFlashcard.type === 'root' ? (
                           <TreePine className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-300 shrink-0" />
                         ) : (
                           <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
                         )}
-                        <span className="truncate">
+                        <span>
                           {currentFlashcard.type === 'idiom'
-                            ? 'Exam Meaning'
+                            ? 'Exam Idiom'
                             : currentFlashcard.type === 'ows'
                               ? 'OWS Definition'
                               : currentFlashcard.type === 'root'
-                                ? 'Root Architecture & Meaning'
-                                : 'Exam Meaning & Synonyms'}
+                                ? (
+                                  <>
+                                    <span className="sm:hidden">Root Family</span>
+                                    <span className="hidden sm:inline">Root Architecture & Meaning</span>
+                                  </>
+                                )
+                                : (
+                                  <>
+                                    <span className="sm:hidden">Meaning & Synonyms</span>
+                                    <span className="hidden sm:inline">Exam Meaning & Synonyms</span>
+                                  </>
+                                )}
                         </span>
                       </div>
                       
-                      {/* High-Contrast Interactive Toggle Button */}
+                      {/* High-Contrast Interactive Toggle Button - Perfectly Aligned */}
                       <button
                         type="button"
                         onClick={() => {
                           soundManager.playClick();
                           setIsCardFlipped(prev => !prev);
                         }}
-                        className={`px-3 sm:px-3.5 py-1.5 rounded-xl font-bold text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ml-auto ${
+                        className={`px-3 sm:px-3.5 py-1.5 rounded-xl font-black text-xs sm:text-sm shadow-md flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ${
                           isCardFlipped
                             ? 'bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-white/15'
                             : currentFlashcard.type === 'root'
-                              ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black shadow-emerald-500/20'
-                              : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-amber-500/20'
+                              ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/20'
+                              : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 shadow-amber-500/20'
                         }`}
                       >
                         {isCardFlipped ? (
                           <>
                             <EyeOff className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" />
-                            <span>{currentFlashcard.type === 'root' ? 'Hide Family Tree' : 'Hide Details'}</span>
+                            <span>{currentFlashcard.type === 'root' ? 'Hide Tree' : 'Hide Details'}</span>
                           </>
                         ) : (
                           <>
                             <Eye className="w-3.5 h-3.5 text-slate-950" />
-                            <span>{currentFlashcard.type === 'root' ? 'Explore Family Tree' : 'Flip to Reveal'}</span>
+                            <span>{currentFlashcard.type === 'root' ? 'Explore Tree' : 'Flip to Reveal'}</span>
                           </>
                         )}
                       </button>
@@ -2655,13 +2668,18 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           }}
                           className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-slate-100/70 dark:bg-white/[0.03] hover:bg-slate-200/60 dark:hover:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer group/teaser shadow-2xs"
                         >
-                          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/60 dark:border-white/5">
-                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold flex items-center gap-1.5">
-                              <Brain className="w-3.5 h-3.5 text-amber-500" />
-                              Active Recall Challenge — Guess in your head before flipping
+                          <div className="flex items-center justify-between gap-2 pb-2 mb-2.5 border-b border-slate-200/60 dark:border-white/5">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold flex items-center gap-1.5 min-w-0">
+                              <Brain className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                              <span className="truncate">
+                                <span className="sm:hidden">Active Recall Challenge</span>
+                                <span className="hidden sm:inline">Active Recall Challenge — Guess before flipping</span>
+                              </span>
                             </span>
-                            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 group-hover/teaser:translate-x-0.5 transition-transform flex items-center gap-0.5">
-                              Tap to reveal details →
+                            <span className="text-[11px] sm:text-xs font-bold text-amber-600 dark:text-amber-400 group-hover/teaser:translate-x-0.5 transition-transform flex items-center gap-0.5 shrink-0 whitespace-nowrap">
+                              <span>Tap to flip</span>
+                              <span className="hidden xs:inline">&nbsp;details</span>
+                              <span>&nbsp;→</span>
                             </span>
                           </div>
 
