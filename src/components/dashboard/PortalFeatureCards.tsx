@@ -24,24 +24,25 @@ const ModernAioPcFrame: React.FC<{
   children: React.ReactNode;
   isDark?: boolean;
   isWarmCream?: boolean;
-}> = ({ children, isDark = false, isWarmCream = false }) => (
-  <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
+  idPrefix?: string;
+}> = ({ children, isDark = false, isWarmCream = false, idPrefix = 'aio' }) => (
+  <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md select-none" fill="none">
     <defs>
       {/* Subtle screen shadow */}
-      <filter id="aioScreenShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <filter id={`${idPrefix}ScreenShadow`} x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
         <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor={isDark ? "#000000" : isWarmCream ? "#38370D" : "#0F172A"} floodOpacity={isDark ? 0.6 : isWarmCream ? 0.16 : 0.12} />
       </filter>
       {/* Stand ambient shadow */}
-      <filter id="aioStandShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
+      <filter id={`${idPrefix}StandShadow`} x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
         <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor={isDark ? "#000000" : isWarmCream ? "#38370D" : "#0F172A"} floodOpacity={isDark ? 0.5 : isWarmCream ? 0.18 : 0.18} />
       </filter>
       {/* Chin gradient */}
-      <linearGradient id="aioChinGrad" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id={`${idPrefix}ChinGrad`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor={isDark ? "#1C2337" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} />
         <stop offset="100%" stopColor={isDark ? "#101424" : isWarmCream ? "#F3E5CF" : "#CBD5E1"} />
       </linearGradient>
       {/* Base gradient */}
-      <linearGradient id="aioBaseGrad" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id={`${idPrefix}BaseGrad`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor={isDark ? "#1A2136" : isWarmCream ? "#FAF2E4" : "#FFFFFF"} />
         <stop offset="100%" stopColor={isDark ? "#0E1220" : isWarmCream ? "#EAD9BF" : "#CBD5E1"} />
       </linearGradient>
@@ -51,52 +52,138 @@ const ModernAioPcFrame: React.FC<{
     <ellipse cx="120" cy="155" rx="44" ry="2.5" fill={isWarmCream ? "#38370D" : "#000000"} opacity={isDark ? 0.45 : isWarmCream ? 0.2 : 0.18} />
 
     {/* Stand: Modern Vertical Ribbed Column */}
-    <g filter="url(#aioStandShadow)">
+    <g filter={`url(#${idPrefix}StandShadow)`}>
       {/* Pedestal Base (Flat Rectangular Foot) */}
-      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#D8C6A5" : "#94A3B8"} strokeWidth="1" />
+      <rect
+        x="88"
+        y="148"
+        width="64"
+        height="4.5"
+        rx="2"
+        fill={`url(#${idPrefix}BaseGrad)`}
+        stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#D8C6A5" : "#94A3B8"}
+        strokeWidth="1"
+        className="stroke-[#94A3B8] dark:stroke-white/15 warm-cream:stroke-[#D8C6A5]"
+      />
       {/* Dark rubber foot pad */}
-      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill={isDark ? "#0F1320" : isWarmCream ? "#8D7A02" : "#334155"} opacity={isWarmCream ? 0.4 : 0.8} />
+      <rect
+        x="91"
+        y="152"
+        width="58"
+        height="1.2"
+        rx="0.6"
+        fill={isDark ? "#0F1320" : isWarmCream ? "#8D7A02" : "#334155"}
+        opacity={isWarmCream ? 0.4 : 0.8}
+        className="fill-[#334155] dark:fill-[#0F1320] warm-cream:fill-[#8D7A02]"
+      />
 
       {/* Vertical Column with Ribbed Fluting */}
-      <rect x="103" y="123" width="34" height="26" rx="1.5" fill={isDark ? "#13182A" : isWarmCream ? "#FAF0DC" : "#F1F5F9"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#D8C6A5" : "#94A3B8"} strokeWidth="1" />
+      <rect
+        x="103"
+        y="123"
+        width="34"
+        height="26"
+        rx="1.5"
+        fill={isDark ? "#13182A" : isWarmCream ? "#FAF0DC" : "#F1F5F9"}
+        stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#D8C6A5" : "#94A3B8"}
+        strokeWidth="1"
+        className="fill-[#F1F5F9] dark:fill-[#13182A] warm-cream:fill-[#FAF0DC] stroke-[#94A3B8] dark:stroke-white/10 warm-cream:stroke-[#D8C6A5]"
+      />
       {/* Vertical ribbed groove lines - Architectural Fluting */}
-      <line x1="107" y1="123" x2="107" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="111" y1="123" x2="111" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="115" y1="123" x2="115" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="119" y1="123" x2="119" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="123" y1="123" x2="123" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="127" y1="123" x2="127" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
-      <line x1="131" y1="123" x2="131" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" />
+      <line x1="107" y1="123" x2="107" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="111" y1="123" x2="111" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="115" y1="123" x2="115" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="119" y1="123" x2="119" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="123" y1="123" x2="123" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="127" y1="123" x2="127" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
+      <line x1="131" y1="123" x2="131" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" className="stroke-white dark:stroke-white/10 warm-cream:stroke-white" />
+      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.7" className="stroke-[#94A3B8] dark:stroke-black/40 warm-cream:stroke-[#E2D1B3]" />
     </g>
 
     {/* Top Center Raised Webcam Module */}
-    <path d="M 108 8 C 108 5.8 110 4.2 113 4.2 L 127 4.2 C 130 4.2 132 5.8 132 8 L 132 10.5 L 108 10.5 Z" fill={isDark ? "#0A0D18" : isWarmCream ? "#38370D" : "#1E293B"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#8D7A02" : "#0F172A"} strokeWidth="0.8" />
+    <path
+      d="M 108 8 C 108 5.8 110 4.2 113 4.2 L 127 4.2 C 130 4.2 132 5.8 132 8 L 132 10.5 L 108 10.5 Z"
+      fill={isDark ? "#0A0D18" : isWarmCream ? "#38370D" : "#1E293B"}
+      stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#8D7A02" : "#0F172A"}
+      strokeWidth="0.8"
+      className="fill-[#1E293B] dark:fill-[#0A0D18] warm-cream:fill-[#38370D]"
+    />
     <circle cx="120" cy="7.5" r="1.3" fill={isWarmCream ? "#E1A837" : "#0EA5E9"} />
     <circle cx="120" cy="7.5" r="0.5" fill={isWarmCream ? "#FDE68A" : "#38BDF8"} />
     <circle cx="124" cy="7.5" r="0.6" fill="#10B981" />
 
     {/* Monitor Chassis Bezel */}
-    <g filter="url(#aioScreenShadow)">
-      <rect x="18" y="10" width="204" height="115" rx="7" fill={isDark ? "#111526" : isWarmCream ? "#FFFDF8" : "#F8FAFC"} stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="1.2" />
+    <g filter={`url(#${idPrefix}ScreenShadow)`}>
+      <rect
+        x="18"
+        y="10"
+        width="204"
+        height="115"
+        rx="7"
+        fill={isDark ? "#111526" : isWarmCream ? "#FFFDF8" : "#F8FAFC"}
+        stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#E2D1B3" : "#94A3B8"}
+        strokeWidth="1.2"
+        className="fill-[#F8FAFC] dark:fill-[#111526] warm-cream:fill-[#FFFDF8] stroke-[#94A3B8] dark:stroke-white/15 warm-cream:stroke-[#E2D1B3]"
+      />
       {/* Sleek Inner Display Bezel framing the screen */}
-      <rect x="21.5" y="13.5" width="197" height="102" rx="3.5" fill={isDark ? "#000000" : isWarmCream ? "#38370D" : "#1E293B"} />
-      {/* Active Screen Display Area */}
-      <rect x="22.5" y="14.5" width="195" height="100" rx="2.5" fill={isDark ? "#080B14" : isWarmCream ? "#FBF7ED" : "#FFFFFF"} />
-      <rect x="22.5" y="14.5" width="195" height="100" rx="2.5" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : isWarmCream ? "#EFE0C2" : "#CBD5E1"} strokeWidth="0.6" />
+      <rect
+        x="21.5"
+        y="13.5"
+        width="197"
+        height="102"
+        rx="3.5"
+        fill={isDark ? "#000000" : isWarmCream ? "#38370D" : "#1E293B"}
+        className="fill-[#1E293B] dark:fill-[#000000] warm-cream:fill-[#38370D]"
+      />
+      {/* Active Screen Display Area - High-Contrast Velvet Obsidian in Dark Mode */}
+      <rect
+        x="22.5"
+        y="14.5"
+        width="195"
+        height="100"
+        rx="2.5"
+        fill={isDark ? "#080B14" : isWarmCream ? "#FBF7ED" : "#FFFFFF"}
+        className="fill-[#FFFFFF] dark:fill-[#080B14] warm-cream:fill-[#FBF7ED] transition-colors"
+      />
+      <rect
+        x="22.5"
+        y="14.5"
+        width="195"
+        height="100"
+        rx="2.5"
+        fill="none"
+        stroke={isDark ? "rgba(255,255,255,0.06)" : isWarmCream ? "#EFE0C2" : "#CBD5E1"}
+        strokeWidth="0.6"
+        className="stroke-[#CBD5E1] dark:stroke-white/10 warm-cream:stroke-[#EFE0C2]"
+      />
 
       {/* Screen Content Rendered Inside Display */}
       {children}
 
       {/* Bottom Chin Bar with subtle branding badge */}
-      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#E2D1B3" : "#94A3B8"} strokeWidth="0.8" />
-      <rect x="114" y="119" width="12" height="2" rx="1" fill={isDark ? "#64748B" : isWarmCream ? "#C4B291" : "#475569"} opacity="0.8" />
+      <path
+        d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z"
+        fill={`url(#${idPrefix}ChinGrad)`}
+        stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#E2D1B3" : "#94A3B8"}
+        strokeWidth="0.8"
+        className="stroke-[#94A3B8] dark:stroke-white/10 warm-cream:stroke-[#E2D1B3]"
+      />
+      <rect
+        x="114"
+        y="119"
+        width="12"
+        height="2"
+        rx="1"
+        fill={isDark ? "#64748B" : isWarmCream ? "#C4B291" : "#475569"}
+        opacity="0.8"
+        className="fill-[#475569] dark:fill-[#64748B] warm-cream:fill-[#C4B291]"
+      />
     </g>
   </svg>
 );
@@ -153,9 +240,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream} idPrefix="aio-card1">
             {/* Top Bar with SYLLABUS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
+            <rect
+              x="22"
+              y="14"
+              width="196"
+              height="20"
+              fill={effectiveIsDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"}
+              className="fill-[#EEF2F6] dark:fill-[#0E1322] warm-cream:fill-[#F4EADB]"
+            />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -170,55 +264,169 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             {/* Syllabus Screen Content (Curriculum Tree + Mastery Ring) */}
             <g transform="translate(32, 40)">
               {/* Subject 1: Quant */}
-              <rect x="0" y="0" width="86" height="18" rx="5" 
-                fill={isDark ? "#10182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"} strokeWidth="1" />
+              <rect
+                x="0"
+                y="0"
+                width="86"
+                height="18"
+                rx="5"
+                fill={effectiveIsDark ? "#10182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"}
+                stroke={effectiveIsDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"}
+                strokeWidth="1"
+                className="fill-[#EFF6FF] dark:fill-[#10182E] warm-cream:fill-[#FAF2E4] stroke-[#BFDBFE] dark:stroke-blue-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="4" y="4" width="10" height="10" rx="3" fill="#3B82F6" />
               <text x="9" y="11.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">∑</text>
-              <rect x="18" y="5" width="46" height="3" rx="1.5" fill={isDark ? "#93C5FD" : "#1E40AF"} />
-              <rect x="18" y="10" width="30" height="2" rx="1" fill={isDark ? "#3B82F6" : "#93C5FD"} />
-              <circle cx="78" cy="9" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#DBEAFE"} />
-              <polyline points="76.5,9 77.5,10 79.5,8" stroke={isDark ? "#60A5FA" : "#1E40AF"} strokeWidth="0.8" fill="none" />
+              <rect
+                x="18"
+                y="5"
+                width="46"
+                height="3"
+                rx="1.5"
+                fill={effectiveIsDark ? "#93C5FD" : isWarmCream ? "#8D7A02" : "#1E40AF"}
+                className="fill-[#1E40AF] dark:fill-[#93C5FD] warm-cream:fill-[#8D7A02]"
+              />
+              <rect
+                x="18"
+                y="10"
+                width="30"
+                height="2"
+                rx="1"
+                fill={effectiveIsDark ? "#3B82F6" : isWarmCream ? "#E1A837" : "#93C5FD"}
+                className="fill-[#93C5FD] dark:fill-[#3B82F6] warm-cream:fill-[#E1A837]"
+              />
+              <circle
+                cx="78"
+                cy="9"
+                r="3"
+                fill={effectiveIsDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#DBEAFE"}
+                className="fill-[#DBEAFE] dark:fill-[#1E293B] warm-cream:fill-[#FAF0DC]"
+              />
+              <polyline
+                points="76.5,9 77.5,10 79.5,8"
+                stroke={effectiveIsDark ? "#60A5FA" : isWarmCream ? "#8D7A02" : "#1E40AF"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#1E40AF] dark:stroke-[#60A5FA] warm-cream:stroke-[#8D7A02]"
+              />
 
               {/* Subject 2: Reasoning */}
-              <rect x="0" y="22" width="86" height="18" rx="5" 
-                fill={isDark ? "#1B1433" : isWarmCream ? "#F6EBD8" : "#F5F3FF"} 
-                stroke={isDark ? "rgba(139,92,246,0.35)" : isWarmCream ? "#E2D1B3" : "#DDD6FE"} strokeWidth="1" />
+              <rect
+                x="0"
+                y="22"
+                width="86"
+                height="18"
+                rx="5"
+                fill={effectiveIsDark ? "#1B1433" : isWarmCream ? "#F6EBD8" : "#F5F3FF"}
+                stroke={effectiveIsDark ? "rgba(139,92,246,0.35)" : isWarmCream ? "#E2D1B3" : "#DDD6FE"}
+                strokeWidth="1"
+                className="fill-[#F5F3FF] dark:fill-[#1B1433] warm-cream:fill-[#F6EBD8] stroke-[#DDD6FE] dark:stroke-purple-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="4" y="26" width="10" height="10" rx="3" fill="#8B5CF6" />
               <text x="9" y="33.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">⚡</text>
-              <rect x="18" y="27" width="42" height="3" rx="1.5" fill={isDark ? "#C4B5FD" : "#5B21B6"} />
-              <rect x="18" y="32" width="28" height="2" rx="1" fill={isDark ? "#8B5CF6" : "#C4B5FD"} />
-              <circle cx="78" cy="31" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#EDE9FE"} />
-              <polyline points="76.5,31 77.5,32 79.5,30" stroke={isDark ? "#A78BFA" : "#5B21B6"} strokeWidth="0.8" fill="none" />
+              <rect
+                x="18"
+                y="27"
+                width="42"
+                height="3"
+                rx="1.5"
+                fill={effectiveIsDark ? "#C4B5FD" : isWarmCream ? "#6B21A8" : "#5B21B6"}
+                className="fill-[#5B21B6] dark:fill-[#C4B5FD] warm-cream:fill-[#6B21A8]"
+              />
+              <rect
+                x="18"
+                y="32"
+                width="28"
+                height="2"
+                rx="1"
+                fill={effectiveIsDark ? "#8B5CF6" : isWarmCream ? "#A855F7" : "#C4B5FD"}
+                className="fill-[#C4B5FD] dark:fill-[#8B5CF6] warm-cream:fill-[#A855F7]"
+              />
+              <circle
+                cx="78"
+                cy="31"
+                r="3"
+                fill={effectiveIsDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#EDE9FE"}
+                className="fill-[#EDE9FE] dark:fill-[#1E293B] warm-cream:fill-[#FAF0DC]"
+              />
+              <polyline
+                points="76.5,31 77.5,32 79.5,30"
+                stroke={effectiveIsDark ? "#A78BFA" : isWarmCream ? "#6B21A8" : "#5B21B6"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#5B21B6] dark:stroke-[#A78BFA] warm-cream:stroke-[#6B21A8]"
+              />
 
               {/* Subject 3: General Studies */}
-              <rect x="0" y="44" width="86" height="18" rx="5" 
-                fill={isDark ? "#0D211C" : isWarmCream ? "#F0EAD6" : "#ECFDF5"} 
-                stroke={isDark ? "rgba(16,185,129,0.35)" : isWarmCream ? "#E2D1B3" : "#A7F3D0"} strokeWidth="1" />
+              <rect
+                x="0"
+                y="44"
+                width="86"
+                height="18"
+                rx="5"
+                fill={effectiveIsDark ? "#0D211C" : isWarmCream ? "#F0EAD6" : "#ECFDF5"}
+                stroke={effectiveIsDark ? "rgba(16,185,129,0.35)" : isWarmCream ? "#E2D1B3" : "#A7F3D0"}
+                strokeWidth="1"
+                className="fill-[#ECFDF5] dark:fill-[#0D211C] warm-cream:fill-[#F0EAD6] stroke-[#A7F3D0] dark:stroke-emerald-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="4" y="48" width="10" height="10" rx="3" fill="#10B981" />
               <text x="9" y="55.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">✓</text>
-              <rect x="18" y="49" width="40" height="3" rx="1.5" fill={isDark ? "#6EE7B7" : "#047857"} />
-              <rect x="18" y="54" width="25" height="2" rx="1" fill={isDark ? "#10B981" : "#6EE7B7"} />
-              <circle cx="78" cy="53" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#D1FAE5"} />
-              <polyline points="76.5,53 77.5,54 79.5,52" stroke={isDark ? "#34D399" : "#047857"} strokeWidth="0.8" fill="none" />
+              <rect
+                x="18"
+                y="49"
+                width="40"
+                height="3"
+                rx="1.5"
+                fill={effectiveIsDark ? "#6EE7B7" : isWarmCream ? "#047857" : "#047857"}
+                className="fill-[#047857] dark:fill-[#6EE7B7] warm-cream:fill-[#047857]"
+              />
+              <rect
+                x="18"
+                y="54"
+                width="25"
+                height="2"
+                rx="1"
+                fill={effectiveIsDark ? "#10B981" : isWarmCream ? "#10B981" : "#6EE7B7"}
+                className="fill-[#6EE7B7] dark:fill-[#10B981] warm-cream:fill-[#10B981]"
+              />
+              <circle
+                cx="78"
+                cy="53"
+                r="3"
+                fill={effectiveIsDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#D1FAE5"}
+                className="fill-[#D1FAE5] dark:fill-[#1E293B] warm-cream:fill-[#FAF0DC]"
+              />
+              <polyline
+                points="76.5,53 77.5,54 79.5,52"
+                stroke={effectiveIsDark ? "#34D399" : isWarmCream ? "#047857" : "#047857"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#047857] dark:stroke-[#34D399] warm-cream:stroke-[#047857]"
+              />
             </g>
 
             {/* Right: Circular Mastery Gauge */}
             <g transform="translate(165, 72)">
-              <circle cx="0" cy="0" r="22" 
-                fill={isDark ? "#0F162A" : isWarmCream ? "#FAF0DC" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.2)" : isWarmCream ? "#E2D1B3" : "#DBEAFE"} strokeWidth="3" />
+              <circle
+                cx="0"
+                cy="0"
+                r="22"
+                fill={effectiveIsDark ? "#0F162A" : isWarmCream ? "#FAF0DC" : "#EFF6FF"}
+                stroke={effectiveIsDark ? "rgba(59,130,246,0.2)" : isWarmCream ? "#E2D1B3" : "#DBEAFE"}
+                strokeWidth="3"
+                className="fill-[#EFF6FF] dark:fill-[#0F162A] warm-cream:fill-[#FAF0DC] stroke-[#DBEAFE] dark:stroke-blue-500/20 warm-cream:stroke-[#E2D1B3]"
+              />
               <circle cx="0" cy="0" r="22" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="138" strokeDashoffset="40" strokeLinecap="round" transform="rotate(-90)" />
               
               {/* Inner Book Icon */}
               <g transform="translate(-8.5, -9) scale(0.75)">
-                <path d="M 4 19.5 A 2.5 2.5 0 0 1 6.5 17 H 20" stroke={isDark ? "#60A5FA" : "#1D4ED8"} strokeWidth="2" fill="none" strokeLinecap="round" />
-                <path d="M 6.5 2 H 20 V 22 H 6.5 A 2.5 2.5 0 0 1 4 19.5 V 4.5 A 2.5 2.5 0 0 1 6.5 2 Z" stroke={isDark ? "#60A5FA" : "#1D4ED8"} strokeWidth="2" fill={isDark ? "#1E293B" : "#DBEAFE"} strokeLinecap="round" />
-                <line x1="9" y1="7" x2="15" y2="7" stroke={isDark ? "#93C5FD" : "#1E40AF"} strokeWidth="1.5" strokeLinecap="round" />
-                <line x1="9" y1="11" x2="14" y2="11" stroke={isDark ? "#93C5FD" : "#1E40AF"} strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M 4 19.5 A 2.5 2.5 0 0 1 6.5 17 H 20" stroke={effectiveIsDark ? "#60A5FA" : "#1D4ED8"} strokeWidth="2" fill="none" strokeLinecap="round" />
+                <path d="M 6.5 2 H 20 V 22 H 6.5 A 2.5 2.5 0 0 1 4 19.5 V 4.5 A 2.5 2.5 0 0 1 6.5 2 Z" stroke={effectiveIsDark ? "#60A5FA" : "#1D4ED8"} strokeWidth="2" fill={effectiveIsDark ? "#1E293B" : "#DBEAFE"} strokeLinecap="round" />
+                <line x1="9" y1="7" x2="15" y2="7" stroke={effectiveIsDark ? "#93C5FD" : "#1E40AF"} strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="9" y1="11" x2="14" y2="11" stroke={effectiveIsDark ? "#93C5FD" : "#1E40AF"} strokeWidth="1.5" strokeLinecap="round" />
               </g>
 
-              <text x="0" y="15" fill={isDark ? "#93C5FD" : "#1E40AF"} fontSize="5.5" fontWeight="black" textAnchor="middle">
+              <text x="0" y="15" fill={effectiveIsDark ? "#93C5FD" : "#1E40AF"} fontSize="5.5" fontWeight="black" textAnchor="middle" className="fill-[#1E40AF] dark:fill-[#93C5FD]">
                 TRACK
               </text>
 
@@ -279,9 +487,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream} idPrefix="aio-card2">
             {/* Top Bar with MOCK TESTS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
+            <rect
+              x="22"
+              y="14"
+              width="196"
+              height="20"
+              fill={effectiveIsDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"}
+              className="fill-[#EEF2F6] dark:fill-[#0E1322] warm-cream:fill-[#F4EADB]"
+            />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -296,8 +511,15 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             {/* Golden 3D Trophy in Screen Center */}
             <g transform="translate(120, 68)">
               {/* Radial Sparkles / Rays */}
-              <circle cx="0" cy="-2" r="26" fill={isDark ? "#281D06" : isWarmCream ? "#F5E8CF" : "#FEF3C7"} opacity={isDark ? 0.75 : 0.6} />
-              <g stroke="#F59E0B" strokeWidth="1" opacity={isDark ? 0.5 : 0.4}>
+              <circle
+                cx="0"
+                cy="-2"
+                r="26"
+                fill={effectiveIsDark ? "#281D06" : isWarmCream ? "#F5E8CF" : "#FEF3C7"}
+                opacity={effectiveIsDark ? 0.75 : 0.6}
+                className="fill-[#FEF3C7] dark:fill-[#281D06] warm-cream:fill-[#F5E8CF]"
+              />
+              <g stroke="#F59E0B" strokeWidth="1" opacity={effectiveIsDark ? 0.5 : 0.4}>
                 <line x1="0" y1="-24" x2="0" y2="-28" />
                 <line x1="18" y1="-18" x2="22" y2="-22" />
                 <line x1="-18" y1="-18" x2="-22" y2="-22" />
@@ -312,10 +534,10 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
               {/* Trophy Cup */}
               <path
                 d="M -15 -16 L 15 -16 C 15 0 9 11 0 13 C -9 11 -15 0 -15 -16 Z"
-                fill="url(#aioTrophyGold)"
+                fill="url(#aioTrophyGold-card2)"
               />
               <defs>
-                <linearGradient id="aioTrophyGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient id="aioTrophyGold-card2" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#F59E0B" />
                   <stop offset="50%" stopColor="#FDE047" />
                   <stop offset="100%" stopColor="#D97706" />
@@ -400,9 +622,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream} idPrefix="aio-card3">
             {/* Top Bar with STUDY PORTALS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
+            <rect
+              x="22"
+              y="14"
+              width="196"
+              height="20"
+              fill={effectiveIsDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"}
+              className="fill-[#EEF2F6] dark:fill-[#0E1322] warm-cream:fill-[#F4EADB]"
+            />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -417,48 +646,192 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             {/* Portal Cards Inside Screen */}
             <g transform="translate(29, 39)">
               {/* Portal 1: Testbook */}
-              <rect x="0" y="0" width="86" height="25" rx="5" 
-                fill={isDark ? "#0A1C1D" : isWarmCream ? "#FAF2E4" : "#F0FDFA"} 
-                stroke={isDark ? "rgba(20,184,166,0.35)" : isWarmCream ? "#E2D1B3" : "#99F6E4"} strokeWidth="1" />
+              <rect
+                x="0"
+                y="0"
+                width="86"
+                height="25"
+                rx="5"
+                fill={effectiveIsDark ? "#0A1C1D" : isWarmCream ? "#FAF2E4" : "#F0FDFA"}
+                stroke={effectiveIsDark ? "rgba(20,184,166,0.35)" : isWarmCream ? "#E2D1B3" : "#99F6E4"}
+                strokeWidth="1"
+                className="fill-[#F0FDFA] dark:fill-[#0A1C1D] warm-cream:fill-[#FAF2E4] stroke-[#99F6E4] dark:stroke-teal-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="5" y="5" width="15" height="15" rx="3" fill="#0D9488" />
               <text x="12.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">TB</text>
-              <text x="25" y="12.5" fill={isDark ? "#99F6E4" : isWarmCream ? "#115E59" : "#134E4A"} fontSize="6.5" fontWeight="bold">Testbook</text>
-              <text x="25" y="19" fill={isDark ? "#2DD4BF" : isWarmCream ? "#0F766E" : "#0D9488"} fontSize="5" fontWeight="bold">Live Mocks</text>
-              <polyline points="76,10 79,10 79,13" stroke={isDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"} strokeWidth="0.8" fill="none" />
-              <line x1="79" y1="10" x2="74" y2="15" stroke={isDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"} strokeWidth="0.8" />
+              <text
+                x="25"
+                y="12.5"
+                fill={effectiveIsDark ? "#99F6E4" : isWarmCream ? "#115E59" : "#134E4A"}
+                fontSize="6.5"
+                fontWeight="bold"
+                className="fill-[#134E4A] dark:fill-[#99F6E4] warm-cream:fill-[#115E59]"
+              >Testbook</text>
+              <text
+                x="25"
+                y="19"
+                fill={effectiveIsDark ? "#2DD4BF" : isWarmCream ? "#0F766E" : "#0D9488"}
+                fontSize="5"
+                fontWeight="bold"
+                className="fill-[#0D9488] dark:fill-[#2DD4BF] warm-cream:fill-[#0F766E]"
+              >Live Mocks</text>
+              <polyline
+                points="76,10 79,10 79,13"
+                stroke={effectiveIsDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#0D9488] dark:stroke-[#2DD4BF] warm-cream:stroke-[#0D9488]"
+              />
+              <line
+                x1="79"
+                y1="10"
+                x2="74"
+                y2="15"
+                stroke={effectiveIsDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"}
+                strokeWidth="0.8"
+                className="stroke-[#0D9488] dark:stroke-[#2DD4BF] warm-cream:stroke-[#0D9488]"
+              />
 
               {/* Portal 2: Oliveboard */}
-              <rect x="94" y="0" width="86" height="25" rx="5" 
-                fill={isDark ? "#0D182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"} strokeWidth="1" />
+              <rect
+                x="94"
+                y="0"
+                width="86"
+                height="25"
+                rx="5"
+                fill={effectiveIsDark ? "#0D182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"}
+                stroke={effectiveIsDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"}
+                strokeWidth="1"
+                className="fill-[#EFF6FF] dark:fill-[#0D182E] warm-cream:fill-[#FAF2E4] stroke-[#BFDBFE] dark:stroke-blue-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="99" y="5" width="15" height="15" rx="3" fill="#2563EB" />
               <text x="106.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">OB</text>
-              <text x="119" y="12.5" fill={isDark ? "#BFDBFE" : isWarmCream ? "#1E3A8A" : "#1E3A8A"} fontSize="6.5" fontWeight="bold">Oliveboard</text>
-              <text x="119" y="19" fill={isDark ? "#60A5FA" : isWarmCream ? "#2563EB" : "#2563EB"} fontSize="5" fontWeight="bold">All-India Rank</text>
-              <polyline points="170,10 173,10 173,13" stroke={isDark ? "#60A5FA" : "#2563EB"} strokeWidth="0.8" fill="none" />
-              <line x1="173" y1="10" x2="168" y2="15" stroke={isDark ? "#60A5FA" : "#2563EB"} strokeWidth="0.8" />
+              <text
+                x="119"
+                y="12.5"
+                fill={effectiveIsDark ? "#BFDBFE" : isWarmCream ? "#1E3A8A" : "#1E3A8A"}
+                fontSize="6.5"
+                fontWeight="bold"
+                className="fill-[#1E3A8A] dark:fill-[#BFDBFE] warm-cream:fill-[#1E3A8A]"
+              >Oliveboard</text>
+              <text
+                x="119"
+                y="19"
+                fill={effectiveIsDark ? "#60A5FA" : isWarmCream ? "#2563EB" : "#2563EB"}
+                fontSize="5"
+                fontWeight="bold"
+                className="fill-[#2563EB] dark:fill-[#60A5FA] warm-cream:fill-[#2563EB]"
+              >All-India Rank</text>
+              <polyline
+                points="170,10 173,10 173,13"
+                stroke={effectiveIsDark ? "#60A5FA" : isWarmCream ? "#2563EB" : "#2563EB"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#2563EB] dark:stroke-[#60A5FA] warm-cream:stroke-[#2563EB]"
+              />
+              <line
+                x1="173"
+                y1="10"
+                x2="168"
+                y2="15"
+                stroke={effectiveIsDark ? "#60A5FA" : isWarmCream ? "#2563EB" : "#2563EB"}
+                strokeWidth="0.8"
+                className="stroke-[#2563EB] dark:stroke-[#60A5FA] warm-cream:stroke-[#2563EB]"
+              />
 
               {/* Portal 3: Practice Mock */}
-              <rect x="0" y="31" width="86" height="25" rx="5" 
-                fill={isDark ? "#1E180A" : isWarmCream ? "#FAF2E4" : "#FFFBEB"} 
-                stroke={isDark ? "rgba(245,158,11,0.35)" : isWarmCream ? "#E2D1B3" : "#FDE68A"} strokeWidth="1" />
+              <rect
+                x="0"
+                y="31"
+                width="86"
+                height="25"
+                rx="5"
+                fill={effectiveIsDark ? "#1E180A" : isWarmCream ? "#FAF2E4" : "#FFFBEB"}
+                stroke={effectiveIsDark ? "rgba(245,158,11,0.35)" : isWarmCream ? "#E2D1B3" : "#FDE68A"}
+                strokeWidth="1"
+                className="fill-[#FFFBEB] dark:fill-[#1E180A] warm-cream:fill-[#FAF2E4] stroke-[#FDE68A] dark:stroke-amber-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="5" y="36" width="15" height="15" rx="3" fill="#D97706" />
               <text x="12.5" y="46.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">PM</text>
-              <text x="25" y="43.5" fill={isDark ? "#FDE68A" : isWarmCream ? "#92400E" : "#78350F"} fontSize="6.5" fontWeight="bold">PracticeMock</text>
-              <text x="25" y="50" fill={isDark ? "#FBBF24" : isWarmCream ? "#D97706" : "#D97706"} fontSize="5" fontWeight="bold">Quizzes & Tests</text>
-              <polyline points="76,41 79,41 79,44" stroke={isDark ? "#FBBF24" : "#D97706"} strokeWidth="0.8" fill="none" />
-              <line x1="79" y1="41" x2="74" y2="46" stroke={isDark ? "#FBBF24" : "#D97706"} strokeWidth="0.8" />
+              <text
+                x="25"
+                y="43.5"
+                fill={effectiveIsDark ? "#FDE68A" : isWarmCream ? "#92400E" : "#78350F"}
+                fontSize="6.5"
+                fontWeight="bold"
+                className="fill-[#78350F] dark:fill-[#FDE68A] warm-cream:fill-[#92400E]"
+              >PracticeMock</text>
+              <text
+                x="25"
+                y="50"
+                fill={effectiveIsDark ? "#FBBF24" : isWarmCream ? "#D97706" : "#D97706"}
+                fontSize="5"
+                fontWeight="bold"
+                className="fill-[#D97706] dark:fill-[#FBBF24] warm-cream:fill-[#D97706]"
+              >Quizzes & Tests</text>
+              <polyline
+                points="76,41 79,41 79,44"
+                stroke={effectiveIsDark ? "#FBBF24" : isWarmCream ? "#D97706" : "#D97706"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#D97706] dark:stroke-[#FBBF24] warm-cream:stroke-[#D97706]"
+              />
+              <line
+                x1="79"
+                y1="41"
+                x2="74"
+                y2="46"
+                stroke={effectiveIsDark ? "#FBBF24" : isWarmCream ? "#D97706" : "#D97706"}
+                strokeWidth="0.8"
+                className="stroke-[#D97706] dark:stroke-[#FBBF24] warm-cream:stroke-[#D97706]"
+              />
 
               {/* Portal 4: Official Portal */}
-              <rect x="94" y="31" width="86" height="25" rx="5" 
-                fill={isDark ? "#200E1C" : isWarmCream ? "#FAF2E4" : "#FDF2F8"} 
-                stroke={isDark ? "rgba(219,39,119,0.35)" : isWarmCream ? "#E2D1B3" : "#FBCFE8"} strokeWidth="1" />
+              <rect
+                x="94"
+                y="31"
+                width="86"
+                height="25"
+                rx="5"
+                fill={effectiveIsDark ? "#200E1C" : isWarmCream ? "#FAF2E4" : "#FDF2F8"}
+                stroke={effectiveIsDark ? "rgba(219,39,119,0.35)" : isWarmCream ? "#E2D1B3" : "#FBCFE8"}
+                strokeWidth="1"
+                className="fill-[#FDF2F8] dark:fill-[#200E1C] warm-cream:fill-[#FAF2E4] stroke-[#FBCFE8] dark:stroke-pink-500/35 warm-cream:stroke-[#E2D1B3]"
+              />
               <rect x="99" y="36" width="15" height="15" rx="3" fill="#DB2777" />
               <text x="106.5" y="46.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle">SSC</text>
-              <text x="119" y="43.5" fill={isDark ? "#FBCFE8" : isWarmCream ? "#9D174D" : "#831843"} fontSize="6.5" fontWeight="bold">Official Portal</text>
-              <text x="119" y="50" fill={isDark ? "#F472B6" : isWarmCream ? "#DB2777" : "#DB2777"} fontSize="5" fontWeight="bold">Updates & PYQ</text>
-              <polyline points="170,41 173,41 173,44" stroke={isDark ? "#F472B6" : "#DB2777"} strokeWidth="0.8" fill="none" />
-              <line x1="173" y1="41" x2="168" y2="46" stroke={isDark ? "#F472B6" : "#DB2777"} strokeWidth="0.8" />
+              <text
+                x="119"
+                y="43.5"
+                fill={effectiveIsDark ? "#FBCFE8" : isWarmCream ? "#9D174D" : "#831843"}
+                fontSize="6.5"
+                fontWeight="bold"
+                className="fill-[#831843] dark:fill-[#FBCFE8] warm-cream:fill-[#9D174D]"
+              >Official Portal</text>
+              <text
+                x="119"
+                y="50"
+                fill={effectiveIsDark ? "#F472B6" : isWarmCream ? "#DB2777" : "#DB2777"}
+                fontSize="5"
+                fontWeight="bold"
+                className="fill-[#DB2777] dark:fill-[#F472B6] warm-cream:fill-[#DB2777]"
+              >Updates & PYQ</text>
+              <polyline
+                points="170,41 173,41 173,44"
+                stroke={effectiveIsDark ? "#F472B6" : isWarmCream ? "#DB2777" : "#DB2777"}
+                strokeWidth="0.8"
+                fill="none"
+                className="stroke-[#DB2777] dark:stroke-[#F472B6] warm-cream:stroke-[#DB2777]"
+              />
+              <line
+                x1="173"
+                y1="41"
+                x2="168"
+                y2="46"
+                stroke={effectiveIsDark ? "#F472B6" : isWarmCream ? "#DB2777" : "#DB2777"}
+                strokeWidth="0.8"
+                className="stroke-[#DB2777] dark:stroke-[#F472B6] warm-cream:stroke-[#DB2777]"
+              />
             </g>
           </ModernAioPcFrame>
         </div>
