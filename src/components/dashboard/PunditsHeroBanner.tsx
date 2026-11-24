@@ -86,14 +86,14 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   }, [currentExam]);
 
   return (
-    <div className="relative w-full rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#12162A] via-[#0D101E] to-[#080A16] text-[#F8FAFC] border border-amber-400/30 shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden select-none">
+    <div className="relative w-full rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#12162A] via-[#0D101E] to-[#080A16] text-[#F8FAFC] border border-white/10 dark:border-white/[0.08] shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden select-none">
       {/* 🌟 Atmospheric Golden Background Lighting */}
-      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-amber-400/20 via-amber-500/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-amber-400/15 via-blue-500/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
       <div className="absolute -bottom-16 -left-10 w-48 h-48 bg-blue-500/10 rounded-full blur-[70px] pointer-events-none" />
-      <div className="absolute -bottom-16 -right-10 w-48 h-48 bg-amber-500/10 rounded-full blur-[70px] pointer-events-none" />
+      <div className="absolute -bottom-16 -right-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-[70px] pointer-events-none" />
 
-      {/* Modern Radial Dot Matrix Accent */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#F59E0B_0.75px,transparent_0.75px)] [background-size:24px_24px]" />
+      {/* Modern Radial Dot Matrix Accent (Obsidian Stardust) */}
+      <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
 
       {/* Main Banner Content Area */}
       <div className="relative z-10 px-4 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 flex flex-col items-center justify-center">
@@ -103,7 +103,7 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           
           {/* Top Badge: "WELCOME TO" */}
           <div className="flex items-center justify-center mb-1.5 sm:mb-2">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1 rounded-full bg-amber-500/15 border border-amber-400/40 shadow-[0_0_18px_rgba(245,158,11,0.25)] backdrop-blur-md group cursor-default">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1 rounded-full bg-amber-500/15 border border-amber-400/30 shadow-[0_0_18px_rgba(245,158,11,0.2)] backdrop-blur-md group cursor-default">
               <NamasteIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] animate-pulse-slow" />
               <span className="text-[10.5px] sm:text-xs font-black tracking-[0.22em] uppercase text-amber-300 font-sans">
                 WELCOME TO
@@ -137,7 +137,7 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           </div>
 
           {/* Exam Target Capsule: Clean Modern Segmented Pill */}
-          <div className="mt-1.5 sm:mt-2 inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5 rounded-full border border-amber-400/35 bg-[#0C0F1D]/90 px-3.5 sm:px-4.5 py-1.5 shadow-md backdrop-blur-md text-xs sm:text-[13px]">
+          <div className="mt-1.5 sm:mt-2 inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5 rounded-full border border-white/10 dark:border-white/[0.08] bg-[#0C0F1D]/90 px-3.5 sm:px-4.5 py-1.5 shadow-md backdrop-blur-md text-xs sm:text-[13px]">
             <span className="px-2.5 py-0.5 rounded-full font-black bg-amber-500/20 text-amber-300 border border-amber-400/30">
               {examName.split(' ')[0] || 'SSC'}
             </span>
@@ -166,9 +166,9 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 setIsContinueStudyModalOpen(true);
               }}
               title="Continue Study - Jump Back In"
-              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-amber-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-amber-500/15 hover:-translate-y-1"
+              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-amber-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(245,158,11,0.4)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(245,158,11,0.35)] group-hover:scale-110 transition-transform">
                 <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current ml-0.5" />
               </div>
               <span className="text-xs sm:text-sm font-black text-white group-hover:text-amber-300 transition-colors leading-tight">
@@ -191,9 +191,9 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Focus Mode & Pomodoro Timer"
-              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-sky-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-sky-500/15 hover:-translate-y-1"
+              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-sky-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-sky-500/10 hover:-translate-y-1"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(56,189,248,0.35)] group-hover:scale-110 transition-transform">
                 <Timer className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <span className="text-xs sm:text-sm font-black text-white group-hover:text-sky-300 transition-colors leading-tight">
@@ -212,9 +212,9 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 onNavigate('routine');
               }}
               title="Open Daily Routine & Schedule"
-              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-indigo-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-indigo-500/15 hover:-translate-y-1"
+              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-indigo-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-1"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-indigo-400 to-purple-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(99,102,241,0.4)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-indigo-400 to-purple-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(99,102,241,0.35)] group-hover:scale-110 transition-transform">
                 <CalendarDays className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <span className="text-xs sm:text-sm font-black text-white group-hover:text-indigo-300 transition-colors leading-tight">
@@ -237,9 +237,9 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Exam Date & Live Countdown"
-              className="p-3 sm:p-4 rounded-2xl bg-[#131728]/85 hover:bg-[#1A2038] border border-white/10 hover:border-rose-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-rose-500/15 hover:-translate-y-1"
+              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-rose-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-rose-500/10 hover:-translate-y-1"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-rose-400 to-orange-500 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(244,63,94,0.4)] group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-rose-400 to-orange-500 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(244,63,94,0.35)] group-hover:scale-110 transition-transform">
                 <CalendarClock className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <span className="text-xs sm:text-sm font-black text-white group-hover:text-rose-300 transition-colors leading-tight">

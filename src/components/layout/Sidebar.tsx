@@ -331,27 +331,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`sidebar-container hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#FFFDF8] dark:bg-black text-[#38370D] dark:text-white justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-40 select-none border-r border-[#E2D1B3] dark:border-white/[0.08] shadow-xs ${
+      className={`sidebar-container hidden md:flex flex-col h-screen fixed top-0 left-0 bg-[#FFFDF8] dark:bg-[#080A12] text-[#38370D] dark:text-white justify-between transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] z-40 select-none border-r border-[#E2D1B3] dark:border-white/[0.08] shadow-xs ${
         isCollapsed ? 'w-[70px]' : 'w-[260px]'
       }`}
     >
 
       {/* =========================================================================
           STATE A: COLLAPSED SLIM ICON-ONLY SIDEBAR (70px Width)
-          Matches the reference screenshot with circular logo, golden active pill,
+          Matches the reference screenshot with circular logo, glowing active pill,
           sleek outline icons, and coral-red logout at bottom.
           ========================================================================= */}
       {isCollapsed ? (
-        <div className="sidebar-inner-container flex flex-col h-full justify-between items-center w-full bg-[#FFFDF8] dark:bg-black text-[#38370D] dark:text-white">
+        <div className="sidebar-inner-container flex flex-col h-full justify-between items-center w-full bg-[#FFFDF8] dark:bg-[#080A12] text-[#38370D] dark:text-white">
           {/* Top Section: Exactly h-14 (56px) baseline aligned with Header */}
-          <div className="sidebar-header-bar h-14 w-full flex items-center justify-center border-b border-[#E2D1B3] dark:border-white/[0.08] shrink-0 bg-[#FFFDF8] dark:bg-black">
+          <div className="sidebar-header-bar h-14 w-full flex items-center justify-center border-b border-[#E2D1B3] dark:border-white/[0.08] shrink-0 bg-[#FFFDF8] dark:bg-[#080A12]">
             <button
               type="button"
               onClick={() => {
                 soundManager.playClick();
                 onSelectView('overview');
               }}
-              className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent border border-amber-500/30 flex items-center justify-center p-1 hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow-sm group"
+              className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent dark:from-blue-600/20 dark:via-indigo-600/10 border border-amber-500/30 dark:border-white/10 flex items-center justify-center p-1 hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow-sm group"
               title="Syllabus 3D Home"
               aria-label="Syllabus 3D Home"
             >
@@ -360,7 +360,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Scrollable Middle Navigation Rail */}
-          <div className="sidebar-scroll-rail flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full bg-[#FFFDF8] dark:bg-black">
+          <div className="sidebar-scroll-rail flex-1 py-3 px-2 overflow-y-auto no-scrollbar flex flex-col items-center space-y-2 w-full bg-[#FFFDF8] dark:bg-[#080A12]">
             {/* 1. Core Section (Home & Syllabus) */}
             {coreItems.map(item => {
               const Icon = item.icon;
@@ -380,7 +380,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/30 dark:shadow-[0_2px_12px_rgba(225,168,55,0.15)]'
+                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-gradient-to-tr dark:from-indigo-600/25 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_16px_rgba(59,130,246,0.22)]'
                         : 'w-10 h-10 rounded-xl text-[#7D6C02] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-400 dark:hover:text-white'
                     }`}
                     title={item.label}
@@ -418,7 +418,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className={`relative flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/30 dark:shadow-[0_2px_12px_rgba(225,168,55,0.15)]'
+                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-gradient-to-tr dark:from-indigo-600/25 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_16px_rgba(59,130,246,0.22)]'
                         : 'w-10 h-10 rounded-xl text-[#7D6C02] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-400 dark:hover:text-white'
                     }`}
                     title={item.label}
@@ -464,7 +464,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                       isActive
-                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/30 dark:shadow-[0_2px_12px_rgba(225,168,55,0.15)]'
+                        ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-gradient-to-tr dark:from-indigo-600/25 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_16px_rgba(59,130,246,0.22)]'
                         : 'w-10 h-10 rounded-xl text-[#7D6C02] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-400 dark:hover:text-white'
                     }`}
                     title={item.subItems ? `${item.label} (Vocabulary, Maths, GA)` : item.label}
@@ -498,7 +498,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 className={`flex items-center justify-center transition-all duration-150 cursor-pointer select-none active:scale-95 ${
                   activeView === 'settings'
-                    ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/30'
+                    ? 'w-11 h-11 rounded-2xl bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] shadow-xs font-bold dark:bg-gradient-to-tr dark:from-indigo-600/25 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_16px_rgba(59,130,246,0.22)]'
                     : 'w-10 h-10 rounded-xl text-[#7D6C02] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-400 dark:hover:text-white'
                 }`}
                 aria-label="My Profile"
@@ -600,10 +600,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
            Matches reference screenshot: Pitch black background, golden capsule
            active highlights, crisp text, and coral-red logout.
            ========================================================================= */
-        <div className="sidebar-inner-container flex flex-col h-full justify-between w-full bg-[#FFFDF8] dark:bg-black text-[#38370D] dark:text-white">
+        <div className="sidebar-inner-container flex flex-col h-full justify-between w-full bg-[#FFFDF8] dark:bg-[#080A12] text-[#38370D] dark:text-white">
           <div className="flex flex-col w-full min-h-0 flex-1">
             {/* 1. Header Branding: Exactly h-14 (56px) baseline aligned with Header */}
-            <div className="sidebar-header-bar h-14 px-3.5 flex items-center justify-between border-b border-[#E2D1B3] dark:border-white/[0.08] shrink-0 bg-[#FFFDF8] dark:bg-black">
+            <div className="sidebar-header-bar h-14 px-3.5 flex items-center justify-between border-b border-[#E2D1B3] dark:border-white/[0.08] shrink-0 bg-[#FFFDF8] dark:bg-[#080A12]">
               <div
                 className="flex items-center gap-2.5 min-w-0 flex-1 group cursor-pointer"
                 onClick={() => {
@@ -612,14 +612,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 title="Go to Home"
               >
-                <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent border border-amber-500/30 flex items-center justify-center p-1 shadow-sm shrink-0">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500/20 via-amber-400/10 to-transparent dark:from-blue-600/20 dark:via-indigo-600/10 border border-amber-500/30 dark:border-white/10 flex items-center justify-center p-1 shadow-sm shrink-0">
                   <BrandEmblemLogo size="sm" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <span className="sidebar-title text-sm font-black tracking-tight text-[#1C1B05] dark:text-white uppercase font-serif block leading-none">
                     SYLLABUS 3D
                   </span>
-                  <p className="sidebar-subtitle text-xs font-bold text-[#8D7A02] dark:text-amber-400 tracking-wider font-mono truncate mt-0.5">
+                  <p className="sidebar-subtitle text-xs font-bold text-[#8D7A02] dark:text-slate-400 tracking-wider font-mono truncate mt-0.5">
                     {currentExam?.name || 'TARGET EXAM'}
                   </p>
                 </div>
@@ -643,7 +643,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {/* Scrollable Navigation Body */}
-            <div className="sidebar-scroll-rail p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0 bg-[#FFFDF8] dark:bg-black">
+            <div className="sidebar-scroll-rail p-3 space-y-3 overflow-y-auto no-scrollbar flex-1 min-h-0 bg-[#FFFDF8] dark:bg-[#080A12]">
               {/* 2. Categorized Sections (CORE, PRACTICE & TESTS, STUDY TOOLS) */}
               <div className="space-y-3">
                 {navSections.map(section => {
@@ -692,16 +692,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     }}
                                     className={`flex-1 flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sm transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                                       isDirectActive
-                                        ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/25 dark:shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
+                                        ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-gradient-to-r dark:from-indigo-600/20 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_14px_rgba(59,130,246,0.15)]'
                                         : isChildActive
-                                        ? 'bg-[#FAF0DC] text-[#38370D] font-semibold dark:bg-[#241F0A]/50 dark:text-[#FBBF24]'
+                                        ? 'bg-[#FAF0DC] text-[#38370D] font-semibold dark:bg-blue-600/10 dark:text-blue-300'
                                         : 'bg-transparent text-[#38370D] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-300 dark:hover:text-white font-medium border-0'
                                     }`}
                                   >
                                     <div className="flex items-center gap-3 min-w-0 flex-1">
                                       <Icon className={`w-4 h-4 shrink-0 transition-colors ${
                                         isParentActive
-                                          ? 'text-[#8D7A02] dark:text-[#FBBF24]'
+                                          ? 'text-[#8D7A02] dark:text-blue-400'
                                           : 'text-[#7D6C02] group-hover:text-[#1C1B05] dark:text-zinc-400 dark:group-hover:text-white'
                                       }`} />
                                       <span className="truncate">{item.label}</span>
@@ -711,7 +711,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                       {item.badge && (
                                         <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded-md ${
                                           isParentActive
-                                            ? 'bg-amber-500/20 text-[#8D7A02] dark:text-[#FBBF24]'
+                                            ? 'bg-amber-500/20 text-[#8D7A02] dark:text-blue-400'
                                             : 'bg-[#FAF0DC] text-[#7D6C02] dark:bg-zinc-800 dark:text-zinc-400'
                                         }`}>
                                           {item.badge}
@@ -730,7 +730,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                     >
                                       <ChevronDown
                                         className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${
-                                          isSubExpanded ? 'rotate-0 text-[#8D7A02] dark:text-[#FBBF24]' : '-rotate-90'
+                                          isSubExpanded ? 'rotate-0 text-[#8D7A02] dark:text-blue-400' : '-rotate-90'
                                         }`}
                                       />
                                     </button>
@@ -759,7 +759,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                           }}
                                           className={`group w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                                             isSubActive
-                                              ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/25 dark:shadow-[0_2px_10px_rgba(225,168,55,0.1)]'
+                                              ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-blue-600/20 dark:text-blue-300 dark:border-blue-500/30 dark:shadow-[0_0_10px_rgba(59,130,246,0.15)]'
                                               : 'bg-transparent text-[#5A4E03] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-400 dark:hover:text-white font-medium border-0'
                                           }`}
                                         >
@@ -767,7 +767,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                             {SubIcon && (
                                               <SubIcon className={`w-3.5 h-3.5 shrink-0 transition-colors ${
                                                 isSubActive
-                                                  ? 'text-[#8D7A02] dark:text-[#FBBF24]'
+                                                  ? 'text-[#8D7A02] dark:text-blue-400'
                                                   : 'text-[#8D7A02]/70 dark:text-zinc-500 group-hover:text-[#1C1B05] dark:group-hover:text-zinc-300'
                                               }`} />
                                             )}
@@ -778,7 +778,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                                             {sub.badge && (
                                               <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
                                                 isSubActive
-                                                  ? 'bg-amber-500/20 text-[#8D7A02] dark:text-[#FBBF24]'
+                                                  ? 'bg-amber-500/20 text-[#8D7A02] dark:text-blue-400'
                                                   : 'bg-[#FAF0DC] text-[#7D6C02] dark:bg-zinc-800 dark:text-zinc-400'
                                               }`}>
                                                 {sub.badge}
@@ -814,11 +814,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm transition-all cursor-pointer select-none active:scale-[0.98] ${
                       activeView === 'settings'
-                        ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-[#241F0A] dark:text-[#FBBF24] dark:border-amber-500/25 dark:shadow-[0_2px_12px_rgba(225,168,55,0.12)]'
+                        ? 'bg-[#F5E8CF] text-[#38370D] border border-[#D8C6A5] font-bold shadow-xs dark:bg-gradient-to-r dark:from-indigo-600/20 dark:to-blue-600/20 dark:text-blue-400 dark:border-blue-500/35 dark:shadow-[0_0_14px_rgba(59,130,246,0.15)]'
                         : 'bg-transparent text-[#38370D] hover:text-[#1C1B05] hover:bg-[#FAF0DC] dark:text-zinc-300 dark:hover:text-white font-medium border-0'
                     }`}
                   >
-                    <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-[#8D7A02] dark:text-[#FBBF24]' : 'text-[#7D6C02] dark:text-zinc-400'}`} />
+                    <User className={`w-4 h-4 shrink-0 ${activeView === 'settings' ? 'text-[#8D7A02] dark:text-blue-400' : 'text-[#7D6C02] dark:text-zinc-400'}`} />
                     <span className="truncate">My Profile ({user?.name || 'Aspirant'})</span>
                   </button>
 
@@ -842,7 +842,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Bottom Area: Quick Utility Tools */}
-          <div className="sidebar-bottom-bar p-3 pt-2 border-t border-[#E2D1B3] dark:border-white/[0.08] bg-[#FFFDF8] dark:bg-black text-[#38370D] dark:text-white space-y-1.5 shrink-0">
+          <div className="sidebar-bottom-bar p-3 pt-2 border-t border-[#E2D1B3] dark:border-white/[0.08] bg-[#FFFDF8] dark:bg-[#080A12] text-[#38370D] dark:text-white space-y-1.5 shrink-0">
             <div className="grid grid-cols-2 gap-1.5">
               {onOpenAiArchitect && (
                 <button

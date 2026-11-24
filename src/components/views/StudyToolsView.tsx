@@ -1738,8 +1738,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
               {/* Core Vocabulary Level & Sets Navigation */}
               {vocabSubTab === 'core' && (
                 <div className="space-y-3 animate-fade-in">
-                  {/* Desktop Levels Grid (2 Cards) */}
-                  <div className="hidden sm:grid gap-2.5 sm:gap-3 grid-cols-2">
+                  {/* Desktop Levels Grid (Adaptable 2 or 3 Cards) */}
+                  <div className="hidden sm:grid gap-2.5 sm:gap-3 grid-cols-2 md:grid-cols-3">
                     {HIGH_YIELD_LEVELS.filter(lvl =>
                       DEFAULT_VOCAB_DATA.some(w => w.type === 'word' && w.level === lvl.id)
                     ).map(lvl => {
@@ -1789,8 +1789,8 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                     })}
                   </div>
 
-                  {/* Mobile High-End Segmented Level Switcher (Zero Text Truncation, 38px height) */}
-                  <div className="sm:hidden grid grid-cols-2 p-1 rounded-xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 gap-1">
+                  {/* Mobile High-End Segmented Level Switcher (Supports All Available Levels, Zero Truncation) */}
+                  <div className="sm:hidden grid grid-cols-3 p-1 rounded-xl bg-slate-100 dark:bg-[#141624] border border-slate-200/80 dark:border-white/10 gap-1">
                     {HIGH_YIELD_LEVELS.filter(lvl =>
                       DEFAULT_VOCAB_DATA.some(w => w.type === 'word' && w.level === lvl.id)
                     ).map(lvl => {
@@ -1809,14 +1809,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             setActiveSet('set-01');
                             setActiveCardIndex(0);
                           }}
-                          className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 min-w-0 ${
+                          className={`py-2 px-1.5 rounded-lg text-xs font-bold transition-all text-center flex flex-col items-center justify-center gap-0.5 min-w-0 ${
                             isSelected
                               ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
                               : 'text-slate-600 dark:text-slate-300'
                           }`}
                         >
-                          <span className="truncate">{lvl.id === 'level-1' ? 'Level 1: Foundation' : 'Level 2: Intermediate'}</span>
-                          <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full shrink-0 ${
+                          <span className="truncate text-[11px] font-bold">{lvl.label}</span>
+                          <span className={`text-[9.5px] font-mono px-1.5 py-0.2 rounded-full shrink-0 ${
                             isSelected ? 'bg-black/15 text-slate-950 font-black' : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300'
                           }`}>
                             {totalLevelWords}
@@ -3224,14 +3224,14 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           </div>
 
           {/* Iframe Viewport */}
-          <div className="flex-1 w-full h-full relative bg-[#FAEED9]">
+          <div className="flex-1 w-full h-full relative bg-slate-100 dark:bg-[#090A12]">
             {iframeLoading && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#FAEED9] text-[#38370D] transition-opacity duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#38370D] text-[#E1A837] border-2 border-[#8D7A02] flex items-center justify-center shadow-lg animate-pulse mb-3">
-                  <BookOpen className="w-6 h-6 animate-spin text-[#E1A837]" />
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-100 dark:bg-[#090A12] text-slate-800 dark:text-white transition-opacity duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-purple-600/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30 flex items-center justify-center shadow-lg animate-pulse mb-3">
+                  <BookOpen className="w-6 h-6 animate-spin text-purple-600 dark:text-purple-400" />
                 </div>
-                <p className="text-sm font-extrabold text-[#38370D]">Loading Master Notes...</p>
-                <span className="text-[11px] text-[#8D7A02] font-semibold mt-1">Instant Pre-cached Engine</span>
+                <p className="text-sm font-extrabold text-slate-900 dark:text-white">Loading Master Notes...</p>
+                <span className="text-[11px] text-purple-600 dark:text-purple-400 font-semibold mt-1">Instant Pre-cached Engine</span>
               </div>
             )}
             <iframe

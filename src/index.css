@@ -12,6 +12,9 @@
 
 @layer base {
   :root {
+    /* 🌓 Modern Viewport & UA Color Scheme Alignment */
+    color-scheme: light dark;
+
     /* 👑 4-Colour Luxury Palette System (#FAEED9, #E1A837, #8D7A02, #38370D) */
     --color-background: #FAEED9;
     --color-primary: #38370D;
@@ -37,28 +40,29 @@
   }
 
   .dark {
-    /* 🌑 Deep Obsidian Bronze & Glowing Gold Theme */
-    --color-background: #121104;
-    --color-primary: #FAEED9;
-    --color-primary-accent: #E1A837;
-    --color-accent-light: rgba(225, 168, 55, 0.15);
-    --color-secondary-accent: #FBBF24;
-    --color-tertiary-accent: #E1A837;
-    --color-surface: #38370D;
-    --color-surface-soft: #262507;
-    --color-border: #8D7A02;
-    --color-text-primary: #FAEED9;
-    --color-text-secondary: #E2D1B3;
-    --color-text-muted: #D6C7A8;
+    /* 🌑 Deep Obsidian & Cosmic Slate Premium Dark Theme */
+    color-scheme: dark;
+    --color-background: #090A12;
+    --color-primary: #F8FAFC;
+    --color-primary-accent: #3B82F6;
+    --color-accent-light: rgba(59, 130, 246, 0.15);
+    --color-secondary-accent: #6366F1;
+    --color-tertiary-accent: #38BDF8;
+    --color-surface: #0F1322;
+    --color-surface-soft: #141828;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-text-primary: #F8FAFC;
+    --color-text-secondary: #94A3B8;
+    --color-text-muted: #64748B;
     --color-success: #22C55E;
-    --color-warning: #FBBF24;
-    --color-error: #F87171;
-    --color-teal: #2DD4BF;
-    --color-magenta: #F472B6;
-    --color-orange: #FB923C;
-    --color-indigo: #818CF8;
-    --color-purple: #C084FC;
-    --color-azure: #38BDF8;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-teal: #14B8A6;
+    --color-magenta: #EC4899;
+    --color-orange: #F97316;
+    --color-indigo: #6366F1;
+    --color-purple: #A855F7;
+    --color-azure: #0EA5E9;
   }
 
   .warm-cream {
@@ -3429,7 +3433,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
    - Custom ultra-sleek translucent scrollbars
    ═══════════════════════════════════════════════════════════════ */
 
-/* 1. Neutral Matte Charcoal Cards & Primary Containers (Reference Match) */
+/* 1. Neutral Matte Obsidian Cards & Primary Containers (Clean Specular Elevation) */
 .dark .bg-white,
 .dark [class*="dark:bg-[#18181D]"],
 .dark [class*="dark:bg-[#16161E]"],
@@ -3464,9 +3468,9 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-[#1E1E24]"],
 .dark [class*="dark:bg-[#202020]"],
 .dark [class*="dark:bg-[#2B2B2B]"] {
-  background-color: #38370D !important;
-  border-color: #8D7A02 !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
+  background-color: #0F1322 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06) !important;
 }
 
 /* 2. Secondary Sub-cards, Nested Containers, Elevated Badges & Wells */
@@ -3491,12 +3495,12 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:bg-white/[0.03]"],
 .dark [class*="dark:bg-white/[0.06]"],
 .dark [class*="dark:bg-[#383838]"] {
-  background-color: #262507 !important;
-  border-color: #8D7A02 !important;
+  background-color: #141828 !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* 3. Micro-Borders in Dark Mode */
+/* 3. Micro-Borders in Dark Mode (Clean Hairline Borders) */
 .dark [class*="dark:border-[#272730]"],
 .dark [class*="dark:border-[#272738]"],
 .dark [class*="dark:border-[#333446]"],
@@ -3517,7 +3521,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:border-white/20"],
 .dark [class*="border-slate-200"],
 .dark [class*="border-slate-300"] {
-  border-color: #8D7A02 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* 4. Razor-Sharp High-Contrast Typography in Dark Mode */
@@ -3529,8 +3533,8 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark h6,
 .dark .font-heading,
 .dark .app-title {
-  color: #FAEED9 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  color: #F8FAFC !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* Primary High-Contrast Text in Dark Mode */
@@ -3544,7 +3548,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-white"],
 .dark [class*="dark:text-[#F5F5F7]"],
 .dark [class*="dark:text-[#C0CAF5]"] {
-  color: #FAEED9 !important;
+  color: #F8FAFC !important;
 }
 
 /* Explicit Dark Text Preserved in Dark Mode (e.g. for light pills/badges) */
@@ -3552,10 +3556,10 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-black"],
 .dark [class*="dark:text-slate-900"],
 .dark [class*="dark:text-slate-950"] {
-  color: #121104 !important;
+  color: #0F172A !important;
 }
 
-/* Secondary & Muted Text in Dark Mode (Warm Linen / Ivory Muted) */
+/* Secondary & Muted Text in Dark Mode (Refined Slate Neutral) */
 .dark [class*="text-[#65675F]"],
 .dark [class*="text-[#85877E]"],
 .dark [class*="text-[#454740]"],
@@ -3573,7 +3577,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-slate-400"],
 .dark [class*="dark:text-[#A1A1AA]"],
 .dark [class*="dark:text-[#A1A1B2]"] {
-  color: #D6C7A8 !important;
+  color: #94A3B8 !important;
 }
 
 /* 5. Luminous Interactive Accents & Status Glows */
@@ -3582,13 +3586,13 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark [class*="dark:text-blue-400"],
 .dark [class*="text-[#4A53FA]"],
 .dark [class*="text-[#138EFF]"] {
-  color: #E1A837 !important;
+  color: #60A5FA !important;
 }
 
 .dark [class*="text-amber-400"],
 .dark [class*="dark:text-amber-400"],
 .dark [class*="text-amber-500"] {
-  color: #E1A837 !important;
+  color: #FBBF24 !important;
 }
 
 .dark [class*="text-emerald-400"],
@@ -3604,16 +3608,19 @@ input, textarea, [contenteditable="true"], .selectable-text {
 /* High-Visibility Header and Sidebar Buttons in Dark Mode */
 .dark header button,
 .dark header [class*="dark:bg-[#18181D]"],
-.dark header [class*="dark:bg-[#151624]"] {
-  background-color: #38370D !important;
-  border-color: #8D7A02 !important;
-  color: #FAEED9 !important;
+.dark header [class*="dark:bg-[#151624]"],
+.dark header [class*="dark:bg-[#131522]"] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  color: #E2E8F0 !important;
 }
 .dark header button:hover,
-.dark header [class*="dark:bg-[#18181D]"]:hover {
-  background-color: #4A4812 !important;
-  border-color: #E1A837 !important;
-  color: #FAEED9 !important;
+.dark header [class*="dark:bg-[#18181D]"]:hover,
+.dark header [class*="dark:bg-[#151624]"]:hover,
+.dark header [class*="dark:bg-[#131522]"]:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: #FFFFFF !important;
 }
 
 
@@ -3621,17 +3628,17 @@ input, textarea, [contenteditable="true"], .selectable-text {
 .dark input:not([type="checkbox"]):not([type="radio"]):not(.bg-transparent):not([class*="bg-transparent"]),
 .dark textarea:not(.bg-transparent):not([class*="bg-transparent"]),
 .dark select {
-  background-color: #242424 !important;
-  color: #FFFFFF !important;
-  border: 1px solid #383838 !important;
+  background-color: #0F1322 !important;
+  color: #F8FAFC !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4) !important;
 }
 
 .dark input:not(.bg-transparent):not([class*="bg-transparent"]):focus,
 .dark textarea:not(.bg-transparent):not([class*="bg-transparent"]):focus,
 .dark select:focus {
-  border-color: #555555 !important;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 .dark input.bg-transparent,
@@ -3644,7 +3651,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 
 .dark input::placeholder,
 .dark textarea::placeholder {
-  color: #A1A1AA !important;
+  color: #64748B !important;
 }
 
 /* 7. Modals & Drawers Backdrop & Sheet */
@@ -3667,7 +3674,7 @@ input, textarea, [contenteditable="true"], .selectable-text {
 }
 
 .dark aside {
-  background-color: #000000 !important;
+  background-color: rgba(8, 10, 16, 0.96) !important;
   backdrop-filter: blur(28px) !important;
   -webkit-backdrop-filter: blur(28px) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -3687,17 +3694,17 @@ aside [role="navigation"] div {
 }
 .dark aside nav button:hover,
 .dark aside [role="navigation"] button:hover {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 /* 9. Floating Mobile Nav */
 .dark nav[aria-label*="Mobile"] > div,
 .dark nav[aria-label*="Floating"] > div {
-  background-color: rgba(43, 43, 43, 0.95) !important;
+  background-color: rgba(15, 19, 34, 0.92) !important;
   backdrop-filter: blur(28px) !important;
   -webkit-backdrop-filter: blur(28px) !important;
-  border: 1px solid #383838 !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
 }
 
 /* 10. Ultra-Sleek Scrollbars in Dark Mode */

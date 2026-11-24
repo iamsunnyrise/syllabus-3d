@@ -427,7 +427,7 @@ export const Header: React.FC<HeaderProps> = ({
               haptics.light();
               handleThemeToggle(e);
             }}
-            className="group relative h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-amber-400 overflow-hidden"
+            className="group relative h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-blue-500/40 dark:hover:border-white/30 overflow-hidden"
             title={
               theme === 'dark'
                 ? "Switch to Pure Pro Light"
@@ -450,7 +450,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenSettings}
-            className="group relative h-9 w-9 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center justify-center cursor-pointer transition-all active:scale-90 shadow-2xs overflow-hidden hover:border-amber-400 shrink-0"
+            className="group relative h-9 w-9 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center justify-center cursor-pointer transition-all active:scale-90 shadow-2xs overflow-hidden hover:border-blue-500/40 dark:hover:border-white/30 shrink-0"
             title={`Profile: ${user?.name || profileSafe.name || 'Guest User'}`}
             aria-label="Open profile settings"
           >
