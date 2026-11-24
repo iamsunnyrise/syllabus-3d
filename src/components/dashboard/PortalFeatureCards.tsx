@@ -107,6 +107,17 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 }) => {
   const { isDark, theme } = useTheme();
   const isWarmCream = theme === 'warm-cream';
+  const effectiveIsDark = isDark || (typeof document !== 'undefined' && document.documentElement.classList.contains('dark'));
+
+  // Unified Signature Button Styling across all 3 cards (Eradicates Rainbow/Carnival effect)
+  const unifiedCtaClass = isWarmCream
+    ? 'bg-gradient-to-r from-amber-500 via-orange-600 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_20px_-3px_rgba(180,83,9,0.38)] border border-amber-400/40'
+    : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(245,158,11,0.35)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(245,158,11,0.5)] border border-amber-400/40';
+
+  // Unified Feature Tag Badge Styling
+  const unifiedTagClass = isWarmCream
+    ? 'bg-[#FAF0DC] text-[#7D6C02] border border-[#E1A837]/40'
+    : 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-900 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30';
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full select-none">
@@ -123,30 +134,26 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
           isWarmCream
             ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
-            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-blue-500/60 dark:hover:border-blue-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(245,158,11,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85),0_0_25px_rgba(245,158,11,0.08)]'
         }`}
         title="Open Syllabus Explorer & Track Subjects"
       >
         {/* Subtle Ambient Hover Glow */}
         <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl transition-all pointer-events-none ${
-          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-blue-500/10 dark:bg-blue-500/15 group-hover:bg-blue-500/25'
+          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-amber-500/10 dark:bg-amber-500/15 group-hover:bg-amber-500/25'
         }`} />
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
-            isWarmCream
-              ? 'bg-[#FAF0DC] text-[#7D6C02] border border-[#E1A837]/40'
-              : 'bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-400/30'
-          }`}>
-            <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isWarmCream ? 'bg-[#8D7A02]' : 'bg-blue-600 dark:bg-blue-400'}`} />
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${unifiedTagClass}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             CURRICULUM ENGINE
           </span>
         </div>
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
             {/* Top Bar with SYLLABUS Badge */}
             <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
@@ -225,7 +232,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         {/* Title & Description */}
         <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
           <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
-            isWarmCream ? 'text-[#1C1B05] group-hover:text-[#8D7A02]' : 'text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400'
+            isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
           }`}>
             Syllabus Explorer
           </h2>
@@ -233,14 +240,10 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             Interactive 3D topic tracking, spaced repetition & chapter mastery roadmap.
           </p>
 
-          {/* High-Contrast Primary CTA Button */}
-          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm text-white flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${
-            isWarmCream
-              ? 'bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-600 hover:from-blue-600 hover:to-indigo-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_20px_-3px_rgba(30,58,138,0.38)] border border-blue-400/30'
-              : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(37,99,235,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(37,99,235,0.5)] border border-blue-400/30'
-          }`}>
+          {/* High-Contrast Unified Amber-Gold CTA Button */}
+          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Explore Syllabus</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
         </div>
       </div>
@@ -257,7 +260,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
           isWarmCream
             ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
-            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(245,158,11,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85),0_0_25px_rgba(245,158,11,0.08)]'
         }`}
         title="Open Mock Test Tracker & Performance Analytics"
       >
@@ -268,11 +271,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
-            isWarmCream
-              ? 'bg-[#FAF0DC] text-[#B45309] border border-[#E1A837]/40'
-              : 'bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-200/90 dark:border-amber-400/30'
-          }`}>
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${unifiedTagClass}`}>
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             PERFORMANCE ANALYTICS
           </span>
@@ -280,7 +279,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
             {/* Top Bar with MOCK TESTS Badge */}
             <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
@@ -362,14 +361,10 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             Sectional percentiles, test series logs, accuracy diagnosis & mistake traps.
           </p>
 
-          {/* High-Contrast Golden CTA Button */}
-          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm text-white flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${
-            isWarmCream
-              ? 'bg-gradient-to-r from-amber-500 via-orange-600 to-amber-600 hover:from-amber-400 hover:to-orange-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_20px_-3px_rgba(180,83,9,0.38)] border border-amber-400/30'
-              : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(245,158,11,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(245,158,11,0.5)] border border-amber-400/30'
-          }`}>
+          {/* High-Contrast Unified Amber-Gold CTA Button */}
+          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Open Mock Tracker</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
         </div>
       </div>
@@ -386,30 +381,26 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
           isWarmCream
             ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
-            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-teal-500/60 dark:hover:border-teal-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(245,158,11,0.18)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85),0_0_25px_rgba(245,158,11,0.08)]'
         }`}
         title="Open Mock Study Portals & Practice Platforms"
       >
         {/* Subtle Ambient Hover Glow */}
         <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl transition-all pointer-events-none ${
-          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-teal-500/10 dark:bg-teal-500/15 group-hover:bg-teal-500/25'
+          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-amber-500/10 dark:bg-amber-500/15 group-hover:bg-amber-500/25'
         }`} />
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
-            isWarmCream
-              ? 'bg-[#FAF0DC] text-[#047857] border border-[#E1A837]/40'
-              : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-400/30'
-          }`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${unifiedTagClass}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             DESK RESOURCES
           </span>
         </div>
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
+          <ModernAioPcFrame isDark={effectiveIsDark} isWarmCream={isWarmCream}>
             {/* Top Bar with STUDY PORTALS Badge */}
             <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
@@ -475,7 +466,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
         {/* Title & Description */}
         <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
           <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
-            isWarmCream ? 'text-[#1C1B05] group-hover:text-teal-600' : 'text-slate-900 dark:text-white group-hover:text-teal-500 dark:group-hover:text-teal-400'
+            isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
           }`}>
             Mock & Study Portals
           </h2>
@@ -483,10 +474,10 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             Direct single-click gateway to Testbook, Oliveboard, PYQs & official updates.
           </p>
 
-          {/* High-Contrast Emerald/Teal CTA Button */}
-          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(16,185,129,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-teal-400/30">
+          {/* High-Contrast Unified Amber-Gold CTA Button */}
+          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Open Study Portals</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
         </div>
       </div>
