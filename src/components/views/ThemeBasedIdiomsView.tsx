@@ -23,7 +23,11 @@ import {
   SlidersHorizontal,
   FolderOpen,
   Eye,
-  EyeOff
+  EyeOff,
+  Brain,
+  Languages,
+  Quote,
+  Lightbulb
 } from 'lucide-react';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
@@ -189,6 +193,30 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
     haptics.light();
     setActiveCardIndex(prev => (prev === currentThemeIdioms.length - 1 ? 0 : prev + 1));
     setIsFlipped(false);
+  };
+
+  // Mobile Touch Swipe Gesture Navigation
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const handleCardTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleCardTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        handleNextCard();
+      } else {
+        handlePrevCard();
+      }
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
 
   const toggleMastered = (id?: string) => {
@@ -687,84 +715,114 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
           {/* Flashcard Area or Pristine Future Blueprint */}
           {currentThemeIdioms.length > 0 ? (
             /* HAS IDIOMS: Render Advanced Standard Flashcard (Full-Width) */
-            <div className="w-full">
-              
-              {/* Full-Width Interactive Word Flashcard */}
-              <div className="w-full flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] border border-amber-500/30 dark:border-amber-500/20 sm:border-2 shadow-md relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]">
-                
+            <div className="w-full relative group/card">
+              {/* Ambient Multi-Spectrum Glow Aura for luxury floating depth */}
+              <div className="absolute -inset-1 sm:-inset-1.5 rounded-3xl sm:rounded-[32px] blur-xl opacity-40 dark:opacity-30 group-hover/card:opacity-60 transition-opacity duration-500 pointer-events-none bg-gradient-to-r from-amber-500/25 via-orange-500/15 to-purple-500/25" />
+
+              {/* Full-Width Interactive Word Flashcard with Native Mobile Swipe Gestures */}
+              <div
+                onTouchStart={handleCardTouchStart}
+                onTouchEnd={handleCardTouchEnd}
+                className="relative w-full flex flex-col justify-between p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#0D101D]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-white/[0.12] sm:border-2 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.35),0_0_25px_rgba(245,158,11,0.06)] min-h-[390px] sm:min-h-[490px] lg:min-h-[530px] select-none transition-all duration-300 overflow-hidden"
+              >
+                {/* Subtle Corner Flare Radiants */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/[0.04] dark:bg-amber-400/[0.03] rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/[0.04] dark:bg-indigo-500/[0.03] rounded-full blur-3xl pointer-events-none" />
+
                 {/* 1. Top Card Meta Bar */}
-                <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
-                  <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
-                    <span className="px-2.5 sm:px-3.5 py-1 rounded-xl text-[11px] sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs shrink-0 whitespace-nowrap">
-                      CARD {String(activeCardIndex + 1).padStart(2, '0')}/{String(currentThemeIdioms.length).padStart(2, '0')}
+                <div className="relative z-10 flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4">
+                  {/* Left Badges: Card Index & High Frequency */}
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <span className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-black tracking-wider bg-slate-100/90 dark:bg-white/[0.08] text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-white/15 shadow-2xs flex items-center gap-1 shrink-0">
+                      <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      <span>CARD {String(activeCardIndex + 1).padStart(2, '0')}/{String(currentThemeIdioms.length).padStart(2, '0')}</span>
                     </span>
-                    <span className="text-[11px] sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0 whitespace-nowrap">
-                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300 shrink-0" />
+
+                    <span className="text-[11px] sm:text-xs font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0">
+                      <Flame className="w-3.5 h-3.5 text-amber-500 animate-pulse shrink-0" />
                       <span>{currentIdiom?.frequency || 'Repeated'}</span>
                       <span className="hidden xs:inline">Freq</span>
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  {/* Right Actions: Copy & Mastered Toggle */}
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={() => handleCopyCard(`${currentIdiom?.word} - ${currentIdiom?.meaning} (${currentIdiom?.hindi})`)}
-                      className="p-1.5 sm:p-2 rounded-xl bg-slate-100 dark:bg-white/[0.10] text-slate-700 dark:text-slate-300 hover:bg-slate-200 border border-slate-200 dark:border-white/15 transition-colors cursor-pointer"
+                      className="p-1.5 sm:p-2 rounded-xl bg-slate-100/90 dark:bg-white/[0.08] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200/90 dark:border-white/15 transition-colors cursor-pointer shadow-2xs shrink-0"
                       title="Copy Idiom"
                     >
-                      {isCopied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                      {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
 
                     <button
                       type="button"
                       onClick={() => toggleMastered(currentIdiom?.id)}
-                      className={`flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-sm font-black transition-all cursor-pointer shadow-2xs shrink-0 whitespace-nowrap ${
+                      className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-xs shrink-0 ${
                         currentIdiom?.id && masteredIds.has(currentIdiom.id)
-                          ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs'
-                          : 'bg-slate-100 dark:bg-white/[0.10] text-slate-900 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/15'
+                          ? 'bg-emerald-500 hover:bg-emerald-600 text-white font-black shadow-emerald-500/25 ring-2 ring-emerald-500/40'
+                          : 'bg-slate-100/90 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/15'
                       }`}
                     >
-                      <CheckCircle2 className={`w-3.5 h-3.5 ${currentIdiom?.id && masteredIds.has(currentIdiom.id) ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'} shrink-0`} />
-                      <span>{currentIdiom?.id && masteredIds.has(currentIdiom.id) ? 'Mastered' : 'Mark as Mastered'}</span>
+                      <CheckCircle2 className={`w-3.5 h-3.5 ${currentIdiom?.id && masteredIds.has(currentIdiom.id) ? 'text-white' : 'text-slate-400 dark:text-slate-500'} shrink-0`} />
+                      <span className="hidden xs:inline">{currentIdiom?.id && masteredIds.has(currentIdiom.id) ? 'Mastered ✓' : 'Mark Mastered'}</span>
+                      <span className="xs:hidden">{currentIdiom?.id && masteredIds.has(currentIdiom.id) ? 'Mastered ✓' : 'Mastered?'}</span>
                     </button>
                   </div>
                 </div>
 
                 {/* 2. Central Word, Pronunciation & Meaning Area */}
-                <div className="py-3.5 sm:py-6 space-y-4 sm:space-y-6 flex-1 flex flex-col justify-center">
+                <div className="relative z-10 py-3 sm:py-6 space-y-3 sm:space-y-5 flex-1 flex flex-col justify-center">
                   
                   {/* Word Header Block */}
-                  <div className="space-y-2.5 sm:space-y-3">
+                  <div className="space-y-2.5 sm:space-y-3.5">
                     {/* Row 1: Word + Part of Speech + Audio Speaker + Phonetic Badge */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3.5">
-                      <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
+                      <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-tight drop-shadow-xs">
                         {currentIdiom?.word}
                       </h2>
                       {/* Part of Speech attached directly to the Word */}
-                      <span className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentIdiom?.partOfSpeech)}`}>
+                      <span className={`px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider border font-mono shadow-xs backdrop-blur-xs ${getPosBadgeColor(currentIdiom?.partOfSpeech)}`}>
                         {currentIdiom?.partOfSpeech || 'Idiom / Phrase'}
                       </span>
                       <button
                         type="button"
                         onClick={() => currentIdiom?.word && speakWord(currentIdiom.word)}
                         title="Pronounce idiom"
-                        className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                        className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 active:scale-95 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer shadow-xs hover:shadow-amber-500/20 group/audio"
                       >
-                        <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
+                        <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300 group-hover/audio:scale-110 transition-transform" />
                       </button>
                       {currentIdiom?.phonetic && (
-                        <span className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-xs sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
+                        <span className="px-2.5 sm:px-3.5 py-1 rounded-xl text-xs sm:text-sm font-mono font-bold bg-slate-100/80 dark:bg-white/[0.07] text-slate-600 dark:text-amber-200/90 border border-slate-200/80 dark:border-white/10 shadow-2xs">
                           {currentIdiom.phonetic}
                         </span>
                       )}
                     </div>
 
-                    {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2.5 pt-0.5">
-                      <span className="self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/30 shrink-0">
-                        हिंदी अर्थ
+                    {/* Mobile & Tablet Gesture Guidance Ribbon */}
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 py-1.5 px-3 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/[0.06] backdrop-blur-xs">
+                      <span className="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                        <ChevronLeft className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                        <span>Swipe or Arrow Keys to Navigate</span>
+                        <ChevronRight className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                       </span>
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-sans text-slate-900 dark:text-slate-100 tracking-normal break-words leading-snug">
+                      <span className="flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400">
+                        <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
+                        <span className="hidden xs:inline">Tap Details Below</span>
+                      </span>
+                    </div>
+
+                    {/* Row 2: Unified High-Contrast Hindi Meaning Ribbon */}
+                    <div className="p-3 sm:p-4 rounded-2xl bg-amber-500/[0.08] dark:bg-amber-500/[0.10] border border-amber-500/30 dark:border-amber-400/25 shadow-xs flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3.5 transition-colors">
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider bg-amber-500/25 text-amber-950 dark:text-amber-200 border border-amber-500/40 flex items-center gap-1 shadow-2xs">
+                          <Languages className="w-3.5 h-3.5" />
+                          <span>हिंदी अर्थ</span>
+                        </span>
+                      </div>
+                      <h3 className="text-base sm:text-xl font-bold font-sans text-slate-900 dark:text-slate-50 tracking-normal break-words leading-relaxed drop-shadow-xs">
                         {currentIdiom?.hindi}
                       </h3>
                     </div>
@@ -772,10 +830,11 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
 
                   {/* 3. Exam Definition & Synonyms Panel */}
                   <div className="p-3 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-slate-50/90 dark:bg-[#121528] border border-slate-200/90 dark:border-white/10 sm:border-2 shadow-xs space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between pb-1 gap-2 flex-wrap">
-                      <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/35 text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider text-amber-950 dark:text-amber-200 font-mono min-w-0">
+                    {/* Unified Horizontal Header Bar: Section Title + Flip/Hide Action */}
+                    <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/10 w-full min-w-0">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 text-amber-950 dark:text-amber-200 text-xs font-bold font-sans shadow-2xs shrink-0">
                         <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300 shrink-0" />
-                        <span className="truncate">Exam Meaning & Synonyms</span>
+                        <span>Exam Meaning & Context</span>
                       </div>
                       
                       {/* High-Contrast Interactive Toggle Button */}
@@ -785,10 +844,10 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                           soundManager.playClick();
                           setIsFlipped(prev => !prev);
                         }}
-                        className={`px-3 sm:px-3.5 py-1.5 rounded-xl font-bold text-xs sm:text-sm shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ml-auto ${
+                        className={`px-3 py-1.5 rounded-xl font-bold text-xs shadow-md flex items-center gap-1.5 transition-all cursor-pointer hover:scale-105 active:scale-95 shrink-0 ${
                           isFlipped
                             ? 'bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-white/15'
-                            : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-amber-500/20'
+                            : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 shadow-amber-500/20'
                         }`}
                       >
                         {isFlipped ? (
@@ -818,112 +877,197 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
 
                     {isFlipped ? (
                       <div className="space-y-4 pt-3 sm:pt-4 border-t border-slate-200/80 dark:border-white/10 animate-fade-in text-sm sm:text-base">
-                        {/* Synonyms & Antonyms */}
-                        <div className="space-y-3">
-                          {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-emerald-700 dark:text-emerald-400 shrink-0">
-                                Synonyms:
-                              </span>
-                              {currentIdiom.synonyms.map(syn => (
-                                <span key={syn} className="px-3.5 py-1.5 rounded-xl bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-200 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 hover:scale-105 transition-transform shadow-2xs">
-                                  {syn}
+                        {/* Elevated Synonyms Matrix */}
+                        {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
+                          <div className="p-3.5 sm:p-5 rounded-2xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/20 space-y-2.5">
+                            <div className="flex items-center justify-between gap-2 flex-wrap pb-1.5 border-b border-emerald-500/15">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                                <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                                  Synonyms (समानार्थी शब्द)
                                 </span>
-                              ))}
+                              </div>
+                              <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30">
+                                {currentIdiom.synonyms.length} Matching
+                              </span>
                             </div>
-                          )}
-
-                          {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
                             <div className="flex flex-wrap items-center gap-2 pt-1">
-                              <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-rose-700 dark:text-rose-400 shrink-0">
-                                Antonyms:
-                              </span>
-                              {currentIdiom.antonyms.map(ant => (
-                                <span key={ant} className="px-3.5 py-1.5 rounded-xl bg-rose-500/15 dark:bg-rose-500/20 text-rose-900 dark:text-rose-200 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 hover:scale-105 transition-transform shadow-2xs">
-                                  {ant}
+                              {currentIdiom.synonyms.map(syn => (
+                                <span
+                                  key={syn}
+                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-emerald-500/15 text-slate-900 dark:text-emerald-100 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 dark:border-emerald-500/30 hover:border-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                                  <span>{syn}</span>
                                 </span>
                               ))}
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
 
-                        {/* Example Sentence */}
+                        {/* Elevated Antonyms Matrix */}
+                        {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
+                          <div className="p-3.5 sm:p-5 rounded-2xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/25 dark:border-rose-500/20 space-y-2.5">
+                            <div className="flex items-center justify-between gap-2 flex-wrap pb-1.5 border-b border-rose-500/15">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]" />
+                                <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-rose-800 dark:text-rose-300">
+                                  Antonyms (विलोम शब्द)
+                                </span>
+                              </div>
+                              <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-500/30">
+                                {currentIdiom.antonyms.length} Opposites
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2 pt-1">
+                              {currentIdiom.antonyms.map(ant => (
+                                <span
+                                  key={ant}
+                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-rose-500/15 text-slate-900 dark:text-rose-100 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 dark:border-rose-500/30 hover:border-rose-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                                  <span>{ant}</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Editorial Usage Example Card */}
                         {currentIdiom?.example && (
-                          <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/[0.08] border-l-4 border-amber-500 shadow-2xs space-y-1">
-                            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 block">
-                              Usage Example
-                            </span>
-                            <p className="text-base sm:text-lg md:text-xl font-medium text-slate-800 dark:text-slate-100 italic leading-relaxed">
+                          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/[0.08] via-amber-500/[0.04] to-transparent border-l-4 border-amber-500 border-y border-r border-amber-500/20 shadow-xs space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                                <Quote className="w-3.5 h-3.5 text-amber-500" />
+                                Exam Usage Example
+                              </span>
+                              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Contextual Sentence</span>
+                            </div>
+                            <p className="text-base sm:text-xl font-medium text-slate-900 dark:text-slate-100 italic leading-relaxed">
                               "{currentIdiom.example}"
                             </p>
                           </div>
                         )}
 
-                        {/* Mnemonic Trick / Origin Story */}
+                        {/* Glowing Memory Trick / Origin Vault */}
                         {currentIdiom?.mnemonic && (
-                          <div className="p-4 sm:p-5 rounded-2xl bg-purple-500/15 dark:bg-purple-500/20 border border-purple-500/30 shadow-2xs flex items-start gap-3.5">
-                            <span className="text-xl shrink-0">🏛️</span>
-                            <div className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
-                              <strong className="font-bold text-purple-900 dark:text-purple-300">
-                                Origin & Memory Trick:
-                              </strong>{' '}
-                              {currentIdiom.mnemonic}
+                          <div className="p-4 sm:p-5 rounded-2xl bg-purple-500/[0.08] dark:bg-purple-950/30 border border-purple-500/30 dark:border-purple-500/25 shadow-xs flex items-start gap-3 sm:gap-4">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
+                              🏛️
+                            </div>
+                            <div className="space-y-1 flex-1 min-w-0">
+                              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 block">
+                                Origin & Memory Trick (Mnemonic Vault)
+                              </span>
+                              <p className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
+                                {currentIdiom.mnemonic}
+                              </p>
                             </div>
                           </div>
                         )}
                       </div>
                     ) : (
-                      <div className="flex items-center gap-2.5 pt-2 text-xs font-semibold text-slate-500 dark:text-slate-400 flex-wrap border-t border-slate-200/60 dark:border-white/10 mt-3">
-                        {currentIdiom?.synonyms && currentIdiom.synonyms.length > 0 && (
-                          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
-                            <span>✓</span> {currentIdiom.synonyms.length} Synonyms
+                      /* 🌟 TACTILE BENTO ACTIVE RECALL PREVIEW MATRIX */
+                      <div
+                        onClick={() => {
+                          soundManager.playClick();
+                          setIsFlipped(true);
+                        }}
+                        className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-slate-100/70 dark:bg-white/[0.03] hover:bg-slate-200/60 dark:hover:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer group/teaser shadow-2xs"
+                      >
+                        <div className="flex items-center justify-between gap-2 pb-2 mb-2.5 border-b border-slate-200/60 dark:border-white/5">
+                          <span className="text-xs font-bold font-sans text-slate-700 dark:text-slate-300 flex items-center gap-1.5 shrink-0">
+                            <Brain className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                            <span>Active Recall Challenge — Guess before flipping</span>
                           </span>
-                        )}
-                        {currentIdiom?.antonyms && currentIdiom.antonyms.length > 0 && (
-                          <>
-                            <span className="text-slate-300 dark:text-white/20">•</span>
-                            <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1">
-                              <span>✕</span> {currentIdiom.antonyms.length} Antonyms
-                            </span>
-                          </>
-                        )}
-                        {currentIdiom?.mnemonic && (
-                          <>
-                            <span className="text-slate-300 dark:text-white/20">•</span>
-                            <span className="text-purple-700 dark:text-purple-300 font-bold flex items-center gap-1">
-                              <span>💡</span> Origin & Memory Trick Available
-                            </span>
-                          </>
-                        )}
+                          <span className="text-xs font-bold text-amber-600 dark:text-amber-400 group-hover/teaser:translate-x-0.5 transition-transform flex items-center gap-0.5 shrink-0">
+                            <span>Tap to Reveal</span>
+                            <ChevronRight className="w-3.5 h-3.5 text-amber-500" />
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold text-xs shrink-0">
+                              ✓
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400">Synonyms</div>
+                              <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
+                                {currentIdiom?.synonyms?.length || 0} Words
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-xs shrink-0">
+                              ✕
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase font-bold text-rose-700 dark:text-rose-400">Antonyms</div>
+                              <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
+                                {currentIdiom?.antonyms?.length || 0} Words
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-purple-500/10 dark:bg-purple-500/15 border border-purple-500/25 flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center text-xs shrink-0">
+                              🏛️
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase font-bold text-purple-700 dark:text-purple-400">Origin / Trick</div>
+                              <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
+                                {currentIdiom?.mnemonic ? 'Available' : 'Standard'}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="p-2 sm:p-2.5 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center text-xs shrink-0">
+                              💬
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[10px] font-mono uppercase font-bold text-amber-700 dark:text-amber-400">Context</div>
+                              <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">
+                                Exam Example
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* 4. Bottom Navigation Bar */}
-                <div className="flex items-center justify-between gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
+                <div className="relative z-10 flex items-center justify-between gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200/80 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="px-4 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 shrink-0 whitespace-nowrap"
+                    className="flex-1 sm:flex-initial px-4 sm:px-7 py-3 rounded-2xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/90 dark:border-white/15 flex items-center justify-center gap-1.5"
                   >
-                    ← Previous Idiom
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Prev Idiom</span>
                   </button>
 
-                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono font-bold text-slate-600 dark:text-slate-300">
-                    <span>Idiom {activeCardIndex + 1} of {currentThemeIdioms.length}</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/20" />
-                    <span className="text-emerald-700 dark:text-emerald-400">
-                      {currentThemeIdioms.filter(it => it.id && masteredIds.has(it.id)).length} Mastered
-                    </span>
+                  <div className="flex flex-col items-center justify-center gap-0.5 px-2">
+                    <div className="text-xs sm:text-sm font-mono font-black text-slate-800 dark:text-slate-200">
+                      {activeCardIndex + 1} <span className="text-slate-400 dark:text-slate-500 font-normal">/</span> {currentThemeIdioms.length}
+                    </div>
+                    <div className="text-[10px] sm:text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                      <span>{currentThemeIdioms.filter(it => it.id && masteredIds.has(it.id)).length} Mastered</span>
+                    </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleNextCard}
-                    className="px-5 sm:px-7 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] shrink-0 whitespace-nowrap ml-auto sm:ml-0"
+                    className="flex-1 sm:flex-initial px-5 sm:px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(245,158,11,0.35)]"
                   >
-                    Next Idiom →
+                    <span>Next Idiom</span>
+                    <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -931,12 +1075,12 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                 <div className="mt-3.5 pt-3 border-t border-dashed border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-amber-900 dark:text-amber-300 font-medium bg-amber-500/[0.07] dark:bg-amber-500/[0.05] p-3 rounded-2xl border border-amber-500/20">
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-base shrink-0">🎯</span>
-                    <span className="leading-relaxed"><strong>Active Recall Pro Tip:</strong> Guess the meaning and Hindi phrase before revealing to increase retention by 300%.</span>
+                    <span className="leading-relaxed"><strong>Active Recall Pro Tip:</strong> Guess the meaning and Hindi phrase in your head before revealing to increase retention by 300%.</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center gap-1.5 text-xs font-black text-amber-700 dark:text-amber-300 hover:underline shrink-0"
+                    className="flex items-center gap-1.5 text-xs font-black text-amber-700 dark:text-amber-300 hover:underline shrink-0 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>+ Add Custom Idiom</span>
