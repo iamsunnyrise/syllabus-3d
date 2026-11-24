@@ -13,6 +13,7 @@ import { ExamDateModal } from '../modals/ExamDateModal';
 import { ContinueStudyModal } from '../modals/ContinueStudyModal';
 import { useTimer } from '../../context/TimerContext';
 import { useSyllabus } from '../../context/SyllabusContext';
+import { useTheme } from '../../context/ThemeContext';
 import { Topic } from '../../types/syllabus';
 
 interface PunditsHeroBannerProps {
@@ -59,6 +60,8 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
 }) => {
   const { openFullModal } = useTimer();
   const { currentExam } = useSyllabus();
+  const { theme } = useTheme();
+  const isWarmCream = theme === 'warm-cream';
   const [isExamDateModalOpen, setIsExamDateModalOpen] = useState(false);
   const [isContinueStudyModalOpen, setIsContinueStudyModalOpen] = useState(false);
 
@@ -86,14 +89,30 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
   }, [currentExam]);
 
   return (
-    <div className="relative w-full rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#12162A] via-[#0D101E] to-[#080A16] text-[#F8FAFC] border border-white/10 dark:border-white/[0.08] shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden select-none">
+    <div className={`relative w-full rounded-2xl sm:rounded-3xl text-[#F8FAFC] shadow-2xl overflow-hidden select-none transition-all duration-300 ${
+      isWarmCream
+        ? 'bg-gradient-to-b from-[#241E06] via-[#1B1604] to-[#100D02] border border-[#E1A837]/35 shadow-[0_20px_50px_rgba(56,55,13,0.22)]'
+        : 'bg-gradient-to-b from-[#12162A] via-[#0D101E] to-[#080A16] border border-white/10 dark:border-white/[0.08] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)]'
+    }`}>
       {/* 🌟 Atmospheric Golden Background Lighting */}
-      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gradient-to-b from-amber-400/15 via-blue-500/5 to-transparent rounded-full blur-[90px] pointer-events-none" />
-      <div className="absolute -bottom-16 -left-10 w-48 h-48 bg-blue-500/10 rounded-full blur-[70px] pointer-events-none" />
-      <div className="absolute -bottom-16 -right-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-[70px] pointer-events-none" />
+      <div className={`absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full blur-[90px] pointer-events-none ${
+        isWarmCream
+          ? 'bg-gradient-to-b from-amber-400/25 via-[#E1A837]/10 to-transparent'
+          : 'bg-gradient-to-b from-amber-400/15 via-blue-500/5 to-transparent'
+      }`} />
+      <div className={`absolute -bottom-16 -left-10 w-48 h-48 rounded-full blur-[70px] pointer-events-none ${
+        isWarmCream ? 'bg-[#E1A837]/15' : 'bg-blue-500/10'
+      }`} />
+      <div className={`absolute -bottom-16 -right-10 w-48 h-48 rounded-full blur-[70px] pointer-events-none ${
+        isWarmCream ? 'bg-[#8D7A02]/20' : 'bg-indigo-500/10'
+      }`} />
 
-      {/* Modern Radial Dot Matrix Accent (Obsidian Stardust) */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* Modern Radial Dot Matrix Accent (Obsidian Stardust / Warm Champagne Matrix) */}
+      <div className={`absolute inset-0 pointer-events-none ${
+        isWarmCream
+          ? 'opacity-35 bg-[radial-gradient(rgba(225,168,55,0.25)_1px,transparent_1px)] [background-size:24px_24px]'
+          : 'opacity-30 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]'
+      }`} />
 
       {/* Main Banner Content Area */}
       <div className="relative z-10 px-4 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 flex flex-col items-center justify-center">
@@ -137,20 +156,28 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
           </div>
 
           {/* Exam Target Capsule: Clean Modern Segmented Pill */}
-          <div className="mt-1.5 sm:mt-2 inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5 rounded-full border border-white/10 dark:border-white/[0.08] bg-[#0C0F1D]/90 px-3.5 sm:px-4.5 py-1.5 shadow-md backdrop-blur-md text-xs sm:text-[13px]">
-            <span className="px-2.5 py-0.5 rounded-full font-black bg-amber-500/20 text-amber-300 border border-amber-400/30">
+          <div className={`mt-1.5 sm:mt-2 inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5 rounded-full px-3.5 sm:px-4.5 py-1.5 shadow-md backdrop-blur-md text-xs sm:text-[13px] ${
+            isWarmCream
+              ? 'border border-[#E1A837]/40 bg-[#161304]/95 text-[#F5EBD7]'
+              : 'border border-white/10 dark:border-white/[0.08] bg-[#0C0F1D]/90'
+          }`}>
+            <span className={`px-2.5 py-0.5 rounded-full font-black ${
+              isWarmCream
+                ? 'bg-[#E1A837]/25 text-[#FDE68A] border border-[#E1A837]/45'
+                : 'bg-amber-500/20 text-amber-300 border border-amber-400/30'
+            }`}>
               {examName.split(' ')[0] || 'SSC'}
             </span>
-            <span className="w-1 h-1 rounded-full bg-amber-400/50" />
+            <span className={`w-1 h-1 rounded-full ${isWarmCream ? 'bg-[#E1A837]/60' : 'bg-amber-400/50'}`} />
             <span className="px-1.5 py-0.5 font-bold text-slate-200 hover:text-white transition-colors">
               BANK
             </span>
-            <span className="w-1 h-1 rounded-full bg-amber-400/50" />
+            <span className={`w-1 h-1 rounded-full ${isWarmCream ? 'bg-[#E1A837]/60' : 'bg-amber-400/50'}`} />
             <span className="px-1.5 py-0.5 font-bold text-slate-200 hover:text-white transition-colors">
               UPSC
             </span>
-            <span className="w-1 h-1 rounded-full bg-amber-400/50" />
-            <span className="px-1.5 py-0.5 font-extrabold text-amber-200/90 tracking-wide">
+            <span className={`w-1 h-1 rounded-full ${isWarmCream ? 'bg-[#E1A837]/60' : 'bg-amber-400/50'}`} />
+            <span className={`px-1.5 py-0.5 font-extrabold tracking-wide ${isWarmCream ? 'text-[#FDE68A]' : 'text-amber-200/90'}`}>
               ANY EXAM
             </span>
           </div>
@@ -166,7 +193,11 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 setIsContinueStudyModalOpen(true);
               }}
               title="Continue Study - Jump Back In"
-              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-amber-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
+              className={`p-3 sm:p-4 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:-translate-y-1 ${
+                isWarmCream
+                  ? 'bg-[#282107]/90 hover:bg-[#362D0A] border border-[#E1A837]/30 hover:border-[#E1A837]/70 shadow-[0_6px_20px_rgba(30,25,5,0.4)] hover:shadow-[0_12px_28px_rgba(225,168,55,0.25)]'
+                  : 'bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-amber-400/50 hover:shadow-amber-500/10'
+              }`}
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(245,158,11,0.35)] group-hover:scale-110 transition-transform">
                 <Play className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current ml-0.5" />
@@ -191,7 +222,11 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Focus Mode & Pomodoro Timer"
-              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-sky-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-sky-500/10 hover:-translate-y-1"
+              className={`p-3 sm:p-4 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:-translate-y-1 ${
+                isWarmCream
+                  ? 'bg-[#282107]/90 hover:bg-[#362D0A] border border-[#E1A837]/30 hover:border-sky-400/70 shadow-[0_6px_20px_rgba(30,25,5,0.4)] hover:shadow-[0_12px_28px_rgba(56,189,248,0.22)]'
+                  : 'bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-sky-400/50 hover:shadow-sky-500/10'
+              }`}
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(56,189,248,0.35)] group-hover:scale-110 transition-transform">
                 <Timer className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
@@ -212,7 +247,11 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 onNavigate('routine');
               }}
               title="Open Daily Routine & Schedule"
-              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-indigo-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-1"
+              className={`p-3 sm:p-4 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:-translate-y-1 ${
+                isWarmCream
+                  ? 'bg-[#282107]/90 hover:bg-[#362D0A] border border-[#E1A837]/30 hover:border-indigo-400/70 shadow-[0_6px_20px_rgba(30,25,5,0.4)] hover:shadow-[0_12px_28px_rgba(99,102,241,0.22)]'
+                  : 'bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-indigo-400/50 hover:shadow-indigo-500/10'
+              }`}
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-indigo-400 to-purple-600 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(99,102,241,0.35)] group-hover:scale-110 transition-transform">
                 <CalendarDays className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
@@ -237,7 +276,11 @@ export const PunditsHeroBanner: React.FC<PunditsHeroBannerProps> = ({
                 }
               }}
               title="Open Exam Date & Live Countdown"
-              className="p-3 sm:p-4 rounded-2xl bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-rose-400/50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:shadow-rose-500/10 hover:-translate-y-1"
+              className={`p-3 sm:p-4 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col items-center justify-center text-center group active:scale-95 shadow-lg hover:-translate-y-1 ${
+                isWarmCream
+                  ? 'bg-[#282107]/90 hover:bg-[#362D0A] border border-[#E1A837]/30 hover:border-rose-400/70 shadow-[0_6px_20px_rgba(30,25,5,0.4)] hover:shadow-[0_12px_28px_rgba(244,63,94,0.22)]'
+                  : 'bg-[#0F1322]/90 hover:bg-[#141A30] border border-white/[0.08] hover:border-rose-400/50 hover:shadow-rose-500/10'
+              }`}
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-rose-400 to-orange-500 text-white flex items-center justify-center mb-2.5 shadow-[0_0_18px_rgba(244,63,94,0.35)] group-hover:scale-110 transition-transform">
                 <CalendarClock className="w-4 h-4 sm:w-4.5 sm:h-4.5" />

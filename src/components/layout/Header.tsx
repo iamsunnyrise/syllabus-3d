@@ -69,6 +69,7 @@ export const Header: React.FC<HeaderProps> = ({
     theme,
     toggleTheme: handleThemeToggle,
   } = useTheme();
+  const isWarmCream = theme === 'warm-cream';
   const { isInstallable, isInstalled, triggerInstall } = usePWA();
   const [isExamMenuOpen, setIsExamMenuOpen] = useState(false);
   const examMenuRef = useRef<HTMLDivElement>(null);
@@ -158,7 +159,11 @@ export const Header: React.FC<HeaderProps> = ({
   const activeDaysRemaining = getExamDaysRemaining(currentExam?.examDate, targetYear);
 
   return (
-    <header className="sticky top-0 z-30 h-14 w-full bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden">
+    <header className={
+      isWarmCream
+        ? "sticky top-0 z-30 h-14 w-full bg-[#FFFDF8]/95 backdrop-blur-xl border-b border-[#E2D1B3] shadow-[0_1px_4px_rgba(56,55,13,0.05)] px-3 sm:px-6 flex items-center transition-colors print:hidden"
+        : "sticky top-0 z-30 h-14 w-full bg-[#F8FAFC]/90 dark:bg-[#090A12]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.08] shadow-xs px-3 sm:px-6 flex items-center transition-colors print:hidden"
+    }>
       <div className="flex items-center justify-between gap-1 sm:gap-3 w-full min-w-0">
         
         {/* Left Side: Mobile Menu Button, Desktop Sidebar Toggle & Brand Seal */}
@@ -170,7 +175,11 @@ export const Header: React.FC<HeaderProps> = ({
               haptics.light();
               onOpenMobileMenu?.();
             }}
-            className="md:hidden h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-[#F5F5F7] hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-all cursor-pointer shrink-0 tap-bounce shadow-subtle-depth active:scale-95 flex items-center justify-center"
+            className={`md:hidden h-9 w-9 rounded-xl transition-all cursor-pointer shrink-0 tap-bounce shadow-subtle-depth active:scale-95 flex items-center justify-center ${
+              isWarmCream
+                ? 'bg-[#FFFDF8] border border-[#E2D1B3] text-[#38370D] hover:bg-[#FAF4E6]'
+                : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-800 dark:text-[#F5F5F7] hover:bg-slate-50 dark:hover:bg-white/[0.06]'
+            }`}
             title="Open Navigation Menu"
             aria-label="Open navigation menu"
           >
@@ -187,7 +196,11 @@ export const Header: React.FC<HeaderProps> = ({
                 haptics.light();
                 onToggleDesktopSidebar();
               }}
-              className="hidden md:flex items-center justify-center h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400/50 dark:hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 animate-fade-in"
+              className={`hidden md:flex items-center justify-center h-9 w-9 rounded-xl transition-all cursor-pointer shrink-0 shadow-subtle-depth active:scale-95 animate-fade-in ${
+                isWarmCream
+                  ? 'bg-[#FFFDF8] border border-[#E2D1B3] text-[#38370D] hover:text-[#8D7A02] hover:border-[#E1A837] hover:bg-[#FAF4E6]'
+                  : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-slate-700 dark:text-zinc-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-400/50 dark:hover:border-amber-500/40 hover:bg-slate-50 dark:hover:bg-white/[0.06]'
+              }`}
               title="Expand sidebar (Ctrl+B)"
               aria-label="Expand sidebar"
             >
@@ -199,33 +212,49 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative min-w-0 flex-1 sm:flex-initial" ref={examMenuRef}>
             <button
               onClick={() => setIsExamMenuOpen(prev => !prev)}
-              className="flex items-center gap-1.5 sm:gap-2 h-9 px-2 sm:px-3 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500 dark:hover:border-blue-400 transition-all cursor-pointer text-xs sm:text-sm font-bold text-slate-900 dark:text-white shadow-subtle-depth active:scale-95 group min-w-0"
+              className={`flex items-center gap-1.5 sm:gap-2 h-9 px-2 sm:px-3 rounded-xl transition-all cursor-pointer text-xs sm:text-sm font-bold shadow-subtle-depth active:scale-95 group min-w-0 ${
+                isWarmCream
+                  ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837] text-[#38370D]'
+                  : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500 dark:hover:border-blue-400 text-slate-900 dark:text-white'
+              }`}
               title={`Switch Exam Target: ${rawExamName} (${targetYear})`}
             >
-              <GraduationCap className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+              <GraduationCap className={`w-3.5 sm:w-4 h-3.5 sm:h-4 shrink-0 group-hover:scale-110 transition-transform ${isWarmCream ? 'text-[#8D7A02]' : 'text-blue-600 dark:text-blue-400'}`} />
               <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                 <span className="truncate max-w-[120px] min-[360px]:max-w-[145px] min-[390px]:max-w-[170px] sm:max-w-[220px] font-bold tracking-tight">
                   {examDisplayName}
                 </span>
-                <span className="px-1.5 py-0.5 rounded-lg text-xs font-mono font-black bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50 shrink-0 tabular-nums leading-none">
+                <span className={`px-1.5 py-0.5 rounded-lg text-xs font-mono font-black shrink-0 tabular-nums leading-none ${
+                  isWarmCream
+                    ? 'bg-[#FAF0DC] text-[#7D6C02] border border-[#E1A837]/30'
+                    : 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-700/50'
+                }`}>
                   {targetYear}
                 </span>
                 {activeDaysRemaining !== null && activeDaysRemaining > 0 && (
-                  <span className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 shrink-0 tabular-nums">
+                  <span className={`hidden md:inline-flex items-center px-1.5 py-0.5 rounded-lg text-xs font-mono font-bold shrink-0 tabular-nums ${
+                    isWarmCream
+                      ? 'bg-[#FAF0DC] text-[#B45309] border border-[#E1A837]/30'
+                      : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25'
+                  }`}>
                     ⏳ {activeDaysRemaining}d
                   </span>
                 )}
               </div>
-              <ChevronDown className={`w-3 sm:w-3.5 h-3 sm:h-3.5 text-slate-400 shrink-0 transition-transform duration-200 ${isExamMenuOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3 sm:w-3.5 h-3 sm:h-3.5 shrink-0 transition-transform duration-200 ${isExamMenuOpen ? 'rotate-180' : ''} ${isWarmCream ? 'text-[#8D7A02]' : 'text-slate-400'}`} />
             </button>
 
             {isExamMenuOpen && (
-              <div className="absolute top-full left-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] shadow-2xl p-2 z-50 animate-fade-in divide-y divide-slate-100 dark:divide-white/[0.06]">
+              <div className={`absolute top-full left-0 mt-2 w-80 sm:w-96 rounded-2xl shadow-2xl p-2 z-50 animate-fade-in divide-y ${
+                isWarmCream
+                  ? 'bg-[#FFFDF8] border border-[#E2D1B3] divide-[#E2D1B3]/50'
+                  : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] divide-slate-100 dark:divide-white/[0.06]'
+              }`}>
                 {/* Header */}
                 <div className="px-3 py-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 font-sans">
+                    <Target className={`w-4 h-4 ${isWarmCream ? 'text-[#8D7A02]' : 'text-blue-600 dark:text-blue-400'}`} />
+                    <span className={`text-xs font-bold font-sans ${isWarmCream ? 'text-[#38370D]' : 'text-slate-800 dark:text-slate-200'}`}>
                       Target Exams ({examsSafe.length})
                     </span>
                   </div>
@@ -236,7 +265,11 @@ export const Header: React.FC<HeaderProps> = ({
                       setIsExamMenuOpen(false);
                       setIsAddExamModalOpen(true);
                     }}
-                    className="px-2.5 py-1 rounded-lg text-xs font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 flex items-center gap-1 transition-colors cursor-pointer font-sans"
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer font-sans ${
+                      isWarmCream
+                        ? 'text-[#8D7A02] hover:bg-[#FAF0DC]'
+                        : 'text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                    }`}
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Exam</span>
@@ -393,7 +426,11 @@ export const Header: React.FC<HeaderProps> = ({
                 haptics.medium();
                 lockApp();
               }}
-              className="hidden md:flex h-9 w-9 rounded-xl bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/30 transition-all cursor-pointer shadow-subtle-depth active:scale-90 shrink-0 items-center justify-center"
+              className={`hidden md:flex h-9 w-9 rounded-xl transition-all cursor-pointer shadow-subtle-depth active:scale-90 shrink-0 items-center justify-center ${
+                isWarmCream
+                  ? 'bg-[#FFFDF8] border border-[#E2D1B3] text-[#8D7A02] hover:bg-[#FAF0DC] hover:border-[#E1A837]'
+                  : 'bg-white dark:bg-[#131522] border border-slate-200/80 dark:border-white/[0.08] text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/30'
+              }`}
               title="Lock App Now (Safety PIN)"
               aria-label="Lock app now"
             >
@@ -410,11 +447,15 @@ export const Header: React.FC<HeaderProps> = ({
                 haptics.medium();
                 setIsPwaModalOpen(true);
               }}
-              className="h-9 px-2 sm:px-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/30 hover:bg-blue-100/80 dark:hover:bg-blue-900/40 border border-blue-500/25 dark:border-blue-400/20 text-blue-600 dark:text-blue-400 transition-all cursor-pointer shadow-subtle-depth active:scale-95 shrink-0 flex items-center gap-1.5 text-xs font-bold"
+              className={`h-9 px-2 sm:px-2.5 rounded-xl transition-all cursor-pointer shadow-subtle-depth active:scale-95 shrink-0 flex items-center gap-1.5 text-xs font-bold ${
+                isWarmCream
+                  ? 'bg-[#FAF0DC] text-[#8D7A02] border border-[#E1A837]/30 hover:bg-[#F3E5CF]'
+                  : 'bg-blue-50/80 dark:bg-blue-950/30 hover:bg-blue-100/80 dark:hover:bg-blue-900/40 border border-blue-500/25 dark:border-blue-400/20 text-blue-600 dark:text-blue-400'
+              }`}
               title="Install Syllabus 3D App on Device"
               aria-label="Install App"
             >
-              <Download className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <Download className={`w-3.5 h-3.5 ${isWarmCream ? "text-[#8D7A02]" : "text-blue-600 dark:text-blue-400"}`} />
               <span className="hidden sm:inline">Install App</span>
             </button>
           )}
@@ -427,7 +468,11 @@ export const Header: React.FC<HeaderProps> = ({
               haptics.light();
               handleThemeToggle(e);
             }}
-            className="group relative h-9 w-9 rounded-full bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center hover:border-blue-500/40 dark:hover:border-white/30 overflow-hidden"
+            className={`group relative h-9 w-9 rounded-full transition-all cursor-pointer shadow-2xs active:scale-90 shrink-0 flex items-center justify-center overflow-hidden ${
+              isWarmCream
+                ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837] text-[#8D7A02]'
+                : 'bg-white dark:bg-[#131522] border border-slate-200/90 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:border-blue-500/40 dark:hover:border-white/30'
+            }`}
             title={
               theme === 'dark'
                 ? "Switch to Pure Pro Light"
@@ -450,7 +495,11 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenSettings}
-            className="group relative h-9 w-9 rounded-full bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 flex items-center justify-center cursor-pointer transition-all active:scale-90 shadow-2xs overflow-hidden hover:border-blue-500/40 dark:hover:border-white/30 shrink-0"
+            className={`group relative h-9 w-9 rounded-full flex items-center justify-center cursor-pointer transition-all active:scale-90 shadow-2xs overflow-hidden shrink-0 ${
+              isWarmCream
+                ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]'
+                : 'bg-slate-100/90 hover:bg-slate-200/80 dark:bg-white/[0.06] dark:hover:bg-white/10 border border-slate-200/90 dark:border-white/10 hover:border-blue-500/40 dark:hover:border-white/30'
+            }`}
             title={`Profile: ${user?.name || profileSafe.name || 'Guest User'}`}
             aria-label="Open profile settings"
           >

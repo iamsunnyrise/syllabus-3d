@@ -23,77 +23,78 @@ interface PortalFeatureCardsProps {
 const ModernAioPcFrame: React.FC<{
   children: React.ReactNode;
   isDark?: boolean;
-}> = ({ children, isDark = false }) => (
+  isWarmCream?: boolean;
+}> = ({ children, isDark = false, isWarmCream = false }) => (
   <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md" fill="none">
     <defs>
       {/* Subtle screen shadow */}
       <filter id="aioScreenShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
-        <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor={isDark ? "#000000" : "#0F172A"} floodOpacity={isDark ? 0.6 : 0.12} />
+        <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor={isDark ? "#000000" : isWarmCream ? "#38370D" : "#0F172A"} floodOpacity={isDark ? 0.6 : isWarmCream ? 0.16 : 0.12} />
       </filter>
       {/* Stand ambient shadow */}
       <filter id="aioStandShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
-        <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor={isDark ? "#000000" : "#0F172A"} floodOpacity={isDark ? 0.5 : 0.18} />
+        <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor={isDark ? "#000000" : isWarmCream ? "#38370D" : "#0F172A"} floodOpacity={isDark ? 0.5 : isWarmCream ? 0.18 : 0.18} />
       </filter>
       {/* Chin gradient */}
       <linearGradient id="aioChinGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor={isDark ? "#1C2337" : "#FFFFFF"} />
-        <stop offset="100%" stopColor={isDark ? "#101424" : "#E2E8F0"} />
+        <stop offset="0%" stopColor={isDark ? "#1C2337" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} />
+        <stop offset="100%" stopColor={isDark ? "#101424" : isWarmCream ? "#F3E5CF" : "#E2E8F0"} />
       </linearGradient>
       {/* Base gradient */}
       <linearGradient id="aioBaseGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor={isDark ? "#1A2136" : "#FFFFFF"} />
-        <stop offset="100%" stopColor={isDark ? "#0E1220" : "#F1F5F9"} />
+        <stop offset="0%" stopColor={isDark ? "#1A2136" : isWarmCream ? "#FAF2E4" : "#FFFFFF"} />
+        <stop offset="100%" stopColor={isDark ? "#0E1220" : isWarmCream ? "#EAD9BF" : "#F1F5F9"} />
       </linearGradient>
     </defs>
 
     {/* Ambient desk contact shadow */}
-    <ellipse cx="120" cy="155" rx="44" ry="2.5" fill="#000000" opacity={isDark ? 0.45 : 0.18} />
+    <ellipse cx="120" cy="155" rx="44" ry="2.5" fill={isWarmCream ? "#38370D" : "#000000"} opacity={isDark ? 0.45 : isWarmCream ? 0.2 : 0.18} />
 
     {/* Stand: Modern Vertical Ribbed Column */}
     <g filter="url(#aioStandShadow)">
       {/* Pedestal Base (Flat Rectangular Foot) */}
-      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke={isDark ? "rgba(255,255,255,0.12)" : "#CBD5E1"} strokeWidth="1" />
+      <rect x="88" y="148" width="64" height="4.5" rx="2" fill="url(#aioBaseGrad)" stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#D8C6A5" : "#CBD5E1"} strokeWidth="1" />
       {/* Dark rubber foot pad */}
-      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill={isDark ? "#0F1320" : "#475569"} opacity="0.7" />
+      <rect x="91" y="152" width="58" height="1.2" rx="0.6" fill={isDark ? "#0F1320" : isWarmCream ? "#8D7A02" : "#475569"} opacity={isWarmCream ? 0.4 : 0.7} />
 
       {/* Vertical Column with Ribbed Fluting */}
-      <rect x="103" y="123" width="34" height="26" rx="1.5" fill={isDark ? "#13182A" : "#F8FAFC"} stroke={isDark ? "rgba(255,255,255,0.1)" : "#CBD5E1"} strokeWidth="1" />
+      <rect x="103" y="123" width="34" height="26" rx="1.5" fill={isDark ? "#13182A" : isWarmCream ? "#FAF0DC" : "#F8FAFC"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#D8C6A5" : "#CBD5E1"} strokeWidth="1" />
       {/* Vertical ribbed groove lines - Architectural Fluting */}
-      <line x1="107" y1="123" x2="107" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="111" y1="123" x2="111" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="115" y1="123" x2="115" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="119" y1="123" x2="119" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="123" y1="123" x2="123" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="127" y1="123" x2="127" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
-      <line x1="131" y1="123" x2="131" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF"} strokeWidth="1" />
-      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="107" y1="123" x2="107" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="108" y1="123" x2="108" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="111" y1="123" x2="111" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="112" y1="123" x2="112" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="115" y1="123" x2="115" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="116" y1="123" x2="116" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="119" y1="123" x2="119" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="120" y1="123" x2="120" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="123" y1="123" x2="123" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="124" y1="123" x2="124" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="127" y1="123" x2="127" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="128" y1="123" x2="128" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
+      <line x1="131" y1="123" x2="131" y2="148" stroke={isDark ? "rgba(255,255,255,0.08)" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} strokeWidth="1" />
+      <line x1="132" y1="123" x2="132" y2="148" stroke={isDark ? "rgba(0,0,0,0.4)" : isWarmCream ? "#E2D1B3" : "#CBD5E1"} strokeWidth="0.7" />
     </g>
 
     {/* Top Center Raised Webcam Module */}
-    <path d="M 108 8 C 108 5.8 110 4.2 113 4.2 L 127 4.2 C 130 4.2 132 5.8 132 8 L 132 10.5 L 108 10.5 Z" fill={isDark ? "#0A0D18" : "#1E293B"} stroke={isDark ? "rgba(255,255,255,0.1)" : "#0F172A"} strokeWidth="0.8" />
-    <circle cx="120" cy="7.5" r="1.3" fill="#0EA5E9" />
-    <circle cx="120" cy="7.5" r="0.5" fill="#38BDF8" />
+    <path d="M 108 8 C 108 5.8 110 4.2 113 4.2 L 127 4.2 C 130 4.2 132 5.8 132 8 L 132 10.5 L 108 10.5 Z" fill={isDark ? "#0A0D18" : isWarmCream ? "#38370D" : "#1E293B"} stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#8D7A02" : "#0F172A"} strokeWidth="0.8" />
+    <circle cx="120" cy="7.5" r="1.3" fill={isWarmCream ? "#E1A837" : "#0EA5E9"} />
+    <circle cx="120" cy="7.5" r="0.5" fill={isWarmCream ? "#FDE68A" : "#38BDF8"} />
     <circle cx="124" cy="7.5" r="0.6" fill="#10B981" />
 
     {/* Monitor Chassis Bezel */}
     <g filter="url(#aioScreenShadow)">
-      <rect x="18" y="10" width="204" height="115" rx="7" fill={isDark ? "#111526" : "#FFFFFF"} stroke={isDark ? "rgba(255,255,255,0.12)" : "#E2E8F0"} strokeWidth="1.5" />
+      <rect x="18" y="10" width="204" height="115" rx="7" fill={isDark ? "#111526" : isWarmCream ? "#FFFDF8" : "#FFFFFF"} stroke={isDark ? "rgba(255,255,255,0.12)" : isWarmCream ? "#E2D1B3" : "#E2E8F0"} strokeWidth="1.5" />
       {/* Active Screen Display Area */}
-      <rect x="22" y="14" width="196" height="101" rx="3" fill={isDark ? "#080B14" : "#F8FAFC"} />
-      <rect x="22" y="14" width="196" height="101" rx="3" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="0.8" />
+      <rect x="22" y="14" width="196" height="101" rx="3" fill={isDark ? "#080B14" : isWarmCream ? "#FBF7ED" : "#F8FAFC"} />
+      <rect x="22" y="14" width="196" height="101" rx="3" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : isWarmCream ? "#EFE0C2" : "#E2E8F0"} strokeWidth="0.8" />
 
       {/* Screen Content Rendered Inside Display */}
       {children}
 
       {/* Bottom Chin Bar with subtle branding badge */}
-      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke={isDark ? "rgba(255,255,255,0.1)" : "#E2E8F0"} strokeWidth="0.8" />
-      <rect x="114" y="119" width="12" height="2" rx="1" fill={isDark ? "#64748B" : "#94A3B8"} opacity="0.7" />
+      <path d="M 18 115 L 222 115 L 222 120.5 C 222 123.2 219.8 125 217 125 L 23 125 C 20.2 125 18 123.2 18 120.5 Z" fill="url(#aioChinGrad)" stroke={isDark ? "rgba(255,255,255,0.1)" : isWarmCream ? "#E2D1B3" : "#E2E8F0"} strokeWidth="0.8" />
+      <rect x="114" y="119" width="12" height="2" rx="1" fill={isDark ? "#64748B" : isWarmCream ? "#C4B291" : "#94A3B8"} opacity="0.7" />
     </g>
   </svg>
 );
@@ -102,7 +103,8 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
   onNavigate,
   onOpenPricing: _onOpenPricing
 }) => {
-  const { isDark } = useTheme();
+  const { isDark, theme } = useTheme();
+  const isWarmCream = theme === 'warm-cream';
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full select-none">
@@ -116,25 +118,35 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('syllabus');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-blue-500/60 dark:hover:border-blue-400/40 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl"
+        className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
+          isWarmCream
+            ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-blue-500/60 dark:hover:border-blue-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+        }`}
         title="Open Syllabus Explorer & Track Subjects"
       >
         {/* Subtle Ambient Hover Glow */}
-        <div className="absolute -top-12 -right-12 w-40 h-40 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-2xl group-hover:bg-blue-500/25 transition-all pointer-events-none" />
+        <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl transition-all pointer-events-none ${
+          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-blue-500/10 dark:bg-blue-500/15 group-hover:bg-blue-500/25'
+        }`} />
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-400/30 shadow-xs inline-flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
+            isWarmCream
+              ? 'bg-[#FAF0DC] text-[#7D6C02] border border-[#E1A837]/40'
+              : 'bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-400/30'
+          }`}>
+            <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isWarmCream ? 'bg-[#8D7A02]' : 'bg-blue-600 dark:bg-blue-400'}`} />
             CURRICULUM ENGINE
           </span>
         </div>
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark}>
+          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
             {/* Top Bar with SYLLABUS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : "#EEF2F6"} />
+            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -150,43 +162,43 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             <g transform="translate(32, 40)">
               {/* Subject 1: Quant */}
               <rect x="0" y="0" width="86" height="18" rx="5" 
-                fill={isDark ? "#10182E" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.35)" : "#BFDBFE"} strokeWidth="1" />
+                fill={isDark ? "#10182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"} 
+                stroke={isDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"} strokeWidth="1" />
               <rect x="4" y="4" width="10" height="10" rx="3" fill="#3B82F6" />
               <text x="9" y="11.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">∑</text>
               <rect x="18" y="5" width="46" height="3" rx="1.5" fill={isDark ? "#93C5FD" : "#1E40AF"} />
               <rect x="18" y="10" width="30" height="2" rx="1" fill={isDark ? "#3B82F6" : "#93C5FD"} />
-              <circle cx="78" cy="9" r="3" fill={isDark ? "#1E293B" : "#DBEAFE"} />
+              <circle cx="78" cy="9" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#DBEAFE"} />
               <polyline points="76.5,9 77.5,10 79.5,8" stroke={isDark ? "#60A5FA" : "#1E40AF"} strokeWidth="0.8" fill="none" />
 
               {/* Subject 2: Reasoning */}
               <rect x="0" y="22" width="86" height="18" rx="5" 
-                fill={isDark ? "#1B1433" : "#F5F3FF"} 
-                stroke={isDark ? "rgba(139,92,246,0.35)" : "#DDD6FE"} strokeWidth="1" />
+                fill={isDark ? "#1B1433" : isWarmCream ? "#F6EBD8" : "#F5F3FF"} 
+                stroke={isDark ? "rgba(139,92,246,0.35)" : isWarmCream ? "#E2D1B3" : "#DDD6FE"} strokeWidth="1" />
               <rect x="4" y="26" width="10" height="10" rx="3" fill="#8B5CF6" />
               <text x="9" y="33.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">⚡</text>
               <rect x="18" y="27" width="42" height="3" rx="1.5" fill={isDark ? "#C4B5FD" : "#5B21B6"} />
               <rect x="18" y="32" width="28" height="2" rx="1" fill={isDark ? "#8B5CF6" : "#C4B5FD"} />
-              <circle cx="78" cy="31" r="3" fill={isDark ? "#1E293B" : "#EDE9FE"} />
+              <circle cx="78" cy="31" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#EDE9FE"} />
               <polyline points="76.5,31 77.5,32 79.5,30" stroke={isDark ? "#A78BFA" : "#5B21B6"} strokeWidth="0.8" fill="none" />
 
               {/* Subject 3: General Studies */}
               <rect x="0" y="44" width="86" height="18" rx="5" 
-                fill={isDark ? "#0D211C" : "#ECFDF5"} 
-                stroke={isDark ? "rgba(16,185,129,0.35)" : "#A7F3D0"} strokeWidth="1" />
+                fill={isDark ? "#0D211C" : isWarmCream ? "#F0EAD6" : "#ECFDF5"} 
+                stroke={isDark ? "rgba(16,185,129,0.35)" : isWarmCream ? "#E2D1B3" : "#A7F3D0"} strokeWidth="1" />
               <rect x="4" y="48" width="10" height="10" rx="3" fill="#10B981" />
               <text x="9" y="55.5" fill="#FFFFFF" fontSize="6" fontWeight="bold" textAnchor="middle">✓</text>
               <rect x="18" y="49" width="40" height="3" rx="1.5" fill={isDark ? "#6EE7B7" : "#047857"} />
               <rect x="18" y="54" width="25" height="2" rx="1" fill={isDark ? "#10B981" : "#6EE7B7"} />
-              <circle cx="78" cy="53" r="3" fill={isDark ? "#1E293B" : "#D1FAE5"} />
+              <circle cx="78" cy="53" r="3" fill={isDark ? "#1E293B" : isWarmCream ? "#FAF0DC" : "#D1FAE5"} />
               <polyline points="76.5,53 77.5,54 79.5,52" stroke={isDark ? "#34D399" : "#047857"} strokeWidth="0.8" fill="none" />
             </g>
 
             {/* Right: Circular Mastery Gauge */}
             <g transform="translate(165, 72)">
               <circle cx="0" cy="0" r="22" 
-                fill={isDark ? "#0F162A" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.2)" : "#DBEAFE"} strokeWidth="3" />
+                fill={isDark ? "#0F162A" : isWarmCream ? "#FAF0DC" : "#EFF6FF"} 
+                stroke={isDark ? "rgba(59,130,246,0.2)" : isWarmCream ? "#E2D1B3" : "#DBEAFE"} strokeWidth="3" />
               <circle cx="0" cy="0" r="22" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="138" strokeDashoffset="40" strokeLinecap="round" transform="rotate(-90)" />
               
               {/* Inner Book Icon */}
@@ -210,7 +222,9 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Title & Description */}
         <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
-          <h2 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors font-sans">
+          <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
+            isWarmCream ? 'text-[#1C1B05] group-hover:text-[#8D7A02]' : 'text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400'
+          }`}>
             Syllabus Explorer
           </h2>
           <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
@@ -218,7 +232,11 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </p>
 
           {/* High-Contrast Primary CTA Button */}
-          <div className="w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(37,99,235,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm text-white flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${
+            isWarmCream
+              ? 'bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-600 hover:from-blue-600 hover:to-indigo-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_20px_-3px_rgba(30,58,138,0.38)] border border-blue-400/30'
+              : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_8px_20px_-3px_rgba(37,99,235,0.38)] hover:shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.65),0_12px_25px_-3px_rgba(37,99,235,0.5)] border border-blue-400/30'
+          }`}>
             <span>Explore Syllabus</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
@@ -234,15 +252,25 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('mock-tracker');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl"
+        className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
+          isWarmCream
+            ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-amber-500/60 dark:hover:border-amber-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+        }`}
         title="Open Mock Test Tracker & Performance Analytics"
       >
         {/* Subtle Ambient Hover Glow */}
-        <div className="absolute -top-12 -right-12 w-40 h-40 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-2xl group-hover:bg-amber-500/25 transition-all pointer-events-none" />
+        <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl transition-all pointer-events-none ${
+          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-amber-500/10 dark:bg-amber-500/15 group-hover:bg-amber-500/25'
+        }`} />
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-200/90 dark:border-amber-400/30 shadow-xs inline-flex items-center gap-1.5">
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
+            isWarmCream
+              ? 'bg-[#FAF0DC] text-[#B45309] border border-[#E1A837]/40'
+              : 'bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-200/90 dark:border-amber-400/30'
+          }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
             PERFORMANCE ANALYTICS
           </span>
@@ -250,9 +278,9 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark}>
+          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
             {/* Top Bar with MOCK TESTS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : "#EEF2F6"} />
+            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -267,7 +295,7 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             {/* Golden 3D Trophy in Screen Center */}
             <g transform="translate(120, 68)">
               {/* Radial Sparkles / Rays */}
-              <circle cx="0" cy="-2" r="26" fill={isDark ? "#281D06" : "#FEF3C7"} opacity={isDark ? 0.75 : 0.6} />
+              <circle cx="0" cy="-2" r="26" fill={isDark ? "#281D06" : isWarmCream ? "#F5E8CF" : "#FEF3C7"} opacity={isDark ? 0.75 : 0.6} />
               <g stroke="#F59E0B" strokeWidth="1" opacity={isDark ? 0.5 : 0.4}>
                 <line x1="0" y1="-24" x2="0" y2="-28" />
                 <line x1="18" y1="-18" x2="22" y2="-22" />
@@ -323,7 +351,9 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Title & Description */}
         <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
-          <h2 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors font-sans">
+          <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
+            isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
+          }`}>
             Mock Test Tracker
           </h2>
           <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
@@ -347,15 +377,25 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           haptics.medium();
           onNavigate('platforms');
         }}
-        className="group relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-teal-500/60 dark:hover:border-teal-400/40 p-5 sm:p-6 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08),0_4px_12px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14),0_8px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl"
+        className={`group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col items-center justify-between text-center overflow-hidden backdrop-blur-xl ${
+          isWarmCream
+            ? 'bg-[#FFFDF8] border border-[#E2D1B3] hover:border-[#E1A837]/70 shadow-[0_10px_30px_-5px_rgba(56,55,13,0.07)] hover:shadow-[0_20px_40px_-8px_rgba(225,168,55,0.18)]'
+            : 'bg-white dark:bg-[#0D101E]/95 border border-slate-200/90 dark:border-white/[0.08] hover:border-teal-500/60 dark:hover:border-teal-400/40 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_40px_-8px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] dark:hover:shadow-[0_24px_60px_rgba(0,0,0,0.85)]'
+        }`}
         title="Open Mock Study Portals & Practice Platforms"
       >
         {/* Subtle Ambient Hover Glow */}
-        <div className="absolute -top-12 -right-12 w-40 h-40 bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-2xl group-hover:bg-teal-500/25 transition-all pointer-events-none" />
+        <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl transition-all pointer-events-none ${
+          isWarmCream ? 'bg-[#E1A837]/10 group-hover:bg-[#E1A837]/20' : 'bg-teal-500/10 dark:bg-teal-500/15 group-hover:bg-teal-500/25'
+        }`} />
 
         {/* Top Feature Tag */}
         <div className="w-full flex items-center justify-center mb-3">
-          <span className="px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider bg-emerald-50 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-400/30 shadow-xs inline-flex items-center gap-1.5">
+          <span className={`px-3.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-mono font-black uppercase tracking-wider shadow-xs inline-flex items-center gap-1.5 ${
+            isWarmCream
+              ? 'bg-[#FAF0DC] text-[#047857] border border-[#E1A837]/40'
+              : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-400/30'
+          }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             DESK RESOURCES
           </span>
@@ -363,9 +403,9 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Monitor Graphic */}
         <div className="w-full h-36 sm:h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-          <ModernAioPcFrame isDark={isDark}>
+          <ModernAioPcFrame isDark={isDark} isWarmCream={isWarmCream}>
             {/* Top Bar with STUDY PORTALS Badge */}
-            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : "#EEF2F6"} />
+            <rect x="22" y="14" width="196" height="20" fill={isDark ? "#0E1322" : isWarmCream ? "#F4EADB" : "#EEF2F6"} />
             <circle cx="32" cy="24" r="2.5" fill="#EF4444" />
             <circle cx="39" cy="24" r="2.5" fill="#F59E0B" />
             <circle cx="46" cy="24" r="2.5" fill="#10B981" />
@@ -381,45 +421,45 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
             <g transform="translate(29, 39)">
               {/* Portal 1: Testbook */}
               <rect x="0" y="0" width="86" height="25" rx="5" 
-                fill={isDark ? "#0A1C1D" : "#F0FDFA"} 
-                stroke={isDark ? "rgba(20,184,166,0.35)" : "#99F6E4"} strokeWidth="1" />
+                fill={isDark ? "#0A1C1D" : isWarmCream ? "#FAF2E4" : "#F0FDFA"} 
+                stroke={isDark ? "rgba(20,184,166,0.35)" : isWarmCream ? "#E2D1B3" : "#99F6E4"} strokeWidth="1" />
               <rect x="5" y="5" width="15" height="15" rx="3" fill="#0D9488" />
               <text x="12.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">TB</text>
-              <text x="25" y="12.5" fill={isDark ? "#99F6E4" : "#134E4A"} fontSize="6.5" fontWeight="bold">Testbook</text>
-              <text x="25" y="19" fill={isDark ? "#2DD4BF" : "#0D9488"} fontSize="5" fontWeight="bold">Live Mocks</text>
-              <polyline points="76,10 79,10 79,13" stroke={isDark ? "#2DD4BF" : "#0D9488"} strokeWidth="0.8" fill="none" />
-              <line x1="79" y1="10" x2="74" y2="15" stroke={isDark ? "#2DD4BF" : "#0D9488"} strokeWidth="0.8" />
+              <text x="25" y="12.5" fill={isDark ? "#99F6E4" : isWarmCream ? "#115E59" : "#134E4A"} fontSize="6.5" fontWeight="bold">Testbook</text>
+              <text x="25" y="19" fill={isDark ? "#2DD4BF" : isWarmCream ? "#0F766E" : "#0D9488"} fontSize="5" fontWeight="bold">Live Mocks</text>
+              <polyline points="76,10 79,10 79,13" stroke={isDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"} strokeWidth="0.8" fill="none" />
+              <line x1="79" y1="10" x2="74" y2="15" stroke={isDark ? "#2DD4BF" : isWarmCream ? "#0D9488" : "#0D9488"} strokeWidth="0.8" />
 
               {/* Portal 2: Oliveboard */}
               <rect x="94" y="0" width="86" height="25" rx="5" 
-                fill={isDark ? "#0D182E" : "#EFF6FF"} 
-                stroke={isDark ? "rgba(59,130,246,0.35)" : "#BFDBFE"} strokeWidth="1" />
+                fill={isDark ? "#0D182E" : isWarmCream ? "#FAF2E4" : "#EFF6FF"} 
+                stroke={isDark ? "rgba(59,130,246,0.35)" : isWarmCream ? "#E2D1B3" : "#BFDBFE"} strokeWidth="1" />
               <rect x="99" y="5" width="15" height="15" rx="3" fill="#2563EB" />
               <text x="106.5" y="15.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">OB</text>
-              <text x="119" y="12.5" fill={isDark ? "#BFDBFE" : "#1E3A8A"} fontSize="6.5" fontWeight="bold">Oliveboard</text>
-              <text x="119" y="19" fill={isDark ? "#60A5FA" : "#2563EB"} fontSize="5" fontWeight="bold">All-India Rank</text>
+              <text x="119" y="12.5" fill={isDark ? "#BFDBFE" : isWarmCream ? "#1E3A8A" : "#1E3A8A"} fontSize="6.5" fontWeight="bold">Oliveboard</text>
+              <text x="119" y="19" fill={isDark ? "#60A5FA" : isWarmCream ? "#2563EB" : "#2563EB"} fontSize="5" fontWeight="bold">All-India Rank</text>
               <polyline points="170,10 173,10 173,13" stroke={isDark ? "#60A5FA" : "#2563EB"} strokeWidth="0.8" fill="none" />
               <line x1="173" y1="10" x2="168" y2="15" stroke={isDark ? "#60A5FA" : "#2563EB"} strokeWidth="0.8" />
 
               {/* Portal 3: Practice Mock */}
               <rect x="0" y="31" width="86" height="25" rx="5" 
-                fill={isDark ? "#1E180A" : "#FFFBEB"} 
-                stroke={isDark ? "rgba(245,158,11,0.35)" : "#FDE68A"} strokeWidth="1" />
+                fill={isDark ? "#1E180A" : isWarmCream ? "#FAF2E4" : "#FFFBEB"} 
+                stroke={isDark ? "rgba(245,158,11,0.35)" : isWarmCream ? "#E2D1B3" : "#FDE68A"} strokeWidth="1" />
               <rect x="5" y="36" width="15" height="15" rx="3" fill="#D97706" />
               <text x="12.5" y="46.5" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle">PM</text>
-              <text x="25" y="43.5" fill={isDark ? "#FDE68A" : "#78350F"} fontSize="6.5" fontWeight="bold">PracticeMock</text>
-              <text x="25" y="50" fill={isDark ? "#FBBF24" : "#D97706"} fontSize="5" fontWeight="bold">Quizzes & Tests</text>
+              <text x="25" y="43.5" fill={isDark ? "#FDE68A" : isWarmCream ? "#92400E" : "#78350F"} fontSize="6.5" fontWeight="bold">PracticeMock</text>
+              <text x="25" y="50" fill={isDark ? "#FBBF24" : isWarmCream ? "#D97706" : "#D97706"} fontSize="5" fontWeight="bold">Quizzes & Tests</text>
               <polyline points="76,41 79,41 79,44" stroke={isDark ? "#FBBF24" : "#D97706"} strokeWidth="0.8" fill="none" />
               <line x1="79" y1="41" x2="74" y2="46" stroke={isDark ? "#FBBF24" : "#D97706"} strokeWidth="0.8" />
 
               {/* Portal 4: Official Portal */}
               <rect x="94" y="31" width="86" height="25" rx="5" 
-                fill={isDark ? "#200E1C" : "#FDF2F8"} 
-                stroke={isDark ? "rgba(219,39,119,0.35)" : "#FBCFE8"} strokeWidth="1" />
+                fill={isDark ? "#200E1C" : isWarmCream ? "#FAF2E4" : "#FDF2F8"} 
+                stroke={isDark ? "rgba(219,39,119,0.35)" : isWarmCream ? "#E2D1B3" : "#FBCFE8"} strokeWidth="1" />
               <rect x="99" y="36" width="15" height="15" rx="3" fill="#DB2777" />
               <text x="106.5" y="46.5" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle">SSC</text>
-              <text x="119" y="43.5" fill={isDark ? "#FBCFE8" : "#831843"} fontSize="6.5" fontWeight="bold">Official Portal</text>
-              <text x="119" y="50" fill={isDark ? "#F472B6" : "#DB2777"} fontSize="5" fontWeight="bold">Updates & PYQ</text>
+              <text x="119" y="43.5" fill={isDark ? "#FBCFE8" : isWarmCream ? "#9D174D" : "#831843"} fontSize="6.5" fontWeight="bold">Official Portal</text>
+              <text x="119" y="50" fill={isDark ? "#F472B6" : isWarmCream ? "#DB2777" : "#DB2777"} fontSize="5" fontWeight="bold">Updates & PYQ</text>
               <polyline points="170,41 173,41 173,44" stroke={isDark ? "#F472B6" : "#DB2777"} strokeWidth="0.8" fill="none" />
               <line x1="173" y1="41" x2="168" y2="46" stroke={isDark ? "#F472B6" : "#DB2777"} strokeWidth="0.8" />
             </g>
@@ -428,7 +468,9 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
 
         {/* Title & Description */}
         <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
-          <h2 className="text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-teal-500 dark:group-hover:text-teal-400 transition-colors font-sans">
+          <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
+            isWarmCream ? 'text-[#1C1B05] group-hover:text-teal-600' : 'text-slate-900 dark:text-white group-hover:text-teal-500 dark:group-hover:text-teal-400'
+          }`}>
             Mock & Study Portals
           </h2>
           <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
