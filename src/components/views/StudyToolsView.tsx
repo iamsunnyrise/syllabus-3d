@@ -48,6 +48,9 @@ import {
   ChevronUp,
   SlidersHorizontal,
   CheckSquare,
+  Languages,
+  Lightbulb,
+  Quote,
   X
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
@@ -2092,87 +2095,120 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
 
           {/* Flashcard Active Recall Spotlight */}
           {currentFlashcard ? (
-            <div className="w-full">
-              
+            <div className="w-full relative group/card">
+              {/* Ambient Multi-Spectrum Glow Aura for luxury floating depth */}
+              <div
+                className={`absolute -inset-1 sm:-inset-1.5 rounded-3xl sm:rounded-[32px] blur-xl opacity-40 dark:opacity-30 group-hover/card:opacity-60 transition-opacity duration-500 pointer-events-none ${
+                  vocabTypeFilter === 'root'
+                    ? 'bg-gradient-to-r from-emerald-500/25 via-teal-500/20 to-cyan-500/25'
+                    : 'bg-gradient-to-r from-amber-500/25 via-orange-500/15 to-purple-500/25'
+                }`}
+              />
+
               {/* Full-Width Interactive Word Flashcard with Native Mobile Swipe Gestures */}
               <div
                 onTouchStart={handleCardTouchStart}
                 onTouchEnd={handleCardTouchEnd}
-                className={`w-full flex flex-col justify-between p-3.5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0E101B] ${vocabTypeFilter === 'root' ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-emerald-500/5' : 'border-amber-500/30 dark:border-amber-500/20'} sm:border-2 shadow-md relative overflow-hidden min-h-[380px] sm:min-h-[480px] lg:min-h-[520px] select-none`}
+                className={`relative w-full flex flex-col justify-between p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#0D101D]/95 backdrop-blur-2xl ${
+                  vocabTypeFilter === 'root'
+                    ? 'border-emerald-500/40 dark:border-emerald-500/30 shadow-[0_20px_50px_rgba(16,185,129,0.12)]'
+                    : 'border-slate-200/90 dark:border-white/[0.12] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.35),0_0_25px_rgba(245,158,11,0.06)]'
+                } border sm:border-2 min-h-[390px] sm:min-h-[490px] lg:min-h-[530px] select-none transition-all duration-300 overflow-hidden`}
               >
-                
+                {/* Subtle Corner Flare Radiants */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/[0.04] dark:bg-amber-400/[0.03] rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/[0.04] dark:bg-indigo-500/[0.03] rounded-full blur-3xl pointer-events-none" />
+
                 {/* 1. Top Card Meta Bar */}
-                <div className="flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
+                <div className="relative z-10 flex items-center justify-between gap-1.5 sm:gap-2 border-b border-slate-100 dark:border-white/10 pb-3 sm:pb-4 min-w-0">
                   <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
-                    <span className="px-2 sm:px-3.5 py-1 rounded-xl text-[11px] sm:text-sm font-mono font-black tracking-wider bg-slate-100 dark:bg-white/[0.12] text-slate-900 dark:text-white border border-slate-200/90 dark:border-white/20 shadow-2xs shrink-0 whitespace-nowrap">
-                      {vocabTypeFilter === 'root' ? 'ROOT' : 'CARD'} {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}
+                    <span className="px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono font-black tracking-wider bg-slate-100/90 dark:bg-white/[0.08] text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-white/15 shadow-2xs shrink-0 whitespace-nowrap flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      <span>{vocabTypeFilter === 'root' ? 'ROOT' : 'CARD'} {String(activeCardIndex + 1).padStart(2, '0')}/{String(filteredVocab.length).padStart(2, '0')}</span>
                     </span>
-                    <span className="text-[11px] sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2 sm:px-3.5 py-1 rounded-xl bg-amber-500/15 dark:bg-amber-400/20 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1 shadow-2xs shrink-0 whitespace-nowrap">
-                      <Flame className="w-3.5 h-3.5 text-amber-600 dark:text-amber-300 shrink-0" />
+
+                    <span className="text-xs sm:text-sm font-bold text-amber-900 dark:text-amber-300 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-amber-500/15 dark:bg-amber-400/15 border border-amber-500/30 dark:border-amber-400/30 flex items-center gap-1.5 shadow-2xs shrink-0 whitespace-nowrap">
+                      <Flame className="w-3.5 h-3.5 text-amber-500 animate-pulse shrink-0" />
                       <span>{currentFlashcard.frequency}</span>
-                      <span className="hidden xs:inline">Freq</span>
+                      <span className="hidden xs:inline font-mono text-[11px] opacity-80">Freq</span>
                     </span>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => toggleMastered(currentFlashcard.id)}
-                    className={`flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs shrink-0 whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-xs shrink-0 whitespace-nowrap ${
                       masteredVocabIds.has(currentFlashcard.id)
-                        ? 'bg-emerald-500 hover:bg-emerald-600 text-white font-black shadow-xs'
-                        : 'bg-slate-100 dark:bg-white/[0.10] text-slate-900 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20 border border-slate-200 dark:border-white/15'
+                        ? 'bg-emerald-500 hover:bg-emerald-600 text-white font-black shadow-emerald-500/25 ring-2 ring-emerald-500/40'
+                        : 'bg-slate-100/90 dark:bg-white/[0.08] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-white/15 border border-slate-200 dark:border-white/15'
                     }`}
                   >
-                    <CheckCircle2 className={`w-4 h-4 ${masteredVocabIds.has(currentFlashcard.id) ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'} shrink-0`} />
-                    <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered' : 'Mark as Mastered'}</span>
+                    <CheckCircle2 className={`w-4 h-4 ${masteredVocabIds.has(currentFlashcard.id) ? 'text-white' : 'text-slate-400 dark:text-slate-500'} shrink-0`} />
+                    <span>{masteredVocabIds.has(currentFlashcard.id) ? 'Mastered ✓' : 'Mark Mastered'}</span>
                   </button>
                 </div>
 
                 {/* 2. Central Word, Pronunciation & Meaning Area */}
-                <div className="py-3 sm:py-6 space-y-3 sm:space-y-6 flex-1 flex flex-col justify-center">
+                <div className="relative z-10 py-3 sm:py-6 space-y-3 sm:space-y-5 flex-1 flex flex-col justify-center">
                   
                   {/* Word Header Block */}
-                  <div className="space-y-2 sm:space-y-3">
+                  <div className="space-y-2.5 sm:space-y-3.5">
                     {/* Row 1: Word + Part of Speech + Audio Speaker + Phonetic Badge */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3.5">
-                      <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-950 dark:text-white tracking-tight leading-tight">
+                      <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-none drop-shadow-xs">
                         {currentFlashcard.word}
                       </h2>
-                      {/* Part of Speech attached directly to the Word */}
-                      <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl text-[10px] sm:text-sm font-black uppercase tracking-wider border font-mono shadow-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
+                      
+                      <span className={`px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider border font-mono shadow-xs backdrop-blur-xs ${getPosBadgeColor(currentFlashcard.partOfSpeech)}`}>
                         {currentFlashcard.partOfSpeech}
                       </span>
+
                       <button
                         type="button"
                         onClick={() => speakWord(currentFlashcard.word)}
                         title="Pronounce word"
-                        className="p-1.5 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                        className="p-2 sm:p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 active:scale-95 text-amber-700 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/30 transition-all cursor-pointer shadow-xs hover:shadow-amber-500/20 group/audio"
                       >
-                        <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
+                        <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300 group-hover/audio:scale-110 transition-transform" />
                       </button>
+
                       {currentFlashcard.phonetic && (
-                        <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl text-xs sm:text-base font-mono font-bold bg-slate-100 dark:bg-white/[0.08] text-amber-800 dark:text-amber-200 border border-slate-200/90 dark:border-white/15 shadow-2xs">
+                        <span className="px-2.5 sm:px-3.5 py-1 rounded-xl text-xs sm:text-sm font-mono font-bold bg-slate-100/80 dark:bg-white/[0.07] text-slate-600 dark:text-amber-200/90 border border-slate-200/80 dark:border-white/10 shadow-2xs">
                           {currentFlashcard.phonetic}
                         </span>
                       )}
                     </div>
 
-                    {/* Mobile Touch Navigation Hint */}
-                    <div className="sm:hidden flex items-center justify-between text-[10.5px] font-mono text-slate-600 dark:text-slate-300 py-0.5">
-                      <span className="font-bold">👈 Swipe Card for Next Word 👉</span>
-                      <span className="text-amber-700 dark:text-amber-400 font-bold">Tap Details below</span>
+                    {/* Mobile & Tablet Gesture Guidance Ribbon */}
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 py-1.5 px-3 rounded-xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/[0.06] backdrop-blur-xs">
+                      <span className="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
+                        <ChevronLeft className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                        <span>Swipe or Arrow Keys to Navigate</span>
+                        <ChevronRight className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      </span>
+                      <span className="flex items-center gap-1 font-bold text-amber-600 dark:text-amber-400">
+                        <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
+                        <span className="hidden xs:inline">Tap Details Below</span>
+                      </span>
                     </div>
 
-                    {/* Row 2: Clean Hindi Translation with Dedicated Tag */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2.5 pt-0.5">
-                      <span className={`self-start px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider ${
-                        vocabTypeFilter === 'root'
-                          ? 'bg-emerald-500/20 text-emerald-950 dark:text-emerald-200 border-emerald-500/30 dark:border-emerald-400/30'
-                          : 'bg-amber-500/20 text-amber-900 dark:text-amber-200 border-amber-500/30 dark:border-amber-400/30'
-                      } border shrink-0`}>
-                        हिंदी अर्थ
-                      </span>
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold font-sans text-slate-900 dark:text-slate-100 tracking-normal break-words leading-snug">
+                    {/* Row 2: Unified High-Contrast Hindi Meaning Ribbon */}
+                    <div className={`p-3 sm:p-4 rounded-2xl ${
+                      vocabTypeFilter === 'root'
+                        ? 'bg-emerald-500/[0.08] dark:bg-emerald-500/[0.10] border-emerald-500/30'
+                        : 'bg-amber-500/[0.08] dark:bg-amber-500/[0.10] border-amber-500/30 dark:border-amber-400/25'
+                    } border shadow-xs flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3.5 transition-colors`}>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className={`px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider ${
+                          vocabTypeFilter === 'root'
+                            ? 'bg-emerald-500/25 text-emerald-950 dark:text-emerald-200 border-emerald-500/40'
+                            : 'bg-amber-500/25 text-amber-950 dark:text-amber-200 border-amber-500/40'
+                        } border flex items-center gap-1 shadow-2xs`}>
+                          <Languages className="w-3.5 h-3.5" />
+                          <span>हिंदी अर्थ</span>
+                        </span>
+                      </div>
+                      <h3 className="text-base sm:text-xl font-bold font-sans text-slate-900 dark:text-slate-50 tracking-normal break-words leading-relaxed drop-shadow-xs">
                         {currentFlashcard.hindi}
                       </h3>
                     </div>
@@ -2446,32 +2482,59 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                             </div>
                           </div>
                         )}
-                        {/* Synonyms & Antonyms */}
-                        <div className="space-y-3">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-emerald-700 dark:text-emerald-400 shrink-0">
-                              Synonyms:
+                        {/* Elevated Synonyms Matrix */}
+                        <div className="p-3.5 sm:p-5 rounded-2xl bg-emerald-500/[0.04] dark:bg-emerald-950/20 border border-emerald-500/25 dark:border-emerald-500/20 space-y-2.5">
+                          <div className="flex items-center justify-between gap-2 flex-wrap pb-1.5 border-b border-emerald-500/15">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse" />
+                              <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                                Synonyms (समानार्थक शब्द)
+                              </span>
+                            </div>
+                            <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30">
+                              {currentFlashcard.synonyms.length} Exam Matches
                             </span>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 pt-1">
                             {currentFlashcard.synonyms.map(syn => (
-                              <span key={syn} className="px-3.5 py-1.5 rounded-xl bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-200 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 hover:scale-105 transition-transform shadow-2xs">
-                                {syn}
+                              <span
+                                key={syn}
+                                className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-emerald-500/15 text-slate-900 dark:text-emerald-100 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 dark:border-emerald-500/30 hover:border-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{syn}</span>
                               </span>
                             ))}
                           </div>
+                        </div>
 
-                          {currentFlashcard.antonyms.length > 0 && (
-                            <div className="flex flex-wrap items-center gap-2 pt-1">
-                              <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-rose-700 dark:text-rose-400 shrink-0">
-                                Antonyms:
+                        {/* Elevated Antonyms Matrix */}
+                        {currentFlashcard.antonyms.length > 0 && (
+                          <div className="p-3.5 sm:p-5 rounded-2xl bg-rose-500/[0.04] dark:bg-rose-950/20 border border-rose-500/25 dark:border-rose-500/20 space-y-2.5">
+                            <div className="flex items-center justify-between gap-2 flex-wrap pb-1.5 border-b border-rose-500/15">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]" />
+                                <span className="font-mono font-black text-xs sm:text-sm uppercase tracking-wider text-rose-800 dark:text-rose-300">
+                                  Antonyms (विलोम शब्द)
+                                </span>
+                              </div>
+                              <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-500/30">
+                                {currentFlashcard.antonyms.length} Opposites
                               </span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2 pt-1">
                               {currentFlashcard.antonyms.map(ant => (
-                                <span key={ant} className="px-3.5 py-1.5 rounded-xl bg-rose-500/15 dark:bg-rose-500/20 text-rose-900 dark:text-rose-200 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 hover:scale-105 transition-transform shadow-2xs">
-                                  {ant}
+                                <span
+                                  key={ant}
+                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-rose-500/15 text-slate-900 dark:text-rose-100 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 dark:border-rose-500/30 hover:border-rose-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                                >
+                                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                                  <span>{ant}</span>
                                 </span>
                               ))}
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
 
                         {/* Collocation & Word Family */}
                         {currentFlashcard.type !== 'root' && (currentFlashcard.collocation || currentFlashcard.derivatives) && (
@@ -2494,25 +2557,33 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         )}
 
-                        {/* Example Sentence */}
-                        <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/[0.08] border-l-4 border-amber-500 shadow-2xs space-y-1">
-                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 block">
-                            Usage Example
-                          </span>
-                          <p className="text-base sm:text-lg md:text-xl font-medium text-slate-800 dark:text-slate-100 italic leading-relaxed">
+                        {/* Editorial Usage Example Card */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/[0.08] via-amber-500/[0.04] to-transparent border-l-4 border-amber-500 border-y border-r border-amber-500/20 shadow-xs space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-mono font-black uppercase tracking-wider text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                              <Quote className="w-3.5 h-3.5 text-amber-500" />
+                              Exam Usage Example
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Contextual Sentence</span>
+                          </div>
+                          <p className="text-base sm:text-xl font-medium text-slate-900 dark:text-slate-100 italic leading-relaxed">
                             "{currentFlashcard.example}"
                           </p>
                         </div>
 
-                        {/* Mnemonic Trick / Origin Story */}
+                        {/* Glowing Memory Trick / Mnemonic Vault */}
                         {currentFlashcard.mnemonic && (
-                          <div className="p-4 sm:p-5 rounded-2xl bg-purple-500/15 dark:bg-purple-500/20 border border-purple-500/30 shadow-2xs flex items-start gap-3.5">
-                            <span className="text-xl shrink-0">{currentFlashcard.type === 'idiom' ? '🏛️' : currentFlashcard.type === 'ows' ? '🎯' : '💡'}</span>
-                            <div className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
-                              <strong className="font-bold text-purple-900 dark:text-purple-300">
-                                {currentFlashcard.type === 'idiom' ? 'Origin & Memory Trick:' : currentFlashcard.type === 'ows' ? 'OWS Memory Trick:' : currentFlashcard.type === 'root' ? 'Root Origin & Trick:' : 'Memory Trick:'}
-                              </strong>{' '}
-                              {currentFlashcard.mnemonic}
+                          <div className="p-4 sm:p-5 rounded-2xl bg-purple-500/[0.08] dark:bg-purple-950/30 border border-purple-500/30 dark:border-purple-500/25 shadow-xs flex items-start gap-3 sm:gap-4">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
+                              {currentFlashcard.type === 'idiom' ? '🏛️' : currentFlashcard.type === 'ows' ? '🎯' : '💡'}
+                            </div>
+                            <div className="space-y-1 flex-1 min-w-0">
+                              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 block">
+                                {currentFlashcard.type === 'idiom' ? 'Origin & Memory Trick' : currentFlashcard.type === 'ows' ? 'OWS Memory Trick' : currentFlashcard.type === 'root' ? 'Root Origin & Trick' : 'Memory Trick (Mnemonic Vault)'}
+                              </span>
+                              <p className="text-sm sm:text-base md:text-lg font-medium text-purple-950 dark:text-purple-100 leading-relaxed">
+                                {currentFlashcard.mnemonic}
+                              </p>
                             </div>
                           </div>
                         )}
@@ -2576,26 +2647,65 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2.5 pt-2 text-xs font-semibold text-slate-500 dark:text-slate-400 flex-wrap border-t border-slate-200/60 dark:border-white/10 mt-3">
-                          <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
-                            <span>✓</span> {currentFlashcard.synonyms.length} Synonyms
-                          </span>
-                          {currentFlashcard.antonyms.length > 0 && (
-                            <>
-                              <span className="text-slate-300 dark:text-white/20">•</span>
-                              <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-1">
-                                <span>✕</span> {currentFlashcard.antonyms.length} Antonyms
-                              </span>
-                            </>
-                          )}
-                          {currentFlashcard.mnemonic && (
-                            <>
-                              <span className="text-slate-300 dark:text-white/20">•</span>
-                              <span className="text-purple-700 dark:text-purple-300 font-bold flex items-center gap-1">
-                                <span>💡</span> Memory Trick Available
-                              </span>
-                            </>
-                          )}
+                        /* 🌟 TACTILE BENTO ACTIVE RECALL PREVIEW MATRIX */
+                        <div
+                          onClick={() => {
+                            soundManager.playClick();
+                            setIsCardFlipped(true);
+                          }}
+                          className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-slate-100/70 dark:bg-white/[0.03] hover:bg-slate-200/60 dark:hover:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer group/teaser shadow-2xs"
+                        >
+                          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-200/60 dark:border-white/5">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold flex items-center gap-1.5">
+                              <Brain className="w-3.5 h-3.5 text-amber-500" />
+                              Active Recall Challenge — Guess in your head before flipping
+                            </span>
+                            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 group-hover/teaser:translate-x-0.5 transition-transform flex items-center gap-0.5">
+                              Tap to reveal details →
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div className="p-2.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/25 flex items-center gap-2">
+                              <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold text-xs shrink-0">
+                                ✓
+                              </div>
+                              <div className="min-w-0">
+                                <div className="text-[10px] font-mono uppercase font-bold text-emerald-700 dark:text-emerald-400">Synonyms</div>
+                                <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">{currentFlashcard.synonyms.length} Words</div>
+                              </div>
+                            </div>
+
+                            <div className="p-2.5 rounded-xl bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/25 flex items-center gap-2">
+                              <div className="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-xs shrink-0">
+                                ✕
+                              </div>
+                              <div className="min-w-0">
+                                <div className="text-[10px] font-mono uppercase font-bold text-rose-700 dark:text-rose-400">Antonyms</div>
+                                <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">{currentFlashcard.antonyms.length} Words</div>
+                              </div>
+                            </div>
+
+                            <div className="p-2.5 rounded-xl bg-purple-500/10 dark:bg-purple-500/15 border border-purple-500/25 flex items-center gap-2">
+                              <div className="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center text-xs shrink-0">
+                                💡
+                              </div>
+                              <div className="min-w-0">
+                                <div className="text-[10px] font-mono uppercase font-bold text-purple-700 dark:text-purple-400">Memory Trick</div>
+                                <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">{currentFlashcard.mnemonic ? 'Mnemonic' : 'Formula'}</div>
+                              </div>
+                            </div>
+
+                            <div className="p-2.5 rounded-xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/25 flex items-center gap-2">
+                              <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center text-xs shrink-0">
+                                💬
+                              </div>
+                              <div className="min-w-0">
+                                <div className="text-[10px] font-mono uppercase font-bold text-amber-700 dark:text-amber-400">Context</div>
+                                <div className="text-xs sm:text-sm font-black text-slate-900 dark:text-white truncate">Exam Sentence</div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       )
                     )}
@@ -2603,47 +2713,54 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 </div>
 
                 {/* 4. Bottom Navigation Bar */}
-                <div className="flex items-center justify-between gap-2 sm:gap-3 pt-3.5 sm:pt-5 border-t border-slate-100 dark:border-white/10">
+                <div className="relative z-10 flex items-center justify-between gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200/80 dark:border-white/10">
                   <button
                     type="button"
                     onClick={handlePrevCard}
-                    className="flex-1 sm:flex-initial px-3 sm:px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.12] hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/80 dark:border-white/15 text-center shrink-0 whitespace-nowrap"
+                    className="flex-1 sm:flex-initial px-4 sm:px-7 py-3 rounded-2xl bg-slate-100 dark:bg-white/[0.08] hover:bg-slate-200 dark:hover:bg-white/15 text-slate-900 dark:text-white text-xs sm:text-sm font-black transition-all cursor-pointer shadow-xs hover:-translate-x-0.5 active:translate-x-0 border border-slate-200/90 dark:border-white/15 flex items-center justify-center gap-1.5"
                   >
-                    ← Prev
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Prev</span>
                   </button>
 
-                  <div className="flex items-center justify-center gap-1.5 text-xs font-mono font-bold text-slate-600 dark:text-slate-300 px-1">
-                    <span>{activeCardIndex + 1}/{filteredVocab.length}</span>
-                    <span className="hidden xs:inline text-emerald-600 dark:text-emerald-400">
-                      • {filteredVocab.filter(v => masteredVocabIds.has(v.id)).length}✓
-                    </span>
+                  <div className="flex flex-col items-center justify-center gap-0.5 px-2">
+                    <div className="text-xs sm:text-sm font-mono font-black text-slate-800 dark:text-slate-200">
+                      {activeCardIndex + 1} <span className="text-slate-400 dark:text-slate-500 font-normal">/</span> {filteredVocab.length}
+                    </div>
+                    <div className="text-[10px] sm:text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                      <span>{filteredVocab.filter(v => masteredVocabIds.has(v.id)).length} Mastered</span>
+                    </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleNextCard}
-                    className={`flex-1 sm:flex-initial px-4 sm:px-7 py-2.5 rounded-xl ${
+                    className={`flex-1 sm:flex-initial px-5 sm:px-8 py-3 rounded-2xl ${
                       vocabTypeFilter === 'root'
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950'
-                        : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950'
-                    } text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md text-center shrink-0 whitespace-nowrap`}
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
+                        : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.35)]'
+                    } text-xs sm:text-sm font-black tracking-wide transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-[0.98]`}
                   >
-                    Next →
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
                 {/* 5. Quick Tip Footer */}
-                <div className="mt-3.5 pt-3 border-t border-dashed border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-amber-900 dark:text-amber-300 font-medium bg-amber-500/[0.07] dark:bg-amber-500/[0.05] p-3 rounded-2xl border border-amber-500/20">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-base shrink-0">💡</span>
-                    <span className="leading-relaxed"><strong>Quick Tip:</strong> Guess the Hindi meaning and synonyms in your head before revealing details to boost recall.</span>
+                <div className="relative z-10 mt-4 pt-3.5 border-t border-dashed border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs text-amber-900 dark:text-amber-300 font-medium bg-amber-500/[0.06] dark:bg-amber-500/[0.04] p-3.5 rounded-2xl border border-amber-500/20">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                      <Lightbulb className="w-4 h-4" />
+                    </div>
+                    <span className="leading-relaxed"><strong>Active Recall Tip:</strong> Guess the Hindi meaning and at least 2 synonyms in your mind before tapping "Flip to Reveal".</span>
                   </div>
-                  <div className="hidden lg:flex items-center gap-2 shrink-0 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">Space</kbd>
+                  <div className="hidden lg:flex items-center gap-2 shrink-0 text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-white/60 dark:bg-white/[0.05] px-2.5 py-1 rounded-xl border border-slate-200/60 dark:border-white/10">
+                    <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs font-bold">Space</kbd>
                     <span>Flip</span>
-                    <span>•</span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">←</kbd>
-                    <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs">→</kbd>
+                    <span className="opacity-40">•</span>
+                    <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs font-bold">←</kbd>
+                    <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/10 shadow-2xs font-bold">→</kbd>
                     <span>Navigate</span>
                   </div>
                 </div>
