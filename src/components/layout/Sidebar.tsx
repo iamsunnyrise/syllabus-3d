@@ -4,25 +4,19 @@ import {
   Target,
   RotateCw,
   BrainCircuit,
-  BookOpen,
   Timer,
-  Globe,
   Keyboard,
   PanelLeftClose,
   Sparkles,
-  Video,
   ChevronDown,
   User,
   LogOut,
   Gauge,
   BarChart3,
   AlertTriangle,
-  Trophy,
-  ShoppingCart,
   Calculator,
   Compass,
   Languages,
-  Wrench,
   Zap
 } from 'lucide-react';
 import { useSyllabus } from '../../context/SyllabusContext';
@@ -220,12 +214,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Home',
       icon: Home,
       shortcut: '1'
-    },
-    {
-      id: 'syllabus',
-      label: 'Syllabus Explorer',
-      icon: BookOpen,
-      shortcut: '2'
     }
   ];
 
@@ -249,12 +237,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       icon: AlertTriangle,
       badge: weakTopicsSafe.length ? `${weakTopicsSafe.length}` : null,
       badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
-    },
-    {
-      id: 'mock-tracker',
-      label: 'Mock Tracker',
-      icon: Trophy,
-      shortcut: '6'
     }
   ];
 
@@ -306,11 +288,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'mindmap',
       label: 'Mindmap',
       icon: BrainCircuit
-    },
-    {
-      id: 'platforms',
-      label: 'Study Platforms',
-      icon: Globe
     }
   ];
 
@@ -320,7 +297,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       items: coreItems
     },
     {
-      title: 'Practice & Mocks',
+      title: 'Practice & Revision',
       items: practiceItems
     },
     {
