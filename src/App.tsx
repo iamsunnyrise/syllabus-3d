@@ -19,6 +19,7 @@ import { useTheme } from './context/ThemeContext';
 import { useInactivityLock } from './hooks/useInactivityLock';
 import { Sparkles } from 'lucide-react';
 import { preloadHighPriorityViews, preloadRemainingViews } from './utils/viewPreloader';
+import { initBackgroundVocabCache } from './utils/offlineVocabManager';
 
 // ⚡ Lazy Loaded Auth & Auxiliary Components (Keeps Critical Path Ultra-Lean)
 const AuthLayout = lazy(() => import('./components/auth/AuthLayout').then(m => ({ default: m.AuthLayout })));
@@ -138,6 +139,7 @@ export const App: React.FC = () => {
     const handle = idleCallback(() => {
       preloadHighPriorityViews();
       preloadRemainingViews();
+      initBackgroundVocabCache();
     });
     return () => {
       if (window.cancelIdleCallback && typeof handle === 'number') {

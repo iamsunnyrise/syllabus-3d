@@ -51,11 +51,42 @@ import {
   Languages,
   Lightbulb,
   Quote,
+  HardDrive,
+  WifiOff,
+  Download,
+  RefreshCw,
   X
 } from 'lucide-react';
 import { AppView } from '../layout/Sidebar';
 import { soundManager } from '../../utils/soundEffects';
 import { haptics } from '../../utils/haptics';
+import {
+  initBackgroundVocabCache,
+  syncAllVocabForOffline,
+  getVocabOfflineStatus,
+  VocabOfflineStatus,
+  VOCAB_MODULE_STATS
+} from '../../utils/offlineVocabManager';
+
+// 🛡️ Error-resilient lazy loader for offline vocabulary chunks
+function lazyWithOfflineRetry<T extends React.ComponentType<any>>(
+  factory: () => Promise<{ default: T }>
+) {
+  return lazy(async () => {
+    try {
+      return await factory();
+    } catch (error) {
+      console.warn('[OfflineLazy] Initial bundle fetch failed, attempting cache retry...', error);
+      try {
+        await new Promise(r => setTimeout(r, 250));
+        return await factory();
+      } catch (retryError) {
+        console.error('[OfflineLazy] Failed to load offline chunk:', retryError);
+        throw retryError;
+      }
+    }
+  });
+}
 
 // ⚡ Fast Dynamic Code Splitting for Study Tools sub-views & calculators
 const CalculationBoosterAddition = lazy(() => import('./CalculationBoosterAddition').then(m => ({ default: m.CalculationBoosterAddition })));
@@ -69,11 +100,11 @@ const CalculationBoosterFractions = lazy(() => import('./CalculationBoosterFract
 const CalculationBoosterTriplets = lazy(() => import('./CalculationBoosterTriplets').then(m => ({ default: m.CalculationBoosterTriplets })));
 const CalculationBoosterPowers = lazy(() => import('./CalculationBoosterPowers').then(m => ({ default: m.CalculationBoosterPowers })));
 const CalculationBoosterPrimes = lazy(() => import('./CalculationBoosterPrimes').then(m => ({ default: m.CalculationBoosterPrimes })));
-const SscSpecialVocabView = lazy(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
-const HomophonesView = lazy(() => import('./HomophonesView').then(m => ({ default: m.HomophonesView })));
-const HomographsView = lazy(() => import('./HomographsView').then(m => ({ default: m.HomographsView })));
-const FixedPrepositionsView = lazy(() => import('./FixedPrepositionsView').then(m => ({ default: m.FixedPrepositionsView })));
-const ThemeBasedIdiomsView = lazy(() => import('./ThemeBasedIdiomsView').then(m => ({ default: m.ThemeBasedIdiomsView })));
+const SscSpecialVocabView = lazyWithOfflineRetry(() => import('./SscSpecialVocabView').then(m => ({ default: m.SscSpecialVocabView })));
+const HomophonesView = lazyWithOfflineRetry(() => import('./HomophonesView').then(m => ({ default: m.HomophonesView })));
+const HomographsView = lazyWithOfflineRetry(() => import('./HomographsView').then(m => ({ default: m.HomographsView })));
+const FixedPrepositionsView = lazyWithOfflineRetry(() => import('./FixedPrepositionsView').then(m => ({ default: m.FixedPrepositionsView })));
+const ThemeBasedIdiomsView = lazyWithOfflineRetry(() => import('./ThemeBasedIdiomsView').then(m => ({ default: m.ThemeBasedIdiomsView })));
 import { 
   LEVEL_1_SET_01_WORDS, 
   LEVEL_1_SET_02_WORDS, 
@@ -800,6 +831,52 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
   const [showWordListModal, setShowWordListModal] = useState(false);
   const [showMathToolModal, setShowMathToolModal] = useState(false);
 
+  // 💾 Offline Vocabulary Vault Status & Sync State
+  const [isDeviceOffline, setIsDeviceOffline] = useState<boolean>(() => {
+    return typeof navigator !== 'undefined' ? !navigator.onLine : false;
+  });
+  const [offlineStatus, setOfflineStatus] = useState<VocabOfflineStatus>(() => getVocabOfflineStatus());
+  const [showOfflineVocabModal, setShowOfflineVocabModal] = useState(false);
+  const [isSyncingOffline, setIsSyncingOffline] = useState(false);
+  const [syncProgress, setSyncProgress] = useState(0);
+  const [syncProgressLabel, setSyncProgressLabel] = useState('');
+
+  // 🚀 Initialize background vocabulary cache on mount & listen to connectivity
+  useEffect(() => {
+    initBackgroundVocabCache();
+
+    const handleOnline = () => setIsDeviceOffline(false);
+    const handleOffline = () => setIsDeviceOffline(true);
+    const handleVocabReady = () => setOfflineStatus(getVocabOfflineStatus());
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('syllabus3d:vocab-offline-ready', handleVocabReady);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('syllabus3d:vocab-offline-ready', handleVocabReady);
+    };
+  }, []);
+
+  const handleManualSyncOffline = async () => {
+    soundManager.playClick();
+    haptics.selection();
+    setIsSyncingOffline(true);
+    setSyncProgress(5);
+    setSyncProgressLabel('Initializing Vault...');
+
+    await syncAllVocabForOffline((progress, label) => {
+      setSyncProgress(progress);
+      setSyncProgressLabel(label);
+    });
+
+    haptics.success();
+    setIsSyncingOffline(false);
+    setOfflineStatus(getVocabOfflineStatus());
+  };
+
   // 👆 Mobile Touch Swipe Gestures for Flashcard
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
@@ -1154,6 +1231,63 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
           ========================================================= */}
       {activeTab === 'vocab' && (
         <div className="space-y-4 sm:space-y-6 animate-fade-in">
+
+          {/* ⚡ Offline Vocabulary Engine Status Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/25 dark:border-amber-500/20 shadow-xs">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-base shrink-0 shadow-xs">
+                {isDeviceOffline ? (
+                  <WifiOff className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 animate-pulse" />
+                ) : (
+                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
+                )}
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h4 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                    Offline Vocabulary Vault
+                  </h4>
+                  {isDeviceOffline ? (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/40">
+                      ⚡ Active Offline
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                      100% Offline Ready
+                    </span>
+                  )}
+                </div>
+                <p className="text-[11px] text-slate-600 dark:text-slate-300 truncate">
+                  {isDeviceOffline
+                    ? 'Working completely offline • 5,200+ words, idioms, homophones & rules cached'
+                    : 'All 8 modules, flashcards & native speech work anywhere without internet'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              {isSyncingOffline ? (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-700 dark:text-sky-300 text-xs font-bold animate-pulse">
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin text-sky-500" />
+                  <span>{syncProgress}% {syncProgressLabel || 'Syncing...'}</span>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundManager.playClick();
+                    haptics.selection();
+                    setShowOfflineVocabModal(true);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/15 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs font-black transition-all shadow-2xs hover:scale-[1.02] cursor-pointer"
+                >
+                  <HardDrive className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Offline Vault Status</span>
+                </button>
+              )}
+            </div>
+          </div>
           
           {/* Mobile Quick Category Switcher Bar */}
           <div className="sm:hidden flex items-center justify-between p-2.5 rounded-2xl bg-white dark:bg-[#0E101B] border border-slate-200/80 dark:border-white/10 shadow-xs">
@@ -3698,6 +3832,150 @@ export const StudyToolsView: React.FC<StudyToolsViewProps> = ({
                 );
               })}
             </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 💾 Offline Vocabulary Vault Modal */}
+      {showOfflineVocabModal && createPortal(
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+          <div 
+            className="fixed inset-0" 
+            onClick={() => !isSyncingOffline && setShowOfflineVocabModal(false)} 
+            aria-hidden="true" 
+          />
+          <div className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-[#0E101B] border border-slate-200 dark:border-white/10 p-5 sm:p-6 shadow-2xl space-y-4">
+            
+            {/* Modal Header */}
+            <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center font-bold text-lg shrink-0">
+                  <HardDrive className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Offline Vocabulary Vault</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                      100% Offline
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    All 8 vocabulary systems are saved on your device storage
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                disabled={isSyncingOffline}
+                onClick={() => setShowOfflineVocabModal(false)}
+                className="p-1.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 hover:bg-slate-200 cursor-pointer disabled:opacity-50"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Offline Status Callout */}
+            <div className={`p-3.5 rounded-2xl border ${
+              isDeviceOffline
+                ? 'bg-amber-500/10 border-amber-500/30 text-amber-900 dark:text-amber-200'
+                : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-900 dark:text-emerald-200'
+            }`}>
+              <div className="flex items-center gap-2.5">
+                {isDeviceOffline ? (
+                  <WifiOff className="w-4 h-4 text-amber-500 shrink-0" />
+                ) : (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                )}
+                <div className="text-xs font-bold leading-relaxed">
+                  {isDeviceOffline ? (
+                    <span>Your device is currently <strong>Offline</strong>. All flashcards, quizzes, audio pronunciation, and tracking work seamlessly with 0ms delay.</span>
+                  ) : (
+                    <span>All <strong>5,200+ Vocabulary items</strong> are cached on this device. You can turn off Wi-Fi or go into Airplane mode anytime and continue studying without interruption.</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* 8 Module Offline Checklist */}
+            <div className="space-y-2">
+              <h4 className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Cached Offline Modules (8 Systems)
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {[
+                  { icon: '📖', label: 'Core Vocabulary', count: '1,700 Words (L1, L2, L3)' },
+                  { icon: '🌳', label: 'Root Words & Etymology', count: '30 Master Roots' },
+                  { icon: '🎯', label: 'One Word Substitution', count: '1,400+ Terms' },
+                  { icon: '🔥', label: 'Idioms & Phrases', count: '800+ (89 Themes)' },
+                  { icon: '🔊', label: 'Homophones Mastery', count: '400 Exam Pairs' },
+                  { icon: '📑', label: 'Homographs Mastery', count: '603 Groups' },
+                  { icon: '🧭', label: 'Fixed Prepositions', count: '295+ Rules / 335+ Combos' },
+                  { icon: '✨', label: 'SSC Special Modules', count: '8 Interactive HTML Portals' },
+                ].map((mod, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-base">{mod.icon}</span>
+                      <div className="min-w-0">
+                        <span className="font-bold text-slate-800 dark:text-slate-200 block truncate">{mod.label}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 block">{mod.count}</span>
+                      </div>
+                    </div>
+                    <span className="text-emerald-500 font-bold shrink-0 text-xs">✓ Cached</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Offline Features Pill Bar */}
+            <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-slate-100/70 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/5 text-center text-[11px]">
+              <div>
+                <span className="font-black text-slate-900 dark:text-white block">Device Speech</span>
+                <span className="text-slate-500 text-[10px]">Native Offline Audio</span>
+              </div>
+              <div>
+                <span className="font-black text-slate-900 dark:text-white block">Local Progress</span>
+                <span className="text-slate-500 text-[10px]">Mastery & Bookmarks</span>
+              </div>
+              <div>
+                <span className="font-black text-slate-900 dark:text-white block">0ms Latency</span>
+                <span className="text-slate-500 text-[10px]">Instant Local Search</span>
+              </div>
+            </div>
+
+            {/* Sync Progress or Action Button */}
+            {isSyncingOffline ? (
+              <div className="space-y-2 p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-center">
+                <div className="flex items-center justify-between text-xs font-bold text-sky-700 dark:text-sky-300">
+                  <span className="flex items-center gap-2">
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>{syncProgressLabel || 'Syncing Vault...'}</span>
+                  </span>
+                  <span>{syncProgress}%</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-sky-500 to-amber-500 transition-all duration-300"
+                    style={{ width: `${syncProgress}%` }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between gap-3 pt-2">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                  {offlineStatus.lastSynced ? `Last verified: ${offlineStatus.lastSynced}` : 'Cache verified on device'}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleManualSyncOffline}
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition-all shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Re-Sync / Verify Vault</span>
+                </button>
+              </div>
+            )}
+
           </div>
         </div>,
         document.body

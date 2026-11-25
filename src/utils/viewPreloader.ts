@@ -8,6 +8,7 @@
  */
 
 import { AppView } from '../components/layout/Sidebar';
+import { preloadAllVocabModules } from './offlineVocabManager';
 
 // Map of view ids to their dynamic import promises
 const viewLoaders: Record<string, () => Promise<unknown>> = {
@@ -27,9 +28,18 @@ const viewLoaders: Record<string, () => Promise<unknown>> = {
   settings: () => import('../components/views/SettingsView'),
   'youtube-notes': () => import('../components/views/YouTubeNotesView'),
   'mock-tracker': () => import('../components/views/MockTrackerView'),
-  'study-tools': () => import('../components/views/StudyToolsView'),
-  'study-tools-vocab': () => import('../components/views/StudyToolsView'),
-  'study-tools-vocab-ssc': () => import('../components/views/StudyToolsView'),
+  'study-tools': () => {
+    preloadAllVocabModules().catch(() => {});
+    return import('../components/views/StudyToolsView');
+  },
+  'study-tools-vocab': () => {
+    preloadAllVocabModules().catch(() => {});
+    return import('../components/views/StudyToolsView');
+  },
+  'study-tools-vocab-ssc': () => {
+    preloadAllVocabModules().catch(() => {});
+    return import('../components/views/StudyToolsView');
+  },
   'study-tools-maths': () => import('../components/views/StudyToolsView'),
   'study-tools-calc-booster': () => import('../components/views/StudyToolsView'),
   'study-tools-ga': () => import('../components/views/StudyToolsView'),

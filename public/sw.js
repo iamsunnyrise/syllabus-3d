@@ -2,7 +2,7 @@
 // SYLLABUS 3D — AUTO-UPDATING OFFLINE-READY SERVICE WORKER (PWA)
 // ═══════════════════════════════════════════════════════════════════
 
-const VERSION = 'v3.0.1';
+const VERSION = 'v3.2.0';
 const CACHE_NAME = `syllabus-3d-${VERSION}`;
 const DYNAMIC_CACHE = `syllabus-3d-dynamic-${VERSION}`;
 
@@ -30,6 +30,8 @@ const PRECACHE_ASSETS = [
   'study-tools-ga/polity/president_and_vice_president.html',
   'study-tools-ga/polity/parliament_part_1.html',
   'study-tools-ga/polity/parliament_part_2.html',
+  // 📚 All SSC Special Vocabulary Modules & Vendor Scripts (100% Offline Ready)
+  'ssc-vocab/index.html',
   'ssc-vocab/theme-sync.css',
   'ssc-vocab/theme-sync.js',
   'ssc-vocab/vocabulary_mastery_457.html',
@@ -38,17 +40,29 @@ const PRECACHE_ASSETS = [
   'ssc-vocab/root_words_mastery_notes.html',
   'ssc-vocab/commonly_confused_words_mastery.html',
   'ssc-vocab/practice_zone_mastery.html',
-  'ssc-vocab/fixed_prepositions_mastery.html'
+  'ssc-vocab/fixed_prepositions_mastery.html',
+  'ssc-vocab/vendor/confetti.browser.min.js',
+  'ssc-vocab/vendor/lucide.min.js'
 ];
 
-// 1. INSTALL EVENT: Pre-cache static assets and skip waiting immediately
+// 1. INSTALL EVENT: Pre-cache static assets resiliently & skip waiting immediately
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS).catch((err) => {
-        console.warn('[SW] Pre-cache partial warning:', err);
-      });
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // Use allSettled so one missing/failing asset does not reject the entire cache
+      await Promise.allSettled(
+        PRECACHE_ASSETS.map(async (asset) => {
+          try {
+            const response = await fetch(asset, { cache: 'no-cache' });
+            if (response && (response.status === 200 || response.type === 'opaque')) {
+              await cache.put(asset, response);
+            }
+          } catch (err) {
+            console.warn('[SW] Pre-cache asset skipped:', asset, err);
+          }
+        })
+      );
     })
   );
 });
@@ -69,10 +83,33 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. MESSAGE EVENT: Support instant skip-waiting from main thread
+// 3. MESSAGE EVENT: Support instant skip-waiting and on-demand asset caching from main thread
 self.addEventListener('message', (event) => {
   if (event.data && (event.data.type === 'SKIP_WAITING' || event.data === 'skipWaiting')) {
     self.skipWaiting();
+  }
+
+  // Allow main thread to request dynamic caching of vocabulary bundles and chunks
+  if (event.data && event.data.type === 'CACHE_URLS' && Array.isArray(event.data.urls)) {
+    event.waitUntil(
+      caches.open(DYNAMIC_CACHE).then(async (cache) => {
+        await Promise.allSettled(
+          event.data.urls.map(async (url) => {
+            try {
+              const matched = await cache.match(url);
+              if (!matched) {
+                const response = await fetch(url);
+                if (response && (response.status === 200 || response.type === 'opaque')) {
+                  await cache.put(url, response);
+                }
+              }
+            } catch (err) {
+              console.warn('[SW] Dynamic cache put error for:', url, err);
+            }
+          })
+        );
+      })
+    );
   }
 });
 
@@ -169,15 +206,26 @@ self.addEventListener('fetch', (event) => {
   if (url.pathname.includes('/ssc-vocab/')) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
-        const fetchPromise = fetch(request).then((networkResponse) => {
+        if (cachedResponse) {
+          // Revalidate in background when online to stay up-to-date
+          fetch(request).then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              const copy = networkResponse.clone();
+              caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, copy));
+            }
+          }).catch(() => {});
+          return cachedResponse;
+        }
+
+        return fetch(request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const copy = networkResponse.clone();
             caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, copy));
           }
           return networkResponse;
-        }).catch(() => null);
-
-        return cachedResponse || fetchPromise;
+        }).catch(() => {
+          return caches.match(request) || caches.match('/ssc-vocab/index.html');
+        });
       })
     );
     return;

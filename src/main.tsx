@@ -17,17 +17,6 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// Auto-clean any legacy stale service worker caches on startup
-if (typeof window !== 'undefined' && 'caches' in window) {
-  caches.keys().then((keys) => {
-    keys.forEach((key) => {
-      if (key.startsWith('syllabus-3d') && !key.includes('v2.9')) {
-        caches.delete(key);
-      }
-    });
-  }).catch(() => {});
-}
-
 // Register PWA Service Worker with Instant Auto-Update Engine
 if ('serviceWorker' in navigator && (import.meta.env.PROD || window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
   window.addEventListener('load', () => {

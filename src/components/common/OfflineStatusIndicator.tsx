@@ -41,7 +41,7 @@ export const OfflineStatusIndicator: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <WifiOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span className="text-[11px] truncate">
-            Offline Mode • Syllabus & Timers Active
+            Offline Mode • Vocabulary & Syllabus Active
           </span>
         </div>
       ) : (
