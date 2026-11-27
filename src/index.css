@@ -289,21 +289,21 @@
     border-color: #D4BE98 !important;
   }
 
-  /* Subtle Warm Golden Ambient Shadows */
-  html.warm-cream [class*="shadow-subtle-depth"],
-  html.warm-cream [class*="shadow-xs"],
-  html.warm-cream [class*="shadow-2xs"],
-  html.warm-cream [class*="shadow-sm"] {
+  /* Subtle Warm Golden Ambient Shadows (Exclude SVGs & drop-shadow-* utilities to prevent rectangular box artifacts) */
+  html.warm-cream [class*="shadow-subtle-depth"]:not(svg):not([class*="drop-shadow"]),
+  html.warm-cream [class*="shadow-xs"]:not(svg):not([class*="drop-shadow"]),
+  html.warm-cream [class*="shadow-2xs"]:not(svg):not([class*="drop-shadow"]),
+  html.warm-cream [class*="shadow-sm"]:not(svg):not([class*="drop-shadow"]) {
     box-shadow: 0 1px 4px rgba(56, 55, 13, 0.05), 0 1px 2px rgba(56, 55, 13, 0.04) !important;
   }
 
-  html.warm-cream [class*="shadow-md"],
-  html.warm-cream [class*="shadow-lg"] {
+  html.warm-cream [class*="shadow-md"]:not(svg):not([class*="drop-shadow"]),
+  html.warm-cream [class*="shadow-lg"]:not(svg):not([class*="drop-shadow"]) {
     box-shadow: 0 4px 18px -2px rgba(56, 55, 13, 0.07), 0 2px 6px -1px rgba(56, 55, 13, 0.04) !important;
   }
 
-  html.warm-cream [class*="shadow-xl"],
-  html.warm-cream [class*="shadow-2xl"] {
+  html.warm-cream [class*="shadow-xl"]:not(svg):not([class*="drop-shadow"]),
+  html.warm-cream [class*="shadow-2xl"]:not(svg):not([class*="drop-shadow"]) {
     box-shadow: 0 12px 36px -4px rgba(56, 55, 13, 0.12), 0 4px 12px -2px rgba(56, 55, 13, 0.06) !important;
   }
 

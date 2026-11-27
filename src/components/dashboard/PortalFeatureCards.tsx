@@ -26,7 +26,7 @@ const ModernAioPcFrame: React.FC<{
   isWarmCream?: boolean;
   idPrefix?: string;
 }> = ({ children, isDark = false, isWarmCream = false, idPrefix = 'aio' }) => (
-  <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto drop-shadow-md select-none" fill="none">
+  <svg viewBox="0 0 240 160" className="w-48 sm:w-56 h-auto select-none bg-transparent" fill="none">
     <defs>
       {/* Subtle screen shadow */}
       <filter id={`${idPrefix}ScreenShadow`} x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
