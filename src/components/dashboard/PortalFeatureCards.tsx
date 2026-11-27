@@ -437,19 +437,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </ModernAioPcFrame>
         </div>
 
-        {/* Title & Description */}
-        <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
+        {/* Title & CTA */}
+        <div className="mt-3 flex flex-col items-center gap-3 w-full">
           <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
             isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
           }`}>
             Syllabus Explorer
           </h2>
-          <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
-            Interactive 3D topic tracking, spaced repetition & chapter mastery roadmap.
-          </p>
 
           {/* High-Contrast Unified Amber-Gold CTA Button */}
-          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
+          <div className={`w-full py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Explore Syllabus</span>
             <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
@@ -572,19 +569,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </ModernAioPcFrame>
         </div>
 
-        {/* Title & Description */}
-        <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
+        {/* Title & CTA */}
+        <div className="mt-3 flex flex-col items-center gap-3 w-full">
           <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
             isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
           }`}>
             Mock Test Tracker
           </h2>
-          <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
-            Sectional percentiles, test series logs, accuracy diagnosis & mistake traps.
-          </p>
 
           {/* High-Contrast Unified Amber-Gold CTA Button */}
-          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
+          <div className={`w-full py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Open Mock Tracker</span>
             <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
@@ -836,19 +830,16 @@ export const PortalFeatureCards: React.FC<PortalFeatureCardsProps> = ({
           </ModernAioPcFrame>
         </div>
 
-        {/* Title & Description */}
-        <div className="mt-4 flex flex-col items-center gap-1.5 w-full">
+        {/* Title & CTA */}
+        <div className="mt-3 flex flex-col items-center gap-3 w-full">
           <h2 className={`text-lg sm:text-xl font-black tracking-tight transition-colors font-sans ${
             isWarmCream ? 'text-[#1C1B05] group-hover:text-amber-600' : 'text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400'
           }`}>
             Mock & Study Portals
           </h2>
-          <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xs text-center line-clamp-2">
-            Direct single-click gateway to Testbook, Oliveboard, PYQs & official updates.
-          </p>
 
           {/* High-Contrast Unified Amber-Gold CTA Button */}
-          <div className={`w-full mt-3.5 sm:mt-4 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
+          <div className={`w-full py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${unifiedCtaClass}`}>
             <span>Open Study Portals</span>
             <ArrowRight className="w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1" />
           </div>
