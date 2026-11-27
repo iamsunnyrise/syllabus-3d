@@ -791,51 +791,36 @@ export const App: React.FC = () => {
   }
 
   // 🌟 FIRST VISIT & PRODUCT OVERVIEW LANDING PAGE VIEW
-  // When user visits for the first time (or clicks "Product Overview" in sidebar):
-  // Renders the clean standalone Landing Page matching Picture 1 with top showcase banner.
-  // The Dashboard Header (Picture 2) and Sidebar are completely hidden on first visit!
   if (currentView === 'landing') {
     return (
-      <div className="min-h-screen flex flex-col transition-colors duration-300 relative bg-[#EDE9FE] dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC]">
-        {/* Top Product Overview banner */}
-        <div className="p-3 sm:px-6 max-w-7xl w-full mx-auto animate-fade-in">
-          <div className="flex items-center justify-center p-3 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#6D28D9] to-[#7C3AED] text-white shadow-md">
-            <div className="flex items-center gap-2 text-xs font-bold">
-              <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Syllabus 3D • Public Product Overview & Feature Showcase</span>
-            </div>
-          </div>
-        </div>
-
-        <Suspense fallback={<InitialAuthLoading />}>
-          <LandingPage
-            onGetStarted={() => {
-              soundManager.playClick();
-              try {
-                localStorage.setItem('syllabus3d_has_visited', 'true');
-              } catch {}
-              if (!isAuthenticated) {
-                setAuthView('signup');
-                setCurrentView('overview');
-              } else {
-                handleNavigate('overview');
-              }
-            }}
-            onLogin={() => {
-              soundManager.playClick();
-              try {
-                localStorage.setItem('syllabus3d_has_visited', 'true');
-              } catch {}
-              if (!isAuthenticated) {
-                setAuthView('login');
-                setCurrentView('overview');
-              } else {
-                handleNavigate('overview');
-              }
-            }}
-          />
-        </Suspense>
-      </div>
+      <Suspense fallback={<InitialAuthLoading />}>
+        <LandingPage
+          onGetStarted={() => {
+            soundManager.playClick();
+            try {
+              localStorage.setItem('syllabus3d_has_visited', 'true');
+            } catch {}
+            if (!isAuthenticated) {
+              setAuthView('signup');
+              setCurrentView('overview');
+            } else {
+              handleNavigate('overview');
+            }
+          }}
+          onLogin={() => {
+            soundManager.playClick();
+            try {
+              localStorage.setItem('syllabus3d_has_visited', 'true');
+            } catch {}
+            if (!isAuthenticated) {
+              setAuthView('login');
+              setCurrentView('overview');
+            } else {
+              handleNavigate('overview');
+            }
+          }}
+        />
+      </Suspense>
     );
   }
 

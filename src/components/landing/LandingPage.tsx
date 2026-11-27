@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Sparkles,
   ArrowRight,
@@ -14,25 +14,22 @@ import {
   Check,
   X,
   Lock,
-  Headphones,
-  Footprints,
-  BrainCircuit,
   BarChart3,
   Flame,
   Clock,
-  Calendar,
   Zap,
   Cloud,
-  Layers,
-  Compass,
   Trophy,
   Play,
-  TrendingUp,
+  Pause,
   FolderTree,
-  AlertTriangle,
-  Radio,
-  Sliders,
-  Laptop
+  Timer,
+  Languages,
+  Calculator,
+  WifiOff,
+  Monitor,
+  Volume2,
+  Layers
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { soundManager } from '../../utils/soundEffects';
@@ -42,28 +39,265 @@ interface LandingPageProps {
   onLogin: () => void;
 }
 
-type FeatureCategory = 'all' | 'planning' | 'recall' | 'study' | 'analytics';
+type FeatureCategory = 'all' | 'planning' | 'vocab-maths' | 'study-recall' | 'analytics';
+type HeroPreviewTab = 'command' | 'vocab' | 'focus';
 
 interface FeatureItem {
   id: string;
-  category: 'planning' | 'recall' | 'study' | 'analytics';
+  category: Exclude<FeatureCategory, 'all'>;
   title: string;
   badge: string;
-  badgeColor: string;
+  accent: 'amber' | 'emerald' | 'blue' | 'rose' | 'orange' | 'teal';
   icon: React.ComponentType<{ className?: string }>;
-  iconBg: string;
-  iconColor: string;
   description: string;
   bullets: string[];
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({
-  onGetStarted,
-  onLogin
-}) => {
-  const { isDark, toggleTheme } = useTheme();
+const ACCENT_MAP: Record<
+  FeatureItem['accent'],
+  { iconBg: string; iconText: string; badge: string }
+> = {
+  amber: {
+    iconBg: 'bg-amber-500/12 border-amber-500/30',
+    iconText: 'text-amber-600 dark:text-amber-400',
+    badge: 'bg-amber-500/12 text-amber-700 dark:text-amber-300 border-amber-500/30'
+  },
+  emerald: {
+    iconBg: 'bg-emerald-500/12 border-emerald-500/30',
+    iconText: 'text-emerald-600 dark:text-emerald-400',
+    badge: 'bg-emerald-500/12 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+  },
+  blue: {
+    iconBg: 'bg-sky-500/12 border-sky-500/30',
+    iconText: 'text-sky-600 dark:text-sky-400',
+    badge: 'bg-sky-500/12 text-sky-700 dark:text-sky-300 border-sky-500/30'
+  },
+  rose: {
+    iconBg: 'bg-rose-500/12 border-rose-500/30',
+    iconText: 'text-rose-600 dark:text-rose-400',
+    badge: 'bg-rose-500/12 text-rose-700 dark:text-rose-300 border-rose-500/30'
+  },
+  orange: {
+    iconBg: 'bg-orange-500/12 border-orange-500/30',
+    iconText: 'text-orange-600 dark:text-orange-400',
+    badge: 'bg-orange-500/12 text-orange-700 dark:text-orange-300 border-orange-500/30'
+  },
+  teal: {
+    iconBg: 'bg-teal-500/12 border-teal-500/30',
+    iconText: 'text-teal-600 dark:text-teal-400',
+    badge: 'bg-teal-500/12 text-teal-700 dark:text-teal-300 border-teal-500/30'
+  }
+};
+
+const FEATURE_ITEMS: FeatureItem[] = [
+  {
+    id: 'syllabus-explorer',
+    category: 'planning',
+    title: '3D Hierarchical Syllabus Explorer',
+    badge: 'Core OS',
+    accent: 'amber',
+    icon: FolderTree,
+    description:
+      'Break massive exam syllabuses into Subjects, Chapters, Topics, and Micro-Subtopics with instant progress telemetry and weightage priority.',
+    bullets: [
+      'Exam templates for SSC, UPSC, Banking, Railways, Defence & Custom',
+      'Live subject-by-subject completion bars & Backlog Rescue',
+      'Interactive 3D Mind Map to visualize topic connections'
+    ]
+  },
+  {
+    id: 'offline-vocab',
+    category: 'vocab-maths',
+    title: '100% Offline Vocabulary & Grammar Suite',
+    badge: 'Offline Cached',
+    accent: 'emerald',
+    icon: Languages,
+    description:
+      'Full SSC & competitive English library bundled directly in your browser cache: Core Vocab, Root Words, OWS, Idioms, Homophones, 603 Homographs, and 295+ Fixed Prepositions.',
+    bullets: [
+      'Works seamlessly in libraries, hostels & flights without internet',
+      'Clean exam-meaning flashcards with synonyms, antonyms & usage',
+      'Theme-Based Idioms, SSC Special Vocab & quick revision filters'
+    ]
+  },
+  {
+    id: 'calc-booster',
+    category: 'vocab-maths',
+    title: 'Calculation Booster Lab (11 Speed Drills)',
+    badge: 'Quant Speed',
+    accent: 'orange',
+    icon: Calculator,
+    description:
+      'Build reflex-fast mental math accuracy for SSC, Banking & CSAT with 11 dedicated drill trainers engineered for daily timed sprints.',
+    bullets: [
+      'Addition, Subtraction, Multiplication & Division drills',
+      'Tables, Squares, Cubes, Fractions, Triplets, Powers & Primes',
+      'Live accuracy, speed tracking & instant mastery reinforcement'
+    ]
+  },
+  {
+    id: 'focus-studio',
+    category: 'study-recall',
+    title: 'Focus Mode Studio & Zen Chamber',
+    badge: 'Deep Work',
+    accent: 'amber',
+    icon: Timer,
+    description:
+      'Distraction-free glassmorphic study studio featuring Pomodoro presets, Countdown & Stopwatch modes, daily target linking, and ambient soundscapes.',
+    bullets: [
+      'Curated Lo-Fi, Rain, Ocean & Campfire ambience channels',
+      'Link live timer sessions directly to syllabus topics',
+      'Zen View fullscreen mode with session history & streak XP'
+    ]
+  },
+  {
+    id: 'spaced-recall',
+    category: 'study-recall',
+    title: 'Scientific 4-Stage Spaced Repetition',
+    badge: 'Ebbinghaus Engine',
+    accent: 'teal',
+    icon: RotateCw,
+    description:
+      'Automated 1 → 4 → 9 → 27 day revision queues surface topics right before forgetting curves drop, turning short-term study into permanent recall.',
+    bullets: [
+      'Daily overdue & due revision counters inside the workspace',
+      'One-tap stage advancement with full mastery verification',
+      'Pairs with Walk & Revise hands-free audio playback'
+    ]
+  },
+  {
+    id: 'exam-countdown',
+    category: 'planning',
+    title: 'Live Exam Date Counter & Target Pacing',
+    badge: 'Runway Planner',
+    accent: 'orange',
+    icon: Clock,
+    description:
+      'Precision Days, Hours, Minutes & Seconds countdown paired with a pacing calculator that tells you the exact daily speed needed to finish on time.',
+    bullets: [
+      'One-click exam presets (SSC CGL, CHSL, CPO, RRB NTPC, UPSC)',
+      'Instant Ahead / On-Track / Behind Schedule diagnostic alerts',
+      'Daily Top-3 Non-Negotiable Targets & habit streak calendar'
+    ]
+  },
+  {
+    id: 'pdf-notes-suite',
+    category: 'study-recall',
+    title: 'Eye-Care PDF Reader & Office Notes Studio',
+    badge: 'Zero Glare',
+    accent: 'blue',
+    icon: BookOpen,
+    description:
+      'Annotate coaching PDFs in warm Sepia, Charcoal, or OLED Black without hurting your eyes, alongside an MS Word-style document editor with LaTeX math.',
+    bullets: [
+      'Split-screen PDF study paired with structured topic notes',
+      'KaTeX math equation rendering for Quant & Science formulas',
+      'AI YouTube Lecture Notes with clickable video timestamps'
+    ]
+  },
+  {
+    id: 'mock-tracker',
+    category: 'analytics',
+    title: 'Mock Test Series & Trap Journal',
+    badge: 'Score Analytics',
+    accent: 'rose',
+    icon: BarChart3,
+    description:
+      'Track full-length and sectional mocks, analyze percentile growth, and capture recurring silly errors inside a dedicated Weak Topics & Trap Ledger.',
+    bullets: [
+      'Accuracy trends, speed vs attempt logs & subject ROI breakdown',
+      'Diagnose concept gaps vs time traps before the next mock',
+      'One-click Study Station portals for Testbook, Oliveboard & PYQs'
+    ]
+  },
+  {
+    id: 'offline-pwa',
+    category: 'analytics',
+    title: 'Offline-First PWA & Cloud Precision Sync',
+    badge: 'Zero Data Loss',
+    accent: 'emerald',
+    icon: Cloud,
+    description:
+      'Installable on Windows, Mac, Android & iOS in one click. Every topic tick, note, and vocabulary deck persists offline in IndexedDB with cloud backup.',
+    bullets: [
+      '3 Eye-Care Themes: Warm Parchment Gold, Classic Light & Obsidian Dark',
+      'Full keyboard navigation & JSON / Google Drive backup exports',
+      'Private by design — 100% free with zero ads or subscriptions'
+    ]
+  }
+];
+
+const EXAM_LOGOS = [
+  { name: 'SSC CGL / CHSL / CPO', tag: 'Tier I & II', logo: '/exam-logos/ssc.png' },
+  { name: 'UPSC CSE', tag: 'Prelims & Mains', logo: '/exam-logos/upsc.png' },
+  { name: 'IBPS / SBI Banking', tag: 'PO & Clerk', logo: '/exam-logos/ibps.png' },
+  { name: 'Railways RRB', tag: 'NTPC & Group D', logo: '/exam-logos/railways.png' },
+  { name: 'Defence CDS / NDA', tag: 'Written & SSB', logo: '/exam-logos/defence.webp' }
+];
+
+const COMPARISON_ROWS = [
+  { feature: '3D Syllabus & Micro-Subtopic Tree', traditional: 'Static Excel / Paper Lists', ours: 'Live hierarchical progress + weightage' },
+  { feature: 'Vocabulary & Grammar Offline Pack', traditional: 'Heavy PDFs / Requires internet', ours: '100% Offline Vocab, 603 Homographs, 295+ Rules' },
+  { feature: 'Mental Maths Speed Drills', traditional: 'Random YouTube videos', ours: '11 Interactive Calculation Booster Trainers' },
+  { feature: 'Spaced Repetition Scheduling', traditional: 'Manual guesses & forgetting', ours: 'Automated 4-Stage (1, 4, 9, 27d) queue' },
+  { feature: 'Focus Timer & Ambience', traditional: 'Distracting phone timers', ours: 'Focus Studio with Lo-Fi, Rain & Session Logs' },
+  { feature: 'Eye-Care PDF & Math Notes', traditional: 'Blinding white glare viewers', ours: 'Warm Parchment / Charcoal PDFs + LaTeX Notes' },
+  { feature: 'Mock Test & Mistake Tracking', traditional: 'Scattered rough notebooks', ours: 'Percentile analytics + Weak Trap Journal' },
+  { feature: 'Cost & Offline Reliability', traditional: 'Paid subscriptions / Cloud-only', ours: '100% Free Forever + Offline PWA' }
+];
+
+const FAQS = [
+  {
+    q: 'Is Syllabus 3D really 100% free with no hidden membership?',
+    a: 'Yes — every single feature in Syllabus 3D is completely free for all aspirants. There are no paywalls, locked tools, or membership tiers. You get full access to the 3D Syllabus Explorer, Offline Vocabulary & Prepositions, all 11 Calculation Booster tools, Focus Mode Studio, Mock Tracker, PDF Reader, and Cloud Backup.'
+  },
+  {
+    q: 'Does all Vocabulary and Study data work without internet?',
+    a: 'Yes! Once loaded, Vocabulary decks (Core Vocab, Roots, OWS, Idioms, Homophones, Homographs, Fixed Prepositions, SSC Special Vocab), Calculation Booster drills, your syllabus progress, and notes are cached locally so you can study completely offline in any library or commute.'
+  },
+  {
+    q: 'Which themes are included for long study hours?',
+    a: 'Syllabus 3D includes three curated themes tuned for eye comfort: Warm Parchment Gold (default paper-like warm tone for zero harsh glare), Classic Daylight Light, and Obsidian Gold Dark mode for late-night study marathons.'
+  },
+  {
+    q: 'How does the 4-Stage Spaced Repetition system help me retain more?',
+    a: 'Instead of passive rereading, marking a topic completed schedules revisions at scientifically spaced 1, 4, 9, and 27-day intervals. Each morning you see exactly which high-yield concepts need recall before memory decay hits.'
+  },
+  {
+    q: 'Can I customize my own syllabus or use it for SSC, UPSC, and Banking?',
+    a: 'Both! Pick one-click exam presets (SSC CGL, CHSL, CPO, RRB NTPC, SBI PO, UPSC CSE) or build custom subjects, chapters, and targets tailored to State PCS, GATE, JEE, NEET, or university coursework.'
+  },
+  {
+    q: 'How do I install Syllabus 3D on desktop or mobile?',
+    a: 'Syllabus 3D is a modern Progressive Web App (PWA). Click the install icon in Chrome/Edge on Windows or Mac, or use "Add to Home Screen" on Android/iOS Safari for an instant full-screen native experience.'
+  }
+];
+
+export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin }) => {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
+  const isWarmCream = theme === 'warm-cream';
+
   const [selectedCategory, setSelectedCategory] = useState<FeatureCategory>('all');
+  const [heroTab, setHeroTab] = useState<HeroPreviewTab>('command');
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
+  const [demoTargets, setDemoTargets] = useState([true, false, false]);
+  const [focusRunning, setFocusRunning] = useState(false);
+  const [focusSeconds, setFocusSeconds] = useState(45 * 60);
+
+  useEffect(() => {
+    if (!focusRunning) return;
+    const id = window.setInterval(() => {
+      setFocusSeconds(prev => (prev > 0 ? prev - 1 : 45 * 60));
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [focusRunning]);
+
+  const formatTimer = (totalSec: number) => {
+    const mins = Math.floor(totalSec / 60);
+    const secs = totalSec % 60;
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  };
 
   const handleCtaClick = (type: 'signup' | 'login') => {
     soundManager.playClick();
@@ -74,607 +308,950 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     }
   };
 
-  const featureItems: FeatureItem[] = [
-    {
-      id: 'syllabus-tree',
-      category: 'planning',
-      title: '3D Hierarchical Syllabus Explorer',
-      badge: 'Core Engine',
-      badgeColor: 'bg-blue-500/10 text-blue-600 dark:text-sky-400 border-blue-500/30',
-      icon: FolderTree,
-      iconBg: 'bg-blue-500/10 border-blue-500/30',
-      iconColor: 'text-blue-600 dark:text-sky-400',
-      description: 'Deconstruct massive exam syllabuses into a clear 3D structure: Subjects → Chapters → Topics → Micro-Subtopics with real-time percentage indicators.',
-      bullets: [
-        'Multi-level depth tracking with instant visual progress',
-        'Pre-loaded exam templates (UPSC, GATE, JEE, NEET, SSC) + custom subjects',
-        'Bulk topic importer and subject exam weightage tags'
-      ]
-    },
-    {
-      id: 'spaced-repetition',
-      category: 'recall',
-      title: 'Scientific Spaced Repetition (Ebbinghaus)',
-      badge: 'Cognitive Science',
-      badgeColor: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30',
-      icon: RotateCw,
-      iconBg: 'bg-purple-500/10 border-purple-500/30',
-      iconColor: 'text-purple-600 dark:text-purple-400',
-      description: 'Never let learned concepts decay. Automated 4-Stage SuperMemo intervals (1 Day → 4 Days → 9 Days → 27 Days) trigger revisions right at the optimal recall window.',
-      bullets: [
-        'Automated daily revision queue mapped to forgetting curve',
-        'Stage 1 to 4 mastery verification with one-tap completion',
-        'Eliminates last-minute cramming and builds permanent memory'
-      ]
-    },
-    {
-      id: 'pdf-reader',
-      category: 'study',
-      title: 'In-App Eye-Care PDF Reader Suite',
-      badge: 'Zero Eye Strain',
-      badgeColor: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
-      icon: BookOpen,
-      iconBg: 'bg-amber-500/10 border-amber-500/30',
-      iconColor: 'text-amber-600 dark:text-amber-400',
-      description: 'Read heavyweight coaching modules, standard textbooks, and pyqs without blinding glare. Powered by calibrated GPU shaders that protect colored diagrams.',
-      bullets: [
-        'Calibrated Charcoal Night, OLED Pure Black & Kindle Sepia modes',
-        'Freehand pen drawing, box highlighting & sticky comment annotations',
-        'Split-screen study mode: read PDFs side-by-side with notes'
-      ]
-    },
-    {
-      id: 'word-notes',
-      category: 'study',
-      title: 'MS Word-Grade Document Notes Studio',
-      badge: 'Office Ribbon',
-      badgeColor: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
-      icon: FileText,
-      iconBg: 'bg-indigo-500/10 border-indigo-500/30',
-      iconColor: 'text-indigo-600 dark:text-indigo-400',
-      description: 'A desktop-caliber rich document workspace. Type comprehensive notes with realistic A4 paper views, rich typography, LaTeX formulas, and table repairs.',
-      bullets: [
-        'Full Microsoft Office-style Ribbon interface with tabbed toolbars',
-        'Real-time KaTeX LaTeX math equation rendering for formulas',
-        'Voice dictation (speech-to-text), table repair tools & clean PDF export'
-      ]
-    },
-    {
-      id: 'youtube-ai',
-      category: 'study',
-      title: 'AI YouTube Lecture Notes & Video Sync',
-      badge: 'Smart Learning',
-      badgeColor: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30',
-      icon: Play,
-      iconBg: 'bg-red-500/10 border-red-500/30',
-      iconColor: 'text-red-600 dark:text-red-400',
-      description: 'Turn passive video watching into active high-yield study material. Generate structured notes from YouTube video lectures with interactive timestamp bookmarks.',
-      bullets: [
-        'Instant AI key-takeaways, formula extractions & summaries',
-        'Interactive timestamp bookmarks that jump to exact video moments',
-        'Save notes directly to relevant syllabus topics in one click'
-      ]
-    },
-    {
-      id: 'mock-tracker',
-      category: 'analytics',
-      title: 'Mock Test Series & Percentile Tracker',
-      badge: 'Score Booster',
-      badgeColor: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
-      icon: BarChart3,
-      iconBg: 'bg-emerald-500/10 border-emerald-500/30',
-      iconColor: 'text-emerald-600 dark:text-emerald-400',
-      description: 'Comprehensive test analytics dashboard. Log full-length and sectional test scores, track percentile trajectories, and eliminate negative marks.',
-      bullets: [
-        'Score trends, accuracy %, speed vs attempt charts across test series',
-        'Categorized mistake logging: silly errors, concept gaps, time traps',
-        'Compare performance across subjects to identify high-ROI areas'
-      ]
-    },
-    {
-      id: 'task-planner',
-      category: 'planning',
-      title: 'Smart Daily & Weekly Task Planner',
-      badge: 'Productivity OS',
-      badgeColor: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
-      icon: Calendar,
-      iconBg: 'bg-cyan-500/10 border-cyan-500/30',
-      iconColor: 'text-cyan-600 dark:text-cyan-400',
-      description: 'Dynamic daily study schedule synced directly with your syllabus. Assign topic targets to time blocks with high, medium, and low urgency tags.',
-      bullets: [
-        'Daily checklist with time estimates and auto-streak counter',
-        'Drag-and-drop prioritization & backlog auto-roll to next morning',
-        'Visual target progress bar celebrating daily mission completion'
-      ]
-    },
-    {
-      id: 'pacing-runway',
-      category: 'analytics',
-      title: 'Exam Runway & Pacing Calculator',
-      badge: 'Target Forecaster',
-      badgeColor: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/30',
-      icon: Clock,
-      iconBg: 'bg-orange-500/10 border-orange-500/30',
-      iconColor: 'text-orange-600 dark:text-orange-400',
-      description: 'Mathematical forecast of your exam trajectory. Calculates the required daily study velocity (topics and hours per day) to complete syllabus with buffer time.',
-      bullets: [
-        'Live countdown clock with runway days remaining until D-Day',
-        'Dynamic pace status: Ahead, On-Track, or Behind Schedule alert',
-        'Calculates exact revision rounds feasible before final exam'
-      ]
-    },
-    {
-      id: 'weak-traps',
-      category: 'recall',
-      title: 'Weak Topics & Exam Trap Diagnostic',
-      badge: 'Mistake Journal',
-      badgeColor: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30',
-      icon: AlertTriangle,
-      iconBg: 'bg-rose-500/10 border-rose-500/30',
-      iconColor: 'text-rose-600 dark:text-rose-400',
-      description: 'Convert past exam errors into guaranteed marks. Maintain an active trap ledger of tricky concepts, negative marking triggers, and confusing formulas.',
-      bullets: [
-        'Automated diagnosis of topics with low quiz or mock accuracy',
-        'Active mistake journal with "Why I Failed & How to Fix It" fields',
-        'Priority filter for focused weekend remediation sprints'
-      ]
-    },
-    {
-      id: 'walk-revise',
-      category: 'recall',
-      title: 'Walk & Revise Hands-Free Audio Mode',
-      badge: 'Passive to Active',
-      badgeColor: 'bg-pink-500/10 text-pink-600 dark:text-pink-400 border-pink-500/30',
-      icon: Headphones,
-      iconBg: 'bg-pink-500/10 border-pink-500/30',
-      iconColor: 'text-pink-600 dark:text-pink-400',
-      description: 'Turn outdoor walks, daily commutes, and gym workouts into productive revision sessions. High-fidelity text-to-speech audio reader plays your syllabus notes.',
-      bullets: [
-        'Hands-free audio player with playback speed (1x, 1.25x, 1.5x, 2x)',
-        'Topic-by-topic audio summaries, voice memos & audio cards',
-        'Keeps brain engaged during low-energy hours without screen glare'
-      ]
-    },
-    {
-      id: 'focus-chamber',
-      category: 'recall',
-      title: 'Focus Chamber & Pomodoro Stopwatch',
-      badge: 'Deep Work',
-      badgeColor: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/30',
-      icon: Flame,
-      iconBg: 'bg-violet-500/10 border-violet-500/30',
-      iconColor: 'text-violet-600 dark:text-violet-400',
-      description: 'Enter a distraction-free deep work zone. Calibrated 25/50-minute Pomodoro timers with ambient background soundscapes (binaural beats, rain, library murmur).',
-      bullets: [
-        'Floating PIP study stopwatch that stays on screen during PDF reading',
-        'Curated ambient audio tracks designed to induce alpha brainwave focus',
-        'Detailed session logs contributing to daily XP and study streak'
-      ]
-    },
-    {
-      id: 'mindmap',
-      category: 'planning',
-      title: 'Interactive Visual Knowledge Mind Map',
-      badge: 'Visual Thinking',
-      badgeColor: 'bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/30',
-      icon: BrainCircuit,
-      iconBg: 'bg-teal-500/10 border-teal-500/30',
-      iconColor: 'text-teal-600 dark:text-teal-400',
-      description: 'Visualize the interconnected architecture of your entire subject. Zoom, pan, and branch topics to see how high-yield concepts connect.',
-      bullets: [
-        'Dynamic interactive canvas with collapsible node trees',
-        'Color-coded completion status across interrelated topics',
-        'Great for multi-disciplinary exams like UPSC, GATE, and CSE'
-      ]
-    },
-    {
-      id: 'backlog-rescue',
-      category: 'planning',
-      title: 'Smart Backlog Rescue Engine',
-      badge: 'Emergency Recovery',
-      badgeColor: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/30',
-      icon: Zap,
-      iconBg: 'bg-yellow-500/10 border-yellow-500/30',
-      iconColor: 'text-yellow-600 dark:text-yellow-400',
-      description: 'Fell sick or took a break? Do not panic. The Backlog Rescue algorithm redistributes pending topics into realistic daily micro-doses without burnout.',
-      bullets: [
-        'One-click schedule rebalancing based on remaining exam runway',
-        'Separates high-weightage priority topics from secondary topics',
-        'Eliminates anxiety and restores structured momentum instantly'
-      ]
-    },
-    {
-      id: 'offline-cloud',
-      category: 'analytics',
-      title: '100% Offline PWA & Cloud Backup',
-      badge: 'Zero Data Loss',
-      badgeColor: 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/30',
-      icon: Cloud,
-      iconBg: 'bg-slate-500/10 border-slate-500/30',
-      iconColor: 'text-slate-700 dark:text-slate-300',
-      description: 'Works seamlessly in remote study locations, library basements, or airplanes without internet. Your data is stored locally in IndexedDB with cloud sync options.',
-      bullets: [
-        'Installable Progressive Web App (PWA) on Android, iOS, Windows, Mac',
-        'One-click Google Drive automated backup & encrypted JSON exports',
-        'Private and secure: your notes and data belong 100% to you'
-      ]
-    }
-  ];
+  const filteredFeatures =
+    selectedCategory === 'all'
+      ? FEATURE_ITEMS
+      : FEATURE_ITEMS.filter(item => item.category === selectedCategory);
 
-  const filteredFeatures = selectedCategory === 'all'
-    ? featureItems
-    : featureItems.filter(item => item.category === selectedCategory);
+  // Surface helper classes tuned cleanly for all 3 real website themes
+  const pageBg = isDark
+    ? 'bg-[#080A10] text-slate-100'
+    : isWarmCream
+    ? 'bg-[#F8EED8] text-[#2A2608]'
+    : 'bg-[#F8FAFC] text-slate-900';
 
-  const faqs = [
-    {
-      q: 'Is Syllabus 3D really 100% free to use?',
-      a: 'Yes! Syllabus 3D is completely free for all individual aspirants and students. All 14+ core tools—including 3D syllabus tracking, 4-stage spaced repetition, in-app eye-care PDF reader, MS Word-grade document notes studio, mock test tracker, and Walk & Revise—are fully unlocked with no paywalls or trial periods.'
-    },
-    {
-      q: 'Does it work offline without an active internet connection?',
-      a: 'Yes, 100%! Syllabus 3D is engineered with an offline-first architecture as a Progressive Web App (PWA). All your syllabus completion ticks, notes, PDF comments, and revision queues are safely cached on your device. Whenever you are connected, you can optionally backup to your private Google Drive in one click.'
-    },
-    {
-      q: 'How does the Spaced Repetition engine work?',
-      a: 'It uses an intelligent adaptation of the Ebbinghaus forgetting curve. When you mark a topic as learned, the system queues automated revisions at optimal memory intervals: Stage 1 (1 day), Stage 2 (4 days), Stage 3 (9 days), and Stage 4 (27 days). Revising at these precise intervals transfers concepts from short-term to permanent long-term memory.'
-    },
-    {
-      q: 'What is the Eye-Care PDF Night Mode and how does it protect my eyes?',
-      a: 'Standard PDF viewers simply invert colors, turning diagrams and text into blinding neon blues and harsh purples. Syllabus 3D uses calibrated GPU shaders with color hue preservation. White pages become soothing dark charcoal (#18181D) or OLED pure black, while red, blue, and green diagrams retain their natural colors without causing retinal fatigue during late-night study marathons.'
-    },
-    {
-      q: 'Which exams can I prepare for with Syllabus 3D?',
-      a: 'Syllabus 3D supports ANY competitive exam or academic curriculum! You can select pre-built structured templates for major competitive exams (UPSC CSE, GATE, JEE Mains & Advanced, NEET, SSC CGL, Banking, CAT) or create completely custom subjects, chapters, and micro-subtopics tailored to your university or state exam.'
-    },
-    {
-      q: 'How do I install Syllabus 3D on my mobile, tablet, or laptop?',
-      a: 'Since Syllabus 3D is a modern PWA, you can install it instantly without visiting an app store. On Google Chrome, Edge, or Brave, tap the install icon in the address bar. On Safari (iPhone/iPad), tap "Share" and select "Add to Home Screen". It opens in full-screen native mode just like a native app.'
-    }
-  ];
+  const cardSurface = isDark
+    ? 'bg-[#111420]/95 border-white/10'
+    : isWarmCream
+    ? 'bg-[#FFFDF8] border-[#E2D1B3]'
+    : 'bg-white border-slate-200/90';
+
+  const subtleSurface = isDark
+    ? 'bg-[#171B2B] border-white/10'
+    : isWarmCream
+    ? 'bg-[#FBF3E2] border-[#E5D5B8]'
+    : 'bg-slate-50 border-slate-200/80';
+
+  const mutedText = isDark
+    ? 'text-slate-400'
+    : isWarmCream
+    ? 'text-[#6D5B14]'
+    : 'text-slate-600';
+
+  const sectionBandBg = isDark
+    ? 'bg-[#0D101B]/90 border-white/10'
+    : isWarmCream
+    ? 'bg-[#F3E5CA]/65 border-[#DFCCA8]'
+    : 'bg-slate-100/70 border-slate-200/80';
+
+  const themeLabel = isDark ? 'Obsidian' : isWarmCream ? 'Parchment' : 'Daylight';
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#070913] text-[#0F172A] dark:text-[#F1F5F9] font-sans selection:bg-blue-600/30 selection:text-blue-200 overflow-x-hidden transition-colors duration-300">
-      
-      {/* ── ATMOSPHERIC LIGHTING & GLOW EFFECTS ── */}
+    <div
+      className={`min-h-screen font-sans selection:bg-amber-500/30 overflow-x-hidden transition-colors duration-300 relative ${pageBg}`}
+    >
+      {/* ── ATMOSPHERIC WARM GOLD GLOW ── */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-600/15 via-indigo-600/10 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-[30%] -left-64 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[160px]" />
-        <div className="absolute top-[60%] -right-64 w-[650px] h-[650px] bg-sky-500/10 rounded-full blur-[170px]" />
-        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[150px]" />
+        <div
+          className={`absolute -top-44 left-1/2 -translate-x-1/2 w-[1050px] h-[540px] rounded-full blur-[140px] ${
+            isDark
+              ? 'bg-gradient-to-b from-amber-500/12 via-orange-500/8 to-transparent'
+              : isWarmCream
+              ? 'bg-gradient-to-b from-amber-400/20 via-orange-300/10 to-transparent'
+              : 'bg-gradient-to-b from-amber-400/18 via-orange-300/10 to-transparent'
+          }`}
+        />
+        <div
+          className={`absolute top-[42%] -left-56 w-[520px] h-[520px] rounded-full blur-[160px] ${
+            isDark ? 'bg-amber-600/8' : 'bg-amber-400/12'
+          }`}
+        />
+        <div
+          className={`absolute bottom-12 -right-56 w-[520px] h-[520px] rounded-full blur-[160px] ${
+            isDark ? 'bg-emerald-500/8' : 'bg-orange-400/10'
+          }`}
+        />
       </div>
 
-      {/* ── 1. STICKY GLASSMORPHIC NAVIGATION BAR ── */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/[0.08] bg-white/85 dark:bg-[#070913]/85 backdrop-blur-xl transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
-          
-          {/* Brand Logo & Name */}
-          <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      {/* ── 1. INTEGRATED ANNOUNCEMENT RIBBON ── */}
+      <div
+        className={`relative z-20 border-b text-[11px] font-bold py-2 px-4 text-center ${
+          isDark
+            ? 'bg-[#10131E] border-white/10 text-amber-300'
+            : isWarmCream
+            ? 'bg-[#EFE0C1] border-[#DEC9A4] text-[#5C4904]'
+            : 'bg-amber-50 border-amber-200/80 text-amber-900'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <span className="inline-flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span>Syllabus 3D • All-in-One Competitive Exam Operating System</span>
+          </span>
+          <span
+            className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+              isDark
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                : 'bg-amber-500/20 text-amber-900 border border-amber-600/25'
+            }`}
           >
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain drop-shadow-md" />
+            100% Free & Offline PWA
+          </span>
+        </div>
+      </div>
+
+      {/* ── 2. STICKY GLASS NAVIGATION HEADER ── */}
+      <header
+        className={`sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-colors ${
+          isDark
+            ? 'bg-[#080A10]/85 border-white/[0.08]'
+            : isWarmCream
+            ? 'bg-[#FFFDF8]/88 border-[#E2D1B3]'
+            : 'bg-white/85 border-slate-200/80'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
+          {/* Brand */}
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group text-left"
+          >
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <img
+                src="/logo.png"
+                alt="Syllabus 3D"
+                className="w-full h-full object-contain drop-shadow-[0_3px_10px_rgba(245,158,11,0.35)]"
+              />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-base sm:text-lg font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                  Syllabus 3D
+              <span className="text-base sm:text-lg font-black tracking-tight block leading-tight">
+                Syllabus{' '}
+                <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 bg-clip-text text-transparent">
+                  3D
                 </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-sky-300 border border-blue-500/30 font-bold uppercase tracking-wider">
-                  Pro
-                </span>
-              </div>
-              <p className="hidden sm:block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none">
+              </span>
+              <span className={`hidden sm:block text-[10px] font-bold uppercase tracking-widest ${mutedText}`}>
                 Exam Operating System
-              </p>
+              </span>
             </div>
-          </div>
+          </button>
 
-          {/* Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-bold text-slate-600 dark:text-slate-300">
-            <a href="#features" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">All Features</a>
-            <a href="#spaced-repetition" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Spaced Repetition</a>
-            <a href="#study-suite" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">PDF & Notes Suite</a>
-            <a href="#workflow" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Daily Routine</a>
-            <a href="#comparison" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Comparison</a>
-            <a href="#faq" className="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">FAQ</a>
+          {/* Navigation Anchors */}
+          <nav className={`hidden lg:flex items-center gap-6 xl:gap-7 text-xs font-bold ${mutedText}`}>
+            <a href="#study-suite" className="hover:text-amber-500 transition-colors">
+              Live Preview
+            </a>
+            <a href="#features" className="hover:text-amber-500 transition-colors">
+              All Modules
+            </a>
+            <a href="#workflow" className="hover:text-amber-500 transition-colors">
+              Daily System
+            </a>
+            <a href="#comparison" className="hover:text-amber-500 transition-colors">
+              Why Syllabus 3D
+            </a>
+            <a href="#faq" className="hover:text-amber-500 transition-colors">
+              FAQ
+            </a>
           </nav>
 
-          {/* Action CTAs & Controls */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Theme Toggle Button */}
+          {/* Header Actions */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* 3-Theme Switcher (Parchment / Light / Dark) */}
             <button
               type="button"
-              onClick={() => {
+              onClick={e => {
                 soundManager.playClick();
-                toggleTheme();
+                toggleTheme(e);
               }}
-              className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-white/15 transition-all cursor-pointer"
-              title={isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-              aria-label="Toggle theme"
+              className={`h-9 sm:h-10 px-3 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 ${subtleSurface}`}
+              title={`Current theme: ${themeLabel}. Click to switch theme.`}
+              aria-label="Switch theme"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+              {isDark ? (
+                <Moon className="w-3.5 h-3.5 text-amber-400" />
+              ) : isWarmCream ? (
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-amber-500" />
+              )}
+              <span className="hidden md:inline">{themeLabel}</span>
             </button>
 
-            {/* Sign In Button */}
             <button
               type="button"
               onClick={() => handleCtaClick('login')}
-              className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all cursor-pointer"
+              className={`hidden sm:inline-flex h-9 sm:h-10 px-4 rounded-xl border text-xs font-bold items-center transition-all cursor-pointer active:scale-95 ${subtleSurface}`}
             >
               Sign In
             </button>
 
-            {/* Launch App Free */}
             <button
               type="button"
               onClick={() => handleCtaClick('signup')}
-              className="h-10 sm:h-11 px-4 sm:px-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 active:scale-95 transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer"
+              className="h-9 sm:h-10 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>Launch App Free</span>
-              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.75]" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* ── 2. HERO SECTION WITH HIGH-IMPACT STUDENT VISUAL ── */}
-      <section className="relative z-10 pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          
-          {/* Left Column: Value Proposition */}
-          <div className="lg:col-span-6 xl:col-span-7 text-center lg:text-left">
-            {/* Top Pill Announcement */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-black mb-6 shadow-xs animate-fade-in">
-              <Sparkles className="w-3.5 h-3.5 text-blue-500 animate-pulse" />
-              <span>The Complete Operating System for Competitive Exams</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-600 text-white font-mono uppercase tracking-widest">
-                100% Free & Offline
-              </span>
+      {/* ── 3. HERO SECTION WITH INTERACTIVE LIVE WORKSPACE PREVIEW ── */}
+      <section className="relative z-10 pt-10 sm:pt-14 lg:pt-18 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-center">
+          {/* Left Column: Core Positioning */}
+          <div className="lg:col-span-6 text-center lg:text-left">
+            <div
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold mb-5 shadow-xs ${
+                isDark
+                  ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                  : isWarmCream
+                  ? 'bg-[#FFFDF8] border-[#DFCCA6] text-[#6E5603]'
+                  : 'bg-amber-50 border-amber-200 text-amber-800'
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Engineered for SSC, UPSC, Banking & Competitive Exams</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-black tracking-tight leading-[1.12] mb-5 text-slate-900 dark:text-white">
-              Master Your Entire Syllabus.{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#C084FC] bg-clip-text text-transparent">
-                Retain Every Single Concept
+            <h1 className="text-3xl sm:text-5xl xl:text-[54px] font-black tracking-tight leading-[1.1] mb-5">
+              Track Every Topic.{' '}
+              <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 bg-clip-text text-transparent">
+                Drill Offline & Retain More
               </span>{' '}
               on Exam Day.
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base lg:text-[17px] text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
-              Transform study overwhelm into a precision daily mastery routine. Syllabus 3D unifies 
-              <strong className="text-slate-900 dark:text-white font-bold"> 3D syllabus hierarchy</strong>, 
-              <strong className="text-slate-900 dark:text-white font-bold"> 4-stage scientific spaced repetition</strong>, 
-              <strong className="text-slate-900 dark:text-white font-bold"> in-app eye-care PDF annotations</strong>, and 
-              <strong className="text-slate-900 dark:text-white font-bold"> MS Word-grade formula notes</strong> into one seamless workspace.
+            <p className={`text-sm sm:text-base lg:text-[17px] leading-relaxed mb-7 max-w-2xl mx-auto lg:mx-0 ${mutedText}`}>
+              Syllabus 3D brings your <strong className="font-bold text-current">3D Syllabus Tree</strong>,{' '}
+              <strong className="font-bold text-current">100% Offline Vocabulary &amp; Prepositions</strong>,{' '}
+              <strong className="font-bold text-current">11 Calculation Booster Drills</strong>,{' '}
+              <strong className="font-bold text-current">Focus Mode Studio</strong>, and{' '}
+              <strong className="font-bold text-current">Mock Test Analytics</strong> into one eye-care workspace.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 mb-10">
+            {/* Primary & Secondary CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 mb-8">
               <button
                 type="button"
                 onClick={() => handleCtaClick('signup')}
-                className="w-full sm:w-auto h-13 px-8 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                className="w-full sm:w-auto h-13 px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/25 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
               >
                 <span>Start Tracking Free</span>
                 <ArrowRight className="w-4 h-4 stroke-[3]" />
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => handleCtaClick('login')}
-                className="w-full sm:w-auto h-13 px-7 rounded-2xl bg-white dark:bg-white/[0.08] hover:bg-slate-50 dark:hover:bg-white/15 text-slate-800 dark:text-white font-bold text-sm border border-slate-200/90 dark:border-white/15 shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className={`w-full sm:w-auto h-13 px-7 rounded-2xl border font-bold text-sm shadow-xs active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer ${cardSurface}`}
               >
-                <Lock className="w-4 h-4 text-blue-500" />
-                <span>Sign In to Existing Account</span>
+                <Lock className="w-4 h-4 text-amber-500" />
+                <span>Sign In to Workspace</span>
               </button>
             </div>
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-bold text-slate-600 dark:text-slate-300 pt-6 border-t border-slate-200/80 dark:border-white/10">
-              <div className="flex items-center gap-2">
+            {/* Real Platform Guarantees */}
+            <div
+              className={`grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-bold pt-6 border-t ${
+                isDark ? 'border-white/10' : isWarmCream ? 'border-[#DFCCA8]' : 'border-slate-200'
+              }`}
+            >
+              <div className="flex items-center justify-center lg:justify-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                 <span>100% Free Forever</span>
               </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-blue-500 shrink-0" />
-                <span>Offline-First (PWA)</span>
+              <div className="flex items-center justify-center lg:justify-start gap-2">
+                <WifiOff className="w-4 h-4 text-amber-500 shrink-0" />
+                <span>Offline Vocab &amp; PWA</span>
               </div>
-              <div className="flex items-center gap-2">
-                <RotateCw className="w-4 h-4 text-purple-500 shrink-0" />
+              <div className="flex items-center justify-center lg:justify-start gap-2">
+                <Calculator className="w-4 h-4 text-orange-500 shrink-0" />
+                <span>11 Calc Speed Drills</span>
+              </div>
+              <div className="flex items-center justify-center lg:justify-start gap-2">
+                <RotateCw className="w-4 h-4 text-sky-500 shrink-0" />
                 <span>4-Stage Recall</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Moon className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>Eye-Care PDFs</span>
-              </div>
             </div>
           </div>
 
-          {/* Right Column: Hero Visual with Real Student Photo & Live Telemetry Overlay */}
-          <div className="lg:col-span-6 xl:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              
-              {/* Decorative Ambient Background Halo */}
-              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-blue-600/30 via-indigo-600/20 to-purple-600/30 blur-2xl opacity-70 -z-10" />
+          {/* Right Column: Interactive Live Product Preview */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative mx-auto max-w-xl lg:max-w-none">
+              <div
+                className={`absolute -inset-3 rounded-[28px] blur-2xl -z-10 ${
+                  isDark
+                    ? 'bg-gradient-to-tr from-amber-500/20 via-orange-500/10 to-emerald-500/15'
+                    : 'bg-gradient-to-tr from-amber-400/30 via-orange-300/20 to-amber-200/25'
+                }`}
+              />
 
-              {/* Main Card Frame */}
-              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/15 shadow-2xl p-2 sm:p-2.5">
-                
-                {/* Browser/Device Header */}
-                <div className="px-3.5 py-2.5 bg-slate-100 dark:bg-[#181B2E] rounded-2xl flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 ml-2 font-bold">
-                      syllabus3d.app • Active Study Session
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    <span>Focus Chamber Active</span>
-                  </div>
-                </div>
-
-                {/* Professional Student Study Photo */}
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-900 group">
-                  <img
-                    src="/student_studying_laptop.jpg"
-                    alt="Focused student studying with Syllabus 3D analytics dashboard"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  />
-                  
-                  {/* Subtle Gradient Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
-
-                  {/* Floating Overlay Badge: Streak */}
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 p-2.5 rounded-2xl bg-[#0E111F]/90 backdrop-blur-md border border-white/20 shadow-xl flex items-center gap-2.5 text-left animate-fade-in">
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                      <Flame className="w-5 h-5 fill-amber-400" />
+              <div className={`rounded-3xl border shadow-2xl overflow-hidden ${cardSurface}`}>
+                {/* Browser Frame Header */}
+                <div
+                  className={`px-4 py-3 border-b flex flex-wrap items-center justify-between gap-2 ${
+                    isDark
+                      ? 'bg-[#161A29] border-white/10'
+                      : isWarmCream
+                      ? 'bg-[#F7EAD0] border-[#DFCCA8]'
+                      : 'bg-slate-100 border-slate-200'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500/85" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500/85" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/85" />
                     </div>
-                    <div>
-                      <div className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Consistency</div>
-                      <div className="text-xs sm:text-sm font-black text-white font-mono">42-Day Streak 🔥</div>
-                    </div>
-                  </div>
-
-                  {/* Floating Overlay Badge: Spaced Repetition */}
-                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 rounded-2xl bg-[#0E111F]/95 backdrop-blur-md border border-white/20 shadow-xl flex items-center justify-between text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 shrink-0">
-                        <RotateCw className="w-4 h-4 stroke-[2.5]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-black text-white truncate">Stage 3 Revision Due Today</div>
-                        <div className="text-[11px] text-purple-300 font-medium truncate">Modern Indian History • 14 Subtopics</div>
-                      </div>
-                    </div>
-                    <span className="shrink-0 px-2.5 py-1 rounded-lg bg-purple-500 text-white font-black text-[11px] uppercase tracking-wider">
-                      Optimal
+                    <span className={`text-[11px] font-mono font-bold ml-1 ${mutedText}`}>
+                      syllabus3d.app
                     </span>
                   </div>
 
-                  {/* Floating Overlay Badge: Completion */}
-                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2.5 rounded-2xl bg-[#0E111F]/90 backdrop-blur-md border border-white/20 shadow-xl flex items-center gap-2 text-left">
-                    <div className="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
-                      <Target className="w-4 h-4 stroke-[2.5]" />
+                  {/* Interactive Preview Switcher */}
+                  <div className="flex items-center gap-1">
+                    {(
+                      [
+                        { id: 'command', label: 'Command Hub' },
+                        { id: 'vocab', label: 'Vocab & Maths' },
+                        { id: 'focus', label: 'Focus Studio' }
+                      ] as const
+                    ).map(tab => {
+                      const active = heroTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            setHeroTab(tab.id);
+                          }}
+                          className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                            active
+                              ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black shadow-xs'
+                              : `${mutedText} hover:opacity-80`
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Live Interactive Screen Body */}
+                <div className="p-4 sm:p-5 space-y-4">
+                  {heroTab === 'command' && (
+                    <div className="space-y-4 animate-fade-in">
+                      {/* Exam Date Counter Mini Bar */}
+                      <div className={`p-3.5 rounded-2xl border ${subtleSurface}`}>
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500">
+                              <Target className="w-3.5 h-3.5" />
+                            </span>
+                            <div>
+                              <div className="text-xs font-black">SSC CGL 2027 • Exam Runway</div>
+                              <div className={`text-[10px] font-semibold ${mutedText}`}>
+                                Target: Jun 25, 2027 • Ahead of Pace
+                              </div>
+                            </div>
+                          </div>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px] font-black">
+                            ON TRACK
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-4 gap-2">
+                          {[
+                            { val: '209', label: 'DAYS', accent: 'border-t-orange-500' },
+                            { val: '22', label: 'HOURS', accent: 'border-t-sky-500' },
+                            { val: '23', label: 'MINS', accent: 'border-t-emerald-500' },
+                            { val: '16', label: 'SECS', accent: 'border-t-amber-500' }
+                          ].map(unit => (
+                            <div
+                              key={unit.label}
+                              className={`p-2.5 rounded-xl border border-t-[3px] text-center ${cardSurface} ${unit.accent}`}
+                            >
+                              <div className="text-lg sm:text-xl font-black font-mono tabular-nums leading-none">
+                                {unit.val}
+                              </div>
+                              <div className={`text-[9px] font-black tracking-wider mt-1 ${mutedText}`}>
+                                {unit.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Interactive Top 3 Daily Targets + Syllabus Stats */}
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                        <div className={`sm:col-span-7 p-3.5 rounded-2xl border ${subtleSurface} space-y-2`}>
+                          <div className="flex items-center justify-between text-[11px] font-black">
+                            <span>Today&apos;s Non-Negotiable Targets</span>
+                            <span className="text-amber-500 font-mono">
+                              {demoTargets.filter(Boolean).length}/3 Done
+                            </span>
+                          </div>
+                          {[
+                            'Trigonometry Triplets + 25 PYQs',
+                            'Indian Polity: Fundamental Rights',
+                            '50 SSC Synonyms & Fixed Prepositions'
+                          ].map((task, idx) => {
+                            const done = demoTargets[idx];
+                            return (
+                              <button
+                                key={task}
+                                type="button"
+                                onClick={() => {
+                                  soundManager.playClick();
+                                  setDemoTargets(prev => prev.map((v, i) => (i === idx ? !v : v)));
+                                }}
+                                className={`w-full px-2.5 py-2 rounded-xl border text-left text-[11px] font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                                  done
+                                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300 line-through'
+                                    : `${cardSurface} hover:border-amber-500/40`
+                                }`}
+                              >
+                                <span
+                                  className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 border ${
+                                    done
+                                      ? 'bg-emerald-500 border-emerald-500 text-white'
+                                      : 'border-amber-500/50'
+                                  }`}
+                                >
+                                  {done && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                                </span>
+                                <span className="truncate">{task}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        <div className={`sm:col-span-5 p-3.5 rounded-2xl border ${subtleSurface} flex flex-col justify-between gap-2.5`}>
+                          <div className="flex items-center justify-between">
+                            <span className={`text-[10px] font-bold uppercase tracking-wider ${mutedText}`}>
+                              Streak
+                            </span>
+                            <span className="inline-flex items-center gap-1 text-xs font-black text-amber-500">
+                              <Flame className="w-3.5 h-3.5 fill-amber-500" />
+                              42 Days
+                            </span>
+                          </div>
+                          <div>
+                            <div className="flex items-baseline justify-between mb-1">
+                              <span className="text-2xl font-black font-mono">68.4%</span>
+                              <span className={`text-[10px] font-bold ${mutedText}`}>248/362</span>
+                            </div>
+                            <div className="h-2 rounded-full bg-amber-500/15 overflow-hidden">
+                              <div className="h-full w-[68%] rounded-full bg-gradient-to-r from-amber-400 to-orange-500" />
+                            </div>
+                          </div>
+                          <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[10px] font-bold flex items-center justify-between">
+                            <span>Stage 3 Due</span>
+                            <span className="text-amber-600 dark:text-amber-300 font-black">14 Topics</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {heroTab === 'vocab' && (
+                    <div className="space-y-3.5 animate-fade-in">
+                      {/* Offline Word Card Showcase (clean pills, no dots) */}
+                      <div className={`p-4 rounded-2xl border ${subtleSurface} space-y-3`}>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-[10px] font-black uppercase">
+                            Exam Meaning • Offline Ready
+                          </span>
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            Synced in Browser Cache
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="text-lg font-black tracking-tight">Winsome — मनमोहक / आकर्षक</div>
+                          <div className={`text-xs font-medium ${mutedText}`}>Good-looking; appealing in manner or appearance</div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          <div className="p-2.5 rounded-xl bg-emerald-500/[0.08] border border-emerald-500/25 space-y-1.5">
+                            <div className="text-[10px] font-black text-emerald-700 dark:text-emerald-300 uppercase">
+                              Synonyms (समानार्थक)
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {['Appealing', 'Charming', 'Alluring', 'Pleasing'].map(w => (
+                                <span
+                                  key={w}
+                                  className={`px-2 py-0.5 rounded-lg border text-[11px] font-bold ${cardSurface}`}
+                                >
+                                  {w}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-rose-500/[0.08] border border-rose-500/25 space-y-1.5">
+                            <div className="text-[10px] font-black text-rose-700 dark:text-rose-300 uppercase">
+                              Antonyms (विलोम)
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {['Unattractive', 'Repulsive', 'Plain'].map(w => (
+                                <span
+                                  key={w}
+                                  className={`px-2 py-0.5 rounded-lg border text-[11px] font-bold ${cardSurface}`}
+                                >
+                                  {w}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 11 Calculation Booster Strip */}
+                      <div className={`p-3.5 rounded-2xl border ${subtleSurface}`}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-black flex items-center gap-1.5">
+                            <Zap className="w-3.5 h-3.5 text-amber-500" />
+                            11 Calculation Booster Trainers
+                          </span>
+                          <span className="text-[10px] font-bold text-amber-600 dark:text-amber-300">
+                            603 Homographs • 295+ Prepositions
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {['Squares', 'Cubes', 'Fractions', 'Triplets', 'Powers', 'Primes', 'Tables', 'Multiply'].map(
+                            drill => (
+                              <span
+                                key={drill}
+                                className={`px-2.5 py-1 rounded-lg border text-[10px] font-bold ${cardSurface}`}
+                              >
+                                {drill}
+                              </span>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {heroTab === 'focus' && (
+                    <div className="space-y-3.5 animate-fade-in">
+                      <div className={`p-4 rounded-2xl border ${subtleSurface} flex flex-col sm:flex-row items-center justify-between gap-4`}>
+                        {/* Interactive Circular Timer Preview */}
+                        <div className="flex items-center gap-4">
+                          <div className="w-24 h-24 rounded-full border-4 border-amber-500/80 bg-amber-500/10 flex flex-col items-center justify-center shrink-0 shadow-inner">
+                            <span className="text-[9px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-300">
+                              Countdown
+                            </span>
+                            <span className="text-xl font-black font-mono tabular-nums">
+                              {formatTimer(focusSeconds)}
+                            </span>
+                            <span className="text-[9px] font-bold text-emerald-500">
+                              {focusRunning ? 'Focusing' : 'Ready'}
+                            </span>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="text-xs font-black">Focus Mode Studio • Zen View</div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {['Lo-Fi', 'Rain', 'Ocean', 'Campfire'].map((snd, idx) => (
+                                <span
+                                  key={snd}
+                                  className={`px-2 py-0.5 rounded-md text-[10px] font-bold inline-flex items-center gap-1 border ${
+                                    idx === 0
+                                      ? 'bg-amber-500 text-slate-950 border-transparent font-black'
+                                      : cardSurface
+                                  }`}
+                                >
+                                  <Volume2 className="w-2.5 h-2.5" />
+                                  {snd}
+                                </span>
+                              ))}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                soundManager.playClick();
+                                setFocusRunning(r => !r);
+                              }}
+                              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[11px] font-black inline-flex items-center gap-1.5 cursor-pointer active:scale-95 transition-transform"
+                            >
+                              {focusRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                              <span>{focusRunning ? 'Pause Demo' : 'Test Timer'}</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Mock Tracker Card */}
+                        <div className={`w-full sm:w-44 p-3 rounded-xl border ${cardSurface} space-y-1.5`}>
+                          <div className="flex items-center justify-between text-[10px] font-bold">
+                            <span className={mutedText}>Latest Mock</span>
+                            <span className="text-emerald-500 font-black">+14% Boost</span>
+                          </div>
+                          <div className="text-base font-black font-mono">98.4%ile</div>
+                          <div className={`text-[10px] ${mutedText}`}>Accuracy 94% • 0 Silly Traps</div>
+                        </div>
+                      </div>
+
+                      <div className={`p-3 rounded-2xl border ${subtleSurface} flex items-center justify-between text-xs font-bold`}>
+                        <span className="flex items-center gap-2">
+                          <Monitor className="w-4 h-4 text-amber-500" />
+                          <span>Study Station: Testbook, Oliveboard &amp; Official Portals</span>
+                        </span>
+                        <span className="text-amber-500 text-[11px] font-black">1-Click Launch</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bottom KPI Strip */}
+                  <div className={`grid grid-cols-3 gap-2 text-center py-2.5 px-3 rounded-2xl border text-xs ${subtleSurface}`}>
+                    <div>
+                      <span className={`text-[10px] font-bold block uppercase ${mutedText}`}>Offline Modules</span>
+                      <span className="font-mono font-black">Vocab + Calc Lab</span>
+                    </div>
+                    <div className={`border-x ${isDark ? 'border-white/10' : isWarmCream ? 'border-[#DFCCA8]' : 'border-slate-200'}`}>
+                      <span className={`text-[10px] font-bold block uppercase ${mutedText}`}>Eye-Care Themes</span>
+                      <span className="font-mono font-black text-amber-500">Parchment / Dark</span>
                     </div>
                     <div>
-                      <div className="text-[10px] text-slate-400 font-bold">Syllabus</div>
-                      <div className="text-xs sm:text-sm font-black text-white font-mono">68.4% Done</div>
+                      <span className={`text-[10px] font-bold block uppercase ${mutedText}`}>Subscription</span>
+                      <span className="font-mono font-black text-emerald-500">₹0 Forever</span>
                     </div>
                   </div>
                 </div>
-
-                {/* Sub-bar KPI Telemetry */}
-                <div className="mt-2.5 grid grid-cols-3 gap-2 text-center py-2 px-3 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-bold block uppercase">Topics Mastered</span>
-                    <span className="font-mono font-black text-slate-900 dark:text-white">248 / 362</span>
-                  </div>
-                  <div className="border-x border-slate-200 dark:border-white/10">
-                    <span className="text-[10px] text-slate-400 font-bold block uppercase">Exam Runway</span>
-                    <span className="font-mono font-black text-blue-600 dark:text-sky-400">114 Days</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 font-bold block uppercase">Speed Target</span>
-                    <span className="font-mono font-black text-emerald-600 dark:text-emerald-400">3.2 hrs/day</span>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* ── 3. COMPLETE 14-FEATURE STUDY ARSENAL (HIGHLIGHTING ALL FEATURES) ── */}
-      <section id="features" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-sky-400 mb-2 block font-mono">
-            COMPREHENSIVE 14-IN-1 STUDY ARSENAL
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">
-            Every Single Tool Required to Clear Your Exam
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-            Eliminate fragmented tools. No more juggling separate spreadsheets, PDF viewers, flashcard apps, test trackers, and notebooks. Syllabus 3D houses your entire academic ecosystem in one cohesive platform.
-          </p>
+      {/* ── 4. SUPPORTED EXAMS STRIP ── */}
+      <section className={`relative z-10 border-y py-6 px-4 sm:px-6 lg:px-8 ${sectionBandBg}`}>
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-5">
+          <div className="text-center lg:text-left shrink-0">
+            <span className="text-[11px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 block">
+              READY OUT OF THE BOX
+            </span>
+            <h2 className="text-sm sm:text-base font-black">
+              Built for India&apos;s Premier Competitive Exams &amp; Custom Goals
+            </h2>
+          </div>
 
-          {/* Category Filter Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
-            {[
-              { id: 'all', label: 'All 14 Features', icon: Sparkles },
-              { id: 'planning', label: 'Syllabus & Planning', icon: FolderTree },
-              { id: 'recall', label: 'Spaced Recall & Focus', icon: RotateCw },
-              { id: 'study', label: 'PDF & Notes Studio', icon: BookOpen },
-              { id: 'analytics', label: 'Tests & Runway Analytics', icon: BarChart3 }
-            ].map(tab => {
-              const IconComp = tab.icon;
-              const isActive = selectedCategory === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    setSelectedCategory(tab.id as FeatureCategory);
-                  }}
-                  className={`h-9 sm:h-10 px-4 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                      : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10'
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+            {EXAM_LOGOS.map(exam => (
+              <div
+                key={exam.name}
+                className={`px-3 py-2 rounded-2xl border flex items-center gap-2.5 shadow-2xs ${cardSurface}`}
+              >
+                <img src={exam.logo} alt={exam.name} className="w-7 h-7 object-contain rounded-lg shrink-0" />
+                <div className="text-left">
+                  <div className="text-xs font-black leading-tight">{exam.name}</div>
+                  <div className={`text-[10px] font-semibold ${mutedText}`}>{exam.tag}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. BENTO SPOTLIGHT: WHAT MAKES SYLLABUS 3D DIFFERENT ── */}
+      <section id="study-suite" className="relative z-10 py-18 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-xs font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block font-mono">
+            THE REAL SYLLABUS 3D EXPERIENCE
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">
+            Designed Around How Top Aspirants Actually Study
+          </h2>
+          <p className={`text-sm sm:text-base leading-relaxed ${mutedText}`}>
+            No fluff or fragmented apps. Switch cleanly between vocabulary flashcards, speed calculation drills, eye-care PDF reading, and mock analysis.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          {/* Bento 1: Offline Vocab & Calc Booster */}
+          <div className={`lg:col-span-7 p-6 sm:p-7 rounded-3xl border shadow-sm flex flex-col justify-between gap-6 ${cardSurface}`}>
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/12 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[11px] font-black uppercase tracking-wider inline-flex items-center gap-1.5">
+                  <WifiOff className="w-3.5 h-3.5" />
+                  100% Offline Cached Study Lab
+                </span>
+                <span className={`text-xs font-mono font-bold ${mutedText}`}>Vocab + Quant</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2">
+                Offline Vocabulary Arsenal &amp; 11 Calculation Drills
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed ${mutedText}`}>
+                Practice Core Vocabulary, Root Words, One-Word Substitutions, Theme-Based Idioms, 603 Homographs, Homophones, and 295+ Fixed Prepositions — plus 11 interactive mental maths drills — without needing Wi-Fi or mobile data.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {[
+                { label: 'Homographs', count: '603 Groups' },
+                { label: 'Prepositions', count: '295+ Rules' },
+                { label: 'Calc Booster', count: '11 Trainers' },
+                { label: 'Offline Sync', count: 'Zero Net Needed' }
+              ].map(stat => (
+                <div key={stat.label} className={`p-3 rounded-2xl border ${subtleSurface}`}>
+                  <div className={`text-[10px] font-bold uppercase ${mutedText}`}>{stat.label}</div>
+                  <div className="text-xs sm:text-sm font-black mt-0.5">{stat.count}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bento 2: Scientific 4-Stage Spaced Recall */}
+          <div className={`lg:col-span-5 p-6 sm:p-7 rounded-3xl border shadow-sm flex flex-col justify-between gap-6 ${cardSurface}`}>
+            <div>
+              <span className="px-3 py-1 rounded-full bg-amber-500/12 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-[11px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 mb-4">
+                <RotateCw className="w-3.5 h-3.5" />
+                Ebbinghaus Memory Protocol
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2">
+                4-Stage Spaced Recall + Trap Journal
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed ${mutedText}`}>
+                Every completed topic enters an automated 1, 4, 9, and 27-day revision queue, while silly errors get locked into your Weak Topics ledger.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 text-center">
+              {[
+                { stage: 'Stage 1', day: 'Day 1' },
+                { stage: 'Stage 2', day: 'Day 4' },
+                { stage: 'Stage 3', day: 'Day 9' },
+                { stage: 'Stage 4', day: 'Day 27' }
+              ].map((s, idx) => (
+                <div
+                  key={s.stage}
+                  className={`p-2.5 rounded-2xl border ${
+                    idx === 3
+                      ? 'bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 border-transparent font-black'
+                      : subtleSurface
                   }`}
                 >
-                  <IconComp className="w-3.5 h-3.5" />
-                  <span>{tab.label}</span>
-                </button>
+                  <div className="text-[10px] font-bold uppercase opacity-80">{s.stage}</div>
+                  <div className="text-xs font-black mt-0.5">{s.day}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bento 3: Focus Studio & Exam Countdown */}
+          <div className={`lg:col-span-5 p-6 sm:p-7 rounded-3xl border shadow-sm flex flex-col justify-between gap-5 ${cardSurface}`}>
+            <div>
+              <span className="px-3 py-1 rounded-full bg-orange-500/12 border border-orange-500/30 text-orange-700 dark:text-orange-300 text-[11px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 mb-4">
+                <Timer className="w-3.5 h-3.5" />
+                Focus Studio &amp; Pacing
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2">
+                Deep Work Timer &amp; Live Exam Countdown
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed ${mutedText}`}>
+                Study inside an atmospheric Pomodoro / Stopwatch studio with Lo-Fi, Rain, and Campfire sounds while tracking your exact days, hours, and target pace.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {['Pomodoro 25m', 'Countdown 45m', 'Zen Fullscreen', 'Daily Streak XP'].map(chip => (
+                <span key={chip} className={`px-3 py-1.5 rounded-xl border text-xs font-bold ${subtleSurface}`}>
+                  {chip}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Bento 4: Eye-Care PDFs, Notes Studio & Study Station */}
+          <div className={`lg:col-span-7 p-6 sm:p-7 rounded-3xl border shadow-sm flex flex-col justify-between gap-5 ${cardSurface}`}>
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="px-3 py-1 rounded-full bg-sky-500/12 border border-sky-500/30 text-sky-700 dark:text-sky-300 text-[11px] font-black uppercase tracking-wider inline-flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5" />
+                  PDF, Office Notes &amp; Portals
+                </span>
+                <span className={`text-xs font-mono font-bold ${mutedText}`}>Zero Eye Strain</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2">
+                Eye-Care PDF Reader, KaTeX Notes Studio &amp; Study Station
+              </h3>
+              <p className={`text-xs sm:text-sm leading-relaxed ${mutedText}`}>
+                Read coaching PDFs in calibrated Warm Sepia, Charcoal, or OLED Black side-by-side with rich formula notes, summarize YouTube lectures with timestamp jumps, and launch Testbook or Oliveboard directly from Study Station.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {['Warm Parchment Gold', 'Charcoal Night PDFs', 'KaTeX Math Formulas', 'YouTube Timestamps', 'Study Station Hub'].map(
+                tag => (
+                  <span key={tag} className={`px-3 py-1.5 rounded-xl border text-xs font-bold ${subtleSurface}`}>
+                    {tag}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. COMPLETE MODULES ARSENAL ── */}
+      <section id="features" className={`relative z-10 py-18 sm:py-24 border-y px-4 sm:px-6 lg:px-8 ${sectionBandBg}`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+            <span className="text-xs font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block font-mono">
+              COMPLETE STUDY OPERATING SYSTEM
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-4">
+              Every Tool You Need Inside One Workspace
+            </h2>
+            <p className={`text-sm sm:text-base leading-relaxed ${mutedText}`}>
+              Explore the complete module suite built into Syllabus 3D — everything unlocked and ready offline.
+            </p>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-7">
+              {(
+                [
+                  { id: 'all', label: 'All Modules', icon: Layers },
+                  { id: 'planning', label: 'Syllabus & Pacing', icon: FolderTree },
+                  { id: 'vocab-maths', label: 'Vocab & Calc Lab', icon: Languages },
+                  { id: 'study-recall', label: 'Focus, PDFs & Recall', icon: RotateCw },
+                  { id: 'analytics', label: 'Mocks & Offline', icon: BarChart3 }
+                ] as const
+              ).map(tab => {
+                const IconComp = tab.icon;
+                const active = selectedCategory === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => {
+                      soundManager.playClick();
+                      setSelectedCategory(tab.id);
+                    }}
+                    className={`h-10 px-4 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
+                      active
+                        ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 border-transparent font-black shadow-md shadow-amber-500/20'
+                        : `${cardSurface} ${mutedText} hover:border-amber-500/40`
+                    }`}
+                  >
+                    <IconComp className="w-3.5 h-3.5" />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredFeatures.map(feat => {
+              const Icon = feat.icon;
+              const palette = ACCENT_MAP[feat.accent];
+              return (
+                <div
+                  key={feat.id}
+                  className={`p-6 rounded-3xl border shadow-xs hover:shadow-lg hover:border-amber-500/45 transition-all flex flex-col justify-between group ${cardSurface}`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div
+                        className={`w-11 h-11 rounded-2xl border flex items-center justify-center ${palette.iconBg} ${palette.iconText} group-hover:scale-105 transition-transform`}
+                      >
+                        <Icon className="w-5 h-5 stroke-[2.2]" />
+                      </div>
+                      <span
+                        className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${palette.badge}`}
+                      >
+                        {feat.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-black tracking-tight mb-2">{feat.title}</h3>
+                    <p className={`text-xs sm:text-sm leading-relaxed mb-5 ${mutedText}`}>
+                      {feat.description}
+                    </p>
+                  </div>
+
+                  <div
+                    className={`space-y-2 pt-4 border-t ${
+                      isDark ? 'border-white/5' : isWarmCream ? 'border-[#EFE0C2]' : 'border-slate-100'
+                    }`}
+                  >
+                    {feat.bullets.map(bullet => (
+                      <div key={bullet} className="flex items-start gap-2 text-xs font-semibold">
+                        <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 stroke-[3]" />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>
         </div>
+      </section>
 
-        {/* 14 Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFeatures.map(feat => {
-            const Icon = feat.icon;
+      {/* ── 7. DAILY WORKFLOW BLUEPRINT ── */}
+      <section id="workflow" className="relative z-10 py-18 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-xs font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block font-mono">
+            THE DAILY SYSTEM
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">
+            A Disciplined 3-Phase Daily Routine
+          </h2>
+          <p className={`text-sm sm:text-base ${mutedText}`}>
+            Turn scattered study hours into predictable exam readiness every single day.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              step: '01',
+              phase: 'Morning Sprint • Recall & Maths Speed',
+              title: 'Clear Spaced Revisions & 10-Min Calc Drills',
+              desc: 'Open your overdue Ebbinghaus revision queue, drill offline SSC Vocabulary & Fixed Prepositions, and warm up mental agility inside Calculation Booster.',
+              icon: RotateCw
+            },
+            {
+              step: '02',
+              phase: 'Core Hours • Focus Studio & Notes',
+              title: 'Master Topics in Eye-Care Workspace',
+              desc: 'Pick your Top 3 Daily Targets, launch Focus Mode Studio with calming ambience, annotate PDFs in Parchment/Charcoal mode, and capture LaTeX formulas.',
+              icon: BookOpen
+            },
+            {
+              step: '03',
+              phase: 'Evening Audit • Mocks & Trap Defense',
+              title: 'Log Mock Scores & Eliminate Weak Traps',
+              desc: 'Record test accuracy inside Mock Tracker, tag conceptual gaps in Weak Topics, check your Exam Date Pacing runway, and keep your streak unbroken.',
+              icon: Trophy
+            }
+          ].map(item => {
+            const StepIcon = item.icon;
             return (
               <div
-                key={feat.id}
-                className="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#111322] border border-slate-200/90 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all flex flex-col justify-between group"
+                key={item.step}
+                className={`p-7 rounded-3xl border shadow-sm hover:border-amber-500/45 transition-all flex flex-col justify-between ${cardSurface}`}
               >
                 <div>
-                  {/* Top Icon & Badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-2xl ${feat.iconBg} border flex items-center justify-center ${feat.iconColor} shadow-xs group-hover:scale-105 transition-transform`}>
-                      <Icon className="w-6 h-6 stroke-[2.2]" />
-                    </div>
-                    <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${feat.badgeColor}`}>
-                      {feat.badge}
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-base flex items-center justify-center shadow-md shadow-amber-500/20">
+                      {item.step}
                     </span>
+                    <StepIcon className="w-5 h-5 text-amber-500" />
                   </div>
-
-                  {/* Title & Description */}
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-2.5">
-                    {feat.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-                    {feat.description}
-                  </p>
-                </div>
-
-                {/* Bullets */}
-                <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-white/5">
-                  {feat.bullets.map((b, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs font-medium text-slate-700 dark:text-slate-300">
-                      <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 stroke-[3]" />
-                      <span>{b}</span>
-                    </div>
-                  ))}
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-1.5">
+                    {item.phase}
+                  </span>
+                  <h3 className="text-lg font-black mb-2">{item.title}</h3>
+                  <p className={`text-xs sm:text-sm leading-relaxed ${mutedText}`}>{item.desc}</p>
                 </div>
               </div>
             );
@@ -682,349 +1259,75 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── 4. DEEP DIVE SHOWCASE 1: ACTIVE RECALL & AUDIO REVISION (STUDENT PHOTO 2) ── */}
-      <section id="spaced-repetition" className="py-20 bg-slate-100/70 dark:bg-[#0C0E1B]/80 border-y border-slate-200/90 dark:border-white/10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            
-            {/* Visual Column: Student with Headphones & Tablet */}
-            <div className="lg:col-span-6 xl:col-span-5 order-2 lg:order-1">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-purple-600/30 via-pink-600/20 to-indigo-600/30 blur-2xl opacity-70 -z-10" />
-
-                <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/15 shadow-2xl p-2 sm:p-2.5">
-                  <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900 group">
-                    <img
-                      src="/student_audio_revision.jpg"
-                      alt="Student practicing active recall and hands-free audio revision in library"
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-                    {/* Overlay Tag: Walk & Revise Audio Engine */}
-                    <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-[#0E111F]/90 backdrop-blur-md border border-white/20 shadow-xl flex items-center justify-between text-white">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 shrink-0">
-                          <Headphones className="w-5 h-5 stroke-[2.4]" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-black text-white">Walk & Revise Mode Active</div>
-                          <div className="text-[11px] text-pink-200 font-mono">1.25x Speed • Natural Voice Engine</div>
-                        </div>
-                      </div>
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Content Column: The Science of Active Recall */}
-            <div className="lg:col-span-6 xl:col-span-7 order-1 lg:order-2">
-              <span className="text-xs font-black uppercase tracking-widest text-purple-600 dark:text-purple-400 mb-2 block font-mono">
-                SCIENTIFIC RETENTION PROTOCOL
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-                Active Recall Without Mental Fatigue. Never Forget What You Read.
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                Most aspirants make the mistake of rereading thick books repeatedly. Scientific research proves that memory fades exponentially unless active recall is triggered right before memory decay sets in.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="p-4 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                  <div className="flex items-center gap-2 font-bold text-sm text-purple-700 dark:text-purple-400 mb-1">
-                    <RotateCw className="w-4 h-4 stroke-[2.5]" />
-                    <span>4-Stage Spaced Intervals</span>
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Automated queues trigger revisions at 1, 4, 9, and 27 days to lock concepts into long-term memory.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                  <div className="flex items-center gap-2 font-bold text-sm text-pink-700 dark:text-pink-400 mb-1">
-                    <Headphones className="w-4 h-4 stroke-[2.5]" />
-                    <span>Walk & Revise Audio</span>
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Listen to high-yield summaries on your walks, workouts, or commutes without screen glare.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                  <div className="flex items-center gap-2 font-bold text-sm text-amber-700 dark:text-amber-400 mb-1">
-                    <Moon className="w-4 h-4 stroke-[2.5]" />
-                    <span>Eye-Care Night PDFs</span>
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    GPU-calibrated dark and OLED modes reduce eye strain while preserving diagrams and charts.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                  <div className="flex items-center gap-2 font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">
-                    <Flame className="w-4 h-4 stroke-[2.5]" />
-                    <span>Focus Chamber Binaural</span>
-                  </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Alpha brainwave soundscapes and a floating study timer eliminate phone distractions.
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleCtaClick('signup')}
-                className="h-11 px-6 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-purple-500/25 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
-              >
-                <span>Try Spaced Repetition Free</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. DEEP DIVE SHOWCASE 2: EXAM RUNWAY & MOCK TEST ANALYTICS (STUDENT PHOTO 3) ── */}
-      <section id="study-suite" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          
-          {/* Content Column: Data-Driven Preparation */}
-          <div className="lg:col-span-6 xl:col-span-7">
+      {/* ── 8. COMPARISON MATRIX ── */}
+      <section id="comparison" className={`relative z-10 py-18 sm:py-24 border-y px-4 sm:px-6 lg:px-8 ${sectionBandBg}`}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2 block font-mono">
-              PRECISION TEST ANALYTICS
+              BUILT FOR SERIOUS ASPIRANTS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-              From Study Anxiety to Confident Ranker. Know Exactly Where You Stand.
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">
+              Generic Checklists vs Syllabus 3D OS
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              Competitive exams aren’t won by studying 16 hours blindly; they are won by precision feedback loops. Syllabus 3D provides real-time velocity calculations, mock test score trends, and an active trap ledger so you never repeat the same mistake twice.
-            </p>
-
-            <div className="space-y-3.5 mb-8">
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
-                  <BarChart3 className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">Mock Test Series Percentile Tracker</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-snug">
-                    Log test scores across coaching test series, measure accuracy vs speed, and uncover subject-wise scoring traps.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                <div className="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-600 dark:text-orange-400 shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">Exam Pacing Runway Calculator</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-snug">
-                    Dynamically forecasts if you are Ahead, On-Track, or Behind schedule based on remaining days and required study velocity.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 shadow-xs">
-                <div className="w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
-                  <AlertTriangle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">Dedicated Exam Trap & Mistake Journal</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-snug">
-                    Tag recurring conceptual traps and silly errors into a focused review list before every mock test.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleCtaClick('signup')}
-              className="h-11 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/25 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
-            >
-              <span>Track Your Mock Scores</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
-          </div>
-
-          {/* Visual Column: Confident Student in Bright Campus Lounge */}
-          <div className="lg:col-span-6 xl:col-span-5">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-emerald-600/30 via-teal-600/20 to-blue-600/30 blur-2xl opacity-70 -z-10" />
-
-              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/15 shadow-2xl p-2 sm:p-2.5">
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-900 group">
-                  <img
-                    src="/student_exam_success.jpg"
-                    alt="Confident student celebrating high exam milestone scores and consistent preparation"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
-
-                  {/* Overlay Milestone Chip */}
-                  <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-[#0E111F]/90 backdrop-blur-md border border-white/20 shadow-xl flex items-center justify-between text-white">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                        <Trophy className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-black text-white">Full Mock Test #12 Completed</div>
-                        <div className="text-[11px] text-emerald-300 font-mono">98.4 Percentile • 0 Negative Traps</div>
-                      </div>
-                    </div>
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-500 text-white font-mono font-black text-xs">
-                      +14%
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 6. THE RANKER'S 3-STEP DAILY WORKFLOW ── */}
-      <section id="workflow" className="py-20 bg-slate-100/60 dark:bg-[#0E101B]/60 border-y border-slate-200/90 dark:border-white/10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2 block font-mono">
-              THE DAILY BLUEPRINT
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-              How High Rankers Structure Every Study Day
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
-              Replace random study sessions with a disciplined, high-velocity daily system.
+            <p className={`text-xs sm:text-sm ${mutedText}`}>
+              See why spreadsheets and disconnected study apps slow down long-term exam prep.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            
-            {/* Step 1 */}
-            <div className="p-8 rounded-3xl bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-lg relative flex flex-col items-center text-center group hover:border-blue-500/40 transition-all">
-              <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white font-black text-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                1
-              </div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-sky-400 mb-1">
-                Morning: 07:00 AM - 09:00 AM
-              </span>
-              <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2">Review Spaced Repetition Queue</h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Start your freshest hours by knocking out Stage 1 to 4 topics in your automated revision queue. Solidify memory before touching new content.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="p-8 rounded-3xl bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-lg relative flex flex-col items-center text-center group hover:border-indigo-500/40 transition-all">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-black text-xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
-                2
-              </div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
-                Daytime: 10:00 AM - 05:00 PM
-              </span>
-              <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2">Deep Work in Focus Chamber</h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Read syllabus modules inside the Eye-Care PDF reader, watch video lectures with AI notes, and draft formula summaries in the Office Ribbon editor.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="p-8 rounded-3xl bg-white dark:bg-[#141624] border border-slate-200/90 dark:border-white/10 shadow-lg relative flex flex-col items-center text-center group hover:border-purple-500/40 transition-all">
-              <div className="w-14 h-14 rounded-2xl bg-purple-600 text-white font-black text-xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                3
-              </div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
-                Evening: 07:00 PM - 09:30 PM
-              </span>
-              <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2">Mock Logging & Trap Defense</h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Attempt chapter tests, document silly mistakes in your Weak Trap journal, check pacing velocity, and back up your progress in 1 click.
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. TRADITIONAL PREP VS SYLLABUS 3D COMPARISON MATRIX ── */}
-      <section id="comparison" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2 block font-mono">
-            UNMATCHED EFFICIENCY
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-            Traditional Preparation vs Syllabus 3D
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-            Why spreadsheets, paper wall charts, and loose PDF notes hold serious aspirants back.
-          </p>
-        </div>
-
-        <div className="overflow-hidden rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-xl bg-white dark:bg-[#121422]">
-          <div className="grid grid-cols-3 bg-slate-100 dark:bg-white/5 p-4 sm:p-5 border-b border-slate-200 dark:border-white/10 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
-            <div>Feature</div>
-            <div className="text-center">Spreadsheets / Notebooks</div>
-            <div className="text-center text-blue-600 dark:text-sky-400 font-black">Syllabus 3D OS</div>
-          </div>
-
-          {[
-            { feature: 'Granular Subtopic Tracking', bad: 'Tedious manual rows', good: 'Visual 3D cards & auto-progress' },
-            { feature: 'Spaced Repetition (Ebbinghaus)', bad: 'Forgotten / No reminders', good: 'Automated 4-Stage recall queue' },
-            { feature: 'PDF Night Mode & Eye Care', bad: 'Harsh white glare / inverted mess', good: 'Calibrated charcoal & OLED black' },
-            { feature: 'Notes & Formula Formatting', bad: 'Unorganized files / messy docs', good: 'MS Word Ribbon + LaTeX formulas' },
-            { feature: 'Hands-Free Audio Revision', bad: 'Not possible', good: 'Walk & Revise audio mode player' },
-            { feature: 'YouTube Lecture Note Sync', bad: 'Lost bookmarks & timestamps', good: '1-click timestamp jumps & summaries' },
-            { feature: 'Mock Test Series Analytics', bad: 'Rough notebooks / Excel graphs', good: 'Percentile tracking & accuracy trends' },
-            { feature: 'Exam Traps & Mistake Log', bad: 'Lost in rough copies', good: 'Dedicated active trap remediation' },
-            { feature: 'Exam Runway & Pacing Forecast', bad: 'Guesswork until the end', good: 'Calculates exact daily velocity' },
-            { feature: 'Offline Operation & Privacy', bad: 'Needs active internet / desktop', good: '100% Offline PWA + Drive sync' }
-          ].map((row, idx) => (
+          <div className={`overflow-hidden rounded-3xl border shadow-xl ${cardSurface}`}>
             <div
-              key={idx}
-              className={`grid grid-cols-3 p-4 sm:p-4.5 text-xs sm:text-sm items-center border-b border-slate-200/60 dark:border-white/5 last:border-0 ${
-                idx % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/50 dark:bg-white/[0.02]'
-              }`}
+              className={`grid grid-cols-3 p-4 sm:p-5 border-b text-[11px] font-black uppercase tracking-wider font-mono ${subtleSurface}`}
             >
-              <div className="font-bold text-slate-800 dark:text-slate-200">{row.feature}</div>
-              <div className="text-center text-rose-500/80 flex items-center justify-center gap-1.5 font-medium">
-                <X className="w-4 h-4 text-rose-500 shrink-0" />
-                <span className="hidden sm:inline">{row.bad}</span>
-              </div>
-              <div className="text-center text-emerald-600 dark:text-emerald-400 font-black flex items-center justify-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-500 shrink-0 stroke-[3]" />
-                <span>{row.good}</span>
-              </div>
+              <div>Capability</div>
+              <div className="text-center">Spreadsheets / Paper</div>
+              <div className="text-center text-amber-600 dark:text-amber-400">Syllabus 3D OS</div>
             </div>
-          ))}
+
+            {COMPARISON_ROWS.map((row, idx) => (
+              <div
+                key={row.feature}
+                className={`grid grid-cols-3 p-4 text-xs sm:text-sm items-center border-b last:border-0 ${
+                  isDark ? 'border-white/5' : isWarmCream ? 'border-[#EFE0C2]' : 'border-slate-100'
+                } ${idx % 2 === 1 ? (isDark ? 'bg-white/[0.02]' : isWarmCream ? 'bg-[#FAF0D9]/60' : 'bg-slate-50/70') : ''}`}
+              >
+                <div className="font-bold pr-2">{row.feature}</div>
+                <div className={`text-center flex items-center justify-center gap-1.5 font-medium ${mutedText}`}>
+                  <X className="w-4 h-4 text-rose-500 shrink-0" />
+                  <span className="hidden sm:inline">{row.traditional}</span>
+                </div>
+                <div className="text-center text-emerald-600 dark:text-emerald-400 font-black flex items-center justify-center gap-1.5">
+                  <Check className="w-4 h-4 text-emerald-500 shrink-0 stroke-[3]" />
+                  <span>{row.ours}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── 8. INTERACTIVE FAQ SECTION ── */}
-      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div className="text-center mb-14">
-          <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-sky-400 mb-2 block font-mono">
+      {/* ── 9. FAQ ACCORDION ── */}
+      <section id="faq" className="relative z-10 py-18 sm:py-22 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <span className="text-xs font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-2 block font-mono">
             FREQUENTLY ASKED QUESTIONS
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-            Everything You Need to Know
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">
+            Everything Answered Clearly
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-            Have questions about Syllabus 3D? We have straightforward answers.
+          <p className={`text-xs sm:text-sm ${mutedText}`}>
+            Clear details about offline access, themes, and exam compatibility.
           </p>
         </div>
 
-        <div className="space-y-3.5">
-          {faqs.map((faq, i) => {
+        <div className="space-y-3">
+          {FAQS.map((faq, i) => {
             const isOpen = activeFaqIndex === i;
             return (
               <div
-                key={i}
-                className="rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#121422] overflow-hidden transition-all shadow-xs"
+                key={faq.q}
+                className={`rounded-2xl border overflow-hidden transition-all shadow-2xs ${
+                  isOpen ? 'border-amber-500/50' : ''
+                } ${cardSurface}`}
               >
                 <button
                   type="button"
@@ -1032,13 +1335,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     soundManager.playClick();
                     setActiveFaqIndex(isOpen ? null : i);
                   }}
-                  className="w-full px-6 py-4 sm:py-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 dark:text-white cursor-pointer"
+                  className="w-full px-5 sm:px-6 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 text-slate-400 ${isOpen ? 'rotate-180 text-blue-600 dark:text-sky-400' : ''}`} />
+                  <ChevronDown
+                    className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-amber-500' : mutedText
+                    }`}
+                  />
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3.5 animate-fade-in">
+                  <div
+                    className={`px-5 sm:px-6 pb-5 pt-3.5 text-xs sm:text-sm leading-relaxed border-t animate-fade-in ${
+                      isDark ? 'border-white/5' : isWarmCream ? 'border-[#EFE0C2]' : 'border-slate-100'
+                    } ${mutedText}`}
+                  >
                     {faq.a}
                   </div>
                 )}
@@ -1048,95 +1359,115 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── 9. HIGH-CONVERSION BOTTOM CALL TO ACTION ── */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="relative rounded-3xl p-8 sm:p-14 lg:p-16 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 text-white text-center shadow-2xl overflow-hidden">
-          
-          {/* Ambient Lighting Circles */}
-          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-black/25 blur-2xl pointer-events-none" />
+      {/* ── 10. FINAL CONVERSION CTA ── */}
+      <section className="relative z-10 py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div
+          className={`relative rounded-3xl p-8 sm:p-14 border text-center shadow-2xl overflow-hidden ${
+            isDark
+              ? 'bg-gradient-to-br from-[#141724] via-[#1B1D2C] to-[#0D0F18] border-amber-500/35 text-white'
+              : isWarmCream
+              ? 'bg-gradient-to-br from-[#2B2407] via-[#3B2E08] to-[#1D1805] border-amber-500/45 text-[#FFFDF8]'
+              : 'bg-gradient-to-br from-[#121521] via-[#1B2032] to-[#0B0D16] border-amber-500/35 text-white'
+          }`}
+        >
+          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-amber-500/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-orange-500/15 blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-white/20 text-white font-mono text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-              ⚡ Instant Setup in Under 30 Seconds
+          <div className="relative z-10 max-w-3xl mx-auto space-y-5">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/35 text-amber-300 font-mono text-xs font-black uppercase tracking-wider">
+              <Zap className="w-3.5 h-3.5" />
+              Ready in Under 30 Seconds
             </span>
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-              Ready to Conquer Your Exam with Absolute Confidence?
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+              Start Preparing With Precision, Not Guesswork.
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed">
-              Join thousands of serious aspirants who have eliminated study chaos, automated their revision schedules, and boosted their mock scores with Syllabus 3D.
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Launch Syllabus 3D to organize your entire exam syllabus, drill vocabulary &amp; mental maths offline, stay calm in Focus Mode, and track every mock score cleanly.
             </p>
-            
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <button
                 type="button"
                 onClick={() => handleCtaClick('signup')}
-                className="w-full sm:w-auto h-14 px-9 rounded-2xl bg-white text-blue-700 hover:bg-blue-50 font-black text-sm uppercase tracking-wider shadow-2xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto h-13 px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/25 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Launch App Free Now</span>
-                <ArrowRight className="w-4 h-4 text-blue-700 stroke-[3]" />
+                <span>Launch App Free</span>
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => handleCtaClick('login')}
-                className="w-full sm:w-auto h-14 px-7 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/25 backdrop-blur-md active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto h-13 px-7 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/20 backdrop-blur-md active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4 text-amber-400" />
                 <span>Sign In to Account</span>
               </button>
             </div>
-            
-            <div className="text-xs text-blue-200/90 font-medium pt-2">
-              No credit card required • Works 100% Offline • Instant access
+
+            <div className="text-xs text-slate-400 font-medium pt-1">
+              No credit card required • Offline-First PWA • Warm Parchment, Light &amp; Obsidian Dark modes
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 10. MODERN FOOTER ── */}
-      <footer className="border-t border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#05070D] py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 dark:text-slate-400 transition-colors">
+      {/* ── 11. FOOTER ── */}
+      <footer
+        className={`relative z-10 border-t py-10 px-4 sm:px-6 lg:px-8 text-xs transition-colors ${
+          isDark
+            ? 'bg-[#06080D] border-white/10 text-slate-400'
+            : isWarmCream
+            ? 'bg-[#F4E6CA] border-[#DFCCA8] text-[#5E4E10]'
+            : 'bg-white border-slate-200 text-slate-600'
+        }`}
+      >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          
-          {/* Logo & Tagline */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center shrink-0">
-              <img src="/logo.png" alt="Syllabus 3D" className="w-full h-full object-contain drop-shadow-sm" />
-            </div>
+            <img src="/logo.png" alt="Syllabus 3D" className="w-8 h-8 object-contain" />
             <div>
-              <span className="font-black text-slate-900 dark:text-white text-sm">Syllabus 3D</span>
-              <span className="ml-2 text-[10px] text-slate-400 font-mono">v3.0 • The Exam Operating System</span>
+              <span className="font-black text-sm block leading-tight">Syllabus 3D</span>
+              <span className="text-[10px] font-mono opacity-80">The Exam Operating System</span>
             </div>
           </div>
 
-          {/* Footer Quick Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6 font-bold">
-            <a href="#features" className="hover:text-blue-600 dark:hover:text-white transition-colors">All Features</a>
-            <a href="#spaced-repetition" className="hover:text-blue-600 dark:hover:text-white transition-colors">Spaced Repetition</a>
-            <a href="#study-suite" className="hover:text-blue-600 dark:hover:text-white transition-colors">PDF & Notes Suite</a>
-            <a href="#workflow" className="hover:text-blue-600 dark:hover:text-white transition-colors">Daily Routine</a>
-            <a href="#comparison" className="hover:text-blue-600 dark:hover:text-white transition-colors">Comparison</a>
-            <a href="#faq" className="hover:text-blue-600 dark:hover:text-white transition-colors">FAQ</a>
+          <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 font-bold">
+            <a href="#study-suite" className="hover:text-amber-500 transition-colors">
+              Live Preview
+            </a>
+            <a href="#features" className="hover:text-amber-500 transition-colors">
+              Modules
+            </a>
+            <a href="#workflow" className="hover:text-amber-500 transition-colors">
+              Daily System
+            </a>
+            <a href="#comparison" className="hover:text-amber-500 transition-colors">
+              Comparison
+            </a>
+            <a href="#faq" className="hover:text-amber-500 transition-colors">
+              FAQ
+            </a>
             <button
               type="button"
               onClick={() => handleCtaClick('login')}
-              className="hover:text-blue-600 dark:hover:text-white transition-colors cursor-pointer"
+              className="hover:text-amber-500 transition-colors cursor-pointer"
             >
               Sign In
             </button>
           </div>
 
-          {/* Copyright & Keyboard Shortcut Tip */}
           <div className="text-center md:text-right text-[11px]">
-            <div>© {new Date().getFullYear()} Syllabus 3D. Engineered for serious competitive exam aspirants.</div>
-            <div className="text-slate-400 mt-1">
-              Press <span className="font-mono bg-slate-100 dark:bg-white/10 px-1.5 py-0.5 rounded text-[10px] font-bold">?</span> anywhere inside the app for keyboard shortcuts.
+            <div>© {new Date().getFullYear()} Syllabus 3D. Built for competitive exam aspirants.</div>
+            <div className="opacity-80 mt-0.5">
+              Press{' '}
+              <span className={`font-mono px-1.5 py-0.5 rounded border text-[10px] font-bold ${subtleSurface}`}>
+                ?
+              </span>{' '}
+              inside the app for keyboard shortcuts.
             </div>
           </div>
-
         </div>
       </footer>
-
     </div>
   );
 };
