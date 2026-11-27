@@ -2646,10 +2646,10 @@ html:not(.dark):not(.sepia):not(.luxury):not(.warm-cream) .home-hero-banner .hom
 }
 
 html.warm-cream .study-hub-hero-banner:not(.homographs-hero-banner) {
-  background: linear-gradient(135deg, #1A1806 0%, #2A230C 50%, #121104 100%) !important;
-  border-color: rgba(141, 122, 2, 0.45) !important;
-  box-shadow: 0 16px 45px rgba(30, 25, 8, 0.45) !important;
-  color: #FAEED9 !important;
+  background: linear-gradient(135deg, #0E111E 0%, #090B15 55%, #060810 100%) !important;
+  border-color: rgba(225, 168, 55, 0.38) !important;
+  box-shadow: 0 20px 50px rgba(30, 25, 8, 0.35) !important;
+  color: #FFFFFF !important;
 }
 
 html.warm-cream .homographs-hero-banner,
@@ -2899,18 +2899,18 @@ html.warm-cream .mock-hero-banner .link-analytics:hover {
   color: #FFFFFF !important;
 }
 
-/* 4 KPI Bento Tiles: Deep Obsidian Glass with maximum contrast & zero light bleeds */
+/* 4 KPI Bento Tiles: Sleek Translucent Obsidian Glass with crisp depth */
 .study-hub-hero-banner .study-hub-bento-tile,
 html.warm-cream .study-hub-hero-banner .study-hub-bento-tile {
-  background: rgba(16, 14, 6, 0.78) !important;
+  background: rgba(255, 255, 255, 0.045) !important;
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
 }
 
 .study-hub-hero-banner .study-hub-bento-tile:hover,
 html.warm-cream .study-hub-hero-banner .study-hub-bento-tile:hover {
-  background: rgba(26, 23, 10, 0.90) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Selected state for active category tile */

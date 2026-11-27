@@ -765,21 +765,27 @@ export const PlatformsView: React.FC = () => {
   return (
     <div className="space-y-3.5 sm:space-y-4 animate-fade-in pb-8 sm:pb-12">
       
-      {/* 1. HERO BENTO BANNER WITH 3D AMBIENT NODES (Ultra-Premium Cockpit) */}
-      <div className={`study-hub-hero-banner p-4 sm:p-5 md:p-6 rounded-3xl relative overflow-hidden transition-all duration-500 border ${
+      {/* 1. HERO BENTO BANNER WITH 3D AMBIENT NODES (Sleek Executive Cockpit) */}
+      <div className={`study-hub-hero-banner p-4 sm:p-6 rounded-3xl relative overflow-hidden transition-all duration-500 border ${
         isDark
-          ? 'bg-gradient-to-br from-[#0F1326] via-[#0A0D1A] to-[#060812] border-white/[0.12] shadow-[0_20px_50px_rgba(0,0,0,0.7)] text-white'
+          ? 'bg-gradient-to-br from-[#0E111E] via-[#090B15] to-[#060810] border-white/[0.10] shadow-[0_20px_50px_rgba(0,0,0,0.7)] text-white'
           : isWarmCream
-            ? 'bg-gradient-to-br from-[#12162A] via-[#0D101E] to-[#080A16] border-amber-400/35 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-white'
-            : 'bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0A0F1D] border-slate-700/60 shadow-[0_16px_40px_rgba(15,23,42,0.22)] text-white'
+            ? 'bg-gradient-to-br from-[#0E111E] via-[#090B15] to-[#060810] border-amber-400/35 shadow-[0_20px_50px_rgba(30,25,8,0.35)] text-white'
+            : 'bg-gradient-to-br from-[#0F172A] via-[#131C31] to-[#080C17] border-slate-700/60 shadow-[0_16px_40px_rgba(15,23,42,0.22)] text-white'
       }`}>
         
-        {/* Full High-Fidelity 3D Portal Artwork (Right-aligned with natural depth) */}
-        <div className="absolute right-0 top-0 bottom-0 w-full sm:w-4/5 md:w-3/5 lg:w-[48%] pointer-events-none overflow-hidden flex items-center justify-end z-0">
+        {/* Full High-Fidelity 3D Portal Artwork (Feathered left edge — zero vertical seam) */}
+        <div
+          className="absolute right-0 top-0 bottom-0 w-full sm:w-4/5 md:w-3/5 lg:w-[52%] pointer-events-none overflow-hidden flex items-center justify-end z-0"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 32%, black 75%)',
+            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 32%, black 75%)'
+          }}
+        >
           <img
             src="/study_hub_banner.png"
             alt="Connected Study Portals"
-            className="h-[110%] sm:h-[125%] w-auto max-w-none object-contain object-right-bottom sm:object-right translate-y-1 sm:translate-y-0 opacity-25 sm:opacity-85 select-none transition-opacity duration-700"
+            className="h-[110%] sm:h-[122%] w-auto max-w-none object-contain object-right-bottom sm:object-right translate-y-1 sm:translate-y-0 opacity-25 sm:opacity-80 select-none transition-opacity duration-700"
             loading="eager"
             decoding="async"
             width={600}
@@ -787,96 +793,58 @@ export const PlatformsView: React.FC = () => {
           />
         </div>
 
-        {/* Multi-layered Vignette & Legibility Protection Gradients */}
-        <div className={`absolute inset-0 pointer-events-none z-0 ${
-          isWarmCream
-            ? 'bg-gradient-to-r from-[#1A1806] via-[#1A1806]/92 md:via-[#1A1806]/65 to-transparent'
-            : isDark
-              ? 'bg-gradient-to-r from-[#090A14] via-[#090A14]/92 md:via-[#090A14]/65 to-transparent'
-              : 'bg-gradient-to-r from-[#0F172A] via-[#0F172A]/92 md:via-[#0F172A]/65 to-transparent'
-        }`} />
-        <div className={`absolute inset-0 pointer-events-none z-0 ${
-          isWarmCream
-            ? 'bg-gradient-to-t from-[#1A1806]/85 via-transparent to-transparent'
-            : isDark
-              ? 'bg-gradient-to-t from-[#090A14]/85 via-transparent to-transparent'
-              : 'bg-gradient-to-t from-[#0F172A]/85 via-transparent to-transparent'
-        }`} />
+        {/* Multi-layered Smooth Vignette & Legibility Gradients */}
+        <div className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-r from-[#090B15] via-[#090B15]/75 md:via-[#090B15]/45 to-transparent" />
+        <div className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-t from-[#060810]/70 via-transparent to-transparent" />
         
         {/* Atmospheric Ambient Glow Accents */}
-        {isWarmCream ? (
-          <>
-            <div className="absolute -top-24 left-1/3 w-96 h-96 bg-[#E1A837]/20 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute -bottom-20 right-10 w-80 h-80 bg-[#8D7A02]/25 rounded-full blur-[90px] pointer-events-none" />
-            <div className="absolute inset-0 pointer-events-none opacity-15 bg-[radial-gradient(#E1A837_0.75px,transparent_0.75px)] [background-size:20px_20px]" />
-          </>
-        ) : (
-          <>
-            <div className="absolute -top-24 -right-24 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
-          </>
-        )}
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-amber-500/[0.12] rounded-full blur-[110px] pointer-events-none" />
+        <div className="absolute -bottom-24 right-16 w-80 h-80 bg-indigo-500/[0.12] rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-3.5 sm:gap-5">
-          <div className="space-y-2 max-w-xl">
-            {/* Top Badges: Target Exam Track Pill + Platforms Linked Status Pill */}
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-5">
+          <div className="space-y-2.5 max-w-xl">
+            {/* Single Clean Target Exam Pill (2nd redundant pill removed) */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/15 border border-white/25 text-white backdrop-blur-md shadow-xs select-none">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 border border-amber-400/30 text-amber-100 backdrop-blur-md shadow-xs select-none">
                 <span className="text-sm">{activeTrackMeta.icon}</span>
                 <span>Target: <strong className="text-white font-black">{currentExam?.name || 'SSC CGL 2026'}</strong></span>
-                <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded-md bg-white/20 text-white font-black">
+                <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-md bg-amber-400/20 text-amber-300 font-black">
                   {activeTrackMeta.shortLabel}
                 </span>
-              </span>
-
-              <span className={`study-hub-pill-badge inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-xs select-none border transition-all ${
-                isWarmCream
-                  ? 'bg-[#121104]/85 border-[#E1A837]/40 text-[#FAEED9]'
-                  : 'bg-white/[0.08] border-white/15 text-slate-200'
-              }`}>
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span>
-                  <strong className="text-white font-black tabular-nums">{scopedPlatforms.length}</strong> {examScope === 'all' ? 'Total' : activeTrackMeta.shortLabel} Portals
-                </span>
-                <span className="opacity-40">•</span>
-                <span className="text-[11px] font-medium opacity-85">1-Click Fast Launch</span>
               </span>
             </div>
 
             {/* Title with Badge Icon and Hub Chip */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3.5">
               <div className="relative shrink-0">
                 <SectionBadgeIcon section="platforms" size="md" />
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-sm pointer-events-none -z-10" />
+                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-500/25 to-orange-500/20 blur-sm pointer-events-none -z-10" />
               </div>
               <div>
                 <h1 className="study-hub-banner-title text-xl sm:text-2xl md:text-3xl font-black text-white font-sans tracking-tight leading-tight flex items-center gap-2.5">
                   <span style={{ color: '#FFFFFF', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>Study Station</span>
                   <span
-                    className="text-[10px] sm:text-xs font-bold font-mono px-2 py-0.5 rounded-md bg-white/10 border border-white/20 uppercase tracking-wider hidden xs:inline-block"
-                    style={{ color: '#FFFFFF' }}
+                    className="text-[10px] sm:text-xs font-bold font-mono px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 uppercase tracking-wider hidden xs:inline-block"
+                    style={{ color: '#FCD34D' }}
                   >
                     HUB
                   </span>
                 </h1>
                 <p
                   className="study-hub-banner-subtitle text-xs sm:text-[13px] font-medium leading-snug mt-1 max-w-md"
-                  style={{ color: '#F8F1DE', textShadow: '0 1px 4px rgba(0,0,0,0.85)' }}
+                  style={{ color: '#CBD5E1', textShadow: '0 1px 4px rgba(0,0,0,0.85)' }}
                 >
-                  Target-tailored study tools & portals for {currentExam?.name || 'your preparation'}.
+                  Target-tailored study tools &amp; portals for {currentExam?.name || 'your preparation'}.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* CTA: Action Buttons */}
+          {/* CTA: Signature Amber-Gold Add Platform Button */}
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleOpenAdd}
-              className="study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer active:scale-95 transition-all duration-200 border bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-[#7C3AED] text-white border-blue-400/30 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.55),0_8px_24px_-3px_rgba(37,99,235,0.5)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.75),0_12px_28px_-3px_rgba(37,99,235,0.65)] hover:brightness-105"
+              className="study-hub-add-btn group flex items-center gap-2 py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] rounded-xl font-black cursor-pointer active:scale-95 transition-all duration-200 border bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-slate-950 border-amber-300/50 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.5),0_8px_24px_-4px_rgba(245,158,11,0.45)] hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.7),0_12px_28px_-4px_rgba(245,158,11,0.6)] hover:brightness-105"
             >
               <Plus className="w-4 h-4 stroke-[2.8] transition-transform duration-200 group-hover:rotate-90" />
               <span>Add Platform</span>
@@ -884,19 +852,16 @@ export const PlatformsView: React.FC = () => {
           </div>
         </div>
 
-        {/* Interactive KPI Filter Tiles (Glassmorphism & High-Contrast Visual Balance) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 mt-4 pt-4 border-t border-white/10 relative z-10">
+        {/* Interactive KPI Filter Tiles (Sleek Cockpit Glass) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 mt-5 pt-4 border-t border-white/[0.08] relative z-10">
           
           {/* 1. Courses Tile */}
           <div
             onClick={() => handleKpiFilter('course')}
             title="Filter by Courses (Video Batches & Lectures)"
-            className={`study-hub-bento-tile ${selectedCategory === 'course' ? 'tile-active-course ring-2 ring-purple-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-purple-500/30 hover:border-purple-400/60 shadow-md backdrop-blur-xl`}
-            style={{
-              backgroundColor: selectedCategory === 'course' ? 'rgba(88, 28, 135, 0.45)' : 'rgba(14, 18, 36, 0.85)'
-            }}
+            className={`study-hub-bento-tile ${selectedCategory === 'course' ? 'tile-active-course ring-1 ring-purple-400/60 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-white/[0.08] hover:border-purple-400/45 shadow-md backdrop-blur-xl`}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-600/35 text-purple-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-purple-400/40 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-purple-400/30">
               <GraduationCap className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
@@ -924,7 +889,7 @@ export const PlatformsView: React.FC = () => {
               </span>
               <span
                 className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
-                style={{ color: '#CBD5E1' }}
+                style={{ color: '#94A3B8' }}
               >
                 Video Batches
               </span>
@@ -935,12 +900,9 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('test_series')}
             title="Filter by Mock Series & Test Portals"
-            className={`study-hub-bento-tile ${selectedCategory === 'test_series' ? 'tile-active-test_series ring-2 ring-sky-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-sky-500/30 hover:border-sky-400/60 shadow-md backdrop-blur-xl`}
-            style={{
-              backgroundColor: selectedCategory === 'test_series' ? 'rgba(3, 105, 161, 0.45)' : 'rgba(14, 18, 36, 0.85)'
-            }}
+            className={`study-hub-bento-tile ${selectedCategory === 'test_series' ? 'tile-active-test_series ring-1 ring-sky-400/60 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-white/[0.08] hover:border-sky-400/45 shadow-md backdrop-blur-xl`}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-600/35 text-sky-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-sky-400/40 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-sky-400/30">
               <FileCheck2 className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
@@ -968,7 +930,7 @@ export const PlatformsView: React.FC = () => {
               </span>
               <span
                 className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
-                style={{ color: '#CBD5E1' }}
+                style={{ color: '#94A3B8' }}
               >
                 Test Portals
               </span>
@@ -979,12 +941,9 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('pinned')}
             title="Filter by Pinned Platforms (Priority Access)"
-            className={`study-hub-bento-tile ${selectedCategory === 'pinned' ? 'tile-active-pinned ring-2 ring-amber-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-amber-500/30 hover:border-amber-400/60 shadow-md backdrop-blur-xl`}
-            style={{
-              backgroundColor: selectedCategory === 'pinned' ? 'rgba(180, 83, 9, 0.45)' : 'rgba(14, 18, 36, 0.85)'
-            }}
+            className={`study-hub-bento-tile ${selectedCategory === 'pinned' ? 'tile-active-pinned ring-1 ring-amber-400/60 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-white/[0.08] hover:border-amber-400/45 shadow-md backdrop-blur-xl`}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-600/35 text-amber-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-amber-400/30">
               <Bookmark className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
@@ -1012,7 +971,7 @@ export const PlatformsView: React.FC = () => {
               </span>
               <span
                 className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
-                style={{ color: '#CBD5E1' }}
+                style={{ color: '#94A3B8' }}
               >
                 Fast Access
               </span>
@@ -1023,12 +982,9 @@ export const PlatformsView: React.FC = () => {
           <div
             onClick={() => handleKpiFilter('custom')}
             title="Filter by Custom Added Portals"
-            className={`study-hub-bento-tile ${selectedCategory === 'custom' ? 'tile-active-custom ring-2 ring-emerald-400/50 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-emerald-500/30 hover:border-emerald-400/60 shadow-md backdrop-blur-xl`}
-            style={{
-              backgroundColor: selectedCategory === 'custom' ? 'rgba(4, 120, 87, 0.45)' : 'rgba(14, 18, 36, 0.85)'
-            }}
+            className={`study-hub-bento-tile ${selectedCategory === 'custom' ? 'tile-active-custom ring-1 ring-emerald-400/60 -translate-y-0.5' : 'hover:-translate-y-0.5'} p-3 sm:p-3.5 rounded-2xl transition-all duration-200 flex items-center gap-3 cursor-pointer group active:scale-95 select-none border border-white/[0.08] hover:border-emerald-400/45 shadow-md backdrop-blur-xl`}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-600/35 text-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/30">
               <PenTool className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div className="min-w-0 flex-1">
@@ -1056,7 +1012,7 @@ export const PlatformsView: React.FC = () => {
               </span>
               <span
                 className="study-hub-tile-sublabel text-[10px] sm:text-[11px] block truncate font-medium mt-0.5"
-                style={{ color: '#CBD5E1' }}
+                style={{ color: '#94A3B8' }}
               >
                 Personal Tools
               </span>
