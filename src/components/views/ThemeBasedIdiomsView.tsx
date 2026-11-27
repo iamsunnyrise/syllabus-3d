@@ -895,10 +895,9 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                               {currentIdiom.synonyms.map(syn => (
                                 <span
                                   key={syn}
-                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-emerald-500/15 text-slate-900 dark:text-emerald-100 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 dark:border-emerald-500/30 hover:border-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-emerald-500/15 text-slate-900 dark:text-emerald-100 font-bold text-xs sm:text-sm md:text-base border border-emerald-500/30 dark:border-emerald-500/30 hover:border-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xs inline-flex items-center"
                                 >
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                                  <span>{syn}</span>
+                                  {syn}
                                 </span>
                               ))}
                             </div>
@@ -923,10 +922,9 @@ export const ThemeBasedIdiomsView: React.FC<ThemeBasedIdiomsViewProps> = ({
                               {currentIdiom.antonyms.map(ant => (
                                 <span
                                   key={ant}
-                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-rose-500/15 text-slate-900 dark:text-rose-100 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 dark:border-rose-500/30 hover:border-rose-500 hover:scale-105 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                                  className="px-3 sm:px-4 py-1.5 rounded-xl bg-white dark:bg-rose-500/15 text-slate-900 dark:text-rose-100 font-bold text-xs sm:text-sm md:text-base border border-rose-500/30 dark:border-rose-500/30 hover:border-rose-500 hover:scale-105 active:scale-95 transition-all shadow-xs inline-flex items-center"
                                 >
-                                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
-                                  <span>{ant}</span>
+                                  {ant}
                                 </span>
                               ))}
                             </div>
