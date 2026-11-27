@@ -35,11 +35,9 @@ import {
   FileCheck2,
   RefreshCw,
   BookOpen,
-  Zap,
   ShieldCheck,
   Users,
   UserPlus,
-  ArrowRight,
   AlertCircle,
   Lock,
   KeyRound,
@@ -73,7 +71,6 @@ export type SettingsTab =
   | 'exam'
   | 'notification'
   | 'sound'
-  | 'membership'
   | 'security'
   | 'ai'
   | 'appearance'
@@ -84,7 +81,7 @@ interface SettingsViewProps {
   onOpenPricing?: () => void;
 }
 
-export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => {
+export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing: _onOpenPricing }) => {
   const {
     profile,
     updateProfile,
@@ -511,7 +508,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
         }}
         className="sr-only peer"
       />
-      <div className="w-10 h-5 bg-[#E2E8F0] dark:bg-[#292E42] rounded-full peer peer-checked:bg-[#2563EB] dark:peer-checked:bg-[#7AA2F7] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:after:bg-[#0B0B0D] after:rounded-full after:h-4 after:w-4 after:transition-all after:shadow-xs transition-colors" />
+      <div className="w-10 h-5 bg-[#E2E8F0] dark:bg-[#292E42] rounded-full peer peer-checked:bg-amber-500 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:after:bg-[#0B0B0D] after:rounded-full after:h-4 after:w-4 after:transition-all after:shadow-xs transition-colors" />
     </label>
   );
 
@@ -519,57 +516,49 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
     {
       id: 'account' as SettingsTab,
       title: 'Account Setting',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Profile identity & target exam schedule',
       icon: User,
       keywords: ['name', 'exam', 'profile', 'photo', 'avatar', 'target', 'date', 'year']
     },
     {
       id: 'notification' as SettingsTab,
       title: 'Notification',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Sound effects, bells & haptic alerts',
       icon: Bell,
       keywords: ['sound', 'audio', 'volume', 'chime', 'tick', 'haptics', 'vibration']
     },
     {
-      id: 'membership' as SettingsTab,
-      title: 'Membership Plan',
-      subtitle: 'Details about your Personal information',
-      icon: Award,
-      badge: 'PRO',
-      keywords: ['plan', 'pro', 'price', 'pricing', 'subscription', 'upgrade', 'premium']
-    },
-    {
       id: 'security' as SettingsTab,
       title: 'Password & Security',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'PIN lock & auto-timeout protection',
       icon: Lock,
       keywords: ['pin', 'lock', 'password', 'security', 'timeout', 'auto-lock']
     },
     {
       id: 'ai' as SettingsTab,
       title: 'AI & Intelligence',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Gemini API, model & notes engine',
       icon: Sparkles,
       keywords: ['ai', 'gemini', 'api', 'key', 'notes', 'youtube', 'model']
     },
     {
       id: 'appearance' as SettingsTab,
       title: 'Appearance',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Themes, typography & display modes',
       icon: Palette,
       keywords: ['theme', 'dark', 'light', 'oled', 'font', 'jetbrains', 'orbitron', 'pwa']
     },
     {
       id: 'timer' as SettingsTab,
       title: 'Focus & Timer',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Pomodoro intervals & desk overlay',
       icon: Clock,
       keywords: ['timer', 'pomodoro', 'break', 'interval', 'focus', 'overlay']
     },
     {
       id: 'data' as SettingsTab,
       title: 'Data & Backup',
-      subtitle: 'Details about your Personal information',
+      subtitle: 'Google Drive sync, export & restore',
       icon: Database,
       keywords: ['data', 'backup', 'drive', 'google', 'export', 'import', 'restore', 'snapshot']
     }
@@ -610,19 +599,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
       />
 
       {/* ═══════════════════════════════════════════════════
-          0. TOP EXECUTIVE SEARCH & HEADER BAR (Matching media_1790328428745.png)
+          0. TOP EXECUTIVE SEARCH & HEADER BAR
           ═══════════════════════════════════════════════════ */}
-      <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
-        {/* Search Input Bar (Matching media_1790328428745.png search bar) */}
-        <div className="relative flex-1 max-w-md">
+      <div className="p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424] border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        {/* Search Input Bar */}
+        <div className="relative flex-1 max-w-md group">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search Anything in Settings..."
-            className="w-full h-11 pl-4 pr-10 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-xs"
+            className="w-full h-11 pl-4 pr-10 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all shadow-xs"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-4 h-4 text-slate-400 group-focus-within:text-amber-500 transition-colors absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
 
         {/* Right Header Controls: Notification Bell, User Pill, Logout */}
@@ -633,7 +622,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
             onClick={() => handleUpdateAudio({ masterEnabled: !audioConfig.masterEnabled })}
             className={`p-2.5 rounded-2xl border transition-all cursor-pointer active:scale-95 relative ${
               audioConfig.masterEnabled
-                ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400'
+                ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-200/90 dark:border-amber-500/30 text-amber-600 dark:text-amber-400 shadow-xs'
                 : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-400'
             }`}
             title={audioConfig.masterEnabled ? 'Audio Chimes Active' : 'Sound Effects Muted'}
@@ -641,15 +630,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
           >
             <Bell className="w-4 h-4" />
             {audioConfig.masterEnabled && (
-              <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 absolute top-2 right-2 ring-2 ring-white dark:ring-[#121424]" />
+              <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400 absolute top-2 right-2 ring-2 ring-white dark:ring-[#121424]" />
             )}
           </button>
 
-          {/* User Profile Pill (Matching media_1790328428745.png user info) */}
+          {/* User Profile Pill */}
           <div className="flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 shadow-xs">
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center overflow-hidden shrink-0 cursor-pointer shadow-xs"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-xs flex items-center justify-center overflow-hidden shrink-0 cursor-pointer shadow-xs ring-2 ring-amber-400/30"
               title="Click to change avatar"
             >
               {profile.avatarUrl ? (
@@ -702,7 +691,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
           ═══════════════════════════════════════════════════ */}
       <div className="flex flex-col lg:flex-row gap-5 sm:gap-6 items-start">
         
-        {/* LEFT COLUMN: The Card-Style Navigation Tabs (Matching media_1790328428745.png) */}
+        {/* LEFT COLUMN: The Card-Style Navigation Tabs */}
         <div className="w-full lg:w-[310px] shrink-0 space-y-2.5 sm:space-y-3">
           <div className="flex lg:flex-col gap-2.5 sm:gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 no-scrollbar">
             {filteredTabs.map(tab => {
@@ -716,29 +705,27 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     soundManager.playClick();
                     setActiveTab(tab.id);
                   }}
-                  className={`w-full text-left p-3.5 sm:p-4 rounded-2xl transition-all cursor-pointer flex items-start gap-3.5 min-w-[240px] lg:min-w-0 ${
+                  className={`w-full text-left p-3.5 sm:p-4 rounded-2xl transition-all cursor-pointer flex items-center gap-3.5 min-w-[240px] lg:min-w-0 ${
                     isActive
-                      ? 'bg-white dark:bg-[#181B2B] border-2 border-blue-600 dark:border-blue-500 shadow-md shadow-blue-600/10 text-slate-900 dark:text-white'
-                      : 'bg-white/90 dark:bg-[#121422] border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-[#151728] shadow-xs'
+                      ? 'bg-gradient-to-r from-amber-500/[0.08] via-amber-500/[0.03] to-white dark:from-amber-500/[0.15] dark:via-amber-500/[0.05] dark:to-[#181B2B] border-2 border-amber-500/75 dark:border-amber-400/70 shadow-md shadow-amber-500/10 text-slate-900 dark:text-white'
+                      : 'bg-white/90 dark:bg-[#121422] border border-slate-200/80 dark:border-white/10 hover:border-amber-400/50 dark:hover:border-amber-400/30 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-[#151728] shadow-xs'
                   }`}
                 >
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all ${
                     isActive
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 shadow-sm shadow-amber-500/25'
                       : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400'
                   }`}>
                     <Icon className="w-4 h-4" />
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-1">
-                      <h3 className={`text-sm font-bold truncate ${isActive ? 'text-slate-900 dark:text-white font-black' : 'text-slate-800 dark:text-slate-200'}`}>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className={`text-sm truncate ${isActive ? 'text-slate-900 dark:text-white font-black' : 'text-slate-800 dark:text-slate-200 font-bold'}`}>
                         {tab.title}
                       </h3>
-                      {tab.badge && (
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs">
-                          {tab.badge}
-                        </span>
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
                       )}
                     </div>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal line-clamp-1 mt-0.5">
@@ -751,18 +738,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Top Summary Card + Main Form Card (Matching media_1790328428745.png) */}
+        {/* RIGHT COLUMN: Top Summary Card + Main Form Card */}
         <div className="flex-1 min-w-0 w-full space-y-4 sm:space-y-5">
 
-          {/* TAB 1: ACCOUNT SETTING & EXAM CONFIG (Matching media_1790328428745.png) */}
+          {/* TAB 1: ACCOUNT SETTING & EXAM CONFIG */}
           {(activeTab === 'account' || activeTab === 'exam') && (
             <div className="space-y-4 sm:space-y-5 animate-fade-in">
-              {/* Top Card: Upload a New Photo (Matching media_1790328428745.png) */}
-              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs flex items-center justify-between gap-4">
+              {/* Top Card: Upload a New Photo */}
+              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424] border border-slate-200/80 dark:border-white/10 shadow-sm flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="relative w-15 h-15 sm:w-18 sm:h-18 rounded-full overflow-hidden border-2 border-slate-200/90 dark:border-white/15 bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center text-xl sm:text-2xl font-bold cursor-pointer group shrink-0 shadow-xs hover:scale-105 transition-transform"
+                    className="relative w-15 h-15 sm:w-18 sm:h-18 rounded-full overflow-hidden border-2 border-amber-400/50 dark:border-amber-400/35 ring-4 ring-amber-500/10 bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 flex items-center justify-center text-xl sm:text-2xl font-black cursor-pointer group shrink-0 shadow-sm hover:scale-105 transition-transform"
                     title="Click to Upload Profile Photo"
                   >
                     {profile.avatarUrl ? (
@@ -800,7 +787,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     <button
                       type="button"
                       onClick={handleRemoveAvatar}
-                      className="px-3 py-1.5 sm:py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/20 cursor-pointer transition-colors"
+                      className="px-3.5 py-2 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-500/[0.06] hover:bg-rose-500/15 border border-rose-500/20 cursor-pointer transition-colors"
                     >
                       Remove
                     </button>
@@ -808,15 +795,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-4 sm:px-5 py-2 rounded-xl bg-white dark:bg-[#1C1E2E] border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all"
+                    className="px-4 sm:px-5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 dark:bg-amber-500/15 dark:hover:bg-amber-500/25 border border-amber-500/35 text-amber-800 dark:text-amber-300 text-xs sm:text-[13px] font-bold shadow-xs cursor-pointer active:scale-95 transition-all"
                   >
                     Update
                   </button>
                 </div>
               </div>
 
-              {/* Main Card: Change User Information here (Matching media_1790328428745.png) */}
-              <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-5 sm:space-y-6">
+              {/* Main Card: Change User Information here */}
+              <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#121424] border border-slate-200/80 dark:border-white/10 shadow-sm space-y-5 sm:space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/5 pb-4">
                   <div>
                     <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -827,7 +814,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     </p>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto tabular-nums">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25 shrink-0 self-start sm:self-auto tabular-nums">
                     <Clock className="w-3.5 h-3.5" />
                     <span>{daysRemaining} Days Left</span>
                   </span>
@@ -845,20 +832,29 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Tonmoy Karmoker"
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all shadow-2xs"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
-                        Email Address*
-                      </label>
-                      <input
-                        type="email"
-                        value={user?.email || 'aspirant@syllabus3d.app'}
-                        disabled
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-100/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 cursor-not-allowed shadow-2xs"
-                      />
+                      <div className="flex items-center justify-between gap-2">
+                        <label className="text-xs sm:text-[13px] font-semibold text-slate-700 dark:text-slate-300 block">
+                          Email Address*
+                        </label>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-md">
+                          <ShieldCheck className="w-3 h-3" />
+                          Verified
+                        </span>
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="email"
+                          value={user?.email || 'aspirant@syllabus3d.app'}
+                          disabled
+                          className="w-full h-11 sm:h-12 pl-4 pr-10 rounded-xl bg-slate-100/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 cursor-not-allowed shadow-2xs"
+                        />
+                        <Lock className="w-3.5 h-3.5 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
                     </div>
                   </div>
 
@@ -872,7 +868,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                       value={examName}
                       onChange={(e) => setExamName(e.target.value)}
                       placeholder="e.g. SSC CGL 2026 / UPSC CSE 2026"
-                      className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                      className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all shadow-2xs"
                     />
                   </div>
 
@@ -886,7 +882,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                         type="date"
                         value={examDate}
                         onChange={(e) => setExamDate(e.target.value)}
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer shadow-2xs"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all cursor-pointer shadow-2xs"
                       />
                     </div>
 
@@ -902,7 +898,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                         placeholder={String(new Date().getFullYear())}
                         min={2025}
                         max={2035}
-                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-2xs"
+                        className="w-full h-11 sm:h-12 px-4 rounded-xl bg-slate-50 dark:bg-[#181A28] border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all shadow-2xs"
                       />
                     </div>
                   </div>
@@ -918,7 +914,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                           type="button"
                           key={b.label}
                           onClick={() => handleAddDays(b.days)}
-                          className="px-3 py-1.5 rounded-lg text-xs font-bold font-sans bg-slate-100 dark:bg-white/10 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-colors cursor-pointer active:scale-95"
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold font-sans bg-slate-100/80 dark:bg-white/10 hover:bg-amber-500 hover:text-slate-950 hover:border-amber-500 dark:hover:bg-amber-400 dark:hover:text-slate-950 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95"
                         >
                           {b.label}
                         </button>
@@ -949,8 +945,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                             onClick={() => handleApplyPresetExam(p.label, p.year, p.days)}
                             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border active:scale-95 ${
                               isSelected
-                                ? 'bg-blue-600 text-white border-transparent shadow-xs font-black'
-                                : 'bg-slate-50 dark:bg-[#1A1B28] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-slate-300'
+                                ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 border-transparent shadow-sm shadow-amber-500/20 font-black'
+                                : 'bg-slate-50 dark:bg-[#1A1B28] text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-white/10 hover:border-amber-400/50 hover:text-slate-900 dark:hover:text-white'
                             }`}
                           >
                             {p.label}
@@ -968,111 +964,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPricing }) => 
                     </div>
                   )}
 
-                  {/* Primary CTA Button (Matching "Update Information" in media_1790328428745.png) */}
+                  {/* Primary CTA Button */}
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
+                      className="w-full h-12 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 text-sm font-black shadow-md shadow-amber-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
                     >
                       <Save className="w-4 h-4" />
                       <span>Update Information</span>
                     </button>
                   </div>
                 </form>
-              </div>
-            </div>
-          )}
-
-          {/* TAB: MEMBERSHIP PLAN & PRO MODULES */}
-          {activeTab === 'membership' && (
-            <div className="space-y-4 sm:space-y-5 animate-fade-in">
-              {/* Top Card: Membership Status */}
-              <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-purple-600/10 border border-blue-500/30 shadow-xs flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Award className="w-6 h-6" />
-                  </div>
-                  <div className="min-w-0 space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
-                        Active Tier: Free Aspirant
-                      </h3>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-blue-600 text-white">
-                        Standard
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                      Upgrade to PRO Scholar for AI Lecture Notes &amp; Cloud Precision
-                    </p>
-                  </div>
-                </div>
-
-                <div className="shrink-0 text-right">
-                  <span className="text-sm sm:text-base font-extrabold text-blue-600 dark:text-cyan-400 block font-sora">
-                    ₹499<span className="text-xs font-medium text-slate-400">/yr</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Main Card: Feature Comparison & Upgrade */}
-              <div className="p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121424] border border-slate-200/90 dark:border-white/10 shadow-xs space-y-6">
-                <div>
-                  <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-                    Membership Plan &amp; Precision Modules
-                  </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
-                    Full access to elite preparation tools engineered for serious competitive exam candidates.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Free Tier Card */}
-                  <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#181A28] border border-slate-200/80 dark:border-white/10 space-y-4">
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">Free Aspirant Tier</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">Essential foundation tools</p>
-                    </div>
-                    <div className="text-xl font-bold text-slate-900 dark:text-white">₹0 <span className="text-xs font-normal text-slate-400">/ Lifetime</span></div>
-                    <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
-                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Interactive 3D Mind Map &amp; Syllabus</span></li>
-                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Mistake Journal &amp; Revision Pipeline</span></li>
-                      <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 stroke-[3]" /><span>Standard Study Timer &amp; Streak Tracking</span></li>
-                    </ul>
-                  </div>
-
-                  {/* PRO Tier Card */}
-                  <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-500/40 shadow-xs space-y-4 relative overflow-hidden">
-                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-wider">
-                      Recommended
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-black text-slate-900 dark:text-white">PRO Scholar Tier</h4>
-                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Unlocks all precision AI engines</p>
-                    </div>
-                    <div className="text-xl font-extrabold text-blue-600 dark:text-cyan-400 font-sora">
-                      ₹499 <span className="text-xs font-normal text-slate-500">/ 1 Year Pass</span>
-                    </div>
-                    <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-200">
-                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>AI Notes Studio & AI Architect</span></li>
-                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Multi-Device Google Drive Cloud Sync</span></li>
-                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Voice &amp; Audio Study Memos Studio</span></li>
-                      <li className="flex items-center gap-2"><Zap className="w-3.5 h-3.5 text-amber-500 shrink-0 fill-current" /><span>Futuristic Timer HUD (JetBrains, Orbitron)</span></li>
-                    </ul>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundManager.playClick();
-                    haptics.selection();
-                    if (onOpenPricing) onOpenPricing();
-                  }}
-                  className="w-full h-12 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-bold shadow-md shadow-blue-500/25 transition-all cursor-pointer active:scale-[0.99] flex items-center justify-center gap-2"
-                >
-                  <span>Upgrade to PRO Scholar</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
               </div>
             </div>
           )}
