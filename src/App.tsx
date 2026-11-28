@@ -1074,7 +1074,7 @@ export const App: React.FC = () => {
               {visitedViews.has('analytics') && (
                 <div className={currentView === 'analytics' ? 'block animate-view-fade' : 'hidden'}>
                   <ViewErrorBoundary sectionName="Study Analytics" showHomeButton onNavigateHome={() => handleNavigate('overview')}>
-                    <AnalyticsView />
+                    <AnalyticsView onNavigate={handleNavigate} />
                   </ViewErrorBoundary>
                 </div>
               )}
